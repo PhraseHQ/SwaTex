@@ -121,10 +121,10 @@ struct HardeningTests {
                     for i in 0..<200 {
                         let latex =
                             i % 3 == 0
-                            ? #"\frac{a}{b}"#  // shared → cache contention
+                            ? #"\frac{a}{b}"#  // shared hit → cache contention
                             : i % 7 == 0
-                                ? #"\undefined@\#(t)"#  // shared failure
-                                : "x_{\(t)}^{\(i)}"  // unique
+                                ? #"\undefinedshared"#  // shared cached failure (all tasks)
+                                : "x_{\(t)}^{\(i)}"  // unique miss
                         if (try? SwaTexEngine.displayList(for: latex, cache: .shared))
                             != nil
                         {
