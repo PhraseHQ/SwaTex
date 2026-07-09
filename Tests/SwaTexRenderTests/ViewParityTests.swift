@@ -26,6 +26,20 @@
             RunLoop.main.run(until: Date().addingTimeInterval(seconds))
         }
 
+        /// Poll the run loop until `condition` holds — CI runners commit
+        /// display cycles slowly, so a fixed spin flakes.
+        @discardableResult
+        private func waitUntil(
+            timeout: TimeInterval = 5, _ condition: () -> Bool
+        ) -> Bool {
+            let deadline = Date().addingTimeInterval(timeout)
+            while Date() < deadline {
+                if condition() { return true }
+                RunLoop.main.run(until: Date().addingTimeInterval(0.02))
+            }
+            return condition()
+        }
+
         // MARK: Baseline anchors
 
         @Test func baselineOffsetsMatchMathBaseline() {
@@ -101,9 +115,11 @@
             #expect(view.effectiveMathColor.r > 0.9 && view.effectiveMathColor.g < 0.1)
 
             window.appearance = NSAppearance(named: .darkAqua)
-            spin()
+            spin(0.2)
             _ = view.intrinsicContentSize
-            #expect(view.effectiveMathColor.g > 0.9 && view.effectiveMathColor.r < 0.1)
+            #expect(
+                waitUntil { view.effectiveMathColor.g > 0.9 && view.effectiveMathColor.r < 0.1 },
+                "dark appearance should resolve to green")
         }
 
         @Test func appearanceChangeRerasterizesExactlyOnce() {
@@ -117,17 +133,18 @@
             window.appearance = NSAppearance(named: .aqua)
             window.contentView!.addSubview(view)
             window.orderBack(nil)
-            spin()
+            waitUntil { view.rasterizationCount >= 1 }
             let baseline = view.rasterizationCount
             #expect(baseline == 1)
 
             window.appearance = NSAppearance(named: .darkAqua)
-            spin()
-            #expect(view.rasterizationCount == baseline + 1, "dark mode must re-render once")
+            #expect(
+                waitUntil { view.rasterizationCount == baseline + 1 },
+                "dark mode must re-render once")
 
             // Same appearance again: no color change, no re-rasterization.
             window.appearance = NSAppearance(named: .darkAqua)
-            spin()
+            spin(0.2)
             #expect(view.rasterizationCount == baseline + 1)
             window.orderOut(nil)
         }
@@ -142,11 +159,11 @@
             window.appearance = NSAppearance(named: .aqua)
             window.contentView!.addSubview(view)
             window.orderBack(nil)
-            spin()
+            waitUntil { view.rasterizationCount >= 1 }
             let baseline = view.rasterizationCount
 
             window.appearance = NSAppearance(named: .darkAqua)
-            spin()
+            spin(0.2)
             #expect(view.rasterizationCount == baseline, "static color must not re-render")
             window.orderOut(nil)
         }

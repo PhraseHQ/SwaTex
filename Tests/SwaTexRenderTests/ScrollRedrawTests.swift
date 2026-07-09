@@ -29,6 +29,21 @@
             RunLoop.main.run(until: Date().addingTimeInterval(seconds))
         }
 
+        /// Poll the run loop until `condition` holds (CI runners commit
+        /// CoreAnimation transactions much more slowly than a live
+        /// session — a fixed 50 ms spin flaked on GitHub Actions).
+        @discardableResult
+        private func waitUntil(
+            timeout: TimeInterval = 5, _ condition: () -> Bool
+        ) -> Bool {
+            let deadline = Date().addingTimeInterval(timeout)
+            while Date() < deadline {
+                if condition() { return true }
+                RunLoop.main.run(until: Date().addingTimeInterval(0.02))
+            }
+            return condition()
+        }
+
         @Test func viewUsesUpdateLayerWithExplicitRedrawPolicy() {
             let view = SwaTexView(frame: .zero)
             #expect(view.wantsLayer)
@@ -52,7 +67,7 @@
             let window = makeWindow()
             window.contentView!.addSubview(view)
             window.orderBack(nil)
-            spin()
+            waitUntil { view.rasterizationCount >= 1 }
             let baseline = view.rasterizationCount
             #expect(baseline == 1)
 
@@ -81,7 +96,9 @@
             let window = makeWindow()
             window.contentView!.addSubview(scroll)
             window.orderBack(nil)
-            spin()
+            #expect(
+                waitUntil { view.rasterizationCount >= 1 },
+                "initial display never rasterized (CI display cycle)")
             #expect(view.rasterizationCount == 1, "initial display should rasterize once")
 
             // Scroll the formula in and out of the viewport repeatedly.
@@ -109,14 +126,16 @@
             let window = makeWindow()
             window.contentView!.addSubview(view)
             window.orderBack(nil)
-            spin()
+            #expect(
+                waitUntil { view.rasterizationCount >= 1 },
+                "initial display never rasterized (CI display cycle)")
             let baseline = view.rasterizationCount
             #expect(baseline == 1)
             #expect(view.layer?.contents != nil)
 
             // A forced full redisplay must hand back the cached bitmap.
             view.needsDisplay = true
-            spin()
+            spin(0.2)
             #expect(view.rasterizationCount == baseline)
             window.orderOut(nil)
         }
@@ -130,7 +149,7 @@
             let window = makeWindow()
             window.contentView!.addSubview(view)
             window.orderBack(nil)
-            spin()
+            waitUntil { view.rasterizationCount >= 1 }
             let baseline = view.rasterizationCount
 
             view.setFrameSize(NSSize(width: 300, height: 80))
@@ -278,15 +297,16 @@
             let window = makeWindow()
             window.contentView!.addSubview(view)
             window.orderBack(nil)
-            spin()
+            waitUntil { view.rasterizationCount >= 1 }
             let baseline = view.rasterizationCount
 
             // Configure several properties in a row — one rasterization.
             view.latex = #"y^3"#
             view.fontSize = 22
             view.mathStyle = .text
-            spin()
-            #expect(view.rasterizationCount == baseline + 1)
+            #expect(
+                waitUntil { view.rasterizationCount == baseline + 1 },
+                "content change should rasterize exactly once")
 
             // No-op sets must not re-rasterize (equality short-circuit).
             view.latex = #"y^3"#

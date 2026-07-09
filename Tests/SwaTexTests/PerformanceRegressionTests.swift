@@ -3,16 +3,19 @@ import Testing
 
 @testable import SwaTex
 
-/// Coarse performance-regression sentinels that run in the *default* suite
-/// (unlike the `SWATEX_BENCH` micro-benchmarks). Thresholds are set ~5–10×
-/// above measured medians on CI-class hardware, so they catch only gross
-/// algorithmic regressions (an accidental O(n²), a lost cache, a dropped
-/// fast path) — never normal machine-to-machine variance. Skipped under
-/// sanitizers / debug-heavy environments where absolute timing is
-/// meaningless.
+/// Coarse performance-regression sentinels catching gross algorithmic
+/// regressions (an accidental O(n²), a lost cache, a dropped fast path) —
+/// not machine variance. Thresholds sit ~25× above dev medians.
+///
+/// **Skipped on shared CI runners** (`CI` env, set by GitHub Actions):
+/// absolute timing on a co-tenant VM is too noisy to gate a release on.
+/// They run locally by default and in dedicated perf jobs. Force-enable
+/// anywhere with `SWATEX_FORCE_PERF=1`.
 @Suite(
     "PerfRegression",
-    .enabled(if: ProcessInfo.processInfo.environment["SWATEX_NO_PERF"] == nil),
+    .enabled(
+        if: ProcessInfo.processInfo.environment["SWATEX_FORCE_PERF"] != nil
+            || ProcessInfo.processInfo.environment["CI"] == nil),
     .serialized)
 struct PerformanceRegressionTests {
     private static let corpus = [
