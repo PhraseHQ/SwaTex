@@ -1,6 +1,7 @@
 #if canImport(AppKit) && !canImport(UIKit)
     import AppKit
     import QuartzCore
+    import SwiftUI
     import Testing
 
     @testable import SwaTex
@@ -164,45 +165,108 @@
             return weighted / total / Double(h)
         }
 
-        /// The bitmap handed to the layer must composite upright: compare
-        /// the layer tree's actual render against the reference image via
-        /// alpha centroids (an upside-down formula flips the centroid).
-        @Test func updateLayerContentsCompositeUpright() throws {
-            let view = SwaTexView(frame: .zero)
-            view.latex = #"x^2"#  // superscript → distinctly top-heavy
-            view.fontSize = 24
-            view.frame = CGRect(origin: .zero, size: view.intrinsicContentSize)
-
+        /// Orientation ground truth (regression for the macOS upside-down
+        /// bug): read back through SUPERVIEW compositing (`cacheDisplay` on
+        /// the container), which matches on-screen output. Never assert
+        /// orientation via `view.layer.render(in:)` — entered at the
+        /// content layer it applies `contentsAreFlipped()` itself and shows
+        /// the opposite of what the screen shows.
+        private func compositedCentroid(
+            of view: NSView, in windowAppearance: NSAppearance.Name = .aqua
+        ) throws -> Double {
+            let container = NSView(frame: view.frame)
+            container.wantsLayer = true
+            container.addSubview(view)
             let window = makeWindow(size: view.frame.size)
-            window.contentView!.addSubview(view)
+            window.appearance = NSAppearance(named: windowAppearance)
+            window.contentView = container
             window.orderBack(nil)
             spin()
-            #expect(view.layer?.contents != nil)
+            let rep = try #require(
+                container.bitmapImageRepForCachingDisplay(in: container.bounds))
+            container.cacheDisplay(in: container.bounds, to: rep)
+            window.orderOut(nil)
+            let image = try #require(rep.cgImage)
+            return try #require(alphaCentroidY(image))
+        }
 
-            let scale = view.layer!.contentsScale
-            let pw = max(Int(view.frame.width * scale), 1)
-            let ph = max(Int(view.frame.height * scale), 1)
-            let ctx = try #require(
-                CGContext(
-                    data: nil, width: pw, height: ph, bitsPerComponent: 8,
-                    bytesPerRow: 0, space: CGColorSpace(name: CGColorSpace.sRGB)!,
-                    bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
-            ctx.scaleBy(x: scale, y: scale)
-            view.layer!.render(in: ctx)
-            let composited = try #require(ctx.makeImage())
-
-            let list = try SwaTexEngine.displayList(for: #"x^2"#, style: .display)
-            let reference = try #require(
+        private func referenceCentroid(
+            _ latex: String, fontSize: CGFloat, scale: CGFloat = 2
+        ) throws -> Double {
+            let list = try SwaTexEngine.displayList(for: latex)
+            let ref = try #require(
                 ImageRenderer.image(
-                    for: list, options: RenderOptions(fontSize: 24, padding: 0),
+                    for: list, options: RenderOptions(fontSize: fontSize, padding: 0),
                     displayScale: scale))
+            return try #require(alphaCentroidY(ref))
+        }
 
-            let got = try #require(alphaCentroidY(composited))
-            let want = try #require(alphaCentroidY(reference))
+        /// AppKit SwaTexView hosted directly: composites upright.
+        @Test func appKitViewCompositesUpright() throws {
+            let latex = #"x^2"#  // vertically asymmetric
+            let view = SwaTexView(frame: .zero)
+            view.latex = latex
+            view.fontSize = 32
+            view.frame = CGRect(origin: .zero, size: view.intrinsicContentSize)
+
+            let got = try compositedCentroid(of: view)
+            let want = try referenceCentroid(latex, fontSize: 32)
             #expect(
                 abs(got - want) < 0.05,
-                "centroid \(got) vs reference \(want) — orientation/placement mismatch")
-            window.orderOut(nil)
+                "AppKit compositing centroid \(got) vs reference \(want) — flipped or misplaced"
+            )
+        }
+
+        /// SwaTexView inside SwiftUI via NSViewRepresentable (the hosting
+        /// arrangement a SwiftUI macOS app uses): composites upright.
+        private struct RepresentedMath: NSViewRepresentable {
+            let latex: String
+            let fontSize: CGFloat
+            func makeNSView(context _: Context) -> SwaTexView {
+                let v = SwaTexView(frame: .zero)
+                v.latex = latex
+                v.fontSize = fontSize
+                return v
+            }
+            func updateNSView(_: SwaTexView, context _: Context) {}
+        }
+
+        @Test func representableInSwiftUICompositesUpright() throws {
+            let latex = #"x^2"#
+            let size = SwaTexView(frame: .zero)
+            size.latex = latex
+            size.fontSize = 32
+            let intrinsic = size.intrinsicContentSize
+
+            let hosting = NSHostingView(
+                rootView: RepresentedMath(latex: latex, fontSize: 32)
+                    .frame(width: intrinsic.width, height: intrinsic.height))
+            hosting.frame = NSRect(origin: .zero, size: intrinsic)
+
+            let got = try compositedCentroid(of: hosting)
+            let want = try referenceCentroid(latex, fontSize: 32)
+            #expect(
+                abs(got - want) < 0.05,
+                "NSViewRepresentable centroid \(got) vs reference \(want) — flipped in SwiftUI hosting"
+            )
+        }
+
+        /// Pure SwiftUI MathView (Canvas): composites upright.
+        @Test func mathViewInSwiftUICompositesUpright() throws {
+            let latex = #"x^2"#
+            let list = try SwaTexEngine.displayList(for: latex)
+            let m = DisplayListRenderer.metrics(
+                for: list, options: RenderOptions(fontSize: 32, padding: 0))
+
+            let hosting = NSHostingView(rootView: MathView(latex).font(size: 32))
+            hosting.frame = NSRect(x: 0, y: 0, width: m.width, height: m.height)
+
+            let got = try compositedCentroid(of: hosting)
+            let want = try referenceCentroid(latex, fontSize: 32)
+            #expect(
+                abs(got - want) < 0.05,
+                "MathView centroid \(got) vs reference \(want) — Canvas orientation broken"
+            )
         }
 
         @Test func contentChangeRerasterizesExactlyOnce() {

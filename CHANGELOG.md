@@ -25,6 +25,14 @@
   builds for iOS and watchOS.
 
 ### Fixed
+- macOS: `SwaTexView` rendered formulas vertically flipped in real windows
+  (iOS was unaffected). The updateLayer bitmap was pre-flipped based on
+  `layer.render(in:)` readbacks — an API that applies
+  `contentsAreFlipped()` itself when entered at the content layer, showing
+  the opposite of actual compositing. Contents are now upright;
+  orientation is regression-tested through superview `cacheDisplay`
+  (screen-faithful) across AppKit hosting, `NSViewRepresentable` inside
+  SwiftUI, and pure SwiftUI `MathView`.
 - Stack-overflow DoS: deeply nested input that passed the 512-level
   recursion-count guard could SIGBUS the process on 512 KB stacks (Swift
   Concurrency cooperative threads — including the parallel batch API — and

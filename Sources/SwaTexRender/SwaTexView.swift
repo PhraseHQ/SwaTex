@@ -354,7 +354,6 @@ import SwaTex
             // `cacheDisplay` also routes through updateLayer (probed);
             // `draw(_:)` below remains for printing/PDF and UIKit.
             private var cachedContents: CGImage?
-            private var cachedContentsFlipped = false
             private var cachedContentsScale: CGFloat = 0
 
             public override var wantsUpdateLayer: Bool { true }
@@ -363,30 +362,33 @@ import SwaTex
                 layoutIfNeeded_()
                 guard let layer else { return }
                 let scale = window?.backingScaleFactor ?? 2
-                // The backing layer of a flipped NSView expects contents in
-                // flipped space (handing it an upright image composites
-                // mirrored — caught by the centroid test). The flip is a
-                // free transform at rasterization time. The cache is keyed
-                // by (flip, scale) right here rather than trusting
-                // viewDidChangeBackingProperties ordering — a screen change
-                // must never reuse a bitmap rendered at the old scale.
-                let flipped = layer.contentsAreFlipped()
-                if cachedContents == nil || cachedContentsFlipped != flipped
-                    || cachedContentsScale != scale,
+                // Hand the layer the UPRIGHT rendering: layers display
+                // provided `contents` in the bitmap's own orientation, and
+                // `contentsAreFlipped() == true` does NOT mean the
+                // compositor flips them (verified through superview
+                // `cacheDisplay`, which matches on-screen output). An
+                // earlier version baked a vertical flip here based on
+                // `view.layer.render(in:)` evidence — but that API applies
+                // the flip itself when entered at this layer, so an upright
+                // bitmap merely LOOKED mirrored in that readback while the
+                // actual screen was correct; the "fix" rendered upside-down
+                // in real macOS windows. Orientation is now pinned through
+                // superview compositing in `ScrollRedrawTests`.
+                // The cache is keyed by scale right here rather than
+                // trusting viewDidChangeBackingProperties ordering — a
+                // screen change must never reuse an old-scale bitmap.
+                if cachedContents == nil || cachedContentsScale != scale,
                     let displayList
                 {
                     rasterizationCount += 1
-                    cachedContents = rasterize(displayList, scale: scale, flipped: flipped)
-                    cachedContentsFlipped = flipped
+                    cachedContents = rasterize(displayList, scale: scale)
                     cachedContentsScale = scale
                 }
                 layer.contents = cachedContents
                 layer.contentsScale = scale
             }
 
-            private func rasterize(
-                _ list: DisplayList, scale: CGFloat, flipped: Bool
-            ) -> CGImage? {
+            private func rasterize(_ list: DisplayList, scale: CGFloat) -> CGImage? {
                 let m = DisplayListRenderer.metrics(for: list, options: renderOptions)
                 let pixelWidth = max(Int((m.width * scale).rounded(.up)), 1)
                 let pixelHeight = max(Int((m.height * scale).rounded(.up)), 1)
@@ -398,12 +400,6 @@ import SwaTex
                         bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
                 else { return nil }
                 ctx.scaleBy(x: scale, y: scale)
-                if flipped {
-                    // Mirror about the full pixel canvas so rows are an
-                    // exact reversal of the upright rendering.
-                    ctx.translateBy(x: 0, y: CGFloat(pixelHeight) / scale)
-                    ctx.scaleBy(x: 1, y: -1)
-                }
                 DisplayListRenderer.draw(list, in: ctx, options: renderOptions)
                 return ctx.makeImage()
             }
