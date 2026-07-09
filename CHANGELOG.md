@@ -3,6 +3,10 @@
 ## 0.2.0 — 2026-07-09
 
 ### Added
+- Open-source hardening: CONTRIBUTING / SECURITY / CODE_OF_CONDUCT, issue
+  and PR templates, `.swift-format` config enforced in CI (`--strict`),
+  DocC build job, warnings-as-errors in CI, `BENCHMARKS.md` reproduction
+  guide, README known-limitations section and showcase screenshots.
 - RaTeX view-parity (migration): Auto Layout baseline anchors on
   `SwaTexView` (`firstBaselineAnchor` constraints align text to the math
   baseline on both platforms); dynamic platform color

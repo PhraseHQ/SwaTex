@@ -185,6 +185,12 @@ between the engines. Every number is reproducible with the commands in
   (`wantsLayer` — the default in modern AppKit apps).
 - Native Apple platforms only: no React Native / Flutter / Web wrappers.
 
+## Demo app
+
+```sh
+swift run SwaTexDemo   # interactive gallery: formulas, styles, sizes (macOS)
+```
+
 ## Testing
 
 ```sh
@@ -221,6 +227,13 @@ The suite ports RaTeX's Rust tests: lexer/token, symbol/metrics tables, parser s
     </a>
   </p>
 </div>
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) — the short version: keep the
+2 541 golden fixtures green, pin parser fast paths with differential
+tests, run the formatter, and bring numbers for performance claims.
+Security reports: [SECURITY.md](SECURITY.md).
 
 ## Fonts & licenses
 
