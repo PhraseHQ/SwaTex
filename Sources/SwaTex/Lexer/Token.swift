@@ -1,6 +1,8 @@
 /// Source location of a token in the original LaTeX string (UTF-8 byte offsets).
 public struct SourceLocation: Hashable, Sendable, Codable {
+    /// UTF-8 byte offset of the first byte of the token.
     public var start: Int
+    /// UTF-8 byte offset one past the last byte of the token.
     public var end: Int
 
     public init(start: Int, end: Int) {

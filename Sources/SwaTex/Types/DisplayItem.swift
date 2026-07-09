@@ -1,9 +1,13 @@
 /// The final output of the layout engine: a flat list of drawing commands
 /// with absolute coordinates, ready for platform renderers.
 public struct DisplayList: Sendable, Codable {
+    /// Drawing commands in document order, with absolute em coordinates.
     public var items: [DisplayItem]
+    /// Total advance width, in em.
     public var width: Double
+    /// Height above the baseline, in em.
     public var height: Double
+    /// Depth below the baseline, in em.
     public var depth: Double
 
     public init(items: [DisplayItem] = [], width: Double = 0, height: Double = 0, depth: Double = 0)
@@ -14,6 +18,7 @@ public struct DisplayList: Sendable, Codable {
         self.depth = depth
     }
 
+    /// `height + depth` — the full vertical extent, in em.
     public var totalHeight: Double {
         height + depth
     }

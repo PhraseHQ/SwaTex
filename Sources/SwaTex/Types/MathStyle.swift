@@ -81,10 +81,12 @@ public enum MathStyle: Hashable, Sendable, Codable, CaseIterable {
         }
     }
 
+    /// True for the display styles (`\displaystyle`, cramped or not).
     public var isDisplay: Bool {
         self == .display || self == .displayCramped
     }
 
+    /// True for the cramped variants (used under radicals, subscripts, …).
     public var isCramped: Bool {
         switch self {
         case .displayCramped, .textCramped, .scriptCramped, .scriptScriptCramped: true

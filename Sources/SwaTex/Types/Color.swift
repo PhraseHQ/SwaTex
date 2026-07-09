@@ -4,12 +4,18 @@
 /// opaque colors, `rgba(r, g, b, a)` otherwise. This is the exact format the
 /// SVG backend emits, so it must stay byte-compatible with RaTeX/KaTeX output.
 public struct Color: Hashable, Sendable {
+    /// Red component, 0...1 (sRGB).
     public var r: Float
+    /// Green component, 0...1 (sRGB).
     public var g: Float
+    /// Blue component, 0...1 (sRGB).
     public var b: Float
+    /// Alpha component, 0...1.
     public var a: Float
 
+    /// Opaque black — the engine's default text color.
     public static let black = Color(r: 0, g: 0, b: 0, a: 1)
+    /// Opaque white.
     public static let white = Color(r: 1, g: 1, b: 1, a: 1)
 
     public init(r: Float, g: Float, b: Float, a: Float = 1) {

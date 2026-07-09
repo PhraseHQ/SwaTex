@@ -80,7 +80,9 @@ public enum SVGOutlineCurve: Hashable, Sendable {
 /// ``svgOutlinePathData(x:y:scale:curves:)`` maps it to user space
 /// (`px + x * scale`, `py - y * scale`).
 public struct SVGOutlinePoint: Hashable, Sendable {
+    /// Horizontal position, font units.
     public var x: Float
+    /// Vertical position, font units (y up).
     public var y: Float
 
     public init(x: Float, y: Float) {

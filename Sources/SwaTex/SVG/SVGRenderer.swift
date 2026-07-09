@@ -58,6 +58,7 @@ public struct SVGOptions: Sendable {
 
 /// Renders display lists to standalone SVG document strings.
 public struct SVGRenderer: Sendable {
+    /// Output options (font size, colors, padding).
     public var options: SVGOptions
 
     public init(options: SVGOptions = SVGOptions()) {
