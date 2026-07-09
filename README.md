@@ -58,6 +58,35 @@ stretchy delimiters, accents, macros (`\def`, `\newcommand`,
 
 **Proof trees** — bussproofs-style `prooftree` for inference rules and sequent calculi.
 
+## Installation
+
+Swift Package Manager. In `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/PhraseHQ/SwaTex.git", from: "0.2.0")
+]
+```
+
+Then add the product you need to your target — `SwaTexRender` for apps
+(SwiftUI/UIKit/AppKit views, PNG; pulls in the core), or `SwaTex` alone for
+the engine + SVG with zero platform dependencies:
+
+```swift
+.target(
+    name: "YourApp",
+    dependencies: [
+        .product(name: "SwaTexRender", package: "SwaTex")
+    ]
+)
+```
+
+Or in Xcode: **File → Add Package Dependencies…** and paste
+`https://github.com/PhraseHQ/SwaTex.git`.
+
+Requires Xcode 16.0+ to build; deploys to iOS 18 / macOS 15 / tvOS 18 /
+watchOS 11 / visionOS 2.
+
 ## Usage
 
 ```swift
