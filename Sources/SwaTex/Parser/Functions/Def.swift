@@ -227,8 +227,6 @@ private func letCommand(
         def = macroDef
     } else {
         tok.noexpand = true
-        let unexpandable = !ctx.parser.gullet.isExpandable(tok.text)
-        _ = unexpandable
         def = .tokens([tok], numArgs: 0)
     }
 

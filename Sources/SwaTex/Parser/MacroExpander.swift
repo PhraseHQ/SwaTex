@@ -16,11 +16,11 @@ enum MacroDefinition: Sendable {
     case function(MacroHandler)
 }
 
-/// Result of expanding a macro once.
-private struct MacroExpansion {
+/// Result of expanding a macro once. Internal (not private) so the
+/// direct-call branch tests can observe `getExpansion`.
+struct MacroExpansion {
     var tokens: [Token]
     var numArgs: Int
-    var unexpandable: Bool
 }
 
 /// A consumed macro argument. `tokens` are in *stack order* (reversed).
@@ -258,15 +258,6 @@ final class MacroExpander {
             return false
         }
 
-        if expandableOnly && exp.unexpandable {
-            // INTENTIONALLY UNCOVERED: no `MacroExpansion` is ever built with
-            // `unexpandable: true` (all three constructions in `getExpansion`
-            // use `false`), so this never fires. Kept to mirror KaTeX's
-            // gullet, which distinguishes unexpandable expansions.
-            pushToken(topToken)
-            return false
-        }
-
         try countExpansion(1)
         var tokens = exp.tokens
         if exp.numArgs > 0 {
@@ -298,7 +289,7 @@ final class MacroExpander {
         return tokens
     }
 
-    private func getExpansion(_ def: MacroDefinition?, name: String) -> MacroExpansion? {
+    func getExpansion(_ def: MacroDefinition?, name: String) -> MacroExpansion? {
         guard let def else { return nil }
 
         if name.unicodeScalars.count == 1, let ch = name.unicodeScalars.first {
@@ -316,15 +307,14 @@ final class MacroExpander {
                 numArgs += 1
             }
             return MacroExpansion(
-                tokens: lexStringToStackTokens(text), numArgs: numArgs, unexpandable: false)
+                tokens: lexStringToStackTokens(text), numArgs: numArgs)
         case .tokens(let tokens, let numArgs):
-            return MacroExpansion(tokens: tokens, numArgs: numArgs, unexpandable: false)
+            return MacroExpansion(tokens: tokens, numArgs: numArgs)
         case .function:
-            // INTENTIONALLY UNCOVERED: `expandOnce` matches `.function`
-            // *before* it calls `getExpansion`, so this case is never
-            // reached here. Kept so the switch stays total over
-            // `MacroDefinition`.
-            return MacroExpansion(tokens: [], numArgs: 0, unexpandable: false)
+            // `expandOnce` matches `.function` before calling `getExpansion`,
+            // so this is only reached by direct calls (DirectUnitTests);
+            // signals a function macro to the caller.
+            return MacroExpansion(tokens: [], numArgs: 0)
         }
     }
 

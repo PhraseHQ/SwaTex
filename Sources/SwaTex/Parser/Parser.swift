@@ -432,9 +432,8 @@ public final class Parser {
         breakOnTokenText: String? = nil
     ) throws(ParseError) -> ParseNode {
         guard let spec = Functions.registry[name] else {
-            // INTENTIONALLY UNCOVERED: invariant guard. `name` is only ever a
-            // key that resolved in `Functions.registry` upstream, so this
-            // never fires — kept as a defensive assertion, not deleted.
+            // Defensive: `name` always resolves in the registry upstream.
+            // Exercised directly by DirectUnitTests.
             throw ParseError("No function handler for \(name)")
         }
 
@@ -483,8 +482,10 @@ public final class Parser {
         return (args, optArgs)
     }
 
-    /// Parse a group with a specific type.
-    private func parseGroupOfType(
+    /// Parse a group with a specific type. Internal so tests can drive the
+    /// absent-optional-argument branches (no builtin declares an optional
+    /// hbox/color/url argument, so the pipeline never takes them).
+    func parseGroupOfType(
         name: String, argType: ArgType?, optional: Bool
     ) throws(ParseError) -> ParseNode? {
         switch argType {
@@ -494,11 +495,8 @@ public final class Parser {
             return try parseSizeGroup(optional: optional)
         case .primitive:
             if optional {
-                // INTENTIONALLY UNCOVERED: no builtin declares a `.primitive`
-                // optional argument (every registration uses
-                // `numOptionalArgs: 0` for primitive args), so `optional` is
-                // always false here. Kept as a guard against a future
-                // ill-formed registration.
+                // No builtin declares an optional primitive argument;
+                // exercised directly by DirectUnitTests.
                 throw ParseError("A primitive argument cannot be optional")
             }
             guard let group = try parseGroup(name: name, breakOnTokenText: nil) else {
@@ -509,9 +507,6 @@ public final class Parser {
             return try parseArgumentGroup(
                 optional: optional, mode: argType == .math ? .math : .text)
         case .hbox:
-            // INTENTIONALLY UNCOVERED (this nil return): `.hbox` is only ever
-            // a *required* argument, so `parseArgumentGroup` returns a value
-            // or throws; the absent-optional nil path is defensive.
             guard let group = try parseArgumentGroup(optional: optional, mode: .text) else {
                 return nil
             }
@@ -535,9 +530,7 @@ public final class Parser {
     private nonisolated(unsafe) static let hex6Regex = /^[0-9a-fA-F]{6}$/
 
     /// Parse a color group.
-    private func parseColorGroup(optional: Bool) throws(ParseError) -> ParseNode? {
-        // INTENTIONALLY UNCOVERED (this nil return): color is always a
-        // required argument, so an absent-optional nil is never produced.
+    func parseColorGroup(optional: Bool) throws(ParseError) -> ParseNode? {
         guard let token = try parseStringGroup(modeName: "color", optional: optional) else {
             return nil
         }
@@ -694,15 +687,13 @@ public final class Parser {
 
     /// Parse a URL group.
     /// Temporarily disables `%` as comment character to allow `%20` etc. in URLs.
-    private func parseURLGroup(optional: Bool) throws(ParseError) -> ParseNode? {
+    func parseURLGroup(optional: Bool) throws(ParseError) -> ParseNode? {
         gullet.lexer.setCatcode("%", 13)
         gullet.lexer.setCatcode("~", 12)
         defer {
             gullet.lexer.setCatcode("%", 14)
             gullet.lexer.setCatcode("~", 13)
         }
-        // INTENTIONALLY UNCOVERED (this nil return): url is always a required
-        // argument, so an absent-optional nil is never produced.
         guard let token = try parseStringGroup(modeName: "url", optional: optional) else {
             return nil
         }
@@ -869,7 +860,7 @@ public final class Parser {
     /// Try to decompose a Unicode accented character into accent nodes.
     /// Returns nil if no decomposition is available.
     /// Only decomposes Latin-script characters, matching KaTeX behavior.
-    private func tryParseUnicodeAccent(
+    func tryParseUnicodeAccent(
         _ text: String, nucleus: Token
     ) throws(ParseError) -> ParseNode? {
         let nfd = text.decomposedStringWithCanonicalMapping
@@ -920,16 +911,16 @@ public final class Parser {
                 // Non-ASCII base chars always text mode (KaTeX compat)
                 node = ParseNode(.textOrd(text: baseStr), mode: .text, loc: loc)
             } else {
-                // INTENTIONALLY UNCOVERED: an ASCII base that is not a known
-                // symbol yet carries combining marks — not produced by valid
-                // LaTeX (such bytes error earlier in symbol parsing). Kept as
-                // the exhaustive else.
+                // INTENTIONALLY UNCOVERED: unreachable — a single-scalar base
+                // here is Latin (non-Latin bases return nil above) and every
+                // ASCII Latin letter resolves in the symbol table, so this
+                // ASCII-non-symbol else never fires. Kept as the exhaustive
+                // else over the `count == 1` cases.
                 node = ParseNode(.mathOrd(text: baseStr), mode: mode, loc: loc)
             }
         } else {
-            // INTENTIONALLY UNCOVERED: a multi-scalar base preceding combining
-            // marks (e.g. a surrogate-pair glyph + mark) — not reached by the
-            // corpus; defensive fallback to a Unicode accent or textOrd.
+            // A multi-scalar base preceding combining marks (covered by
+            // DirectUnitTests); decompose further or fall back to textOrd.
             node =
                 try tryParseUnicodeAccent(baseStr, nucleus: nucleus)
                 ?? ParseNode(.textOrd(text: baseStr), mode: .text, loc: loc)

@@ -501,9 +501,8 @@ private func scalePathCommand(_ cmd: PathCommand, scale: Double) -> PathCommand 
         .cubicTo(
             x1: x1 * scale, y1: y1 * scale, x2: x2 * scale, y2: y2 * scale,
             x: x * scale, y: y * scale)
-    // INTENTIONALLY UNCOVERED (quadTo): the bundled KaTeX SVG geometry uses
-    // only line and cubic commands, so no `.svgPath`/`.angl` box carries a
-    // quad curve through here. `parseSvgPath` supports quads, so this is kept.
+    // The bundled KaTeX geometry uses only line/cubic commands; quad
+    // scaling is covered by DirectUnitTests via a hand-built path.
     case .quadTo(let x1, let y1, let x, let y):
         .quadTo(x1: x1 * scale, y1: y1 * scale, x: x * scale, y: y * scale)
     case .close:
@@ -567,8 +566,6 @@ private func computeVisualBounds(_ items: [DisplayItem]) -> (Double, Double, Dou
                     consider(x1, y1)
                     consider(x2, y2)
                     consider(x, y)
-                // INTENTIONALLY UNCOVERED: see the quadTo note above — no
-                // bundled geometry emits quad curves into bounds computation.
                 case .quadTo(let x1, let y1, let x, let y):
                     consider(x1, y1)
                     consider(x, y)

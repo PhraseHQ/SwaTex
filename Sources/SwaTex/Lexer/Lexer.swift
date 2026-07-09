@@ -20,7 +20,14 @@ public struct Lexer: Sendable {
     private var catcodes: [(char: Unicode.Scalar, code: UInt8)]
 
     public init(_ input: String) {
-        self.bytes = Array(input.utf8)
+        self.init(bytes: Array(input.utf8))
+    }
+
+    /// Internal seam for tests: build a lexer over raw bytes, which may be
+    /// malformed UTF-8 (the public `String` initializer cannot produce
+    /// that). Used to exercise the mid-stream decode-failure guard.
+    init(bytes: [UInt8]) {
+        self.bytes = bytes
         self.pos = 0
         self.catcodes = [("%", 14), ("~", 13)]
     }
@@ -31,10 +38,8 @@ public struct Lexer: Sendable {
         if let i = catcodes.firstIndex(where: { $0.char == ch }) {
             catcodes[i].code = code
         } else {
-            // INTENTIONALLY UNCOVERED: the only runtime `setCatcode` callers
-            // (`\url` toggling `%` and `~`) mutate characters already in the
-            // default table, so the append branch for a brand-new character
-            // is never taken. Kept for correctness if a novel char is set.
+            // A character not already in the default table (covered by
+            // DirectUnitTests via a novel active char).
             catcodes.append((ch, code))
         }
     }
@@ -140,10 +145,9 @@ public struct Lexer: Sendable {
 
         let start = pos
         guard let (ch, chLen) = currentScalar() else {
-            // INTENTIONALLY UNCOVERED: `atEnd` is checked just above, and the
-            // byte buffer comes from a Swift `String`'s UTF-8 view (always
-            // well-formed), so `currentScalar()` cannot return nil mid-stream.
-            // Kept as a guard against malformed input.
+            // Mid-stream decode failure — only reachable with malformed
+            // UTF-8 bytes (the `init(bytes:)` seam; the `String` initializer
+            // cannot produce them). Covered by DirectUnitTests.
             return .eof(at: pos)
         }
 
