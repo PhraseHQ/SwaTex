@@ -137,6 +137,15 @@ extension DirectUnitTests {
         #expect(node != nil)
     }
 
+    // Single-scalar Latin base that is not a symbol (extended-Latin letters
+    // ≥ U+0080) + a combining mark → the non-symbol textOrd branch.
+    @Test(arguments: ["\u{00F0}", "\u{00F8}", "\u{00FE}", "\u{00E6}", "\u{00DF}"])
+    func unicodeAccentExtendedLatinBase(_ base: String) throws {
+        let tok = Token(base, start: 0, end: 1)
+        // base + combining acute; if base isn't a symbol, hits the else.
+        _ = try Parser("").tryParseUnicodeAccent(base + "\u{0301}", nucleus: tok)
+    }
+
     // getExpansion `.function` case (expandOnce intercepts `.function`
     // before this is reached in the pipeline).
     @Test func getExpansionFunctionSignal() {
@@ -155,5 +164,22 @@ extension DirectUnitTests {
         _ = lexer.lex()  // 'x'
         let tok = lexer.lex()  // decode failure → EOF
         #expect(tok.isEOF)
+    }
+}
+
+extension DirectUnitTests {
+    // Unicode superscripts/subscripts (Parser's unicodeSubSup path — the
+    // superscript-assignment branch was previously untested).
+    @Test(arguments: [
+        "x\u{00B2}",  // x² superscript two
+        "y\u{207F}",  // yⁿ superscript n
+        "a\u{00B2}\u{00B3}",  // a²³ multiple superscripts
+        "H\u{2082}O",  // H₂O subscript two
+        "x\u{2080}\u{2081}",  // x₀₁ multiple subscripts
+        "m\u{00B3}\u{2082}",  // mixed super/subscript
+    ])
+    func unicodeSuperAndSubscripts(_ latex: String) throws {
+        let list = try SwaTexEngine.displayList(for: latex)
+        #expect(list.items.count > 0)
     }
 }

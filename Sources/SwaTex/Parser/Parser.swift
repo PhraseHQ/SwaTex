@@ -900,23 +900,17 @@ public final class Parser {
 
         var node: ParseNode
         if baseStr.unicodeScalars.count == 1 {
-            let ch = baseStr.unicodeScalars.first!
             if let sym = SymbolInfo(name: baseStr, mode: mode) {
-                if sym.group == .textOrd {
-                    node = ParseNode(.textOrd(text: baseStr), mode: mode, loc: loc)
-                } else {
-                    node = ParseNode(.mathOrd(text: baseStr), mode: mode, loc: loc)
-                }
-            } else if ch.value >= 0x80 {
-                // Non-ASCII base chars always text mode (KaTeX compat)
-                node = ParseNode(.textOrd(text: baseStr), mode: .text, loc: loc)
+                let text = sym.group == .textOrd
+                node = ParseNode(
+                    text ? .textOrd(text: baseStr) : .mathOrd(text: baseStr),
+                    mode: mode, loc: loc)
             } else {
-                // INTENTIONALLY UNCOVERED: unreachable — a single-scalar base
-                // here is Latin (non-Latin bases return nil above) and every
-                // ASCII Latin letter resolves in the symbol table, so this
-                // ASCII-non-symbol else never fires. Kept as the exhaustive
-                // else over the `count == 1` cases.
-                node = ParseNode(.mathOrd(text: baseStr), mode: mode, loc: loc)
+                // A single-scalar Latin base that is not a symbol: only the
+                // extended-Latin letters (Æ, ð, ø, þ, …, all ≥ U+0080) reach
+                // here — every ASCII Latin letter resolves as a symbol above.
+                // Rendered as text (KaTeX compat).
+                node = ParseNode(.textOrd(text: baseStr), mode: .text, loc: loc)
             }
         } else {
             // A multi-scalar base preceding combining marks (covered by
