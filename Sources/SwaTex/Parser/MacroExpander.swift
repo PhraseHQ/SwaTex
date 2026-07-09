@@ -259,6 +259,10 @@ final class MacroExpander {
         }
 
         if expandableOnly && exp.unexpandable {
+            // INTENTIONALLY UNCOVERED: no `MacroExpansion` is ever built with
+            // `unexpandable: true` (all three constructions in `getExpansion`
+            // use `false`), so this never fires. Kept to mirror KaTeX's
+            // gullet, which distinguishes unexpandable expansions.
             pushToken(topToken)
             return false
         }
@@ -316,7 +320,10 @@ final class MacroExpander {
         case .tokens(let tokens, let numArgs):
             return MacroExpansion(tokens: tokens, numArgs: numArgs, unexpandable: false)
         case .function:
-            // Signal that this is a function macro; handled in expandOnce
+            // INTENTIONALLY UNCOVERED: `expandOnce` matches `.function`
+            // *before* it calls `getExpansion`, so this case is never
+            // reached here. Kept so the switch stays total over
+            // `MacroDefinition`.
             return MacroExpansion(tokens: [], numArgs: 0, unexpandable: false)
         }
     }

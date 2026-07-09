@@ -260,6 +260,10 @@ func layoutNode(_ node: ParseNode, _ options: LayoutOptions) -> LayoutBox {
             options)
 
     case let .cdArrow(direction, labelAbove, labelBelow):
+        // INTENTIONALLY UNCOVERED: a `.cdArrow` node only exists inside a
+        // `\begin{CD}` grid, where `layoutCD` intercepts and lays it out
+        // with real cell dimensions — it never reaches this general switch.
+        // Kept as a total-switch case.
         return layoutCDArrow(direction, labelAbove, labelBelow, 0, 0, 0, options)
 
     case let .proofTree(tree):
@@ -273,6 +277,9 @@ func layoutNode(_ node: ParseNode, _ options: LayoutOptions) -> LayoutBox {
             let group = ParseNode(.ordGroup(body: body, semisimple: nil), mode: node.mode)
             return layoutFont(f, group, options)
         }
+        // INTENTIONALLY UNCOVERED: every producer of a `.text` node sets
+        // `font` to the invoking command name (`\text`, `\emph`, `\texttt`
+        // …), so `font` is never nil here. Kept as a defensive default.
         return layoutText(body, options)
 
     case let .font(font, body):

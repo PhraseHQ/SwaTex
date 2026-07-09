@@ -84,12 +84,6 @@ private enum SymbolMaps {
     }
 }
 
-extension Mode {
-    fileprivate var tableValue: UInt8 {
-        self == .math ? 0 : 1
-    }
-}
-
 extension SymbolInfo {
     fileprivate init(entryAt idx: Int, mode: Mode) {
         let entry = SymbolsData.symbols[idx]

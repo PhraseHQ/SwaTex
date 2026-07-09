@@ -432,6 +432,9 @@ public final class Parser {
         breakOnTokenText: String? = nil
     ) throws(ParseError) -> ParseNode {
         guard let spec = Functions.registry[name] else {
+            // INTENTIONALLY UNCOVERED: invariant guard. `name` is only ever a
+            // key that resolved in `Functions.registry` upstream, so this
+            // never fires — kept as a defensive assertion, not deleted.
             throw ParseError("No function handler for \(name)")
         }
 
@@ -491,6 +494,11 @@ public final class Parser {
             return try parseSizeGroup(optional: optional)
         case .primitive:
             if optional {
+                // INTENTIONALLY UNCOVERED: no builtin declares a `.primitive`
+                // optional argument (every registration uses
+                // `numOptionalArgs: 0` for primitive args), so `optional` is
+                // always false here. Kept as a guard against a future
+                // ill-formed registration.
                 throw ParseError("A primitive argument cannot be optional")
             }
             guard let group = try parseGroup(name: name, breakOnTokenText: nil) else {
@@ -501,6 +509,9 @@ public final class Parser {
             return try parseArgumentGroup(
                 optional: optional, mode: argType == .math ? .math : .text)
         case .hbox:
+            // INTENTIONALLY UNCOVERED (this nil return): `.hbox` is only ever
+            // a *required* argument, so `parseArgumentGroup` returns a value
+            // or throws; the absent-optional nil path is defensive.
             guard let group = try parseArgumentGroup(optional: optional, mode: .text) else {
                 return nil
             }
@@ -525,6 +536,8 @@ public final class Parser {
 
     /// Parse a color group.
     private func parseColorGroup(optional: Bool) throws(ParseError) -> ParseNode? {
+        // INTENTIONALLY UNCOVERED (this nil return): color is always a
+        // required argument, so an absent-optional nil is never produced.
         guard let token = try parseStringGroup(modeName: "color", optional: optional) else {
             return nil
         }
@@ -688,6 +701,8 @@ public final class Parser {
             gullet.lexer.setCatcode("%", 14)
             gullet.lexer.setCatcode("~", 13)
         }
+        // INTENTIONALLY UNCOVERED (this nil return): url is always a required
+        // argument, so an absent-optional nil is never produced.
         guard let token = try parseStringGroup(modeName: "url", optional: optional) else {
             return nil
         }
@@ -905,9 +920,16 @@ public final class Parser {
                 // Non-ASCII base chars always text mode (KaTeX compat)
                 node = ParseNode(.textOrd(text: baseStr), mode: .text, loc: loc)
             } else {
+                // INTENTIONALLY UNCOVERED: an ASCII base that is not a known
+                // symbol yet carries combining marks — not produced by valid
+                // LaTeX (such bytes error earlier in symbol parsing). Kept as
+                // the exhaustive else.
                 node = ParseNode(.mathOrd(text: baseStr), mode: mode, loc: loc)
             }
         } else {
+            // INTENTIONALLY UNCOVERED: a multi-scalar base preceding combining
+            // marks (e.g. a surrogate-pair glyph + mark) — not reached by the
+            // corpus; defensive fallback to a Unicode accent or textOrd.
             node =
                 try tryParseUnicodeAccent(baseStr, nucleus: nucleus)
                 ?? ParseNode(.textOrd(text: baseStr), mode: .text, loc: loc)

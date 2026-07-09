@@ -31,6 +31,10 @@ public struct Lexer: Sendable {
         if let i = catcodes.firstIndex(where: { $0.char == ch }) {
             catcodes[i].code = code
         } else {
+            // INTENTIONALLY UNCOVERED: the only runtime `setCatcode` callers
+            // (`\url` toggling `%` and `~`) mutate characters already in the
+            // default table, so the append branch for a brand-new character
+            // is never taken. Kept for correctness if a novel char is set.
             catcodes.append((ch, code))
         }
     }
@@ -136,6 +140,10 @@ public struct Lexer: Sendable {
 
         let start = pos
         guard let (ch, chLen) = currentScalar() else {
+            // INTENTIONALLY UNCOVERED: `atEnd` is checked just above, and the
+            // byte buffer comes from a Swift `String`'s UTF-8 view (always
+            // well-formed), so `currentScalar()` cannot return nil mid-stream.
+            // Kept as a guard against malformed input.
             return .eof(at: pos)
         }
 
