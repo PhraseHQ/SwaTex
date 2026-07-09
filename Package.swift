@@ -1,4 +1,4 @@
-// swift-tools-version: 6.2
+// swift-tools-version: 6.1
 //
 // SwaTex — KaTeX-compatible math rendering in pure Swift.
 // Built by the team behind Phrase (https://phrase.so), the native block

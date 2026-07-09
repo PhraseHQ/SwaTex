@@ -12,6 +12,9 @@
   `mathColor(_: SwiftUI.Color)` with environment-resolved dynamic colors.
 
 ### Changed
+- Swift tools version lowered 6.2 → 6.1: the package now resolves and
+  builds with Xcode 16.3+ (nothing in the manifest or sources requires the
+  6.2 toolchain).
 - Platform floors lowered from OS 26 to the actual API minimums:
   iOS 18 / macOS 15 / tvOS 18 / watchOS 11 / visionOS 2
   (`Synchronization.Mutex`). Verified: full test suite on macOS, device

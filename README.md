@@ -124,7 +124,7 @@ between the engines:
 
 ## Requirements
 
-- Builds with Swift 6.2+ (Xcode 26+); consuming apps can use any Swift language mode
+- Builds with Swift 6.1+ (Xcode 16.3+); consuming apps can use any Swift language mode
 - Deploys to iOS 18 / macOS 15 / tvOS 18 / watchOS 11 / visionOS 2
   (floor set by `Synchronization.Mutex`)
 
