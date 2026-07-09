@@ -10,6 +10,13 @@ func stretchyAccentPath(_ label: String, _ width: Double, _ height: Double) -> [
     if let commands = katexStretchyArrowPath(label, widthEm: width, heightEm: height) {
         return commands
     }
+    // INTENTIONALLY UNCOVERED (P-013 defensive-fallback KEEP): the generated
+    // KaTeX SVG table above resolves every stretchy arrow SwaTex accepts, so
+    // this hand-drawn geometry is unreachable today. It is kept — not
+    // deleted for a coverage number — because it is the correct behavior if
+    // the generated table ever loses an entry. `CDProofCoverageTests`
+    // asserts the table path renders every arrow; do not add contrived
+    // inputs to reach the lines below.
     let ah = height * 0.35  // arrowhead size
     let midY = -height / 2.0
 

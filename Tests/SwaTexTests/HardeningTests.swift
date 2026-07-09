@@ -163,3 +163,32 @@ struct CacheBoundsTests {
         }
     }
 }
+
+/// Edge-of-core paths that legitimate-but-unusual input reaches: lexer
+/// boundary cases, verb delimiters, char forms. (Parser invariant guards
+/// like "No function handler for X" are unreachable by construction — a
+/// registered function always has a handler — and are kept as assertions.)
+@Suite("CoreEdgeCases")
+struct CoreEdgeCasesTests {
+    @Test(arguments: [
+        "\\verb", "\\verb*",  // bare verb at EOF (lexer EOF branches)
+        "\\verb!a+b!", "\\verb*|x y|", "\\verb#z#",
+        "\\char65", "\\char\"41", "\\char'101",  // decimal/hex/octal char
+        "\\text{a}\\text{b}",  // adjacent text runs
+        "{\\bf x}\\rm y",  // font declaration scoping
+        "\\begingroup x\\endgroup",
+        "a % comment\nb",  // comment mid-expression
+        "\\ x",  // control space
+    ])
+    func lexerAndCharEdgePaths(_ latex: String) {
+        // Must parse or throw ParseError; never trap.
+        _ = try? SwaTexEngine.displayList(for: latex)
+    }
+
+    @Test func catcodeMutationPath() throws {
+        // \verb with % as delimiter exercises setCatcode append path.
+        _ = try? SwaTexEngine.displayList(for: "\\verb%a%")
+        // A fresh custom active char via \def on ~ (catcode 13):
+        _ = try SwaTexEngine.displayList(for: "\\def~{x}~")
+    }
+}

@@ -3,6 +3,13 @@
 ## 0.2.0 — 2026-07-09
 
 ### Added
+- Test hardening for release: fuzz smoke (2000 deterministic random
+  inputs never crash), stress/boundary/finite-geometry suites,
+  8-way concurrency stress, cache-capacity invariants, CD-arrow and
+  prooftree coverage, core edge-path coverage (verb/char/catcode), and
+  in-suite performance-regression sentinels (throughput, cache-hit,
+  linear-scaling gates). Core parse/lex/macro/layout logic at ~98.7%
+  line coverage; remaining gaps are documented P-013 defensive fallbacks.
 - Open-source hardening: CONTRIBUTING / SECURITY / CODE_OF_CONDUCT, issue
   and PR templates, `.swift-format` config enforced in CI (`--strict`),
   DocC build job, warnings-as-errors in CI, `BENCHMARKS.md` reproduction
