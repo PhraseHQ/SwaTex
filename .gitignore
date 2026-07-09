@@ -1,0 +1,34 @@
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Xcode
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xcworkspace
+
+# Local engineering docs and assistant state (not shipped)
+Docs/
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+
+# Coverage artifacts
+*.profraw
+*.profdata
+
+# Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Python helper scripts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# macOS
+.DS_Store

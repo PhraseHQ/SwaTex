@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    name: swift test (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_26.app || sudo xcode-select -s "$(ls -d /Applications/Xcode*.app | sort -V | tail -1)"
+      - name: Swift version
+        run: swift --version
+      - name: Build (release)
+        run: swift build -c release
+      - name: Test
+        run: swift test
+      # The GoldenLayout suite inside `swift test` asserts all 1190
+      # cross-engine fixtures, so layout parity is CI-enforced.
+
+  build-platforms:
+    name: Build iOS / watchOS
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        destination:
+          - "generic/platform=iOS Simulator"
+          - "generic/platform=watchOS Simulator"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          xcodebuild -scheme SwaTex-Package \
+            -destination "${{ matrix.destination }}" \
+            -derivedDataPath .dd build

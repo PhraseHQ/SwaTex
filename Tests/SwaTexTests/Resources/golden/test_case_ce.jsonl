@@ -1,0 +1,103 @@
+{"box":{"depth":0.15,"height":0.68333,"width":8.03567},"displayList":{"depth":0.15,"height":0.68333,"itemCount":9,"width":8.03567},"input":"\\ce{CO2 + C -> 2 CO}"}
+{"box":{"depth":0.25,"height":1.21537,"width":12.36301},"displayList":{"depth":0.25,"height":1.21537,"itemCount":24,"width":12.36301},"input":"\\ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-}"}
+{"box":{"depth":0.345,"height":0.87233,"width":10.17688},"displayList":{"depth":0.345,"height":0.87233,"itemCount":21,"width":10.17688},"input":"$C_p[\\ce{H2O(l)}] = \\pu{75.3 J // mol K}$"}
+{"box":{"depth":0.15,"height":0.68333,"width":1.92778},"displayList":{"depth":0.15,"height":0.68333,"itemCount":3,"width":1.92778},"input":"\\ce{H2O}"}
+{"box":{"depth":0.15,"height":0.69444,"width":2.6889},"displayList":{"depth":0.15,"height":0.69444,"itemCount":5,"width":2.6889},"input":"\\ce{Sb2O3}"}
+{"box":{"depth":0.0,"height":0.84456,"width":1.34445},"displayList":{"depth":0.0,"height":0.84456,"itemCount":2,"width":1.34445},"input":"\\ce{H+}"}
+{"box":{"depth":0.15,"height":0.88734,"width":3.23612},"displayList":{"depth":0.15,"height":0.88734,"itemCount":6,"width":3.23612},"input":"\\ce{CrO4^2-}"}
+{"box":{"depth":0.25,"height":0.84456,"width":3.8139},"displayList":{"depth":0.25,"height":0.84456,"itemCount":8,"width":3.8139},"input":"\\ce{[AgCl2]-}"}
+{"box":{"depth":0.0,"height":0.88734,"width":2.06945},"displayList":{"depth":0.0,"height":0.88734,"itemCount":4,"width":2.06945},"input":"\\ce{Y^99+}"}
+{"box":{"depth":0.0,"height":0.88734,"width":2.06945},"displayList":{"depth":0.0,"height":0.88734,"itemCount":4,"width":2.06945},"input":"\\ce{Y^{99+}}"}
+{"box":{"depth":0.15,"height":0.68333,"width":2.59445},"displayList":{"depth":0.15,"height":0.68333,"itemCount":4,"width":2.59445},"input":"\\ce{2 H2O}"}
+{"box":{"depth":0.15,"height":0.68333,"width":2.59445},"displayList":{"depth":0.15,"height":0.68333,"itemCount":4,"width":2.59445},"input":"\\ce{2H2O}"}
+{"box":{"depth":0.15,"height":0.68333,"width":3.37223},"displayList":{"depth":0.15,"height":0.68333,"itemCount":6,"width":3.37223},"input":"\\ce{0.5 H2O}"}
+{"box":{"depth":0.345,"height":0.84511,"width":2.68445},"displayList":{"depth":0.345,"height":0.84511,"itemCount":6,"width":2.68445},"input":"\\ce{1/2 H2O}"}
+{"box":{"depth":0.25,"height":0.75,"width":4.37223},"displayList":{"depth":0.25,"height":0.75,"itemCount":8,"width":4.37223},"input":"\\ce{(1/2) H2O}"}
+{"box":{"depth":0.15,"height":0.68333,"width":2.69468},"displayList":{"depth":0.15,"height":0.68333,"itemCount":4,"width":2.69468},"input":"\\ce{$n$ H2O}"}
+{"box":{"depth":0.247,"height":0.88734,"width":3.02223},"displayList":{"depth":0.247,"height":0.88734,"itemCount":8,"width":3.02223},"input":"\\ce{^{227}_{90}Th+}"}
+{"box":{"depth":0.247,"height":0.88734,"width":3.02223},"displayList":{"depth":0.247,"height":0.88734,"itemCount":8,"width":3.02223},"input":"\\ce{^227_90Th+}"}
+{"box":{"depth":0.30533,"height":0.88734,"width":2.14445},"displayList":{"depth":0.30533,"height":0.88734,"itemCount":5,"width":2.14445},"input":"\\ce{^{0}_{-1}n^{-}}"}
+{"box":{"depth":0.30533,"height":0.88734,"width":2.14445},"displayList":{"depth":0.30533,"height":0.88734,"itemCount":5,"width":2.14445},"input":"\\ce{^0_-1n-}"}
+{"box":{"depth":0.247,"height":0.88734,"width":2.72778},"displayList":{"depth":0.247,"height":0.88734,"itemCount":4,"width":2.72778},"input":"\\ce{H{}^3HO}"}
+{"box":{"depth":0.247,"height":0.88734,"width":2.72778},"displayList":{"depth":0.247,"height":0.88734,"itemCount":4,"width":2.72778},"input":"\\ce{H^3HO}"}
+{"box":{"depth":0.011,"height":0.68333,"width":3.4829},"displayList":{"depth":0.011,"height":0.68333,"itemCount":3,"width":3.4829},"input":"\\ce{A -> B}"}
+{"box":{"depth":0.011,"height":0.68333,"width":3.4829},"displayList":{"depth":0.011,"height":0.68333,"itemCount":3,"width":3.4829},"input":"\\ce{A <- B}"}
+{"box":{"depth":0.011,"height":0.68333,"width":3.7639},"displayList":{"depth":0.011,"height":0.68333,"itemCount":3,"width":3.7639},"input":"\\ce{A <-> B}"}
+{"box":{"depth":0.2005,"height":0.8115,"width":3.7639},"displayList":{"depth":0.2005,"height":0.8115,"itemCount":3,"width":3.7639},"input":"\\ce{A <--> B}"}
+{"box":{"depth":0.108,"height":0.719,"width":3.7639},"displayList":{"depth":0.108,"height":0.719,"itemCount":3,"width":3.7639},"input":"\\ce{A <=> B}"}
+{"box":{"depth":0.108,"height":0.719,"width":3.7639},"displayList":{"depth":0.108,"height":0.719,"itemCount":3,"width":3.7639},"input":"\\ce{A <=>> B}"}
+{"box":{"depth":0.108,"height":0.719,"width":3.7639},"displayList":{"depth":0.108,"height":0.719,"itemCount":3,"width":3.7639},"input":"\\ce{A <<=> B}"}
+{"box":{"depth":0.011,"height":1.20043,"width":4.08334},"displayList":{"depth":0.011,"height":1.20043,"itemCount":6,"width":4.08334},"input":"\\ce{A ->[H2O] B}"}
+{"box":{"depth":0.60811,"height":1.10811,"width":5.88336},"displayList":{"depth":0.60811,"height":1.10811,"itemCount":21,"width":5.88336},"input":"\\ce{A ->[{text above}][{text below}] B}"}
+{"box":{"depth":0.52349,"height":0.92339,"width":3.4829},"displayList":{"depth":0.52349,"height":0.92339,"itemCount":6,"width":3.4829},"input":"\\ce{A ->[$x$][$x_i$] B}"}
+{"box":{"depth":0.25,"height":0.75,"width":3.63334},"displayList":{"depth":0.25,"height":0.75,"itemCount":7,"width":3.63334},"input":"\\ce{(NH4)2S}"}
+{"box":{"depth":0.25,"height":0.88734,"width":5.22779},"displayList":{"depth":0.25,"height":0.88734,"itemCount":12,"width":5.22779},"input":"\\ce{[\\{(X2)3\\}2]^3+}"}
+{"box":{"depth":0.35001,"height":0.85,"width":9.50113},"displayList":{"depth":0.35001,"height":0.85,"itemCount":17,"width":9.50113},"input":"\\ce{CH4 + 2 $\\left( \\ce{O2 + 79/21 N2} \\right)$}"}
+{"box":{"depth":0.25,"height":0.75,"width":3.06667},"displayList":{"depth":0.25,"height":0.75,"itemCount":6,"width":3.06667},"input":"\\ce{H2(aq)}"}
+{"box":{"depth":0.325,"height":0.88734,"width":4.20388},"displayList":{"depth":0.325,"height":0.88734,"itemCount":9,"width":4.20388},"input":"\\ce{CO3^2-_{(aq)}}"}
+{"box":{"depth":0.25,"height":0.75,"width":6.1389},"displayList":{"depth":0.25,"height":0.75,"itemCount":10,"width":6.1389},"input":"\\ce{NaOH(aq,$\\infty$)}"}
+{"box":{"depth":0.25,"height":0.75,"width":3.04388},"displayList":{"depth":0.25,"height":0.75,"itemCount":6,"width":3.04388},"input":"\\ce{ZnS($c$)}"}
+{"box":{"depth":0.25,"height":0.75,"width":3.82166},"displayList":{"depth":0.25,"height":0.75,"itemCount":7,"width":3.82166},"input":"\\ce{ZnS(\\ca$c$)}"}
+{"box":{"depth":0.15,"height":0.68333,"width":1.97785},"displayList":{"depth":0.15,"height":0.68333,"itemCount":3,"width":1.97785},"input":"\\ce{NO_x}"}
+{"box":{"depth":0.0,"height":0.84456,"width":2.11184},"displayList":{"depth":0.0,"height":0.84456,"itemCount":4,"width":2.11184},"input":"\\ce{Fe^n+}"}
+{"box":{"depth":0.25,"height":1.10033,"width":22.43924},"displayList":{"depth":0.25,"height":1.10033,"itemCount":33,"width":22.43924},"input":"\\ce{x Na(NH4)HPO4 ->[\\Delta] (NaPO3)_x + x NH3 ^ + x H2O}"}
+{"box":{"depth":0.19444,"height":0.69444,"width":1.93588},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":4,"width":1.93588},"input":"\\ce{\\mu-Cl}"}
+{"box":{"depth":0.25,"height":0.88734,"width":7.9352},"displayList":{"depth":0.25,"height":0.88734,"itemCount":17,"width":7.9352},"input":"\\ce{[Pt(\\eta^2-C2H4)Cl3]-}"}
+{"box":{"depth":0.19444,"height":0.84456,"width":1.21286},"displayList":{"depth":0.19444,"height":0.84456,"itemCount":2,"width":1.21286},"input":"\\ce{\\beta +}"}
+{"box":{"depth":0.247,"height":0.88734,"width":5.89299},"displayList":{"depth":0.247,"height":0.88734,"itemCount":11,"width":5.89299},"input":"\\ce{^40_18Ar + \\gamma{} + \\nu_e}"}
+{"box":{"depth":0.3908,"height":0.75,"width":3.81523},"displayList":{"depth":0.3908,"height":0.75,"itemCount":9,"width":3.81523},"input":"\\ce{Fe(CN)_{$\\frac{6}{2}$}}"}
+{"box":{"depth":0.15,"height":0.73762,"width":1.49123},"displayList":{"depth":0.15,"height":0.73762,"itemCount":3,"width":1.49123},"input":"\\ce{X_{$i$}^{$x$}}"}
+{"box":{"depth":0.15,"height":0.73762,"width":1.49123},"displayList":{"depth":0.15,"height":0.73762,"itemCount":3,"width":1.49123},"input":"\\ce{X_$i$^$x$}"}
+{"box":{"depth":0.25,"height":0.75,"width":7.68214},"displayList":{"depth":0.25,"height":0.75,"itemCount":17,"width":7.68214},"input":"\\ce{$cis${-}[PtCl2(NH3)2]}"}
+{"box":{"depth":0.25,"height":0.75,"width":4.96818},"displayList":{"depth":0.25,"height":0.75,"itemCount":9,"width":4.96818},"input":"\\ce{CuS($hP12$)}"}
+{"box":{"depth":0.15,"height":0.69444,"width":9.66809},"displayList":{"depth":0.15,"height":0.69444,"itemCount":17,"width":9.66809},"input":"\\ce{{Gluconic Acid} + H2O2}"}
+{"box":{"depth":0.15,"height":0.68333,"width":1.77418},"displayList":{"depth":0.15,"height":0.68333,"itemCount":4,"width":1.77418},"input":"\\ce{X_{{red}}}"}
+{"box":{"depth":0.25,"height":0.75,"width":8.34446},"displayList":{"depth":0.25,"height":0.75,"itemCount":19,"width":8.34446},"input":"\\ce{{(+)}_589{-}[Co(en)3]Cl3}"}
+{"box":{"depth":0.15,"height":0.68333,"width":5.3},"displayList":{"depth":0.15,"height":0.68333,"itemCount":8,"width":5.3},"input":"\\ce{C6H5-CHO}"}
+{"box":{"depth":0.08333,"height":0.68333,"width":5.27779},"displayList":{"depth":0.08333,"height":0.68333,"itemCount":7,"width":5.27779},"input":"\\ce{A-B=C#D}"}
+{"box":{"depth":0.08333,"height":0.68333,"width":5.27779},"displayList":{"depth":0.08333,"height":0.68333,"itemCount":7,"width":5.27779},"input":"\\ce{A\\bond{-}B\\bond{=}C\\bond{#}D}"}
+{"box":{"depth":0.08333,"height":0.68333,"width":5.27779},"displayList":{"depth":0.08333,"height":0.68333,"itemCount":7,"width":5.27779},"input":"\\ce{A\\bond{1}B\\bond{2}C\\bond{3}D}"}
+{"box":{"depth":0.18333,"height":0.68333,"width":3.62499},"displayList":{"depth":0.18333,"height":0.68333,"itemCount":10,"width":3.62499},"input":"\\ce{A\\bond{~}B\\bond{~-}C}"}
+{"box":{"depth":0.28333,"height":0.78333,"width":5.22223},"displayList":{"depth":0.28333,"height":0.78333,"itemCount":19,"width":5.22223},"input":"\\ce{A\\bond{~--}B\\bond{~=}C\\bond{-~-}D}"}
+{"box":{"depth":0.0,"height":0.68333,"width":4.12502},"displayList":{"depth":0.0,"height":0.68333,"itemCount":10,"width":4.12502},"input":"\\ce{A\\bond{...}B\\bond{....}C}"}
+{"box":{"depth":0.0,"height":0.68333,"width":4.18056},"displayList":{"depth":0.0,"height":0.68333,"itemCount":5,"width":4.18056},"input":"\\ce{A\\bond{->}B\\bond{<-}C}"}
+{"box":{"depth":0.25,"height":0.75,"width":8.50835},"displayList":{"depth":0.25,"height":0.75,"itemCount":15,"width":8.50835},"input":"\\ce{KCr(SO4)2*12H2O}"}
+{"box":{"depth":0.25,"height":0.75,"width":8.50835},"displayList":{"depth":0.25,"height":0.75,"itemCount":15,"width":8.50835},"input":"\\ce{KCr(SO4)2.12H2O}"}
+{"box":{"depth":0.25,"height":0.75,"width":8.50835},"displayList":{"depth":0.25,"height":0.75,"itemCount":15,"width":8.50835},"input":"\\ce{KCr(SO4)2 * 12 H2O}"}
+{"box":{"depth":0.15,"height":0.91456,"width":5.13613},"displayList":{"depth":0.15,"height":0.91456,"itemCount":12,"width":5.13613},"input":"\\ce{Fe^{II}Fe^{III}2O4}"}
+{"box":{"depth":0.0,"height":0.84456,"width":3.3133},"displayList":{"depth":0.0,"height":0.84456,"itemCount":5,"width":3.3133},"input":"\\ce{OCO^{.-}}"}
+{"box":{"depth":0.0,"height":0.96123,"width":3.45775},"displayList":{"depth":0.0,"height":0.96123,"itemCount":7,"width":3.45775},"input":"\\ce{NO^{(2.)-}}"}
+{"box":{"depth":0.38311,"height":0.84456,"width":10.09934},"displayList":{"depth":0.38311,"height":0.84456,"itemCount":28,"width":10.09934},"input":"\\ce{Li^x_{Li,1-2x}Mg^._{Li,x}$V$'_{Li,x}Cl^x_{Cl}}"}
+{"box":{"depth":0.38311,"height":0.82512,"width":1.66228},"displayList":{"depth":0.38311,"height":0.82512,"itemCount":6,"width":1.66228},"input":"\\ce{O''_{i,x}}"}
+{"box":{"depth":0.247,"height":0.74734,"width":1.84883},"displayList":{"depth":0.247,"height":0.74734,"itemCount":4,"width":1.84883},"input":"\\ce{M^{..}_i}"}
+{"box":{"depth":0.247,"height":0.88734,"width":1.55555},"displayList":{"depth":0.247,"height":0.88734,"itemCount":5,"width":1.55555},"input":"\\ce{$V$^{4'}_{Ti}}"}
+{"box":{"depth":0.28611,"height":0.68333,"width":6.84634},"displayList":{"depth":0.28611,"height":0.68333,"itemCount":16,"width":6.84634},"input":"\\ce{V_{V,1}C_{C,0.8}$V$_{C,0.2}}"}
+{"box":{"depth":0.08333,"height":0.68333,"width":2.68056},"displayList":{"depth":0.08333,"height":0.68333,"itemCount":3,"width":2.68056},"input":"\\ce{A + B}"}
+{"box":{"depth":0.08333,"height":0.68333,"width":2.68056},"displayList":{"depth":0.08333,"height":0.68333,"itemCount":3,"width":2.68056},"input":"\\ce{A - B}"}
+{"box":{"depth":0.0,"height":0.68333,"width":2.79168},"displayList":{"depth":0.0,"height":0.68333,"itemCount":3,"width":2.79168},"input":"\\ce{A = B}"}
+{"box":{"depth":0.08333,"height":0.68333,"width":2.68056},"displayList":{"depth":0.08333,"height":0.68333,"itemCount":3,"width":2.68056},"input":"\\ce{A \\pm B}"}
+{"box":{"depth":0.19444,"height":0.88734,"width":12.07459},"displayList":{"depth":0.19444,"height":0.88734,"itemCount":17,"width":12.07459},"input":"\\ce{SO4^2- + Ba^2+ -> BaSO4 v}"}
+{"box":{"depth":0.19444,"height":0.69444,"width":9.6218},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":9,"width":9.6218},"input":"\\ce{A v B (v) -> B ^ B (^)}"}
+{"box":{"depth":0.0,"height":0.76193,"width":1.92778},"displayList":{"depth":0.0,"height":0.76193,"itemCount":3,"width":1.92778},"input":"\\ce{NO^*}"}
+{"box":{"depth":0.0,"height":0.88734,"width":2.37778},"displayList":{"depth":0.0,"height":0.88734,"itemCount":5,"width":2.37778},"input":"\\ce{1s^2-N}"}
+{"box":{"depth":0.0,"height":0.68333,"width":2.00579},"displayList":{"depth":0.0,"height":0.68333,"itemCount":4,"width":2.00579},"input":"\\ce{n-Pr}"}
+{"box":{"depth":0.0,"height":0.68333,"width":1.35001},"displayList":{"depth":0.0,"height":0.68333,"itemCount":3,"width":1.35001},"input":"\\ce{iPr}"}
+{"box":{"depth":0.0,"height":0.68333,"width":1.87501},"displayList":{"depth":0.0,"height":0.68333,"itemCount":3,"width":1.87501},"input":"\\ce{\\ca Fe}"}
+{"box":{"depth":0.19444,"height":0.68333,"width":4.66668},"displayList":{"depth":0.19444,"height":0.68333,"itemCount":7,"width":4.66668},"input":"\\ce{A, B, C; F}"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.53614},"displayList":{"depth":0.0,"height":0.69444,"itemCount":9,"width":4.53614},"input":"\\ce{{and others}}"}
+{"box":{"depth":1.13822,"height":1.3707,"width":21.61441},"displayList":{"depth":1.13822,"height":1.3707,"itemCount":73,"width":21.61441},"input":"\\ce{Zn^2+  <=>[+ 2OH-][+ 2H+]  $\\underset{\\text{amphoteres Hydroxid}}{\\ce{Zn(OH)2 v}}$  <=>[+ 2OH-][+ 2H+]  $\\underset{\\text{Hydroxozikat}}{\\ce{[Zn(OH)4]^2-}}$}"}
+{"box":{"depth":1.02734,"height":1.56434,"width":7.07752},"displayList":{"depth":1.02734,"height":1.56434,"itemCount":20,"width":7.07752},"input":"\\ce{$K = \\frac{[\\ce{Hg^2+}][\\ce{Hg}]}{[\\ce{Hg2^2+}]}$}"}
+{"box":{"depth":1.02734,"height":1.56434,"width":7.07752},"displayList":{"depth":1.02734,"height":1.56434,"itemCount":20,"width":7.07752},"input":"\\ce{$K = \\ce{\\frac{[Hg^2+][Hg]}{[Hg2^2+]}}$}"}
+{"box":{"depth":1.00211,"height":1.21537,"width":12.36301},"displayList":{"depth":1.00211,"height":1.21537,"itemCount":30,"width":12.36301},"input":"\\ce{Hg^2+ ->[I-]  $\\underset{\\mathrm{red}}{\\ce{HgI2}}$  ->[I-]  $\\underset{\\mathrm{red}}{\\ce{[Hg^{II}I4]^2-}}$}"}
+{"box":{"depth":0.0,"height":0.69444,"width":2.79167},"displayList":{"depth":0.0,"height":0.69444,"itemCount":5,"width":2.79167},"input":"\\pu{123 kJ}"}
+{"box":{"depth":0.0,"height":0.86411,"width":3.81668},"displayList":{"depth":0.0,"height":0.86411,"itemCount":6,"width":3.81668},"input":"\\pu{123 mm2}"}
+{"box":{"depth":0.0,"height":0.68333,"width":2.82501},"displayList":{"depth":0.0,"height":0.68333,"itemCount":5,"width":2.82501},"input":"\\pu{123 J s}"}
+{"box":{"depth":0.0,"height":0.68333,"width":3.04723},"displayList":{"depth":0.0,"height":0.68333,"itemCount":6,"width":3.04723},"input":"\\pu{123 J*s}"}
+{"box":{"depth":0.25,"height":0.75,"width":4.90279},"displayList":{"depth":0.25,"height":0.75,"itemCount":9,"width":4.90279},"input":"\\pu{123 kJ/mol}"}
+{"box":{"depth":0.345,"height":0.88011,"width":3.11778},"displayList":{"depth":0.345,"height":0.88011,"itemCount":9,"width":3.11778},"input":"\\pu{123 kJ//mol}"}
+{"box":{"depth":0.0,"height":0.86411,"width":5.5139},"displayList":{"depth":0.0,"height":0.86411,"itemCount":10,"width":5.5139},"input":"\\pu{123 kJ mol-1}"}
+{"box":{"depth":0.0,"height":0.86411,"width":5.73613},"displayList":{"depth":0.0,"height":0.86411,"itemCount":11,"width":5.73613},"input":"\\pu{123 kJ*mol-1}"}
+{"box":{"depth":0.0,"height":0.86411,"width":4.69167},"displayList":{"depth":0.0,"height":0.86411,"itemCount":9,"width":4.69167},"input":"\\pu{1.2e3 kJ}"}
+{"box":{"depth":0.19444,"height":0.86411,"width":4.69167},"displayList":{"depth":0.19444,"height":0.86411,"itemCount":9,"width":4.69167},"input":"\\pu{1,2e3 kJ}"}
+{"box":{"depth":0.08333,"height":0.86411,"width":5.19167},"displayList":{"depth":0.08333,"height":0.86411,"itemCount":9,"width":5.19167},"input":"\\pu{1.2E3 kJ}"}
+{"box":{"depth":0.19444,"height":0.86411,"width":5.19167},"displayList":{"depth":0.19444,"height":0.86411,"itemCount":9,"width":5.19167},"input":"\\pu{1,2E3 kJ}"}

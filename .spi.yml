@@ -1,0 +1,7 @@
+# Swift Package Index configuration (swiftpackageindex.com)
+version: 1
+metadata:
+  authors: Phrase (https://phrase.so)
+builder:
+  configs:
+    - documentation_targets: [SwaTex, SwaTexRender]

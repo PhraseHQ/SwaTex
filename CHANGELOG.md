@@ -1,0 +1,96 @@
+# Changelog
+
+## 0.2.0 — 2026-07-09
+
+### Added
+- RaTeX view-parity (migration): Auto Layout baseline anchors on
+  `SwaTexView` (`firstBaselineAnchor` constraints align text to the math
+  baseline on both platforms); dynamic platform color
+  (`SwaTexView.color: UIColor/NSColor`) with automatic dark-mode
+  re-rendering; SwiftUI `MathView` baseline alignment guides,
+  `MathViewAscentKey` for custom Layouts, and
+  `mathColor(_: SwiftUI.Color)` with environment-resolved dynamic colors.
+
+### Changed
+- Platform floors lowered from OS 26 to the actual API minimums:
+  iOS 18 / macOS 15 / tvOS 18 / watchOS 11 / visionOS 2
+  (`Synchronization.Mutex`). Verified: full test suite on macOS, device
+  builds for iOS and watchOS.
+
+### Fixed
+- Stack-overflow DoS: deeply nested input that passed the 512-level
+  recursion-count guard could SIGBUS the process on 512 KB stacks (Swift
+  Concurrency cooperative threads — including the parallel batch API — and
+  test workers; parse overflowed at ~350 levels in release). The parser now
+  also probes actual stack headroom (pthread stack bounds, computed once
+  per parse; zero measured cost) and throws
+  `ParseError.recursionLimitExceeded` instead. Found while extending test
+  coverage.
+
+### Fixed (platform)
+- watchOS build: sized-font cache key used `CGFloat.native.bitPattern`,
+  which is 32-bit on arm64_32.
+
+### Performance
+- Engine 29.1 → 16.3 µs/formula on the full golden corpus — 2.4× the Rust
+  reference on identical corpora (`\ce` subset 100 → 42). Wins:
+  hand-rolled byte scanners for size parsing (P-014), ICU-backed then
+  hand-rolled mhchem tokenizer patterns keyed by exact regex source with
+  ICU fallback (P-015/P-016/P-019), Substring threading (P-018), memoized
+  SVG path parsing (P-020), renderer CGColor/font caches (P-017),
+  index-resolved mhchem state machine (P-023), ordered-pair objects (P-024).
+- `SwaTexView` (AppKit) renders via `updateLayer`: the view owns its
+  rasterized bitmap and scrolling/redisplay never re-rasterizes glyphs —
+  re-rasterization happens only on content, backing-scale, or flip changes
+  (P-022). UIKit `contentMode` fixed from `.redraw` to `.topLeft` (no
+  re-rasterization on bounds changes). 200-block editor first paint
+  276 → 84 µs/cell.
+
+### Fixed
+- mhchem hand matchers now reproduce ICU's *actual* character classes
+  (`\s` = `\p{White_Space}` incl. VT/NEL; `.`/`$` line-terminator sets
+  incl. VT/FF; `$` never matches inside CRLF), pinned by a differential
+  suite against live `NSRegularExpression` over corpus suffixes and edge
+  inputs.
+- mhchem `findObserveGroups` delimiter scanning is scalar-wise (Rust byte
+  semantics): a combining mark on a closing brace no longer throws
+  `extraClose`.
+- Size-group scanning is KaTeX-correct ASCII (`\d` per KaTeX's JS, where
+  Swift/Rust regex `\d` accepted Unicode digits), pinned by
+  `SizeScannerDiffTests`.
+
+## 0.1.0 — 2026-07-09
+
+Initial release. Complete Swift port of the RaTeX engine (KaTeX-compatible
+math rendering), verified numerically identical to the Rust reference over
+its full 1190-formula golden corpus.
+
+### Engine
+- Lexer, macro expander (full KaTeX builtin macro set, `\def`/`\edef`/`\let`/
+  `\futurelet`/`\expandafter`, `\newcommand`), KaTeX-compatible parser
+  (all function handlers + 34 environments), mhchem `\ce`/`\pu`
+  (byte-identical to reference on a 253-case corpus), TeX layout engine
+  driven by KaTeX font metrics, flat `DisplayList` output (JSON
+  wire-compatible with RaTeX).
+- 99 %+ of the KaTeX support table; beyond-KaTeX:
+  bussproofs proof trees, built-in mhchem, `\DeclareMathOperator`.
+- KaTeX-correctness fixes over RaTeX: `\edef` expansion order,
+  `\noexpand` protection scope.
+
+### Rendering
+- `SwaTexRender`: CoreText/CoreGraphics backend with bundled KaTeX fonts
+  (no font registration side effects), glyph-run batching, sized-font and
+  glyph-ID caches, SwiftUI `MathView`, fast PNG export
+  (Accelerate + libz level-1; parallel batch API).
+- SVG backend with byte-exact RaTeX-compatible output.
+
+### Performance
+- ~28 µs/formula parse+layout on the golden corpus — faster than the Rust
+  reference engine.
+- 100 PNGs in 4.0 ms via the parallel batch API (5–7× the Rust renderer).
+- 314× formula cache for repeated content; 6× multicore batch layout.
+
+### Testing
+- 482 tests / 63 suites; ~90 % line coverage; 1190 cross-engine golden
+  fixtures asserted on every run; PNG encoder round-trip pixel-identity
+  tests; benchmarks gated behind `SWATEX_BENCH=1`.

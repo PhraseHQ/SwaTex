@@ -1,0 +1,1049 @@
+{"box":{"depth":0.0,"height":0.69444,"width":0.87801},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.87801},"input":"n!"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.79109},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.79109},"input":"a\\!b"}
+{"box":{"depth":0.19444,"height":0.86411,"width":0.92616},"displayList":{"depth":0.19444,"height":0.86411,"itemCount":2,"width":0.92616},"input":"\\def\\sqr#1{#1^2} \\sqr{y}"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.83334},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.83334},"input":"\\#"}
+{"box":{"depth":0.05556,"height":0.75,"width":0.83334},"displayList":{"depth":0.05556,"height":0.75,"itemCount":1,"width":0.83334},"input":"\\%"}
+{"box":{"depth":0.95,"height":1.45,"width":2.04908},"displayList":{"depth":0.95,"height":1.45,"itemCount":4,"width":2.04908},"input":"\\begin{matrix} a & b \\\\ c & d \\end{matrix}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.5},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.5},"input":"\\text{\\'{a}}"}
+{"box":{"depth":0.345,"height":0.69539,"width":0.61001},"displayList":{"depth":0.345,"height":0.69539,"itemCount":3,"width":0.61001},"input":"\\text{\\(\\frac a b\\)}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.20776},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.20776},"input":"a\\ b"}
+{"box":{"depth":0.0,"height":0.66786,"width":0.5},"displayList":{"depth":0.0,"height":0.66786,"itemCount":2,"width":0.5},"input":"\\text{\\\"{a}}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.29109},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.29109},"input":"a\\,\\,{b}"}
+{"box":{"depth":0.0,"height":0.66786,"width":0.5},"displayList":{"depth":0.0,"height":0.66786,"itemCount":2,"width":0.5},"input":"\\text{\\.{a}}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.4022},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.4022},"input":"a\\:\\:{b}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.98473},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.98473},"input":"\\;\\;{b}"}
+{"box":{"depth":0.15,"height":0.43056,"width":0.86269},"displayList":{"depth":0.15,"height":0.43056,"itemCount":2,"width":0.86269},"input":"x_i"}
+{"box":{"depth":0.0,"height":0.78056,"width":0.5},"displayList":{"depth":0.0,"height":0.78056,"itemCount":2,"width":0.5},"input":"\\text{\\={a}}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.4022},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.4022},"input":"a\\>\\>{b}"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.52859},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.52859},"input":"{a}"}
+{"box":{"depth":0.0,"height":0.69444,"width":6.73059},"displayList":{"depth":0.0,"height":0.69444,"itemCount":12,"width":6.73059},"input":"\\text{no~no~no~breaks}"}
+{"box":{"depth":0.0,"height":0.66786,"width":0.5},"displayList":{"depth":0.0,"height":0.66786,"itemCount":2,"width":0.5},"input":"\\text{\\~{a}}"}
+{"box":{"depth":0.0,"height":0.87466,"width":0.86269},"displayList":{"depth":0.0,"height":0.87466,"itemCount":2,"width":0.86269},"input":"x^i"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.5},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.5},"input":"\\text{\\^{a}}"}
+{"box":{"depth":0.05556,"height":0.75,"width":0.5},"displayList":{"depth":0.05556,"height":0.75,"itemCount":1,"width":0.5},"input":"\\text{\\textdollar}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.5},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.5},"input":"\\text{\\`{a}}"}
+{"box":{"depth":0.0,"height":0.94677,"width":0.75},"displayList":{"depth":0.0,"height":0.94677,"itemCount":2,"width":0.75},"input":"\\text{\\AA}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.5},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.75},"input":"\\text{\\aa}"}
+{"box":{"depth":1.22777,"height":1.38056,"width":2.39139},"displayList":{"depth":1.22777,"height":1.38056,"itemCount":5,"width":2.39139},"input":"{a \\above{2pt} b+1}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.46563},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.46563},"input":"\\acute e"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.90278},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.90278},"input":"\\text{\\AE}"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.72222},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.72222},"input":"\\text{\\ae}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.61111},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\alef"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.61111},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\alefsym"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.61111},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\aleph"}
+{"box":{"depth":1.25,"height":1.75,"width":5.57028},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.57028},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.57028},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.57028},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.57028},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.57028},"input":"\\begin{aligned} a&=b+c \\\\ d+e&=f \\end{aligned}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.48658},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":5.48658},"input":"\\begin{alignat*}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignat*}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.48658},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":5.48658},"input":"\\begin{alignat*}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignat*}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.48658},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":5.48658},"input":"\\begin{alignedat}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignedat}"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.75},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.75},"input":"\\Alpha"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.6434},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.6434},"input":"\\alpha"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.75},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.75},"input":"\\amalg"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.77778},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\And"}
+{"box":{"depth":0.15576,"height":0.43056,"width":1.13415},"displayList":{"depth":0.36576,"height":0.43056,"itemCount":3,"width":1.13415},"input":"a_{\\angl n}"}
+{"box":{"depth":0.0,"height":0.53056,"width":0.55556},"displayList":{"depth":0.3,"height":0.53056,"itemCount":2,"width":0.55556},"input":"\\angln"}
+{"box":{"depth":0.0,"height":0.0,"width":0.0},"displayList":{"depth":0.0,"height":0.0,"itemCount":0,"width":0.0},"input":"\\allowbreak"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.72222},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.72222},"input":"\\angle"}
+{"box":{"depth":0.0,"height":0.48312,"width":0.77778},"displayList":{"depth":0.0,"height":0.48312,"itemCount":1,"width":0.77778},"input":"\\approx"}
+{"box":{"depth":0.08167,"height":0.58167,"width":0.77778},"displayList":{"depth":0.08167,"height":0.58167,"itemCount":1,"width":0.77778},"input":"\\approxeq"}
+{"box":{"depth":0.0,"height":0.48312,"width":0.98889},"displayList":{"depth":0.0,"height":0.48312,"itemCount":2,"width":0.98889},"input":"\\approxcolon"}
+{"box":{"depth":0.0,"height":0.48312,"width":1.21667},"displayList":{"depth":0.0,"height":0.48312,"itemCount":3,"width":1.21667},"input":"\\approxcoloncolon"}
+{"box":{"depth":0.0,"height":0.43056,"width":2.67502},"displayList":{"depth":0.0,"height":0.43056,"itemCount":6,"width":2.67502},"input":"\\arccos"}
+{"box":{"depth":0.19444,"height":0.61508,"width":2.66946},"displayList":{"depth":0.19444,"height":0.61508,"itemCount":6,"width":2.66946},"input":"\\arcctg"}
+{"box":{"depth":0.0,"height":0.66786,"width":2.56391},"displayList":{"depth":0.0,"height":0.66786,"itemCount":6,"width":2.56391},"input":"\\arcsin"}
+{"box":{"depth":0.0,"height":0.61508,"width":2.78057},"displayList":{"depth":0.0,"height":0.61508,"itemCount":6,"width":2.78057},"input":"\\arctan"}
+{"box":{"depth":0.19444,"height":0.61508,"width":2.22501},"displayList":{"depth":0.19444,"height":0.61508,"itemCount":5,"width":2.22501},"input":"\\arctg"}
+{"box":{"depth":0.19444,"height":0.43056,"width":1.39167},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":3,"width":1.39167},"input":"\\arg"}
+{"box":{"depth":0.19444,"height":0.43056,"width":3.41946},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":6,"width":3.41946},"input":"\\argmax"}
+{"box":{"depth":0.19444,"height":0.66786,"width":3.22502},"displayList":{"depth":0.19444,"height":0.66786,"itemCount":6,"width":3.22502},"input":"\\argmin"}
+{"box":{"depth":0.95,"height":1.45,"width":3.04908},"displayList":{"depth":0.95,"height":1.45,"itemCount":4,"width":3.04908},"input":"\\begin{array}{cc} a & b \\\\ c & d \\end{array}"}
+{"box":{"depth":1.55,"height":2.05,"width":3.04908},"displayList":{"depth":1.55,"height":2.05,"itemCount":4,"width":3.04908},"input":"\\def\\arraystretch{1.5} \\begin{array}{cc} a & b \\\\ c & d \\end{array}"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.5},"displayList":{"depth":0.0,"height":0.46528,"itemCount":1,"width":0.5},"input":"\\ast"}
+{"box":{"depth":0.0,"height":0.46375,"width":0.77778},"displayList":{"depth":0.0,"height":0.46375,"itemCount":1,"width":0.77778},"input":"\\asymp"}
+{"box":{"depth":0.686,"height":1.10756,"width":0.76859},"displayList":{"depth":0.686,"height":1.10756,"itemCount":2,"width":0.76859},"input":"{a \\atop b}"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.42917},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.42917},"input":"\\backepsilon"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.275},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.275},"input":"\\backprime"}
+{"box":{"depth":0.0,"height":0.37788,"width":0.77778},"displayList":{"depth":0.0,"height":0.37788,"itemCount":1,"width":0.77778},"input":"\\backsim"}
+{"box":{"depth":0.0,"height":0.46402,"width":0.77778},"displayList":{"depth":0.0,"height":0.46402,"itemCount":1,"width":0.77778},"input":"\\backsimeq"}
+{"box":{"depth":0.25,"height":0.75,"width":0.5},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.5},"input":"\\backslash"}
+{"box":{"depth":0.19444,"height":0.78056,"width":0.52616},"displayList":{"depth":0.19444,"height":0.78056,"itemCount":2,"width":0.52616},"input":"\\bar{y}"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.61111},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.61111},"input":"\\barwedge"}
+{"box":{"depth":0.0,"height":0.68889,"width":2.11111},"displayList":{"depth":0.0,"height":0.68889,"itemCount":3,"width":2.11111},"input":"\\Bbb{ABC}"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.55556},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.55556},"input":"\\Bbbk"}
+{"box":{"depth":0.0,"height":0.64444,"width":0.5},"displayList":{"depth":0.2,"height":0.84444,"itemCount":2,"width":0.5},"input":"\\bcancel{5}"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.66667},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.66667},"input":"\\because"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.70834},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.70834},"input":"\\Beta"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.61841},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.61841},"input":"\\beta"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.66667},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.66667},"input":"\\beth"}
+{"box":{"depth":0.25583,"height":0.75583,"width":0.5},"displayList":{"depth":0.25583,"height":0.75583,"itemCount":1,"width":0.5},"input":"\\between"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.52859},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.52859},"input":"\\begingroup a \\endgroup"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.0354},"displayList":{"depth":0.0,"height":0.69444,"itemCount":6,"width":4.0354},"input":"\\bf AaBb12"}
+{"box":{"depth":0.35001,"height":0.85,"width":0.91668},"displayList":{"depth":0.35001,"height":0.85,"itemCount":2,"width":0.91668},"input":"\\big(\\big)"}
+{"box":{"depth":0.65002,"height":1.15,"width":1.19444},"displayList":{"depth":0.65002,"height":1.15,"itemCount":2,"width":1.19444},"input":"\\Big(\\Big)"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.11111},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.11111},"input":"\\bigcap"}
+{"box":{"depth":0.19444,"height":0.69444,"width":1.0},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":1.0},"input":"\\bigcirc"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.11111},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.11111},"input":"\\bigcup"}
+{"box":{"depth":0.95003,"height":1.45,"width":1.47222},"displayList":{"depth":0.95003,"height":1.45,"itemCount":2,"width":1.47222},"input":"\\bigg(\\bigg)"}
+{"box":{"depth":1.25003,"height":1.75,"width":1.58334},"displayList":{"depth":1.25003,"height":1.75,"itemCount":2,"width":1.58334},"input":"\\Bigg(\\Bigg)"}
+{"box":{"depth":0.95003,"height":1.45,"width":0.73611},"displayList":{"depth":0.95003,"height":1.45,"itemCount":1,"width":0.73611},"input":"\\biggl("}
+{"box":{"depth":1.25003,"height":1.75,"width":0.79167},"displayList":{"depth":1.25003,"height":1.75,"itemCount":1,"width":0.79167},"input":"\\Biggl("}
+{"box":{"depth":1.19002,"height":1.69002,"width":0.333},"displayList":{"depth":1.19002,"height":1.69002,"itemCount":1,"width":0.333},"input":"\\biggm\\vert"}
+{"box":{"depth":1.45253,"height":1.95253,"width":0.333},"displayList":{"depth":1.45253,"height":1.95253,"itemCount":1,"width":0.333},"input":"\\Biggm\\vert"}
+{"box":{"depth":0.95003,"height":1.45,"width":0.73611},"displayList":{"depth":0.95003,"height":1.45,"itemCount":1,"width":0.73611},"input":"\\biggr)"}
+{"box":{"depth":1.25003,"height":1.75,"width":0.79167},"displayList":{"depth":1.25003,"height":1.75,"itemCount":1,"width":0.79167},"input":"\\Biggr)"}
+{"box":{"depth":0.35001,"height":0.85,"width":0.45834},"displayList":{"depth":0.35001,"height":0.85,"itemCount":1,"width":0.45834},"input":"\\bigl("}
+{"box":{"depth":0.65002,"height":1.15,"width":0.59722},"displayList":{"depth":0.65002,"height":1.15,"itemCount":1,"width":0.59722},"input":"\\Bigl("}
+{"box":{"depth":0.47001,"height":0.97001,"width":0.333},"displayList":{"depth":0.47001,"height":0.97001,"itemCount":1,"width":0.333},"input":"\\bigm\\vert"}
+{"box":{"depth":0.83002,"height":1.33002,"width":0.333},"displayList":{"depth":0.83002,"height":1.33002,"itemCount":1,"width":0.333},"input":"\\Bigm\\vert"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.51112},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.51112},"input":"\\bigodot"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.51112},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.51112},"input":"\\bigoplus"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.51112},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.51112},"input":"\\bigotimes"}
+{"box":{"depth":0.35001,"height":0.85,"width":0.45834},"displayList":{"depth":0.35001,"height":0.85,"itemCount":1,"width":0.45834},"input":"\\bigr)"}
+{"box":{"depth":0.65002,"height":1.15,"width":0.59722},"displayList":{"depth":0.65002,"height":1.15,"itemCount":1,"width":0.59722},"input":"\\Bigr)"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.11111},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.11111},"input":"\\bigsqcup"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.94445},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.94445},"input":"\\bigstar"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.88889},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.88889},"input":"\\bigtriangledown"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.88889},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.88889},"input":"\\bigtriangleup"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.11111},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.11111},"input":"\\biguplus"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.11111},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.11111},"input":"\\bigvee"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.11111},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.11111},"input":"\\bigwedge"}
+{"box":{"depth":0.95003,"height":1.45,"width":2.07245},"displayList":{"depth":0.95003,"height":1.45,"itemCount":4,"width":2.07245},"input":"\\binom n k"}
+{"box":{"depth":0.11111,"height":0.69224,"width":0.66667},"displayList":{"depth":0.11111,"height":0.69224,"itemCount":1,"width":0.66667},"input":"\\blacklozenge"}
+{"box":{"depth":0.0,"height":0.675,"width":0.77778},"displayList":{"depth":0.0,"height":0.675,"itemCount":1,"width":0.77778},"input":"\\blacksquare"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.72222},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.72222},"input":"\\blacktriangle"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.72222},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.72222},"input":"\\blacktriangledown"}
+{"box":{"depth":0.03517,"height":0.54986,"width":0.77778},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\blacktriangleleft"}
+{"box":{"depth":0.03517,"height":0.54986,"width":0.77778},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\blacktriangleright"}
+{"box":{"depth":0.0,"height":0.69444,"width":2.93789},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":2.93789},"input":"\\bm{AaBb}"}
+{"box":{"depth":0.95003,"height":1.45,"width":3.54908},"displayList":{"depth":0.95003,"height":1.45,"itemCount":6,"width":3.54908},"input":"\\begin{Bmatrix} a & b \\\\ c & d \\end{Bmatrix}"}
+{"box":{"depth":0.95003,"height":1.45,"width":5.05556},"displayList":{"depth":0.95003,"height":1.45,"itemCount":8,"width":5.05556},"input":"\\begin{Bmatrix*}[r] 0 & -1 \\\\ -1 & 0 \\end{Bmatrix*}"}
+{"box":{"depth":0.95003,"height":1.45,"width":3.10464},"displayList":{"depth":0.95003,"height":1.45,"itemCount":6,"width":3.10464},"input":"\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}"}
+{"box":{"depth":0.95003,"height":1.45,"width":4.61112},"displayList":{"depth":0.95003,"height":1.45,"itemCount":8,"width":4.61112},"input":"\\begin{bmatrix*}[r] 0 & -1 \\\\ -1 & 0 \\end{bmatrix*}"}
+{"box":{"depth":0.0,"height":0.69444,"width":3.40222},"displayList":{"depth":0.0,"height":0.69444,"itemCount":5,"width":3.40222},"input":"a \\bmod b"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.6104},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":4.6104},"input":"\\bold{AaBb123}"}
+{"box":{"depth":0.0,"height":0.69444,"width":2.93789},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":2.93789},"input":"\\boldsymbol{AaBb}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.77778},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\bot"}
+{"box":{"depth":0.005,"height":0.505,"width":0.9},"displayList":{"depth":0.005,"height":0.505,"itemCount":1,"width":0.9},"input":"\\bowtie"}
+{"box":{"depth":0.0,"height":0.675,"width":0.77778},"displayList":{"depth":0.0,"height":0.675,"itemCount":1,"width":0.77778},"input":"\\Box"}
+{"box":{"depth":0.0,"height":0.675,"width":0.77778},"displayList":{"depth":0.0,"height":0.675,"itemCount":1,"width":0.77778},"input":"\\boxdot"}
+{"box":{"depth":0.34,"height":1.03444,"width":1.63776},"displayList":{"depth":0.34,"height":1.03444,"itemCount":6,"width":1.63776},"input":"\\boxed{ab}"}
+{"box":{"depth":0.0,"height":0.675,"width":0.77778},"displayList":{"depth":0.0,"height":0.675,"itemCount":1,"width":0.77778},"input":"\\boxminus"}
+{"box":{"depth":0.0,"height":0.675,"width":0.77778},"displayList":{"depth":0.0,"height":0.675,"itemCount":1,"width":0.77778},"input":"\\boxplus"}
+{"box":{"depth":0.0,"height":0.675,"width":0.77778},"displayList":{"depth":0.0,"height":0.675,"itemCount":1,"width":0.77778},"input":"\\boxtimes"}
+{"box":{"depth":0.25,"height":0.75,"width":1.35394},"displayList":{"depth":0.25,"height":0.75,"itemCount":3,"width":1.35394},"input":"\\Bra{\\psi}"}
+{"box":{"depth":0.25,"height":0.75,"width":1.35394},"displayList":{"depth":0.25,"height":0.75,"itemCount":3,"width":1.35394},"input":"\\bra{\\psi}"}
+{"box":{"depth":0.25,"height":0.75,"width":2.33866},"displayList":{"depth":0.25,"height":0.75,"itemCount":5,"width":2.33866},"input":"\\braket{\\phi|\\psi}"}
+{"box":{"depth":0.95003,"height":1.49111,"width":5.378},"displayList":{"depth":0.95003,"height":1.49111,"itemCount":12,"width":5.378},"input":"\\Braket{a|\\frac{\\partial^2}{\\partial t^2}|b}"}
+{"box":{"depth":0.95003,"height":1.45,"width":2.10023},"displayList":{"depth":0.95003,"height":1.45,"itemCount":4,"width":2.10023},"input":"{n\\brace k}"}
+{"box":{"depth":0.95003,"height":1.45,"width":1.65579},"displayList":{"depth":0.95003,"height":1.45,"itemCount":4,"width":1.65579},"input":"{n\\brack k}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.03809},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.03809},"input":"\\breve{eu}"}
+{"box":{"depth":0.0,"height":0.44445,"width":0.5},"displayList":{"depth":0.0,"height":0.44445,"itemCount":1,"width":0.5},"input":"\\bull"}
+{"box":{"depth":0.0,"height":0.44445,"width":0.5},"displayList":{"depth":0.0,"height":0.44445,"itemCount":1,"width":0.5},"input":"\\bullet"}
+{"box":{"depth":0.06062,"height":0.54986,"width":0.77778},"displayList":{"depth":0.06062,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\Bumpeq"}
+{"box":{"depth":0.06062,"height":0.54986,"width":0.77778},"displayList":{"depth":0.06062,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\bumpeq"}
+{"box":{"depth":0.0,"height":0.69444,"width":3.94345},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":3.94345},"input":"\\cal AaBb123"}
+{"box":{"depth":0.0,"height":0.64444,"width":0.5},"displayList":{"depth":0.2,"height":0.84444,"itemCount":2,"width":0.5},"input":"\\cancel{5}"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.66667},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.66667},"input":"\\Cap"}
+{"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\cap"}
+{"box":{"depth":1.25003,"height":1.75,"width":3.68798},"displayList":{"depth":1.25003,"height":1.75,"itemCount":9,"width":3.68798},"input":"\\begin{cases} a &\\text{if } b \\\\ c &\\text{if } d \\end{cases}"}
+{"box":{"depth":2.40215,"height":2.90215,"width":5.86735},"displayList":{"depth":2.40215,"height":2.90215,"itemCount":11,"width":5.86735},"input":"\\begin{CD} A @>a>> B \\\\ @VbVV @AAcA \\\\ C @= D \\end{CD}"}
+{"box":{"depth":0.0,"height":0.44445,"width":0.27778},"displayList":{"depth":0.0,"height":0.44445,"itemCount":1,"width":0.27778},"input":"\\cdot"}
+{"box":{"depth":0.0,"height":0.44445,"width":0.27778},"displayList":{"depth":0.0,"height":0.44445,"itemCount":1,"width":0.27778},"input":"\\cdotp"}
+{"box":{"depth":0.0,"height":0.313,"width":1.172},"displayList":{"depth":0.0,"height":0.313,"itemCount":1,"width":1.172},"input":"\\cdots"}
+{"box":{"depth":0.15,"height":0.68333,"width":5.3},"displayList":{"depth":0.15,"height":0.68333,"itemCount":8,"width":5.3},"input":"\\ce{C6H5-CHO}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.67998},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.67998},"input":"a\\centerdot b"}
+{"box":{"depth":3.646,"height":1.59,"width":4.30445},"displayList":{"depth":3.646,"height":1.59,"itemCount":11,"width":4.30445},"input":"\\cfrac{2}{1+\\cfrac{2}{1+\\cfrac{2}{1}}}"}
+{"box":{"depth":0.0,"height":0.92,"width":1.0},"displayList":{"depth":0.0,"height":0.92,"itemCount":1,"width":1.0},"input":"\\char\"263a"}
+{"box":{"depth":0.0,"height":0.62847,"width":0.95035},"displayList":{"depth":0.0,"height":0.62847,"itemCount":3,"width":0.95035},"input":"\\check{oe}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.00001},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.00001},"input":"\\ch"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.83334},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.83334},"input":"\\checkmark"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.75},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.75},"input":"\\Chi"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.62569},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.62569},"input":"\\chi"}
+{"box":{"depth":0.95003,"height":1.45,"width":3.79467},"displayList":{"depth":0.95003,"height":1.45,"itemCount":8,"width":3.79467},"input":"{n+1 \\choose k+2}"}
+{"box":{"depth":0.0,"height":0.44445,"width":0.5},"displayList":{"depth":0.0,"height":0.44445,"itemCount":1,"width":0.5},"input":"\\circ"}
+{"box":{"depth":0.22958,"height":0.72958,"width":0.77778},"displayList":{"depth":0.22958,"height":0.72958,"itemCount":1,"width":0.77778},"input":"\\circeq"}
+{"box":{"depth":0.08198,"height":0.58198,"width":0.77778},"displayList":{"depth":0.08198,"height":0.58198,"itemCount":1,"width":0.77778},"input":"\\circlearrowleft"}
+{"box":{"depth":0.08198,"height":0.58198,"width":0.77778},"displayList":{"depth":0.08198,"height":0.58198,"itemCount":1,"width":0.77778},"input":"\\circlearrowright"}
+{"box":{"depth":0.08198,"height":0.58198,"width":0.77778},"displayList":{"depth":0.08198,"height":0.58198,"itemCount":1,"width":0.77778},"input":"\\circledast"}
+{"box":{"depth":0.08198,"height":0.58198,"width":0.77778},"displayList":{"depth":0.08198,"height":0.58198,"itemCount":1,"width":0.77778},"input":"\\circledcirc"}
+{"box":{"depth":0.08198,"height":0.58198,"width":0.77778},"displayList":{"depth":0.08198,"height":0.58198,"itemCount":1,"width":0.77778},"input":"\\circleddash"}
+{"box":{"depth":0.15559,"height":0.69224,"width":0.94666},"displayList":{"depth":0.15559,"height":0.69224,"itemCount":1,"width":0.94666},"input":"\\circledR"}
+{"box":{"depth":0.15559,"height":0.69224,"width":0.90222},"displayList":{"depth":0.15559,"height":0.69224,"itemCount":1,"width":0.90222},"input":"\\circledS"}
+{"box":{"depth":0.12963,"height":0.69444,"width":0.77778},"displayList":{"depth":0.12963,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\clubs"}
+{"box":{"depth":0.12963,"height":0.69444,"width":0.77778},"displayList":{"depth":0.12963,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\clubsuit"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.72222},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.72222},"input":"\\cnums"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.72222},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.72222},"input":"\\colon"}
+{"box":{"depth":0.0,"height":0.48312,"width":1.21667},"displayList":{"depth":0.0,"height":0.48312,"itemCount":3,"width":1.21667},"input":"\\Colonapprox"}
+{"box":{"depth":0.0,"height":0.48312,"width":0.98889},"displayList":{"depth":0.0,"height":0.48312,"itemCount":2,"width":0.98889},"input":"\\colonapprox"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.50556},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.50556},"input":"\\coloncolon"}
+{"box":{"depth":0.0,"height":0.48312,"width":1.21667},"displayList":{"depth":0.0,"height":0.48312,"itemCount":3,"width":1.21667},"input":"\\coloncolonapprox"}
+{"box":{"depth":0.0,"height":0.46528,"width":1.21667},"displayList":{"depth":0.0,"height":0.46528,"itemCount":3,"width":1.21667},"input":"\\coloncolonequals"}
+{"box":{"depth":0.08333,"height":0.58333,"width":1.21667},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":3,"width":1.21667},"input":"\\coloncolonminus"}
+{"box":{"depth":0.0,"height":0.46528,"width":1.21667},"displayList":{"depth":0.0,"height":0.46528,"itemCount":3,"width":1.21667},"input":"\\coloncolonsim"}
+{"box":{"depth":0.08333,"height":0.58333,"width":1.21667},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":3,"width":1.21667},"input":"\\Coloneq"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.98889},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":2,"width":0.98889},"input":"\\coloneq"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.98889},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.98889},"input":"\\colonequals"}
+{"box":{"depth":0.0,"height":0.46528,"width":1.21667},"displayList":{"depth":0.0,"height":0.46528,"itemCount":3,"width":1.21667},"input":"\\Coloneqq"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.98889},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.98889},"input":"\\coloneqq"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.98889},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":2,"width":0.98889},"input":"\\colonminus"}
+{"box":{"depth":0.0,"height":0.46528,"width":1.21667},"displayList":{"depth":0.0,"height":0.46528,"itemCount":3,"width":1.21667},"input":"\\Colonsim"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.98889},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.98889},"input":"\\colonsim"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.01644},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":4.01644},"input":"\\color{#0000FF} AaBb123"}
+{"box":{"depth":0.3,"height":0.99444,"width":6.00559},"displayList":{"depth":0.3,"height":0.99444,"itemCount":11,"width":6.00559},"input":"\\colorbox{red}{Black on red}"}
+{"box":{"depth":0.0,"height":0.825,"width":0.5},"displayList":{"depth":0.0,"height":0.825,"itemCount":1,"width":0.5},"input":"\\complement"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.72222},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.72222},"input":"\\Complex"}
+{"box":{"depth":0.0,"height":0.589,"width":0.778},"displayList":{"depth":0.0,"height":0.589,"itemCount":1,"width":0.778},"input":"\\cong"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.27778},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.27778},"input":"\\coprod"}
+{"box":{"depth":0.13472,"height":0.56528,"width":0.7},"displayList":{"depth":0.13472,"height":0.56528,"itemCount":2,"width":0.7},"input":"\\copyright"}
+{"box":{"depth":0.0,"height":0.43056,"width":1.3389},"displayList":{"depth":0.0,"height":0.43056,"itemCount":3,"width":1.3389},"input":"\\cos"}
+{"box":{"depth":0.0,"height":0.43056,"width":2.2278},"displayList":{"depth":0.0,"height":0.43056,"itemCount":5,"width":2.2278},"input":"\\cosec"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.89446},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":1.89446},"input":"\\cosh"}
+{"box":{"depth":0.0,"height":0.61508,"width":1.33334},"displayList":{"depth":0.0,"height":0.61508,"itemCount":3,"width":1.33334},"input":"\\cot"}
+{"box":{"depth":0.19444,"height":0.61508,"width":1.83334},"displayList":{"depth":0.19444,"height":0.61508,"itemCount":4,"width":1.83334},"input":"\\cotg"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.8889},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":1.8889},"input":"\\coth"}
+{"box":{"depth":0.95,"height":1.45,"width":2.04908},"displayList":{"depth":0.95,"height":1.45,"itemCount":4,"width":2.04908},"input":"\\begin{matrix} a & b \\cr c & d \\end{matrix}"}
+{"box":{"depth":0.0,"height":0.43056,"width":1.28335},"displayList":{"depth":0.0,"height":0.43056,"itemCount":3,"width":1.28335},"input":"\\csc"}
+{"box":{"depth":0.19444,"height":0.61508,"width":1.33334},"displayList":{"depth":0.19444,"height":0.61508,"itemCount":3,"width":1.33334},"input":"\\ctg"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.3889},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.3889},"input":"\\cth"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.66667},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.66667},"input":"\\Cup"}
+{"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\cup"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\curlyeqprec"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\curlyeqsucc"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.76042},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.76042},"input":"\\curlyvee"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.76042},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.76042},"input":"\\curlywedge"}
+{"box":{"depth":0.0,"height":0.43056,"width":1.0},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":1.0},"input":"\\curvearrowleft"}
+{"box":{"depth":0.0,"height":0.43056,"width":1.0},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":1.0},"input":"\\curvearrowright"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.44445},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.44445},"input":"\\dag"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.44445},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.44445},"input":"\\Dagger"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.44445},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.44445},"input":"\\dagger"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.66667},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.66667},"input":"\\daleth"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.61111},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\Darr"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.61111},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\dArr"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.5},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.5},"input":"\\darr"}
+{"box":{"depth":0.95,"height":1.45,"width":3.04908},"displayList":{"depth":0.95,"height":1.45,"itemCount":4,"width":3.04908},"input":"\\begin{darray}{cc} a & b \\\\ c & d \\end{darray}"}
+{"box":{"depth":0.0,"height":0.437,"width":1.334},"displayList":{"depth":0.0,"height":0.437,"itemCount":1,"width":1.334},"input":"\\dashleftarrow"}
+{"box":{"depth":0.0,"height":0.437,"width":1.334},"displayList":{"depth":0.0,"height":0.437,"itemCount":1,"width":1.334},"input":"\\dashrightarrow"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.61111},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\dashv"}
+{"box":{"depth":0.95003,"height":1.45,"width":2.07245},"displayList":{"depth":0.95003,"height":1.45,"itemCount":4,"width":2.07245},"input":"\\dbinom n k"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.50556},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.50556},"input":"\\dblcolon"}
+{"box":{"depth":1.25003,"height":1.75,"width":3.68798},"displayList":{"depth":1.25003,"height":1.75,"itemCount":9,"width":3.68798},"input":"\\begin{dcases} a &\\text{if } b \\\\ c &\\text{if } d \\end{dcases}"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.44445},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.44445},"input":"\\ddag"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.44445},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.44445},"input":"\\ddagger"}
+{"box":{"depth":0.0,"height":0.79302,"width":1.11112},"displayList":{"depth":0.0,"height":0.79302,"itemCount":5,"width":1.11112},"input":"\\ddddot x"}
+{"box":{"depth":0.0,"height":0.79302,"width":0.83334},"displayList":{"depth":0.0,"height":0.79302,"itemCount":4,"width":0.83334},"input":"\\dddot x"}
+{"box":{"depth":0.0,"height":0.78056,"width":0.57153},"displayList":{"depth":0.0,"height":0.78056,"itemCount":2,"width":0.57153},"input":"\\ddot x"}
+{"box":{"depth":0.0,"height":0.823,"width":1.282},"displayList":{"depth":0.0,"height":0.823,"itemCount":1,"width":1.282},"input":"\\ddots"}
+{"box":{"depth":0.08333,"height":0.86411,"width":3.16528},"displayList":{"depth":0.08333,"height":0.86411,"itemCount":5,"width":3.16528},"input":"\\def\\foo{x^2} \\foo + \\foo"}
+{"box":{"depth":0.19444,"height":0.69444,"width":1.50001},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":3,"width":1.50001},"input":"\\deg"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.75},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.75},"input":"\\degree"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.48229},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.48229},"input":"\\delta"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.83334},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.83334},"input":"\\Delta"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.3889},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.3889},"input":"\\det"}
+{"box":{"depth":0.08167,"height":0.58167,"width":0.77778},"displayList":{"depth":0.08167,"height":0.58167,"itemCount":1,"width":0.77778},"input":"\\digamma"}
+{"box":{"depth":0.76933,"height":1.32144,"width":2.49081},"displayList":{"depth":0.76933,"height":1.32144,"itemCount":7,"width":2.49081},"input":"\\dfrac{a-1}{b-1}"}
+{"box":{"depth":0.19444,"height":0.74111,"width":0.88889},"displayList":{"depth":0.19444,"height":0.74111,"itemCount":1,"width":0.88889},"input":"\\diagdown"}
+{"box":{"depth":0.19444,"height":0.68889,"width":0.88889},"displayList":{"depth":0.19444,"height":0.68889,"itemCount":1,"width":0.88889},"input":"\\diagup"}
+{"box":{"depth":0.11111,"height":0.69224,"width":0.66667},"displayList":{"depth":0.11111,"height":0.69224,"itemCount":1,"width":0.66667},"input":"\\Diamond"}
+{"box":{"depth":0.0,"height":0.44445,"width":0.5},"displayList":{"depth":0.0,"height":0.44445,"itemCount":1,"width":0.5},"input":"\\diamond"}
+{"box":{"depth":0.12963,"height":0.69444,"width":0.77778},"displayList":{"depth":0.12963,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\diamonds"}
+{"box":{"depth":0.12963,"height":0.69444,"width":0.77778},"displayList":{"depth":0.12963,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\diamondsuit"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.66668},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.66668},"input":"\\dim"}
+{"box":{"depth":1.34711,"height":1.7314,"width":1.44445},"displayList":{"depth":1.34711,"height":1.7314,"itemCount":3,"width":1.44445},"input":"\\displaystyle\\sum_0^n"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":1,"width":0.77778},"input":"\\div"}
+{"box":{"depth":0.08167,"height":0.58167,"width":0.77778},"displayList":{"depth":0.08167,"height":0.58167,"itemCount":1,"width":0.77778},"input":"\\divideontimes"}
+{"box":{"depth":0.0,"height":0.78056,"width":0.57153},"displayList":{"depth":0.0,"height":0.78056,"itemCount":2,"width":0.57153},"input":"\\dot x"}
+{"box":{"depth":0.08198,"height":0.58198,"width":0.77778},"displayList":{"depth":0.08198,"height":0.58198,"itemCount":1,"width":0.77778},"input":"\\Doteq"}
+{"box":{"depth":0.0,"height":0.673,"width":0.778},"displayList":{"depth":0.0,"height":0.673,"itemCount":1,"width":0.778},"input":"\\doteq"}
+{"box":{"depth":0.08198,"height":0.58198,"width":0.77778},"displayList":{"depth":0.08198,"height":0.58198,"itemCount":1,"width":0.77778},"input":"\\doteqdot"}
+{"box":{"depth":0.08198,"height":0.69224,"width":0.77778},"displayList":{"depth":0.08198,"height":0.69224,"itemCount":1,"width":0.77778},"input":"\\dotplus"}
+{"box":{"depth":0.15,"height":0.58333,"width":5.62967},"displayList":{"depth":0.15,"height":0.58333,"itemCount":7,"width":5.62967},"input":"x_1 + \\dots + x_n"}
+{"box":{"depth":0.15,"height":0.58333,"width":5.62967},"displayList":{"depth":0.15,"height":0.58333,"itemCount":7,"width":5.62967},"input":"x_1 +\\dotsb + x_n"}
+{"box":{"depth":0.19444,"height":0.43056,"width":3.32525},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":5,"width":3.32525},"input":"x,\\dotsc,y"}
+{"box":{"depth":1.01093,"height":1.36113,"width":4.25534},"displayList":{"depth":1.01093,"height":1.36113,"itemCount":7,"width":4.25534},"input":"\\int_{A_1}\\int_{A_2}\\dotsi"}
+{"box":{"depth":0.15,"height":0.43056,"width":4.49008},"displayList":{"depth":0.15,"height":0.43056,"itemCount":7,"width":4.49008},"input":"x_1 x_2 \\dotsm x_n"}
+{"box":{"depth":0.0,"height":0.123,"width":1.172},"displayList":{"depth":0.0,"height":0.123,"itemCount":1,"width":1.172},"input":"\\dotso"}
+{"box":{"depth":0.19444,"height":0.75583,"width":0.61111},"displayList":{"depth":0.19444,"height":0.75583,"itemCount":1,"width":0.61111},"input":"\\doublebarwedge"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.66667},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.66667},"input":"\\doublecap"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.66667},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.66667},"input":"\\doublecup"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.61111},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\Downarrow"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.5},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.5},"input":"\\downarrow"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.83334},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.83334},"input":"\\downdownarrows"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.41667},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.41667},"input":"\\downharpoonleft"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.41667},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.41667},"input":"\\downharpoonright"}
+{"box":{"depth":1.25003,"height":1.75,"width":3.68798},"displayList":{"depth":1.25003,"height":1.75,"itemCount":9,"width":3.68798},"input":"\\begin{drcases} a &\\text{if } b \\\\ c &\\text{if } d \\end{drcases}"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.52859},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.52859},"input":"\\def\\foo{a}\\edef\\fcopy{\\foo}\\def\\foo{}\\fcopy"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.41667},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.41667},"input":"\\ell"}
+{"box":{"depth":0.19444,"height":0.69444,"width":6.91999},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":14,"width":6.91999},"input":"\\emph{nested \\emph{emphasis}}"}
+{"box":{"depth":0.05556,"height":0.75,"width":0.5},"displayList":{"depth":0.05556,"height":0.75,"itemCount":1,"width":0.5},"input":"\\empty"}
+{"box":{"depth":0.05556,"height":0.75,"width":0.5},"displayList":{"depth":0.05556,"height":0.75,"itemCount":1,"width":0.5},"input":"\\emptyset"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.45776},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.45776},"input":"a\\enspace b"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.68056},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.68056},"input":"\\Epsilon"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.4059},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.4059},"input":"\\epsilon"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.77778},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.77778},"input":"\\eqcirc"}
+{"box":{"depth":0.08333,"height":0.58333,"width":1.21667},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":3,"width":1.21667},"input":"\\Eqcolon"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.98889},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":2,"width":0.98889},"input":"\\eqcolon"}
+{"box":{"depth":0.35,"height":0.85,"width":3.94608},"displayList":{"depth":0.35,"height":0.85,"itemCount":5,"width":3.94608},"input":"\\begin{equation*} a = b + c \\end{equation*}"}
+{"box":{"depth":0.35,"height":0.85,"width":3.94608},"displayList":{"depth":0.35,"height":0.85,"itemCount":5,"width":3.94608},"input":"\\begin{equation*} a = b + c \\end{equation*}"}
+{"box":{"depth":0.0,"height":0.46528,"width":1.21667},"displayList":{"depth":0.0,"height":0.46528,"itemCount":3,"width":1.21667},"input":"\\Eqqcolon"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.98889},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.98889},"input":"\\eqqcolon"}
+{"box":{"depth":0.0,"height":0.46375,"width":0.77778},"displayList":{"depth":0.0,"height":0.46375,"itemCount":1,"width":0.77778},"input":"\\eqsim"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\eqslantgtr"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\eqslantless"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.98889},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.98889},"input":"\\equalscolon"}
+{"box":{"depth":0.0,"height":0.46528,"width":1.21667},"displayList":{"depth":0.0,"height":0.46528,"itemCount":3,"width":1.21667},"input":"\\equalscoloncolon"}
+{"box":{"depth":0.0,"height":0.46375,"width":0.77778},"displayList":{"depth":0.0,"height":0.46375,"itemCount":1,"width":0.77778},"input":"\\equiv"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.75},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.75},"input":"\\Eta"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.53241},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.53241},"input":"\\eta"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.55556},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.55556},"input":"\\eth"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.55556},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.55556},"input":"\\exist"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.55556},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.55556},"input":"\\exists"}
+{"box":{"depth":0.19444,"height":0.43056,"width":1.52779},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":3,"width":1.52779},"input":"\\exp"}
+{"box":{"depth":0.08198,"height":0.58198,"width":0.77778},"displayList":{"depth":0.08198,"height":0.58198,"itemCount":1,"width":0.77778},"input":"\\fallingdotseq"}
+{"box":{"depth":0.34,"height":1.03444,"width":4.46058},"displayList":{"depth":0.34,"height":1.03444,"itemCount":12,"width":4.46058},"input":"\\fbox{Hi there!}"}
+{"box":{"depth":0.34,"height":1.02333,"width":1.43},"displayList":{"depth":0.34,"height":1.02333,"itemCount":6,"width":1.43},"input":"\\fcolorbox{red}{aqua}{A}"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.55556},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.55556},"input":"\\Finv"}
+{"box":{"depth":0.0,"height":0.75,"width":0.38889},"displayList":{"depth":0.0,"height":0.75,"itemCount":1,"width":0.38889},"input":"\\flat"}
+{"box":{"depth":0.15555,"height":0.55555,"width":4.50191},"displayList":{"depth":0.15555,"height":0.55555,"itemCount":12,"width":4.50191},"input":"\\footnotesize footnotesize"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.55556},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.55556},"input":"\\forall"}
+{"box":{"depth":0.686,"height":1.10756,"width":0.76859},"displayList":{"depth":0.686,"height":1.10756,"itemCount":3,"width":0.76859},"input":"\\frac a b"}
+{"box":{"depth":0.0,"height":0.69141,"width":2.61518},"displayList":{"depth":0.0,"height":0.69141,"itemCount":4,"width":2.61518},"input":"\\frak{AaBb}"}
+{"box":{"depth":0.0,"height":0.35764,"width":1.0},"displayList":{"depth":0.0,"height":0.35764,"itemCount":1,"width":1.0},"input":"\\frown"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.63889},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.63889},"input":"\\Game"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.625},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.625},"input":"\\Gamma"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.57329},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.57329},"input":"\\gamma"}
+{"box":{"depth":1.25,"height":1.75,"width":3.88312},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":3.88312},"input":"\\begin{gather*} a=b \\\\ e=b+c \\end{gather*}"}
+{"box":{"depth":1.25,"height":1.75,"width":3.88312},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":3.88312},"input":"\\begin{gathered} a=b \\\\ e=b+c \\end{gathered}"}
+{"box":{"depth":0.19444,"height":0.69444,"width":1.50001},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":3,"width":1.50001},"input":"\\gcd"}
+{"box":{"depth":0.19444,"height":0.86411,"width":3.07454},"displayList":{"depth":0.19444,"height":0.86411,"itemCount":5,"width":3.07454},"input":"\\gdef\\sqr#1{#1^2} \\sqr{y} + \\sqr{y}"}
+{"box":{"depth":0.25,"height":0.75,"width":2.33866},"displayList":{"depth":0.25,"height":0.75,"itemCount":5,"width":2.33866},"input":"\\gdef\\VERT{|} \\braket{\\phi\\VERT\\psi}"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\ge"}
+{"box":{"depth":1.17777,"height":1.45,"width":3.5147},"displayList":{"depth":1.17777,"height":1.45,"itemCount":7,"width":3.5147},"input":"\\genfrac ( ] {2pt}{0}a{a+1}"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\geq"}
+{"box":{"depth":0.25583,"height":0.75583,"width":0.77778},"displayList":{"depth":0.25583,"height":0.75583,"itemCount":1,"width":0.77778},"input":"\\geqq"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\geqslant"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\gets"}
+{"box":{"depth":0.0391,"height":0.5391,"width":1.0},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":1.0},"input":"\\gg"}
+{"box":{"depth":0.03517,"height":0.54986,"width":1.33334},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":1.33334},"input":"\\ggg"}
+{"box":{"depth":0.03517,"height":0.54986,"width":1.33334},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":1.33334},"input":"\\gggtr"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.44445},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.44445},"input":"\\gimel"}
+{"box":{"depth":0.08333,"height":0.64444,"width":2.22222},"displayList":{"depth":0.08333,"height":0.64444,"itemCount":3,"width":2.22222},"input":"\\global\\def\\add#1#2{#1+#2} \\add 2 3"}
+{"box":{"depth":0.26167,"height":0.75726,"width":0.77778},"displayList":{"depth":0.26167,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\gnapprox"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\gneq"}
+{"box":{"depth":0.25142,"height":0.75726,"width":0.77778},"displayList":{"depth":0.25142,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\gneqq"}
+{"box":{"depth":0.23222,"height":0.74111,"width":0.77778},"displayList":{"depth":0.23222,"height":0.74111,"itemCount":1,"width":0.77778},"input":"\\gnsim"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.03809},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.03809},"input":"\\grave{eu}"}
+{"box":{"depth":0.0391,"height":0.69444,"width":2.2911},"displayList":{"depth":0.0391,"height":0.69444,"itemCount":3,"width":2.2911},"input":"a \\gt b"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.77778},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.77778},"input":"\\gtrdot"}
+{"box":{"depth":0.25583,"height":0.75583,"width":0.77778},"displayList":{"depth":0.25583,"height":0.75583,"itemCount":1,"width":0.77778},"input":"\\gtrapprox"}
+{"box":{"depth":0.38569,"height":0.88569,"width":0.77778},"displayList":{"depth":0.38569,"height":0.88569,"itemCount":1,"width":0.77778},"input":"\\gtreqless"}
+{"box":{"depth":0.48256,"height":0.98256,"width":0.77778},"displayList":{"depth":0.48256,"height":0.98256,"itemCount":1,"width":0.77778},"input":"\\gtreqqless"}
+{"box":{"depth":0.1808,"height":0.675,"width":0.77778},"displayList":{"depth":0.1808,"height":0.675,"itemCount":1,"width":0.77778},"input":"\\gtrless"}
+{"box":{"depth":0.22958,"height":0.72958,"width":0.77778},"displayList":{"depth":0.22958,"height":0.72958,"itemCount":1,"width":0.77778},"input":"\\gtrsim"}
+{"box":{"depth":0.25142,"height":0.75726,"width":0.77778},"displayList":{"depth":0.25142,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\gvertneqq"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.5},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.5},"input":"\\text{\\H{a}}"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\Harr"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\hArr"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\harr"}
+{"box":{"depth":0.0,"height":0.95788,"width":0.49722},"displayList":{"depth":0.0,"height":0.95788,"itemCount":2,"width":0.49722},"input":"\\hat{\\theta}"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.54028},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.54028},"input":"\\hbar"}
+{"box":{"depth":0.0,"height":0.81411,"width":0.97153},"displayList":{"depth":0.0,"height":0.81411,"itemCount":2,"width":0.97153},"input":"\\hbox{$x^2$}"}
+{"box":{"depth":0.95,"height":1.45,"width":2.04908},"displayList":{"depth":0.95,"height":1.45,"itemCount":5,"width":2.04908},"input":"\\begin{matrix} a & b \\\\ \\hdashline c & d \\end{matrix}"}
+{"box":{"depth":0.12963,"height":0.69444,"width":0.77778},"displayList":{"depth":0.12963,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\hearts"}
+{"box":{"depth":0.12963,"height":0.69444,"width":0.77778},"displayList":{"depth":0.12963,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\heartsuit"}
+{"box":{"depth":0.95,"height":1.45,"width":2.04908},"displayList":{"depth":0.95,"height":1.45,"itemCount":5,"width":2.04908},"input":"\\begin{matrix} a & b \\\\ \\hline c & d \\end{matrix}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.8889},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.8889},"input":"\\hom"}
+{"box":{"depth":0.011,"height":0.511,"width":1.126},"displayList":{"depth":0.011,"height":0.511,"itemCount":1,"width":1.126},"input":"\\hookleftarrow"}
+{"box":{"depth":0.011,"height":0.511,"width":1.126},"displayList":{"depth":0.011,"height":0.511,"itemCount":1,"width":1.126},"input":"\\hookrightarrow"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.91101},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.91101},"input":"a\\hphantom{bc}d"}
+{"box":{"depth":0.3355,"height":0.68833,"width":2.84386},"displayList":{"depth":0.3355,"height":0.68833,"itemCount":6,"width":2.84386},"input":"\\href{https://katex.org/}{\\KaTeX}"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.60783},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":4.60783},"input":"w\\hskip1em i\\hskip2em d"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.54028},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.54028},"input":"\\hslash"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.03783},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":4.03783},"input":"s\\hspace{7ex} k"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.57153},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.57153},"input":"\\htmlClass{foo}{x}"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.57153},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.57153},"input":"\\htmlData{foo=a, bar=b}{x}"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.57153},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.57153},"input":"\\htmlId{bar}{x}"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.57153},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.57153},"input":"\\htmlStyle{color: red;}{x}"}
+{"box":{"depth":0.40327,"height":1.44027,"width":4.41161},"displayList":{"depth":0.40327,"height":1.44027,"itemCount":4,"width":4.41161},"input":"\\huge huge"}
+{"box":{"depth":0.48377,"height":1.70013,"width":6.12904},"displayList":{"depth":0.48377,"height":1.70013,"itemCount":4,"width":6.12904},"input":"\\Huge Huge"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.27778},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.27778},"input":"\\text{\\i}"}
+{"box":{"depth":0.024,"height":0.68333,"width":4.52779},"displayList":{"depth":0.024,"height":0.68333,"itemCount":3,"width":4.52779},"input":"A\\iff B"}
+{"box":{"depth":0.862,"height":1.36,"width":2.03645},"displayList":{"depth":0.862,"height":1.36,"itemCount":1,"width":2.03645},"input":"\\iiint"}
+{"box":{"depth":0.862,"height":1.36,"width":1.52845},"displayList":{"depth":0.862,"height":1.36,"itemCount":1,"width":1.52845},"input":"\\iint"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.72222},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.72222},"input":"\\Im"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.72222},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.72222},"input":"\\image"}
+{"box":{"depth":0.0,"height":0.375,"width":0.7},"displayList":{"depth":0.0,"height":0.375,"itemCount":3,"width":0.7},"input":"\\imageof"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.32246},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.32246},"input":"\\imath"}
+{"box":{"depth":0.19444,"height":0.68333,"width":4.29157},"displayList":{"depth":0.19444,"height":0.68333,"itemCount":3,"width":4.29157},"input":"P\\impliedby Q"}
+{"box":{"depth":0.19444,"height":0.68333,"width":4.32057},"displayList":{"depth":0.19444,"height":0.68333,"itemCount":3,"width":4.32057},"input":"P\\implies Q"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.66667},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.66667},"input":"\\in"}
+{"error":true,"input":"\\includegraphics[height=0.8em, totalheight=0.9em, width=0.9em, alt=KA logo]{https://cdn.kastatic.org/images/apple-touch-icon-57x57-precomposed.new.png}","message":"ParseError at position 0: Undefined control sequence: \\includegraphics"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.1389},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.1389},"input":"\\inf"}
+{"box":{"depth":0.0,"height":0.43056,"width":1.0},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":1.0},"input":"\\infin"}
+{"box":{"depth":0.0,"height":0.43056,"width":1.0},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":1.0},"input":"\\infty"}
+{"box":{"depth":0.19444,"height":0.69444,"width":2.69447},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":6,"width":2.69447},"input":"\\injlim"}
+{"box":{"depth":0.86113,"height":1.36113,"width":1.00001},"displayList":{"depth":0.86225,"height":1.36113,"itemCount":1,"width":1.00001},"input":"\\int"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.55556},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.55556},"input":"\\intercal"}
+{"box":{"depth":0.86113,"height":1.36113,"width":1.00001},"displayList":{"depth":0.86225,"height":1.36113,"itemCount":1,"width":1.00001},"input":"\\intop"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.36111},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.36111},"input":"\\Iota"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.35394},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.35394},"input":"\\iota"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.66667},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.66667},"input":"\\isin"}
+{"box":{"depth":0.0,"height":0.69444,"width":2.51644},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":2.51644},"input":"{\\it AaBb}"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.30556},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.30556},"input":"\\text{\\j}"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.38403},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.38403},"input":"\\jmath"}
+{"box":{"depth":0.005,"height":0.505,"width":0.9},"displayList":{"depth":0.005,"height":0.505,"itemCount":1,"width":0.9},"input":"\\Join"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.77778},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.77778},"input":"\\Kappa"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.57616},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.57616},"input":"\\kappa"}
+{"box":{"depth":0.2155,"height":0.68833,"width":2.84386},"displayList":{"depth":0.2155,"height":0.68833,"itemCount":5,"width":2.84386},"input":"\\KaTeX"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.3639},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.3639},"input":"\\ker"}
+{"box":{"depth":0.0,"height":0.68333,"width":1.03507},"displayList":{"depth":0.0,"height":0.68333,"itemCount":2,"width":1.03507},"input":"I\\kern-2.5pt R"}
+{"box":{"depth":0.25,"height":0.75,"width":1.35394},"displayList":{"depth":0.25,"height":0.75,"itemCount":3,"width":1.35394},"input":"\\Ket{\\psi}"}
+{"box":{"depth":0.25,"height":0.75,"width":1.35394},"displayList":{"depth":0.25,"height":0.75,"itemCount":3,"width":1.35394},"input":"\\ket{\\psi}"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.69445},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.69445},"input":"\\Lambda"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.58334},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.58334},"input":"\\lambda"}
+{"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\land"}
+{"box":{"depth":0.25,"height":0.75,"width":1.52778},"displayList":{"depth":0.25,"height":0.75,"itemCount":3,"width":1.52778},"input":"\\lang A\\rangle"}
+{"box":{"depth":0.25,"height":0.75,"width":1.52778},"displayList":{"depth":0.25,"height":0.75,"itemCount":3,"width":1.52778},"input":"\\langle A\\rangle"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\Larr"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\lArr"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\larr"}
+{"box":{"depth":0.23333,"height":0.83333,"width":2.76488},"displayList":{"depth":0.23333,"height":0.83333,"itemCount":5,"width":2.76488},"input":"\\large large"}
+{"box":{"depth":0.27999,"height":0.984,"width":3.83986},"displayList":{"depth":0.27999,"height":0.984,"itemCount":5,"width":3.83986},"input":"\\Large Large"}
+{"box":{"depth":0.0,"height":1.18079,"width":6.53127},"displayList":{"depth":0.0,"height":1.18079,"itemCount":5,"width":6.53127},"input":"\\LARGE LARGE"}
+{"box":{"depth":0.2155,"height":0.68833,"width":2.50108},"displayList":{"depth":0.2155,"height":0.68833,"itemCount":5,"width":2.50108},"input":"\\LaTeX"}
+{"box":{"depth":0.25,"height":0.75,"width":0.6},"displayList":{"depth":0.25,"height":0.75,"itemCount":2,"width":0.6},"input":"\\lBrace"}
+{"box":{"depth":0.25,"height":0.75,"width":0.5},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.5},"input":"\\lbrace"}
+{"box":{"depth":0.25,"height":0.75,"width":0.27778},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.27778},"input":"\\lbrack"}
+{"box":{"depth":0.25,"height":0.75,"width":0.44445},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.44445},"input":"\\lceil"}
+{"box":{"depth":0.0,"height":0.10556,"width":0.27778},"displayList":{"depth":0.0,"height":0.10556,"itemCount":1,"width":0.27778},"input":"\\ldotp"}
+{"box":{"depth":0.0,"height":0.123,"width":1.172},"displayList":{"depth":0.0,"height":0.123,"itemCount":1,"width":1.172},"input":"\\ldots"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\le"}
+{"box":{"depth":0.0,"height":0.37788,"width":1.0},"displayList":{"depth":0.0,"height":0.37788,"itemCount":1,"width":1.0},"input":"\\leadsto"}
+{"box":{"depth":0.686,"height":1.15,"width":1.43526},"displayList":{"depth":0.686,"height":1.15,"itemCount":4,"width":1.43526},"input":"\\left\\lbrace \\dfrac ab \\right."}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\leftarrow"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\Leftarrow"}
+{"box":{"depth":0.01354,"height":0.52239,"width":1.11111},"displayList":{"depth":0.01354,"height":0.52239,"itemCount":1,"width":1.11111},"input":"\\leftarrowtail"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\leftharpoondown"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\leftharpoonup"}
+{"box":{"depth":0.1808,"height":0.675,"width":1.0},"displayList":{"depth":0.1808,"height":0.675,"itemCount":1,"width":1.0},"input":"\\leftleftarrows"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\Leftrightarrow"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\leftrightarrow"}
+{"box":{"depth":0.1808,"height":0.675,"width":1.0},"displayList":{"depth":0.1808,"height":0.675,"itemCount":1,"width":1.0},"input":"\\leftrightarrows"}
+{"box":{"depth":0.01354,"height":0.52239,"width":1.0},"displayList":{"depth":0.01354,"height":0.52239,"itemCount":1,"width":1.0},"input":"\\leftrightharpoons"}
+{"box":{"depth":0.0,"height":0.37788,"width":1.38889},"displayList":{"depth":0.0,"height":0.37788,"itemCount":1,"width":1.38889},"input":"\\leftrightsquigarrow"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.77778},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.77778},"input":"\\leftthreetimes"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\leq"}
+{"box":{"depth":0.25583,"height":0.75583,"width":0.77778},"displayList":{"depth":0.25583,"height":0.75583,"itemCount":1,"width":0.77778},"input":"\\leqq"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\leqslant"}
+{"box":{"depth":0.25583,"height":0.75583,"width":0.77778},"displayList":{"depth":0.25583,"height":0.75583,"itemCount":1,"width":0.77778},"input":"\\lessapprox"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.77778},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.77778},"input":"\\lessdot"}
+{"box":{"depth":0.38569,"height":0.88569,"width":0.77778},"displayList":{"depth":0.38569,"height":0.88569,"itemCount":1,"width":0.77778},"input":"\\lesseqgtr"}
+{"box":{"depth":0.48256,"height":0.98256,"width":0.77778},"displayList":{"depth":0.48256,"height":0.98256,"itemCount":1,"width":0.77778},"input":"\\lesseqqgtr"}
+{"box":{"depth":0.1808,"height":0.675,"width":0.77778},"displayList":{"depth":0.1808,"height":0.675,"itemCount":1,"width":0.77778},"input":"\\lessgtr"}
+{"box":{"depth":0.22958,"height":0.72958,"width":0.77778},"displayList":{"depth":0.22958,"height":0.72958,"itemCount":1,"width":0.77778},"input":"\\lesssim"}
+{"box":{"depth":0.25,"height":0.75,"width":0.44445},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.44445},"input":"\\lfloor"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.77778},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":2,"width":0.77778},"input":"\\lg"}
+{"box":{"depth":0.244,"height":0.744,"width":0.412},"displayList":{"depth":0.244,"height":0.744,"itemCount":1,"width":0.412},"input":"\\lgroup"}
+{"box":{"depth":0.03517,"height":0.54986,"width":0.77778},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\lhd"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.3889},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.3889},"input":"\\lim"}
+{"box":{"depth":0.0,"height":0.69444,"width":2.69447},"displayList":{"depth":0.0,"height":0.69444,"itemCount":6,"width":2.69447},"input":"\\liminf"}
+{"box":{"depth":0.78,"height":0.69444,"width":1.3889},"displayList":{"depth":0.78,"height":0.69444,"itemCount":4,"width":1.3889},"input":"\\lim\\limits_x"}
+{"box":{"depth":0.19444,"height":0.69444,"width":3.06114},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":6,"width":3.06114},"input":"\\limsup"}
+{"box":{"depth":0.0391,"height":0.5391,"width":1.0},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":1.0},"input":"\\ll"}
+{"box":{"depth":0.25,"height":0.75,"width":0.77778},"displayList":{"depth":0.25,"height":0.75,"itemCount":2,"width":0.77778},"input":"{=}\\llap{/\\,}"}
+{"box":{"depth":0.25,"height":0.75,"width":0.37778},"displayList":{"depth":0.25,"height":0.75,"itemCount":2,"width":0.37778},"input":"\\llbracket"}
+{"box":{"depth":0.0,"height":0.37788,"width":0.5},"displayList":{"depth":0.0,"height":0.37788,"itemCount":1,"width":0.5},"input":"\\llcorner"}
+{"box":{"depth":0.13667,"height":0.63667,"width":1.0},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":1.0},"input":"\\Lleftarrow"}
+{"box":{"depth":0.03517,"height":0.54986,"width":1.33334},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":1.33334},"input":"\\lll"}
+{"box":{"depth":0.03517,"height":0.54986,"width":1.33334},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":1.33334},"input":"\\llless"}
+{"box":{"depth":0.244,"height":0.744,"width":0.412},"displayList":{"depth":0.244,"height":0.744,"itemCount":1,"width":0.412},"input":"\\lmoustache"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.83334},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.83334},"input":"\\ln"}
+{"box":{"depth":0.26167,"height":0.75726,"width":0.77778},"displayList":{"depth":0.26167,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\lnapprox"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\lneq"}
+{"box":{"depth":0.25142,"height":0.75726,"width":0.77778},"displayList":{"depth":0.25142,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\lneqq"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.66667},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.66667},"input":"\\lnot"}
+{"box":{"depth":0.23222,"height":0.74111,"width":0.77778},"displayList":{"depth":0.23222,"height":0.74111,"itemCount":1,"width":0.77778},"input":"\\lnsim"}
+{"box":{"depth":0.19444,"height":0.69444,"width":1.27778},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":3,"width":1.27778},"input":"\\log"}
+{"box":{"depth":0.024,"height":0.525,"width":1.609},"displayList":{"depth":0.024,"height":0.525,"itemCount":1,"width":1.609},"input":"\\Longleftarrow"}
+{"box":{"depth":0.011,"height":0.511,"width":1.609},"displayList":{"depth":0.011,"height":0.511,"itemCount":1,"width":1.609},"input":"\\longleftarrow"}
+{"box":{"depth":0.024,"height":0.525,"width":1.858},"displayList":{"depth":0.024,"height":0.525,"itemCount":1,"width":1.858},"input":"\\Longleftrightarrow"}
+{"box":{"depth":0.011,"height":0.511,"width":1.859},"displayList":{"depth":0.011,"height":0.511,"itemCount":1,"width":1.859},"input":"\\longleftrightarrow"}
+{"box":{"depth":0.011,"height":0.511,"width":1.638},"displayList":{"depth":0.011,"height":0.511,"itemCount":1,"width":1.638},"input":"\\longmapsto"}
+{"box":{"depth":0.024,"height":0.525,"width":1.638},"displayList":{"depth":0.024,"height":0.525,"itemCount":1,"width":1.638},"input":"\\Longrightarrow"}
+{"box":{"depth":0.011,"height":0.511,"width":1.638},"displayList":{"depth":0.011,"height":0.511,"itemCount":1,"width":1.638},"input":"\\longrightarrow"}
+{"box":{"depth":0.0,"height":0.54986,"width":1.0},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":1.0},"input":"\\looparrowleft"}
+{"box":{"depth":0.0,"height":0.54986,"width":1.0},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":1.0},"input":"\\looparrowright"}
+{"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\lor"}
+{"box":{"depth":0.11111,"height":0.69224,"width":0.66667},"displayList":{"depth":0.11111,"height":0.69224,"itemCount":1,"width":0.66667},"input":"\\lozenge"}
+{"box":{"depth":0.25,"height":0.75,"width":0.38889},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.38889},"input":"\\lparen"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\Lrarr"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\lrArr"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\lrarr"}
+{"box":{"depth":0.0,"height":0.37788,"width":0.5},"displayList":{"depth":0.0,"height":0.37788,"itemCount":1,"width":0.5},"input":"\\lrcorner"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.27778},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.27778},"input":"\\lq"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.5},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.5},"input":"\\Lsh"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.77778},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.77778},"input":"\\lt"}
+{"box":{"depth":0.08167,"height":0.58167,"width":0.77778},"displayList":{"depth":0.08167,"height":0.58167,"itemCount":1,"width":0.77778},"input":"\\ltimes"}
+{"box":{"depth":0.25,"height":0.75,"width":0.5},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.5},"input":"\\lVert"}
+{"box":{"depth":0.25,"height":0.75,"width":0.27778},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.27778},"input":"\\lvert"}
+{"box":{"depth":0.25142,"height":0.75726,"width":0.77778},"displayList":{"depth":0.25142,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\lvertneqq"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.83334},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.83334},"input":"\\maltese"}
+{"box":{"depth":0.011,"height":0.511,"width":1.0},"displayList":{"depth":0.011,"height":0.511,"itemCount":1,"width":1.0},"input":"\\mapsto"}
+{"box":{"depth":0.0,"height":0.68889,"width":1.38889},"displayList":{"depth":0.0,"height":0.68889,"itemCount":2,"width":1.38889},"input":"\\mathbb{AB}"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.6104},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":4.6104},"input":"\\mathbf{AaBb123}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.67998},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.67998},"input":"a\\mathbin{!}b"}
+{"box":{"depth":0.0,"height":0.69444,"width":3.94345},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":3.94345},"input":"\\mathcal{AaBb123}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.12443},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.12443},"input":"a\\mathchoice{\\,}{\\,\\,}{\\,\\,\\,}{\\,\\,\\,\\,}b"}
+{"box":{"depth":1.45285,"height":1.05001,"width":2.4738},"displayList":{"depth":1.45285,"height":1.05001,"itemCount":8,"width":2.80168},"input":"\\sum_{\\mathclap{1\\le i\\le n}} x_{i}"}
+{"box":{"depth":0.25,"height":0.75,"width":5.00164},"displayList":{"depth":0.25,"height":0.75,"itemCount":7,"width":5.00164},"input":"a + (b\\mathclose\\gt + c"}
+{"box":{"depth":0.0,"height":0.123,"width":1.172},"displayList":{"depth":0.0,"height":0.123,"itemCount":1,"width":1.172},"input":"\\mathellipsis"}
+{"box":{"depth":0.0,"height":0.69141,"width":2.61518},"displayList":{"depth":0.0,"height":0.69141,"itemCount":4,"width":2.61518},"input":"\\mathfrak{AaBb}"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.74992},"displayList":{"depth":0.0,"height":0.69444,"itemCount":10,"width":4.74992},"input":"ab\\mathinner{\\text{inside}}cd"}
+{"box":{"depth":0.0,"height":0.69444,"width":2.51644},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":2.51644},"input":"\\mathit{AaBb}"}
+{"box":{"depth":0.25,"height":0.75,"width":0.77778},"displayList":{"depth":0.25,"height":0.75,"itemCount":2,"width":0.77778},"input":"{=}\\mathllap{/\\,}"}
+{"box":{"depth":0.0,"height":0.69444,"width":2.51644},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":2.51644},"input":"\\mathnormal{AaBb}"}
+{"box":{"depth":0.247,"height":0.89911,"width":0.92001},"displayList":{"depth":0.247,"height":0.89911,"itemCount":3,"width":0.92001},"input":"\\mathop{\\star}_a^b"}
+{"box":{"depth":0.25,"height":0.75,"width":6.75418},"displayList":{"depth":0.25,"height":0.75,"itemCount":9,"width":6.75418},"input":"\\{x∈ℝ\\mid x>0\\}"}
+{"box":{"depth":0.25,"height":0.75,"width":3.56181},"displayList":{"depth":0.25,"height":0.75,"itemCount":6,"width":3.56181},"input":"P\\left(A\\middle\\vert B\\right)"}
+{"box":{"depth":0.0,"height":0.66786,"width":1.66668},"displayList":{"depth":0.0,"height":0.66786,"itemCount":3,"width":1.66668},"input":"\\min"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.98889},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":2,"width":0.98889},"input":"\\minuscolon"}
+{"box":{"depth":0.08333,"height":0.58333,"width":1.21667},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":3,"width":1.21667},"input":"\\minuscoloncolon"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":2,"width":0.77778},"input":"\\minuso"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.95776},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.95776},"input":"a\\mkern18mu b"}
+{"box":{"depth":0.0,"height":0.69444,"width":6.05557},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":6.05557},"input":"3\\equiv 5 \\mod 2"}
+{"box":{"depth":0.249,"height":0.75,"width":0.867},"displayList":{"depth":0.249,"height":0.75,"itemCount":1,"width":0.867},"input":"\\models"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":1,"width":0.77778},"input":"\\mp"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.51332},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.51332},"input":"a\\mskip{10mu}b"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.91667},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.91667},"input":"\\Mu"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.60255},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.60255},"input":"\\mu"}
+{"box":{"depth":0.0,"height":0.54986,"width":1.11111},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":1.11111},"input":"\\multimap"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.72222},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.72222},"input":"\\N"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.83334},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.83334},"input":"\\nabla"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.72222},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.72222},"input":"\\natnums"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.38889},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.38889},"input":"\\natural"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.73554},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.73554},"input":"a\\negmedspace b"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\ncong"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.77778},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":2,"width":0.77778},"input":"\\ne"}
+{"box":{"depth":0.19444,"height":0.69444,"width":1.0},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":1.0},"input":"\\nearrow"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.66667},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.66667},"input":"\\neg"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.67998},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.67998},"input":"a\\negthickspace b"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.79109},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.79109},"input":"a\\negthinspace b"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.77778},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":2,"width":0.77778},"input":"\\neq"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.83334},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.83334},"input":"\\newcommand\\chk{\\checkmark} \\chk"}
+{"box":{"depth":0.0,"height":1.63056,"width":0.52859},"displayList":{"depth":0.0,"height":1.63056,"itemCount":2,"width":0.52859},"input":"a\\newline b"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.55556},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.55556},"input":"\\nexists"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\ngeq"}
+{"box":{"depth":0.41951,"height":0.91951,"width":0.77778},"displayList":{"depth":0.41951,"height":0.91951,"itemCount":1,"width":0.77778},"input":"\\ngeqq"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\ngeqslant"}
+{"box":{"depth":0.20576,"height":0.70576,"width":0.77778},"displayList":{"depth":0.20576,"height":0.70576,"itemCount":1,"width":0.77778},"input":"\\ngtr"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.66667},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.66667},"input":"\\ni"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\nleftarrow"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\nLeftarrow"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\nLeftrightarrow"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\nleftrightarrow"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\nleq"}
+{"box":{"depth":0.41951,"height":0.91951,"width":0.77778},"displayList":{"depth":0.41951,"height":0.91951,"itemCount":1,"width":0.77778},"input":"\\nleqq"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\nleqslant"}
+{"box":{"depth":0.20576,"height":0.70576,"width":0.77778},"displayList":{"depth":0.20576,"height":0.70576,"itemCount":1,"width":0.77778},"input":"\\nless"}
+{"box":{"depth":0.25142,"height":0.74111,"width":0.27778},"displayList":{"depth":0.25142,"height":0.74111,"itemCount":1,"width":0.27778},"input":"\\nmid"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.20776},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.20776},"input":"a\\nobreakspace b"}
+{"box":{"depth":0.15,"height":0.69444,"width":1.83897},"displayList":{"depth":0.15,"height":0.69444,"itemCount":4,"width":1.83897},"input":"\\lim\\nolimits_x"}
+{"box":{"depth":1.25,"height":1.75,"width":5.57028},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.57028},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
+{"box":{"depth":0.0,"height":0.69444,"width":5.07647},"displayList":{"depth":0.0,"height":0.69444,"itemCount":10,"width":5.07647},"input":"\\normalsize normalsize"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.77778},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":2,"width":0.77778},"input":"\\not ="}
+{"box":{"depth":1.25,"height":1.75,"width":5.57028},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.57028},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
+{"box":{"depth":0.25,"height":0.75,"width":0.66667},"displayList":{"depth":0.25,"height":0.75,"itemCount":2,"width":0.66667},"input":"\\notin"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.66667},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":2,"width":0.66667},"input":"\\notni"}
+{"box":{"depth":0.25142,"height":0.74111,"width":0.5},"displayList":{"depth":0.25142,"height":0.74111,"itemCount":1,"width":0.5},"input":"\\nparallel"}
+{"box":{"depth":0.20576,"height":0.70576,"width":0.77778},"displayList":{"depth":0.20576,"height":0.70576,"itemCount":1,"width":0.77778},"input":"\\nprec"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\npreceq"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\nRightarrow"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\nrightarrow"}
+{"box":{"depth":0.08167,"height":0.58167,"width":0.22222},"displayList":{"depth":0.08167,"height":0.58167,"itemCount":1,"width":0.22222},"input":"\\nshortmid"}
+{"box":{"depth":0.08167,"height":0.58167,"width":0.38889},"displayList":{"depth":0.08167,"height":0.58167,"itemCount":1,"width":0.38889},"input":"\\nshortparallel"}
+{"box":{"depth":0.0,"height":0.36687,"width":0.77778},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":0.77778},"input":"\\nsim"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\nsubseteq"}
+{"box":{"depth":0.25142,"height":0.75726,"width":0.77778},"displayList":{"depth":0.25142,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\nsubseteqq"}
+{"box":{"depth":0.20576,"height":0.70576,"width":0.77778},"displayList":{"depth":0.20576,"height":0.70576,"itemCount":1,"width":0.77778},"input":"\\nsucc"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\nsucceq"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\nsupseteq"}
+{"box":{"depth":0.25142,"height":0.75726,"width":0.77778},"displayList":{"depth":0.25142,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\nsupseteqq"}
+{"box":{"depth":0.20576,"height":0.70576,"width":0.77778},"displayList":{"depth":0.20576,"height":0.70576,"itemCount":1,"width":0.77778},"input":"\\ntriangleleft"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\ntrianglelefteq"}
+{"box":{"depth":0.20576,"height":0.70576,"width":0.77778},"displayList":{"depth":0.20576,"height":0.70576,"itemCount":1,"width":0.77778},"input":"\\ntriangleright"}
+{"box":{"depth":0.30274,"height":0.79383,"width":0.77778},"displayList":{"depth":0.30274,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\ntrianglerighteq"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.75},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.75},"input":"\\Nu"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.55764},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.55764},"input":"\\nu"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.72222},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.72222},"input":"\\nVDash"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.72222},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.72222},"input":"\\nVdash"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.61111},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.61111},"input":"\\nvDash"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.61111},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.61111},"input":"\\nvdash"}
+{"box":{"depth":0.19444,"height":0.69444,"width":1.0},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":1.0},"input":"\\nwarrow"}
+{"box":{"depth":0.04861,"height":0.73194,"width":0.77778},"displayList":{"depth":0.04861,"height":0.73194,"itemCount":1,"width":0.77778},"input":"\\text{\\O}"}
+{"box":{"depth":0.09722,"height":0.52778,"width":0.5},"displayList":{"depth":0.09722,"height":0.52778,"itemCount":1,"width":0.5},"input":"\\text{\\o}"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":1,"width":0.77778},"input":"\\odot"}
+{"box":{"depth":0.0,"height":0.68333,"width":1.01389},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":1.01389},"input":"\\text{\\OE}"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.77778},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.77778},"input":"\\text{\\oe}"}
+{"box":{"depth":0.862,"height":1.36,"width":2.03645},"displayList":{"depth":0.862,"height":1.36,"itemCount":2,"width":2.03645},"input":"\\oiiint"}
+{"box":{"depth":0.862,"height":1.36,"width":1.52845},"displayList":{"depth":0.862,"height":1.36,"itemCount":2,"width":1.52845},"input":"\\oiint"}
+{"box":{"depth":0.86113,"height":1.36113,"width":1.00001},"displayList":{"depth":0.86225,"height":1.36113,"itemCount":1,"width":1.00001},"input":"\\oint"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.65833},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.65833},"input":"\\omega"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.72222},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.72222},"input":"\\Omega"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.77778},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.77778},"input":"\\Omicron"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.48472},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.48472},"input":"\\omicron"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":1,"width":0.77778},"input":"\\ominus"}
+{"box":{"depth":0.0,"height":0.66786,"width":2.46599},"displayList":{"depth":0.0,"height":0.66786,"itemCount":5,"width":2.46599},"input":"\\operatorname{asin} x"}
+{"box":{"depth":0.91611,"height":0.65952,"width":2.68028},"displayList":{"depth":0.91611,"height":0.65952,"itemCount":6,"width":2.68028},"input":"\\operatorname*{asin}\\limits_y x"}
+{"box":{"depth":0.91611,"height":0.65952,"width":2.68028},"displayList":{"depth":0.91611,"height":0.65952,"itemCount":6,"width":2.68028},"input":"\\operatornamewithlimits{asin}\\limits_y x"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":1,"width":0.77778},"input":"\\oplus"}
+{"box":{"depth":0.0,"height":0.375,"width":0.7},"displayList":{"depth":0.0,"height":0.375,"itemCount":3,"width":0.7},"input":"\\origof"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":1,"width":0.77778},"input":"\\oslash"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":1,"width":0.77778},"input":"\\otimes"}
+{"box":{"depth":0.76933,"height":1.32144,"width":4.1458},"displayList":{"depth":0.76933,"height":1.32144,"itemCount":9,"width":4.1458},"input":"{a+1 \\over b+2}+c"}
+{"box":{"depth":0.08333,"height":1.89883,"width":4.75951},"displayList":{"depth":0.08333,"height":1.89883,"itemCount":12,"width":4.75951},"input":"\\overbrace{x+⋯+x}^{n\\text{ times}}"}
+{"box":{"depth":0.0,"height":1.09033,"width":1.55868},"displayList":{"depth":0.0,"height":1.09033,"itemCount":3,"width":1.55868},"input":"\\overgroup{AB}"}
+{"box":{"depth":0.0,"height":1.20433,"width":1.55868},"displayList":{"depth":0.0,"height":1.20433,"itemCount":3,"width":1.55868},"input":"\\overleftarrow{AB}"}
+{"box":{"depth":0.0,"height":1.20433,"width":1.55868},"displayList":{"depth":0.0,"height":1.20433,"itemCount":3,"width":1.55868},"input":"\\overleftharpoon{AB}"}
+{"box":{"depth":0.0,"height":1.20433,"width":1.55868},"displayList":{"depth":0.0,"height":1.20433,"itemCount":3,"width":1.55868},"input":"\\overleftrightarrow{AB}"}
+{"box":{"depth":0.19444,"height":0.81444,"width":7.00281},"displayList":{"depth":0.19444,"height":0.81444,"itemCount":14,"width":7.00281},"input":"\\overline{\\text{a long argument}}"}
+{"box":{"depth":0.0,"height":1.20433,"width":1.55868},"displayList":{"depth":0.0,"height":1.20433,"itemCount":3,"width":1.55868},"input":"\\overlinesegment{AB}"}
+{"box":{"depth":0.0,"height":1.17333,"width":1.55868},"displayList":{"depth":0.0,"height":1.17333,"itemCount":3,"width":1.55868},"input":"\\Overrightarrow{AB}"}
+{"box":{"depth":0.0,"height":1.20433,"width":1.55868},"displayList":{"depth":0.0,"height":1.20433,"itemCount":3,"width":1.55868},"input":"\\overrightarrow{AB}"}
+{"box":{"depth":0.0,"height":0.95156,"width":0.96135},"displayList":{"depth":0.0,"height":0.95156,"itemCount":3,"width":0.96135},"input":"\\overrightharpoon{ac}"}
+{"box":{"depth":0.0,"height":1.15298,"width":0.77778},"displayList":{"depth":0.0,"height":1.15298,"itemCount":2,"width":0.77778},"input":"\\overset{!}{=}"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.66667},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.66667},"input":"\\owns"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.61111},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\text{\\P}"}
+{"box":{"depth":0.25,"height":0.75,"width":0.5},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.5},"input":"\\parallel"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.58646},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.58646},"input":"\\partial"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.77778},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\perp"}
+{"box":{"depth":0.43742,"height":0.94257,"width":1.63095},"displayList":{"depth":0.43742,"height":0.94257,"itemCount":4,"width":1.63095},"input":"\\Gamma^{\\phantom{i}j}_{i\\phantom{j}k}"}
+{"box":{"depth":0.29418,"height":0.72412,"width":2.74693},"displayList":{"depth":0.29418,"height":0.72412,"itemCount":5,"width":2.74693},"input":"\\phase{-78^\\circ}"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.72222},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.72222},"input":"\\Phi"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.59583},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.59583},"input":"\\phi"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.75},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.75},"input":"\\Pi"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.60591},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.60591},"input":"\\pi"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.66667},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.66667},"input":"\\pitchfork"}
+{"box":{"depth":0.19444,"height":0.69444,"width":1.94446},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":4,"width":1.94446},"input":"\\plim"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":1,"width":0.77778},"input":"\\plusmn"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":1,"width":0.77778},"input":"\\pm"}
+{"box":{"depth":0.95003,"height":1.45,"width":3.5213},"displayList":{"depth":0.95003,"height":1.45,"itemCount":6,"width":3.5213},"input":"\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}"}
+{"box":{"depth":0.95003,"height":1.45,"width":5.02778},"displayList":{"depth":0.95003,"height":1.45,"itemCount":8,"width":5.02778},"input":"\\begin{pmatrix*}[r] 0 & -1 \\\\ -1 & 0 \\end{pmatrix*}"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.60255},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":2,"width":0.60255},"input":"\\pmb{\\mu}"}
+{"box":{"depth":0.25,"height":0.75,"width":5.10013},"displayList":{"depth":0.25,"height":0.75,"itemCount":7,"width":5.10013},"input":"x\\pmod a"}
+{"box":{"depth":0.25,"height":0.75,"width":2.8779},"displayList":{"depth":0.25,"height":0.75,"itemCount":4,"width":2.8779},"input":"x \\pod a"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.76909},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.76909},"input":"\\pounds"}
+{"box":{"depth":0.0,"height":0.68333,"width":1.07223},"displayList":{"depth":0.0,"height":0.68333,"itemCount":2,"width":1.07223},"input":"\\Pr"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.77778},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.77778},"input":"\\prec"}
+{"box":{"depth":0.26167,"height":0.75726,"width":0.77778},"displayList":{"depth":0.26167,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\precapprox"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\preccurlyeq"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\preceq"}
+{"box":{"depth":0.26167,"height":0.75726,"width":0.77778},"displayList":{"depth":0.26167,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\precnapprox"}
+{"box":{"depth":0.25142,"height":0.75726,"width":0.77778},"displayList":{"depth":0.25142,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\precneqq"}
+{"box":{"depth":0.23222,"height":0.74111,"width":0.77778},"displayList":{"depth":0.23222,"height":0.74111,"itemCount":1,"width":0.77778},"input":"\\precnsim"}
+{"box":{"depth":0.22958,"height":0.72958,"width":0.77778},"displayList":{"depth":0.22958,"height":0.72958,"itemCount":1,"width":0.77778},"input":"\\precsim"}
+{"box":{"depth":0.0,"height":0.55556,"width":0.275},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.275},"input":"\\prime"}
+{"box":{"depth":0.55001,"height":1.05,"width":1.27778},"displayList":{"depth":0.55001,"height":1.05,"itemCount":1,"width":1.27778},"input":"\\prod"}
+{"box":{"depth":0.19444,"height":0.69444,"width":3.30836},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":7,"width":3.30836},"input":"\\projlim"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.77778},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.77778},"input":"\\propto"}
+{"box":{"depth":0.0,"height":0.69444,"width":2.25001},"displayList":{"depth":0.0,"height":0.69444,"itemCount":5,"width":2.25001},"input":"\\providecommand\\greet{\\text{Hello}} \\greet"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.68727},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.68727},"input":"\\psi"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.77778},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.77778},"input":"\\Psi"}
+{"box":{"depth":0.345,"height":0.88011,"width":3.11778},"displayList":{"depth":0.345,"height":0.88011,"itemCount":9,"width":3.11778},"input":"\\pu{123 kJ//mol}"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.95776},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":4.95776},"input":"a\\qquad\\qquad{b}"}
+{"box":{"depth":0.0,"height":0.69444,"width":2.95776},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":2.95776},"input":"a\\quad\\quad{b}"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.72222},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.72222},"input":"\\R"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.5},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.75},"input":"\\text{\\r{a}}"}
+{"box":{"depth":0.0,"height":0.89444,"width":2.83289},"displayList":{"depth":0.0,"height":0.89444,"itemCount":6,"width":2.83289},"input":"h\\raisebox{2pt}{ighe}r"}
+{"box":{"depth":0.25,"height":0.75,"width":1.52778},"displayList":{"depth":0.25,"height":0.75,"itemCount":3,"width":1.52778},"input":"\\langle A\\rang"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\Rarr"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\rArr"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\rarr"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.27778},"displayList":{"depth":0.0,"height":0.46528,"itemCount":1,"width":0.27778},"input":"\\ratio"}
+{"box":{"depth":0.25,"height":0.75,"width":0.6},"displayList":{"depth":0.25,"height":0.75,"itemCount":2,"width":0.6},"input":"\\rBrace"}
+{"box":{"depth":0.25,"height":0.75,"width":0.5},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.5},"input":"\\rbrace"}
+{"box":{"depth":0.25,"height":0.75,"width":0.27778},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.27778},"input":"\\rbrack"}
+{"box":{"depth":1.25003,"height":1.75,"width":3.68798},"displayList":{"depth":1.25003,"height":1.75,"itemCount":9,"width":3.68798},"input":"\\begin{rcases} a &\\text{if } b \\\\ c &\\text{if } d \\end{rcases}"}
+{"box":{"depth":0.25,"height":0.75,"width":0.44445},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.44445},"input":"\\rceil"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.72222},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.72222},"input":"\\Re"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.72222},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.72222},"input":"\\real"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.72222},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.72222},"input":"\\Reals"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.72222},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.72222},"input":"\\reals"}
+{"box":{"depth":0.19444,"height":0.69444,"width":2.61112},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":5,"width":2.61112},"input":"\\def\\hail{Hi!} \\renewcommand\\hail{\\text{Ahoy!}} \\hail"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.41667},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.41667},"input":"\\restriction"}
+{"box":{"depth":0.25,"height":0.75,"width":0.44445},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.44445},"input":"\\rfloor"}
+{"box":{"depth":0.244,"height":0.745,"width":0.412},"displayList":{"depth":0.244,"height":0.745,"itemCount":1,"width":0.412},"input":"\\rgroup"}
+{"box":{"depth":0.03517,"height":0.54986,"width":0.77778},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\rhd"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.68056},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.68056},"input":"\\Rho"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.51702},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.51702},"input":"\\rho"}
+{"box":{"depth":0.686,"height":1.15,"width":1.36581},"displayList":{"depth":0.686,"height":1.15,"itemCount":4,"width":1.36581},"input":"\\left.\\dfrac a b\\right)"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\Rightarrow"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\rightarrow"}
+{"box":{"depth":0.01354,"height":0.52239,"width":1.11111},"displayList":{"depth":0.01354,"height":0.52239,"itemCount":1,"width":1.11111},"input":"\\rightarrowtail"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\rightharpoondown"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\rightharpoonup"}
+{"box":{"depth":0.1808,"height":0.675,"width":1.0},"displayList":{"depth":0.1808,"height":0.675,"itemCount":1,"width":1.0},"input":"\\rightleftarrows"}
+{"box":{"depth":0.011,"height":0.671,"width":1.0},"displayList":{"depth":0.011,"height":0.671,"itemCount":1,"width":1.0},"input":"\\rightleftharpoons"}
+{"box":{"depth":0.1808,"height":0.675,"width":1.0},"displayList":{"depth":0.1808,"height":0.675,"itemCount":1,"width":1.0},"input":"\\rightrightarrows"}
+{"box":{"depth":0.0,"height":0.37788,"width":1.0},"displayList":{"depth":0.0,"height":0.37788,"itemCount":1,"width":1.0},"input":"\\rightsquigarrow"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.77778},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.77778},"input":"\\rightthreetimes"}
+{"box":{"depth":0.08198,"height":0.58198,"width":0.77778},"displayList":{"depth":0.08198,"height":0.58198,"itemCount":1,"width":0.77778},"input":"\\risingdotseq"}
+{"box":{"depth":0.25,"height":0.75,"width":0.77778},"displayList":{"depth":0.25,"height":0.75,"itemCount":2,"width":0.77778},"input":"\\rlap{\\,/}{=}"}
+{"box":{"depth":0.0,"height":0.69444,"width":3.5139},"displayList":{"depth":0.0,"height":0.69444,"itemCount":6,"width":3.5139},"input":"\\rm AaBb12"}
+{"box":{"depth":0.244,"height":0.745,"width":0.412},"displayList":{"depth":0.244,"height":0.745,"itemCount":1,"width":0.412},"input":"\\rmoustache"}
+{"box":{"depth":0.25,"height":0.75,"width":0.38889},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.38889},"input":"\\rparen"}
+{"box":{"depth":0.0,"height":0.80189,"width":0.2425},"displayList":{"depth":0.0,"height":0.80189,"itemCount":1,"width":0.2425},"input":"\\rq"}
+{"box":{"depth":0.25,"height":0.75,"width":0.37778},"displayList":{"depth":0.25,"height":0.75,"itemCount":2,"width":0.37778},"input":"\\rrbracket"}
+{"box":{"depth":0.13667,"height":0.63667,"width":1.0},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":1.0},"input":"\\Rrightarrow"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.5},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.5},"input":"\\Rsh"}
+{"box":{"depth":0.08167,"height":0.58167,"width":0.77778},"displayList":{"depth":0.08167,"height":0.58167,"itemCount":1,"width":0.77778},"input":"\\rtimes"}
+{"box":{"depth":0.0,"height":1.031,"width":2.00506},"displayList":{"depth":0.0,"height":1.031,"itemCount":3,"width":2.00506},"input":"x\\rule[6pt]{2ex}{1ex}x"}
+{"box":{"depth":0.25,"height":0.75,"width":0.5},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.5},"input":"\\rVert"}
+{"box":{"depth":0.25,"height":0.75,"width":0.27778},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.27778},"input":"\\rvert"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.44445},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.44445},"input":"\\text{\\S}"}
+{"box":{"depth":0.266,"height":0.40878,"width":0.38025},"displayList":{"depth":0.266,"height":0.40878,"itemCount":3,"width":0.38025},"input":"\\scriptscriptstyle \\frac cd"}
+{"box":{"depth":0.13611,"height":0.46166,"width":3.06398},"displayList":{"depth":0.13611,"height":0.46166,"itemCount":10,"width":3.06398},"input":"\\scriptsize scriptsize"}
+{"box":{"depth":0.686,"height":1.10756,"width":2.41906},"displayList":{"depth":0.686,"height":1.10756,"itemCount":7,"width":2.41906},"input":"\\frac ab + {\\scriptstyle \\frac cd}"}
+{"box":{"depth":0.0,"height":0.44445,"width":0.27778},"displayList":{"depth":0.0,"height":0.44445,"itemCount":1,"width":0.27778},"input":"\\sdot"}
+{"box":{"depth":0.19444,"height":0.69444,"width":1.0},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":1.0},"input":"\\searrow"}
+{"box":{"depth":0.0,"height":0.43056,"width":1.28335},"displayList":{"depth":0.0,"height":0.43056,"itemCount":3,"width":1.28335},"input":"\\sec"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.44445},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.44445},"input":"\\text{\\sect}"}
+{"box":{"depth":0.25,"height":0.75,"width":5.14306},"displayList":{"depth":0.25,"height":0.75,"itemCount":7,"width":5.14306},"input":"\\set{x|x<5}"}
+{"box":{"depth":0.95003,"height":1.45002,"width":6.0494},"displayList":{"depth":0.95003,"height":1.45002,"itemCount":9,"width":6.0494},"input":"\\Set{ x | x<\\frac 1 2 }"}
+{"box":{"depth":0.25,"height":0.75,"width":0.5},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.5},"input":"\\setminus"}
+{"box":{"depth":0.0,"height":0.69444,"width":3.83057},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":3.83057},"input":"\\sf AaBb123"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.38889},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.38889},"input":"\\sharp"}
+{"box":{"depth":0.0875,"height":0.5875,"width":0.22222},"displayList":{"depth":0.10481,"height":0.5875,"itemCount":1,"width":0.22222},"input":"\\shortmid"}
+{"box":{"depth":0.08167,"height":0.58167,"width":0.38889},"displayList":{"depth":0.08167,"height":0.58167,"itemCount":1,"width":0.38889},"input":"\\shortparallel"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.72222},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.72222},"input":"\\Sigma"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.60729},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.60729},"input":"\\sigma"}
+{"box":{"depth":0.0,"height":0.36687,"width":0.77778},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":0.77778},"input":"\\sim"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.98889},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.98889},"input":"\\simcolon"}
+{"box":{"depth":0.0,"height":0.46528,"width":1.21667},"displayList":{"depth":0.0,"height":0.46528,"itemCount":3,"width":1.21667},"input":"\\simcoloncolon"}
+{"box":{"depth":0.0,"height":0.46375,"width":0.77778},"displayList":{"depth":0.0,"height":0.46375,"itemCount":1,"width":0.77778},"input":"\\simeq"}
+{"box":{"depth":0.0,"height":0.66786,"width":1.22779},"displayList":{"depth":0.0,"height":0.66786,"itemCount":3,"width":1.22779},"input":"\\sin"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.78335},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":1.78335},"input":"\\sinh"}
+{"box":{"depth":0.11666,"height":0.39571,"width":2.42217},"displayList":{"depth":0.11666,"height":0.39571,"itemCount":9,"width":2.42217},"input":"\\sixptsize sixptsize"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.95001},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.95001},"input":"\\sh"}
+{"box":{"depth":0.0,"height":0.625,"width":2.26032},"displayList":{"depth":0.0,"height":0.625,"itemCount":5,"width":2.26032},"input":"\\small small"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.77778},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.77778},"input":"\\smallfrown"}
+{"box":{"depth":0.30612,"height":0.805,"width":0.66667},"displayList":{"depth":0.30612,"height":0.805,"itemCount":1,"width":0.66667},"input":"\\smallint"}
+{"box":{"depth":0.41611,"height":0.91611,"width":1.12324},"displayList":{"depth":0.41611,"height":0.91611,"itemCount":4,"width":1.12324},"input":"\\begin{smallmatrix} a & b \\\\ c & d \\end{smallmatrix}"}
+{"box":{"depth":0.08167,"height":0.58167,"width":0.77778},"displayList":{"depth":0.08167,"height":0.58167,"itemCount":1,"width":0.77778},"input":"\\smallsetminus"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.77778},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.77778},"input":"\\smallsmile"}
+{"box":{"depth":0.25,"height":0.75,"width":1.74931},"displayList":{"depth":0.25,"height":0.86411,"itemCount":4,"width":1.74931},"input":"\\left(x^{\\smash{2}}\\right)"}
+{"box":{"depth":0.0,"height":0.35764,"width":1.0},"displayList":{"depth":0.0,"height":0.35764,"itemCount":1,"width":1.0},"input":"\\smile"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.39052},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":1.39052},"input":"\\sout{abc}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.20776},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.20776},"input":"a\\space b"}
+{"box":{"depth":0.12963,"height":0.69444,"width":0.77778},"displayList":{"depth":0.12963,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\spades"}
+{"box":{"depth":0.12963,"height":0.69444,"width":0.77778},"displayList":{"depth":0.12963,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\spadesuit"}
+{"box":{"depth":0.03517,"height":0.52239,"width":0.72222},"displayList":{"depth":0.03517,"height":0.52239,"itemCount":1,"width":0.72222},"input":"\\sphericalangle"}
+{"box":{"depth":1.25,"height":1.75,"width":4.09145},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.09145},"input":"\\begin{equation*} \\begin{split} a &=b+c\\\\ &=e+f \\end{split} \\end{equation*}"}
+{"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\sqcap"}
+{"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\sqcup"}
+{"box":{"depth":0.0,"height":0.675,"width":0.77778},"displayList":{"depth":0.0,"height":0.675,"itemCount":1,"width":0.77778},"input":"\\square"}
+{"box":{"depth":0.19084,"height":0.84916,"width":1.70487},"displayList":{"depth":0.19084,"height":0.84916,"itemCount":4,"width":1.70487},"input":"\\sqrt[3]{x}"}
+{"box":{"depth":0.03517,"height":0.54986,"width":0.77778},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\sqsubset"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\sqsubseteq"}
+{"box":{"depth":0.03517,"height":0.54986,"width":0.77778},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\sqsupset"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\sqsupseteq"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.5},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.5},"input":"\\text{\\ss}"}
+{"box":{"depth":0.0,"height":1.23298,"width":0.77778},"displayList":{"depth":0.0,"height":1.23298,"itemCount":2,"width":0.77778},"input":"\\stackrel{!}{=}"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.5},"displayList":{"depth":0.0,"height":0.46528,"itemCount":1,"width":0.5},"input":"\\star"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.77778},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.77778},"input":"\\sub"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\sube"}
+{"box":{"depth":0.03517,"height":0.54986,"width":0.77778},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\Subset"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.77778},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.77778},"input":"\\subset"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\subseteq"}
+{"box":{"depth":0.25583,"height":0.75583,"width":0.77778},"displayList":{"depth":0.25583,"height":0.75583,"itemCount":1,"width":0.77778},"input":"\\subseteqq"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\subsetneq"}
+{"box":{"depth":0.28481,"height":0.79383,"width":0.77778},"displayList":{"depth":0.28481,"height":0.79383,"itemCount":1,"width":0.77778},"input":"\\subsetneqq"}
+{"box":{"depth":2.07133,"height":1.05001,"width":3.12956},"displayList":{"depth":2.07133,"height":1.05001,"itemCount":13,"width":3.12956},"input":"\\sum_{\\substack{0\\le i\\le n \\\\ i\\text{ even}}} x_i"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.77778},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.77778},"input":"\\text{\\textgreater}"}
+{"box":{"depth":0.0,"height":0.69444,"width":2.41833},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":2.41833},"input":"\\textit{AaBb}"}
+{"box":{"depth":0.0391,"height":0.5391,"width":0.77778},"displayList":{"depth":0.0391,"height":0.5391,"itemCount":1,"width":0.77778},"input":"\\text{\\textless}"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.0139},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":4.0139},"input":"\\textmd{AaBb123}"}
+{"box":{"depth":0.0,"height":0.68333,"width":1.45834},"displayList":{"depth":0.0,"height":0.68333,"itemCount":2,"width":1.45834},"input":"\\textnormal{AB}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.5},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.5},"input":"\\text{\\textquotedblleft}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.5},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.5},"input":"\\text{\\textquotedblright}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.27778},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.27778},"input":"\\text{\\textquoteleft}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.27778},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.27778},"input":"\\text{\\textquoteright}"}
+{"box":{"depth":0.11847,"height":0.5968,"width":0.71528},"displayList":{"depth":0.11847,"height":0.5968,"itemCount":2,"width":0.71528},"input":"\\text{\\textregistered}"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.0139},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":4.0139},"input":"\\textrm{AaBb123}"}
+{"box":{"depth":0.0,"height":0.69444,"width":3.83057},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":3.83057},"input":"\\textsf{AaBb123}"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.76909},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.76909},"input":"\\text{\\textsterling}"}
+{"box":{"depth":0.29971,"height":0.80429,"width":1.52572},"displayList":{"depth":0.29971,"height":0.80429,"itemCount":3,"width":1.52572},"input":"\\textstyle\\sum_0^n"}
+{"box":{"depth":0.0,"height":0.61111,"width":3.675},"displayList":{"depth":0.0,"height":0.61111,"itemCount":7,"width":3.675},"input":"\\texttt{AaBb123}"}
+{"box":{"depth":0.31,"height":0.0,"width":0.65},"displayList":{"depth":0.31,"height":0.0,"itemCount":1,"width":0.65},"input":"\\text{\\textunderscore}"}
+{"box":{"depth":0.0,"height":0.69444,"width":4.0139},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":4.0139},"input":"\\textup{AaBb123}"}
+{"box":{"depth":0.345,"height":0.69539,"width":0.61001},"displayList":{"depth":0.345,"height":0.69539,"itemCount":3,"width":0.61001},"input":"\\tfrac ab"}
+{"box":{"depth":0.19444,"height":0.61508,"width":0.88889},"displayList":{"depth":0.19444,"height":0.61508,"itemCount":2,"width":0.88889},"input":"\\tg"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.94445},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.94445},"input":"\\th"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.66667},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.66667},"input":"\\therefore"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.77778},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.77778},"input":"\\Theta"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.49722},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.49722},"input":"\\theta"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.59144},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.59144},"input":"\\thetasym"}
+{"box":{"depth":0.0,"height":0.48312,"width":0.77778},"displayList":{"depth":0.0,"height":0.48312,"itemCount":1,"width":0.77778},"input":"\\thickapprox"}
+{"box":{"depth":0.0,"height":0.36687,"width":0.77778},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":0.77778},"input":"\\thicksim"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.23554},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.23554},"input":"a\\thickspace b"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.12443},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.12443},"input":"a\\thinspace b"}
+{"box":{"depth":0.0,"height":0.92019,"width":1.07917},"displayList":{"depth":0.0,"height":0.92019,"itemCount":2,"width":1.07917},"input":"\\tilde M"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":1,"width":0.77778},"input":"\\times"}
+{"box":{"depth":0.09722,"height":0.32976,"width":0.91601},"displayList":{"depth":0.09722,"height":0.32976,"itemCount":4,"width":0.91601},"input":"\\tiny tiny"}
+{"box":{"depth":0.0,"height":0.36687,"width":1.0},"displayList":{"depth":0.0,"height":0.36687,"itemCount":1,"width":1.0},"input":"\\to"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.77778},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\top"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.88889},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.88889},"input":"\\triangle"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.72222},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.72222},"input":"\\triangledown"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.5},"displayList":{"depth":0.0,"height":0.46528,"itemCount":1,"width":0.5},"input":"\\triangleleft"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\trianglelefteq"}
+{"box":{"depth":0.08198,"height":0.91667,"width":0.77778},"displayList":{"depth":0.08198,"height":0.91667,"itemCount":1,"width":0.77778},"input":"\\triangleq"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.5},"displayList":{"depth":0.0,"height":0.46528,"itemCount":1,"width":0.5},"input":"\\triangleright"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\trianglerighteq"}
+{"box":{"depth":0.0,"height":0.61111,"width":3.675},"displayList":{"depth":0.0,"height":0.61111,"itemCount":7,"width":3.675},"input":"{\\tt AaBb123}"}
+{"box":{"depth":0.01354,"height":0.52239,"width":1.0},"displayList":{"depth":0.01354,"height":0.52239,"itemCount":1,"width":1.0},"input":"\\twoheadleftarrow"}
+{"box":{"depth":0.01354,"height":0.52239,"width":1.0},"displayList":{"depth":0.01354,"height":0.52239,"itemCount":1,"width":1.0},"input":"\\twoheadrightarrow"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.5},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.5},"input":"\\text{\\u{a}}"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.61111},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\Uarr"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.61111},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\uArr"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.5},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.5},"input":"\\uarr"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.5},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.5},"input":"\\ulcorner"}
+{"box":{"depth":0.18,"height":0.68333,"width":0.75},"displayList":{"depth":0.18,"height":0.68333,"itemCount":2,"width":0.75},"input":"\\underbar{X}"}
+{"box":{"depth":1.39883,"height":0.58333,"width":4.75951},"displayList":{"depth":1.39883,"height":0.58333,"itemCount":12,"width":4.75951},"input":"\\underbrace{x+⋯+x}_{n\\text{ times}}"}
+{"box":{"depth":0.407,"height":0.68333,"width":1.55868},"displayList":{"depth":0.407,"height":0.68333,"itemCount":3,"width":1.55868},"input":"\\undergroup{AB}"}
+{"box":{"depth":0.782,"height":0.68333,"width":1.55868},"displayList":{"depth":0.782,"height":0.68333,"itemCount":3,"width":1.55868},"input":"\\underleftarrow{AB}"}
+{"box":{"depth":0.782,"height":0.68333,"width":1.55868},"displayList":{"depth":0.782,"height":0.68333,"itemCount":3,"width":1.55868},"input":"\\underleftrightarrow{AB}"}
+{"box":{"depth":0.782,"height":0.68333,"width":1.55868},"displayList":{"depth":0.782,"height":0.68333,"itemCount":3,"width":1.55868},"input":"\\underrightarrow{AB}"}
+{"box":{"depth":0.37444,"height":0.69444,"width":7.00281},"displayList":{"depth":0.37444,"height":0.69444,"itemCount":14,"width":7.00281},"input":"\\underline{\\text{a long argument}}"}
+{"box":{"depth":0.782,"height":0.68333,"width":1.55868},"displayList":{"depth":0.782,"height":0.68333,"itemCount":3,"width":1.55868},"input":"\\underlinesegment{AB}"}
+{"box":{"depth":0.75211,"height":0.36687,"width":0.77778},"displayList":{"depth":0.75211,"height":0.36687,"itemCount":2,"width":0.77778},"input":"\\underset{!}{=}"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\unlhd"}
+{"box":{"depth":0.13667,"height":0.63667,"width":0.77778},"displayList":{"depth":0.13667,"height":0.63667,"itemCount":1,"width":0.77778},"input":"\\unrhd"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.61111},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\Uparrow"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.5},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.5},"input":"\\uparrow"}
+{"box":{"depth":0.25,"height":0.75,"width":0.61111},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.61111},"input":"\\Updownarrow"}
+{"box":{"depth":0.25,"height":0.75,"width":0.5},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.5},"input":"\\updownarrow"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.41667},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.41667},"input":"\\upharpoonleft"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.41667},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.41667},"input":"\\upharpoonright"}
+{"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\uplus"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.77778},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.77778},"input":"\\Upsilon"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.57616},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.57616},"input":"\\upsilon"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.83334},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.83334},"input":"\\upuparrows"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.5},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.5},"input":"\\urcorner"}
+{"box":{"depth":0.34222,"height":0.69444,"width":10.3},"displayList":{"depth":0.34222,"height":0.69444,"itemCount":21,"width":10.3},"input":"\\url{https://katex.org/}"}
+{"box":{"depth":0.471,"height":0.68333,"width":1.55868},"displayList":{"depth":0.471,"height":0.68333,"itemCount":3,"width":1.55868},"input":"\\utilde{AB}"}
+{"box":{"depth":0.0,"height":0.62847,"width":0.5},"displayList":{"depth":0.0,"height":0.62847,"itemCount":2,"width":0.5},"input":"\\text{\\v{a}}"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.83334},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.83334},"input":"\\varDelta"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.46632},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.46632},"input":"\\varepsilon"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.75417},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.75417},"input":"\\varGamma"}
+{"box":{"depth":0.782,"height":0.69444,"width":1.3889},"displayList":{"depth":0.782,"height":0.69444,"itemCount":4,"width":1.3889},"input":"\\varinjlim"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.70695},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.70695},"input":"\\varkappa"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.69445},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.69445},"input":"\\varLambda"}
+{"box":{"depth":0.18,"height":0.69444,"width":1.3889},"displayList":{"depth":0.18,"height":0.69444,"itemCount":4,"width":1.3889},"input":"\\varliminf"}
+{"box":{"depth":0.0,"height":0.81444,"width":1.3889},"displayList":{"depth":0.0,"height":0.81444,"itemCount":4,"width":1.3889},"input":"\\varlimsup"}
+{"box":{"depth":0.08167,"height":0.58167,"width":0.77778},"displayList":{"depth":0.08167,"height":0.58167,"itemCount":1,"width":0.77778},"input":"\\varnothing"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.82257},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.82257},"input":"\\varOmega"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.66667},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.66667},"input":"\\varPhi"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.65417},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.65417},"input":"\\varphi"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.9125},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.9125},"input":"\\varPi"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.85591},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.85591},"input":"\\varpi"}
+{"box":{"depth":0.782,"height":0.69444,"width":1.3889},"displayList":{"depth":0.782,"height":0.69444,"itemCount":4,"width":1.3889},"input":"\\varprojlim"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.77778},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.77778},"input":"\\varpropto"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.72222},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.72222},"input":"\\varPsi"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.51702},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.51702},"input":"\\varrho"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.8375},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.8375},"input":"\\varSigma"}
+{"box":{"depth":0.09722,"height":0.43056,"width":0.44271},"displayList":{"depth":0.09722,"height":0.43056,"itemCount":1,"width":0.44271},"input":"\\varsigma"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\varsubsetneq"}
+{"box":{"depth":0.25142,"height":0.75726,"width":0.77778},"displayList":{"depth":0.25142,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\varsubsetneqq"}
+{"box":{"depth":0.13597,"height":0.63597,"width":0.77778},"displayList":{"depth":0.13597,"height":0.63597,"itemCount":1,"width":0.77778},"input":"\\varsupsetneq"}
+{"box":{"depth":0.25142,"height":0.75726,"width":0.77778},"displayList":{"depth":0.25142,"height":0.75726,"itemCount":1,"width":0.77778},"input":"\\varsupsetneqq"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.79056},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.79056},"input":"\\varTheta"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.59144},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.59144},"input":"\\vartheta"}
+{"box":{"depth":0.0,"height":0.54986,"width":0.72222},"displayList":{"depth":0.0,"height":0.54986,"itemCount":1,"width":0.72222},"input":"\\vartriangle"}
+{"box":{"depth":0.03517,"height":0.54986,"width":0.77778},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\vartriangleleft"}
+{"box":{"depth":0.03517,"height":0.54986,"width":0.77778},"displayList":{"depth":0.03517,"height":0.54986,"itemCount":1,"width":0.77778},"input":"\\vartriangleright"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.72222},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.72222},"input":"\\varUpsilon"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.81805},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.81805},"input":"\\varXi"}
+{"box":{"depth":0.0,"height":0.46528,"width":1.05556},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":1.05556},"input":"\\mathrel{\\vcentcolon =}"}
+{"box":{"depth":0.95003,"height":1.45,"width":4.07305},"displayList":{"depth":0.95003,"height":1.45,"itemCount":9,"width":4.07305},"input":"a+\\left(\\vcenter{\\frac{\\frac a b}c}\\right)"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.72222},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.72222},"input":"\\Vdash"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.61111},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.61111},"input":"\\vDash"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.61111},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\vdash"}
+{"box":{"depth":0.03,"height":1.5,"width":0.278},"displayList":{"depth":0.03,"height":1.5,"itemCount":2,"width":0.278},"input":"\\vdots"}
+{"box":{"depth":0.0,"height":0.96633,"width":0.78195},"displayList":{"depth":0.0,"height":0.96633,"itemCount":2,"width":0.78195},"input":"\\vec{F}"}
+{"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\vee"}
+{"box":{"depth":0.19444,"height":0.69224,"width":0.61111},"displayList":{"depth":0.19444,"height":0.69224,"itemCount":1,"width":0.61111},"input":"\\veebar"}
+{"box":{"depth":0.08333,"height":0.69444,"width":4.725},"displayList":{"depth":0.08333,"height":0.69444,"itemCount":9,"width":4.725},"input":"\\verb!\\frac a b!"}
+{"box":{"depth":0.25,"height":0.75,"width":0.5},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.5},"input":"\\Vert"}
+{"box":{"depth":0.25,"height":0.75,"width":0.27778},"displayList":{"depth":0.25,"height":0.75,"itemCount":1,"width":0.27778},"input":"\\vert"}
+{"box":{"depth":0.95002,"height":1.45002,"width":3.16108},"displayList":{"depth":0.95002,"height":1.45002,"itemCount":6,"width":3.16108},"input":"\\begin{Vmatrix} a & b \\\\ c & d \\end{Vmatrix}"}
+{"box":{"depth":0.95002,"height":1.45002,"width":4.66756},"displayList":{"depth":0.95002,"height":1.45002,"itemCount":8,"width":4.66756},"input":"\\begin{Vmatrix*}[r] 0 & -1 \\\\ -1 & 0 \\end{Vmatrix*}"}
+{"box":{"depth":0.95002,"height":1.45002,"width":2.71508},"displayList":{"depth":0.95002,"height":1.45002,"itemCount":6,"width":2.71508},"input":"\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix}"}
+{"box":{"depth":0.95002,"height":1.45002,"width":4.22156},"displayList":{"depth":0.95002,"height":1.45002,"itemCount":8,"width":4.22156},"input":"\\begin{vmatrix*}[r] 0 & -1 \\\\ -1 & 0 \\end{vmatrix*}"}
+{"box":{"depth":0.0,"height":0.80333,"width":0.52859},"displayList":{"depth":0.0,"height":0.80333,"itemCount":2,"width":0.52859},"input":"\\overline{\\vphantom{M}a}"}
+{"box":{"depth":0.0,"height":0.69224,"width":0.88889},"displayList":{"depth":0.0,"height":0.69224,"itemCount":1,"width":0.88889},"input":"\\Vvdash"}
+{"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\wedge"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.63646},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.63646},"input":"\\weierp"}
+{"box":{"depth":0.0,"height":1.04833,"width":1.55868},"displayList":{"depth":0.0,"height":1.04833,"itemCount":3,"width":1.55868},"input":"\\widecheck{AB}"}
+{"box":{"depth":0.0,"height":1.04833,"width":1.55868},"displayList":{"depth":0.0,"height":1.04833,"itemCount":3,"width":1.55868},"input":"\\widehat{AB}"}
+{"box":{"depth":0.0,"height":1.03433,"width":1.55868},"displayList":{"depth":0.0,"height":1.03433,"itemCount":3,"width":1.55868},"input":"\\widetilde{AB}"}
+{"box":{"depth":0.19444,"height":0.43056,"width":0.63646},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":1,"width":0.63646},"input":"\\wp"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.27778},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.27778},"input":"\\wr"}
+{"box":{"depth":0.0,"height":0.68333,"width":2.34493},"displayList":{"depth":0.0,"height":0.68333,"itemCount":4,"width":2.74493},"input":"\\xcancel{ABC}"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.52859},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.52859},"input":"\\def\\foo{a}\\xdef\\fcopy{\\foo}\\def\\foo{}\\fcopy"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.66667},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.66667},"input":"\\Xi"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.48351},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.48351},"input":"\\xi"}
+{"box":{"depth":0.011,"height":1.10811,"width":1.67336},"displayList":{"depth":0.011,"height":1.10811,"itemCount":4,"width":1.67336},"input":"\\xhookleftarrow{abc}"}
+{"box":{"depth":0.011,"height":1.10811,"width":1.67336},"displayList":{"depth":0.011,"height":1.10811,"itemCount":4,"width":1.67336},"input":"\\xhookrightarrow{abc}"}
+{"box":{"depth":0.03,"height":1.12711,"width":1.67336},"displayList":{"depth":0.03,"height":1.12711,"itemCount":4,"width":1.67336},"input":"\\xLeftarrow{abc}"}
+{"box":{"depth":0.011,"height":1.10811,"width":1.67336},"displayList":{"depth":0.011,"height":1.10811,"itemCount":4,"width":1.67336},"input":"\\xleftarrow{abc}"}
+{"box":{"depth":0.011,"height":1.10811,"width":1.67336},"displayList":{"depth":0.011,"height":1.10811,"itemCount":4,"width":1.67336},"input":"\\xleftharpoondown{abc}"}
+{"box":{"depth":0.011,"height":1.10811,"width":1.67336},"displayList":{"depth":0.011,"height":1.10811,"itemCount":4,"width":1.67336},"input":"\\xleftharpoonup{abc}"}
+{"box":{"depth":0.03,"height":1.12711,"width":1.75},"displayList":{"depth":0.03,"height":1.12711,"itemCount":4,"width":1.75},"input":"\\xLeftrightarrow{abc}"}
+{"box":{"depth":0.011,"height":1.10811,"width":1.75},"displayList":{"depth":0.011,"height":1.10811,"itemCount":4,"width":1.75},"input":"\\xleftrightarrow{abc}"}
+{"box":{"depth":0.108,"height":1.20511,"width":1.75},"displayList":{"depth":0.108,"height":1.20511,"itemCount":4,"width":1.75},"input":"\\xleftrightharpoons{abc}"}
+{"box":{"depth":0.0,"height":1.01411,"width":1.67336},"displayList":{"depth":0.0,"height":1.01411,"itemCount":4,"width":1.67336},"input":"\\xlongequal{abc}"}
+{"box":{"depth":0.011,"height":1.10811,"width":1.67336},"displayList":{"depth":0.011,"height":1.10811,"itemCount":4,"width":1.67336},"input":"\\xmapsto{abc}"}
+{"box":{"depth":0.03,"height":1.12711,"width":1.67336},"displayList":{"depth":0.03,"height":1.12711,"itemCount":4,"width":1.67336},"input":"\\xRightarrow{abc}"}
+{"box":{"depth":0.011,"height":1.10811,"width":1.67336},"displayList":{"depth":0.011,"height":1.10811,"itemCount":4,"width":1.67336},"input":"\\xrightarrow{abc}"}
+{"box":{"depth":0.011,"height":1.10811,"width":1.67336},"displayList":{"depth":0.011,"height":1.10811,"itemCount":4,"width":1.67336},"input":"\\xrightharpoondown{abc}"}
+{"box":{"depth":0.011,"height":1.10811,"width":1.67336},"displayList":{"depth":0.011,"height":1.10811,"itemCount":4,"width":1.67336},"input":"\\xrightharpoonup{abc}"}
+{"box":{"depth":0.108,"height":1.20511,"width":1.75},"displayList":{"depth":0.108,"height":1.20511,"itemCount":4,"width":1.75},"input":"\\xrightleftharpoons{abc}"}
+{"box":{"depth":0.014,"height":1.11111,"width":1.75},"displayList":{"depth":0.014,"height":1.11111,"itemCount":4,"width":1.75},"input":"\\xtofrom{abc}"}
+{"box":{"depth":0.0,"height":1.01411,"width":1.67336},"displayList":{"depth":0.0,"height":1.01411,"itemCount":4,"width":1.67336},"input":"\\xtwoheadleftarrow{abc}"}
+{"box":{"depth":0.0,"height":1.01411,"width":1.67336},"displayList":{"depth":0.0,"height":1.01411,"itemCount":4,"width":1.67336},"input":"\\xtwoheadrightarrow{abc}"}
+{"box":{"depth":0.0,"height":0.675,"width":0.775},"displayList":{"depth":0.0,"height":0.675,"itemCount":1,"width":0.775},"input":"\\yen"}
+{"box":{"depth":0.0,"height":0.68889,"width":0.66667},"displayList":{"depth":0.0,"height":0.68889,"itemCount":1,"width":0.66667},"input":"\\Z"}
+{"box":{"depth":0.0,"height":0.68333,"width":0.61111},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.61111},"input":"\\Zeta"}
+{"box":{"depth":0.19444,"height":0.69444,"width":0.51128},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":1,"width":0.51128},"input":"\\zeta"}
+{"box":{"depth":0.0,"height":0.94677,"width":1.07917},"displayList":{"depth":0.0,"height":0.94677,"itemCount":2,"width":1.07917},"input":"\\hat{M}"}
+{"box":{"depth":0.0,"height":0.95788,"width":0.42917},"displayList":{"depth":0.0,"height":0.95788,"itemCount":2,"width":0.5},"input":"\\hat{b}"}
+{"box":{"depth":0.0,"height":0.95788,"width":0.52859},"displayList":{"depth":0.0,"height":0.95788,"itemCount":3,"width":0.75},"input":"\\hat{\\aa}"}
+{"box":{"depth":0.0,"height":0.78056,"width":0.48472},"displayList":{"depth":0.0,"height":0.78056,"itemCount":2,"width":0.48472},"input":"\\hat{o}"}
+{"box":{"depth":0.0,"height":0.92019,"width":1.07917},"displayList":{"depth":0.0,"height":0.92019,"itemCount":2,"width":1.07917},"input":"\\tilde{M}"}
+{"box":{"depth":2.50676,"height":3.00676,"width":9.78078},"displayList":{"depth":2.50676,"height":3.00676,"itemCount":44,"width":9.78078},"input":"\\left\\{\\begin{array}{l} \\nabla\\cdot\\vec{D} = \\rho \\\\ \\nabla\\cdot\\vec{B} = 0 \\\\ \\nabla\\times\\vec{E} = -\\frac{\\partial\\vec{B}}{\\partial t} \\\\ \\nabla\\times\\vec{H} = \\vec{J}_f + \\frac{\\partial\\vec{D}}{\\partial t} \\end{array}\\right."}
+{"box":{"depth":0.08333,"height":0.92,"width":8.0},"displayList":{"depth":0.08333,"height":0.92,"itemCount":7,"width":8.0},"input":"酸 + 碱 \\rightarrow 盐 + 水"}
+{"box":{"depth":0.19062,"height":0.84938,"width":0.83334},"displayList":{"depth":0.19062,"height":0.84938,"itemCount":2,"width":0.83334},"input":"\\sqrt{}"}
+{"box":{"depth":1.55,"height":2.05,"width":7.58577},"displayList":{"depth":1.568,"height":2.05,"itemCount":29,"width":7.58577},"input":"\\begin{pmatrix} a_{11} & a_{12} & a_{13} \\\\ a_{21} & a_{22} & a_{23} \\\\ a_{31} & a_{32} & a_{33} \\end{pmatrix}"}
+{"box":{"depth":1.55003,"height":2.05003,"width":4.166},"displayList":{"depth":1.55003,"height":2.05003,"itemCount":11,"width":4.166},"input":"\\begin{vmatrix} 1 & 2 & 3 \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{vmatrix}"}
+{"box":{"depth":1.55,"height":2.05,"width":4.834},"displayList":{"depth":1.552,"height":2.05,"itemCount":11,"width":4.834},"input":"\\begin{bmatrix} 1 & 0 & 0 \\\\ 0 & 1 & 0 \\\\ 0 & 0 & 1 \\end{bmatrix}"}
+{"box":{"depth":1.55,"height":2.05,"width":9.08891},"displayList":{"depth":1.568,"height":2.05,"itemCount":24,"width":9.08891},"input":"\\begin{pmatrix} \\cos\\theta & -\\sin\\theta & 0 \\\\ \\sin\\theta & \\cos\\theta & 0 \\\\ 0 & 0 & 1 \\end{pmatrix}"}
+{"box":{"depth":2.48,"height":2.98,"width":7.532},"displayList":{"depth":2.498,"height":2.98,"itemCount":21,"width":7.532},"input":"\\begin{pmatrix} 1 & 0 & \\cdots & 0 \\\\ 0 & 1 & \\cdots & 0 \\\\ \\vdots & \\vdots & \\ddots & \\vdots \\\\ 0 & 0 & \\cdots & 1 \\end{pmatrix}"}
+{"box":{"depth":0.95003,"height":1.45,"width":8.38016},"displayList":{"depth":0.95003,"height":1.45,"itemCount":15,"width":8.38016},"input":"\\begin{bmatrix} A & B \\\\ C & D \\end{bmatrix}\\begin{bmatrix} x \\\\ y \\end{bmatrix} = \\begin{bmatrix} 0 \\\\ 0 \\end{bmatrix}"}
+{"box":{"depth":1.55002,"height":2.05002,"width":5.47976},"displayList":{"depth":1.55002,"height":2.05002,"itemCount":19,"width":5.47976},"input":"\\begin{Bmatrix} a & b & c \\\\ d & e & f \\\\ g & h & i \\end{Bmatrix}"}
+{"box":{"depth":0.0,"height":0.94677,"width":0.75},"displayList":{"depth":0.0,"height":0.94677,"itemCount":2,"width":0.75},"input":"\\mathring{A}"}
+{"box":{"depth":0.0,"height":0.95788,"width":0.57153},"displayList":{"depth":0.0,"height":0.95788,"itemCount":3,"width":0.57153},"input":"\\hat{\\hat{x}}"}
+{"box":{"depth":0.19444,"height":0.95086,"width":4.25314},"displayList":{"depth":0.19444,"height":0.95086,"itemCount":7,"width":4.25314},"input":"\\dot{\\vec{p}} = -\\nabla V"}
+{"box":{"depth":0.08333,"height":1.04833,"width":3.68611},"displayList":{"depth":0.08333,"height":1.04833,"itemCount":5,"width":3.68611},"input":"\\widehat{XY + Z}"}
+{"box":{"depth":0.19444,"height":1.04544,"width":2.05452},"displayList":{"depth":0.19444,"height":1.04544,"itemCount":4,"width":2.05452},"input":"\\widetilde{f \\circ g}"}
+{"box":{"depth":0.0,"height":0.95086,"width":0.47894},"displayList":{"depth":0.0,"height":0.95086,"itemCount":3,"width":0.55906},"input":"\\ddot{\\vec{r}}"}
+{"box":{"depth":0.28611,"height":0.71439,"width":2.46617},"displayList":{"depth":0.28611,"height":0.71439,"itemCount":5,"width":2.46617},"input":"R^{\\mu}{}_{{\\nu\\rho\\sigma}}"}
+{"box":{"depth":0.28611,"height":0.89911,"width":8.03131},"displayList":{"depth":0.28611,"height":0.89911,"itemCount":15,"width":8.03131},"input":"T^{\\mu\\nu}{}_{\\rho} = g^{\\mu\\alpha}g^{\\nu\\beta}T_{\\alpha\\beta\\rho}"}
+{"box":{"depth":0.38311,"height":0.84511,"width":14.83827},"displayList":{"depth":0.38311,"height":0.84511,"itemCount":30,"width":14.83827},"input":"\\Gamma^{\\mu}_{\\nu\\rho} = \\tfrac{1}{2}g^{\\mu\\sigma}\\!\\left(\\partial_\\nu g_{\\rho\\sigma}+\\partial_\\rho g_{\\nu\\sigma}-\\partial_\\sigma g_{\\nu\\rho}\\right)"}
+{"box":{"depth":0.28611,"height":0.71439,"width":4.72386},"displayList":{"depth":0.28611,"height":0.71439,"itemCount":7,"width":4.72386},"input":"\\nabla_\\mu T^{\\mu\\nu} = 0"}
+{"box":{"depth":0.65002,"height":1.15,"width":4.55675},"displayList":{"depth":0.65002,"height":1.15,"itemCount":13,"width":4.55675},"input":"\\exp\\Bigl(\\tfrac{x+y}{1+x^2}\\Bigr)"}
+{"box":{"depth":0.686,"height":1.37144,"width":6.15743},"displayList":{"depth":0.686,"height":1.37144,"itemCount":15,"width":6.15743},"input":"f^{(n)}(x) = \\dfrac{\\mathrm{d}^n f}{\\mathrm{d}x^n}"}
+{"box":{"depth":0.88044,"height":1.49111,"width":2.51061},"displayList":{"depth":0.88044,"height":1.49111,"itemCount":8,"width":2.51061},"input":"\\frac{\\partial^2 u}{\\partial x \\partial y}"}
+{"box":{"depth":0.95,"height":1.45,"width":2.04908},"displayList":{"depth":0.95,"height":1.47,"itemCount":5,"width":2.04908},"input":"\\begin{matrix} \\hline a & b \\\\ c & d \\end{matrix}"}
+{"box":{"depth":0.95003,"height":1.45,"width":5.87105},"displayList":{"depth":0.95003,"height":1.45,"itemCount":12,"width":5.87105},"input":"\\displaystyle\\binom{k}{p}\\binom{n-k}{r-p}"}
+{"box":{"depth":0.38111,"height":0.88111,"width":2.25557},"displayList":{"depth":0.38111,"height":0.88111,"itemCount":6,"width":2.25557},"input":"\\bigl\\{\\begin{smallmatrix} 1&2\\\\3&4 \\end{smallmatrix}\\bigr\\}"}
+{"box":{"depth":0.19444,"height":0.69444,"width":6.67679},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":11,"width":6.67679},"input":"\\operatorname{supp} f \\cap \\operatorname{supp} g"}
+{"box":{"depth":0.13597,"height":0.94677,"width":2.9307},"displayList":{"depth":0.13597,"height":0.94677,"itemCount":5,"width":2.9307},"input":"\\mathring{U} \\subseteq \\overline{V}"}
+{"box":{"depth":0.0,"height":0.95233,"width":0.72222},"displayList":{"depth":0.0,"height":0.95233,"itemCount":2,"width":0.72222},"input":"\\acute{\\mathbb{A}}"}
+{"box":{"depth":0.0,"height":0.89747,"width":0.86814},"displayList":{"depth":0.0,"height":0.89747,"itemCount":2,"width":0.86814},"input":"\\check{\\mathscr{D}}"}
+{"box":{"depth":0.08333,"height":0.88826,"width":4.66859},"displayList":{"depth":0.08333,"height":0.88826,"itemCount":8,"width":4.69637},"input":"\\tilde{\\mathrm{e}}^{\\mathrm{i}\\pi}+1=0"}
+{"box":{"depth":0.471,"height":1.04833,"width":4.49876},"displayList":{"depth":0.471,"height":1.04833,"itemCount":7,"width":4.49876},"input":"\\utilde{EF} + \\widehat{GH}"}
+{"box":{"depth":0.95,"height":1.45,"width":3.0},"displayList":{"depth":0.97,"height":1.47,"itemCount":10,"width":3.04},"input":"\\begin{array}{|c|c|} \\hline 1 & 2 \\\\ \\hline 3 & 4 \\\\ \\hline \\end{array}"}
+{"box":{"depth":0.686,"height":1.59039,"width":7.01526},"displayList":{"depth":0.686,"height":1.59039,"itemCount":14,"width":7.01526},"input":"\\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}"}
+{"box":{"depth":2.50365,"height":3.00365,"width":5.64195},"displayList":{"depth":2.50365,"height":3.13976,"itemCount":10,"width":5.64195},"input":"\\begin{CD} A @>f>> B \\\\ @VVV @VVV \\\\ C @>g>> D \\end{CD}"}
+{"box":{"depth":2.39301,"height":2.89301,"width":5.64195},"displayList":{"depth":2.39301,"height":2.89301,"itemCount":8,"width":5.64195},"input":"\\begin{CD} A @= B \\\\ @| @| \\\\ C @= D \\end{CD}"}
+{"box":{"depth":2.50365,"height":3.00365,"width":5.64195},"displayList":{"depth":2.50365,"height":3.13976,"itemCount":10,"width":5.64195},"input":"\\begin{CD} A @<f<< B \\\\ @AAA @AAA \\\\ C @<g<< D \\end{CD}"}
+{"box":{"depth":2.59601,"height":3.09601,"width":10.45063},"displayList":{"depth":2.59601,"height":3.23212,"itemCount":16,"width":10.45063},"input":"\\begin{CD} A @>f>> B @>g>> C \\\\ @VVV @. @VVV \\\\ D @>h>> E @>k>> F \\end{CD}"}
+{"box":{"depth":4.2395,"height":4.7395,"width":9.566},"displayList":{"depth":4.2395,"height":4.7395,"itemCount":21,"width":9.566},"input":"\\begin{CD} 0 @>>> 1 @>>> 2 \\\\ @VVV @VVV @VVV \\\\ 3 @>>> 4 @>>> 5 \\\\ @VVV @VVV @VVV \\\\ 6 @>>> 7 @>>> 8 \\end{CD}"}
+{"box":{"depth":2.51484,"height":3.01484,"width":6.41973},"displayList":{"depth":2.51484,"height":3.15095,"itemCount":14,"width":6.41973},"input":"\\begin{CD} A @>p>q>> B \\\\ @VVV @VVV \\\\ C @>r>s>> D \\end{CD}"}
+{"box":{"depth":2.40215,"height":2.90215,"width":6.64545},"displayList":{"depth":2.40215,"height":2.90215,"itemCount":12,"width":6.64545},"input":"\\begin{CD} X @>{\\alpha}>{}>> Y \\\\ @V{\\beta}V{}V @A{}A{\\gamma}A \\\\ Z @= W \\end{CD}"}
+{"box":{"depth":2.393,"height":2.893,"width":7.29618},"displayList":{"depth":2.393,"height":2.893,"itemCount":10,"width":7.29618},"input":"\\begin{CD} X\\times Y @>>> Z \\\\ @VVV @VVV \\\\ A @>>> B \\end{CD}"}
+{"box":{"depth":2.393,"height":2.893,"width":5.44445},"displayList":{"depth":2.393,"height":2.893,"itemCount":8,"width":5.44445},"input":"\\begin{CD} \\mathbb{Z} @>>> \\mathbb{Q} \\\\ @VVV @VVV \\\\ 0 @= 0 \\end{CD}"}
+{"box":{"depth":2.6315,"height":3.1315,"width":6.48612},"displayList":{"depth":2.6315,"height":3.1315,"itemCount":14,"width":6.48612},"input":"\\begin{CD} E @<a<b<< F \\\\ @AAA @AAA \\\\ G @<c<d<< H \\end{CD}"}
+{"box":{"depth":2.6465,"height":3.1465,"width":6.37701},"displayList":{"depth":2.6465,"height":3.1465,"itemCount":11,"width":6.37701},"input":"\\begin{CD} P @VpVqVV Q \\\\ @VVV @VVV \\\\ R @= S \\end{CD}"}
+{"box":{"depth":4.2395,"height":4.7395,"width":7.09471},"displayList":{"depth":4.2395,"height":4.7395,"itemCount":13,"width":7.09471},"input":"\\begin{CD} P @>>> Q \\\\ @VVV @. @VVV \\\\ R @>>> S \\\\ @VVV @VVV \\\\ T @>>> U \\end{CD}"}
+{"box":{"depth":2.39301,"height":2.89301,"width":5.99028},"displayList":{"depth":2.39301,"height":2.89301,"itemCount":8,"width":5.99028},"input":"\\begin{CD} W @>>> X \\\\ @| @| \\\\ Y @>>> Z \\end{CD}"}
+{"box":{"depth":2.393,"height":2.893,"width":12.07259},"displayList":{"depth":2.393,"height":2.893,"itemCount":20,"width":12.07259},"input":"\\begin{CD} \\operatorname{Hom}(A,B) @>>> \\mathrm{End}(V) \\\\ @VVV @VVV \\\\ 0 @>>> 1 \\end{CD}"}
+{"box":{"depth":1.22389,"height":0.69444,"width":3.83497},"displayList":{"depth":1.22389,"height":0.69444,"itemCount":10,"width":3.83497},"input":"\\underbracket{a+b+c}_{\\text{note}}"}
+{"box":{"depth":0.08333,"height":1.865,"width":3.83497},"displayList":{"depth":0.08333,"height":1.865,"itemCount":10,"width":3.83497},"input":"\\overbracket{a+b+c}^{\\text{note}}"}
+{"box":{"depth":0.0,"height":1.22333,"width":1.55868},"displayList":{"depth":0.0,"height":1.22333,"itemCount":3,"width":1.55868},"input":"\\overbracket{AB}"}
+{"box":{"depth":0.51,"height":0.68333,"width":1.55868},"displayList":{"depth":0.51,"height":0.68333,"itemCount":3,"width":1.55868},"input":"\\underbracket{AB}"}
+{"box":{"depth":2.45,"height":2.95,"width":4.70198},"displayList":{"depth":2.45,"height":2.95,"itemCount":45,"width":4.70198},"input":"\\def\\arraystretch{1.5}\\begin{array}{c:c:c} a & b & c \\\\ \\hline d & e & f \\\\ \\hdashline g & h & i \\end{array}"}
+{"box":{"depth":0.0,"height":0.68611,"width":5.29233},"displayList":{"depth":0.0,"height":0.68611,"itemCount":9,"width":5.29233},"input":"\\text{𝐀-𝐙 𝐚-𝐳 𝟎-𝟗}"}
+{"box":{"depth":0.0,"height":0.68889,"width":2.52778},"displayList":{"depth":0.0,"height":0.68889,"itemCount":4,"width":2.52778},"input":"\\text{𝔸-}ℤ\\ 𝕜"}
+{"box":{"depth":0.0,"height":0.68611,"width":3.74663},"displayList":{"depth":0.0,"height":0.68611,"itemCount":6,"width":3.74663},"input":"\\text{𝑨-𝒁 𝒂-𝒛}"}
+{"box":{"depth":0.0,"height":0.69444,"width":5.00695},"displayList":{"depth":0.0,"height":0.69444,"itemCount":9,"width":5.00695},"input":"\\text{𝗔-𝗭 𝗮-𝘇 𝟬-𝟵}"}
+{"box":{"depth":0.0,"height":0.7,"width":1.95706},"displayList":{"depth":0.0,"height":0.7,"itemCount":3,"width":1.95706},"input":"\\text{𝒜-𝒵}"}
+{"box":{"depth":0.18906,"height":0.69141,"width":3.12727},"displayList":{"depth":0.18906,"height":0.69141,"itemCount":6,"width":3.12727},"input":"\\text{$𝔄$-$ℨ$}\\text{ $𝔞$-$𝔷$}"}
+{"box":{"depth":0.0,"height":0.61111,"width":4.64999},"displayList":{"depth":0.0,"height":0.61111,"itemCount":9,"width":4.64999},"input":"\\text{𝙰-𝚉 𝚊-𝚣 𝟶-𝟿}"}
+{"box":{"depth":0.18906,"height":0.69141,"width":3.53866},"displayList":{"depth":0.18906,"height":0.69141,"itemCount":6,"width":3.53866},"input":"\\text{𝕬-𝖅 𝖆-𝖟}"}
+{"box":{"depth":1.49378,"height":1.05001,"width":2.80214},"displayList":{"depth":1.49378,"height":1.05001,"itemCount":11,"width":3.56641},"input":"\\displaystyle\\sum_{\\mathclap{1\\le i\\le j\\le n}} x_{ij}"}
+{"box":{"depth":0.3,"height":0.98333,"width":4.12189},"displayList":{"depth":0.3,"height":0.98333,"itemCount":5,"width":4.12189},"input":"\\colorbox{aqua}{$F=ma$}"}
+{"box":{"depth":0.34,"height":1.02333,"width":4.20189},"displayList":{"depth":0.34,"height":1.02333,"itemCount":9,"width":4.20189},"input":"\\fcolorbox{red}{aqua}{$F=ma$}"}
+{"box":{"depth":1.49378,"height":1.7314,"width":34.6008},"displayList":{"depth":1.49378,"height":1.7314,"itemCount":63,"width":34.6008},"input":"\\displaystyle {1 +  \\frac{q^2}{(1-q)}+\\frac{q^6}{(1-q)(1-q^2)}+\\cdots }= \\prod_{j=0}^{\\infty}\\frac{1}{(1-q^{5j+2})(1-q^{5j+3})}, \\quad\\quad \\text{for }\\lvert q\\rvert<1."}
+{"box":{"depth":0.0,"height":0.90472,"width":0.57153},"displayList":{"depth":0.0,"height":0.90472,"itemCount":3,"width":0.57153},"input":"\\tilde{\\tilde{x}}"}
+{"box":{"depth":0.0,"height":0.92,"width":4.0},"displayList":{"depth":0.0,"height":0.92,"itemCount":4,"width":4.0},"input":"\\text{你好世界}"}
+{"box":{"depth":0.0,"height":0.92,"width":4.0},"displayList":{"depth":0.0,"height":0.92,"itemCount":4,"width":4.0},"input":"\\text{😊🎉✅⭐}"}
+{"box":{"depth":0.36205,"height":0.86205,"width":3.83995},"displayList":{"depth":0.36205,"height":0.86205,"itemCount":5,"width":3.83995},"input":"\\begin{equation*} E=mc^2 \\end{equation*}"}
+{"box":{"depth":0.36205,"height":0.86205,"width":6.11773},"displayList":{"depth":0.36205,"height":0.86205,"itemCount":8,"width":6.11773},"input":"\\begin{equation} E=mc^2 \\end{equation}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.62709},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.62709},"input":"\\begin{align} x &= 1 \\\\ y &= 2 \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.56888},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.56888},"input":"\\begin{gather} a=b \\\\ c=d \\end{gather}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.62709},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.62709},"input":"\\begin{align} x &= 1 \\nonumber \\\\ y &= 2 \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":7.3249},"displayList":{"depth":1.25,"height":1.75,"itemCount":17,"width":7.3249},"input":"\\begin{align} x &= 1 \\tag{custom} \\\\ y &= 2 \\end{align}"}
+{"box":{"depth":0.97003,"height":1.59901,"width":3.78692},"displayList":{"depth":0.97003,"height":1.59901,"itemCount":8,"width":3.78692},"input":"\\displaystyle \\iiint_{-\\infty}^{infty}"}
+{"box":{"depth":0.29971,"height":0.80429,"width":2.42017},"displayList":{"depth":0.29971,"height":0.80429,"itemCount":5,"width":2.42017},"input":"\\textstyle\\sum_{n=1}^{\\infty}"}
+{"box":{"depth":1.04711,"height":1.4314,"width":1.31461},"displayList":{"depth":1.04711,"height":1.4314,"itemCount":5,"width":1.31461},"input":"\\textstyle\\sum\\limits_{n=1}^{\\infty}"}
+{"box":{"depth":0.35001,"height":0.85001,"width":2.34737},"displayList":{"depth":0.35001,"height":0.85001,"itemCount":5,"width":2.34737},"input":"\\left( \\htmlStyle{color: red;}{x \\middle| y} \\right)"}
+{"box":{"depth":0.0,"height":0.86411,"width":0.97153},"displayList":{"depth":0.0,"height":0.86411,"itemCount":2,"width":0.97153},"input":"\\htmlStyle{color: red;}{x}^2"}
+{"box":{"depth":0.08333,"height":0.69444,"width":2.17998},"displayList":{"depth":0.08333,"height":0.69444,"itemCount":3,"width":2.17998},"input":"a \\htmlStyle{color: red;}{+} b"}
+{"box":{"depth":0.25,"height":0.75,"width":1.32709},"displayList":{"depth":0.25,"height":0.75,"itemCount":5,"width":1.32709},"input":"⟦ x ⟧"}
+{"box":{"depth":0.25,"height":0.75,"width":1.72616},"displayList":{"depth":0.25,"height":0.75,"itemCount":5,"width":1.72616},"input":"⦃ y ⦄"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.77778},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":2,"width":0.77778},"input":"⦵"}
+{"box":{"depth":0.0,"height":0.46528,"width":1.21667},"displayList":{"depth":0.0,"height":0.46528,"itemCount":3,"width":1.21667},"input":"⩴"}
+{"box":{"depth":0.91083,"height":1.60013,"width":6.30359},"displayList":{"depth":0.91083,"height":1.60013,"itemCount":8,"width":6.30359},"input":"\\int_a^b f\\,dx \\quad ∫ f"}
+{"box":{"depth":0.862,"height":1.36,"width":2.29235},"displayList":{"depth":0.862,"height":1.36,"itemCount":2,"width":2.29235},"input":"∬ f"}
+{"box":{"depth":0.862,"height":1.36,"width":2.71597},"displayList":{"depth":0.862,"height":1.36,"itemCount":2,"width":2.71597},"input":"∭ g"}
+{"box":{"depth":0.86113,"height":1.36113,"width":3.60661},"displayList":{"depth":0.86225,"height":1.36113,"itemCount":5,"width":3.60661},"input":"∮ \\mathbf{F}\\cdot d\\mathbf{r}"}
+{"box":{"depth":0.862,"height":1.36,"width":2.27128},"displayList":{"depth":0.862,"height":1.36,"itemCount":3,"width":2.27128},"input":"∯ h"}
+{"box":{"depth":0.862,"height":1.36,"width":2.7552},"displayList":{"depth":0.862,"height":1.36,"itemCount":3,"width":2.7552},"input":"∰ k"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.77778},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.77778},"input":"⟂"}
+{"box":{"depth":0.0,"height":0.69444,"width":0.51112},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.51112},"input":"‼"}
+{"box":{"depth":0.13472,"height":0.56528,"width":0.7},"displayList":{"depth":0.13472,"height":0.56528,"itemCount":2,"width":0.7},"input":"©"}
+{"box":{"depth":0.12929,"height":0.60762,"width":0.73691},"displayList":{"depth":0.12929,"height":0.60762,"itemCount":2,"width":0.73691},"input":"®"}
+{"box":{"depth":0.0,"height":0.69224,"width":1.57153},"displayList":{"depth":0.0,"height":0.69224,"itemCount":3,"width":1.57153},"input":"⌜ x ⌝"}
+{"box":{"depth":0.0,"height":0.43056,"width":1.57153},"displayList":{"depth":0.0,"height":0.43056,"itemCount":3,"width":1.57153},"input":"⌞ x ⌟"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.50556},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.50556},"input":"∷"}
+{"box":{"depth":0.08333,"height":0.58333,"width":0.98889},"displayList":{"depth":0.08333,"height":0.58333,"itemCount":2,"width":0.98889},"input":"∹"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.98889},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.98889},"input":"≔"}
+{"box":{"depth":0.0,"height":0.46528,"width":0.98889},"displayList":{"depth":0.0,"height":0.46528,"itemCount":2,"width":0.98889},"input":"≕"}
+{"box":{"depth":0.24,"height":0.55,"width":1.16},"displayList":{"depth":0.24,"height":0.55,"itemCount":3,"width":1.16},"input":"≘"}
+{"box":{"depth":0.0,"height":1.02465,"width":0.77778},"displayList":{"depth":0.0,"height":1.02465,"itemCount":2,"width":0.77778},"input":"≙"}
+{"box":{"depth":0.0,"height":1.02465,"width":0.77778},"displayList":{"depth":0.0,"height":1.02465,"itemCount":2,"width":0.77778},"input":"≚"}
+{"box":{"depth":0.0,"height":1.07257,"width":0.77778},"displayList":{"depth":0.0,"height":1.07257,"itemCount":2,"width":0.77778},"input":"≛"}
+{"box":{"depth":0.0,"height":1.09409,"width":0.77778},"displayList":{"depth":0.0,"height":1.09409,"itemCount":4,"width":0.77778},"input":"≝"}
+{"box":{"depth":0.3,"height":0.56,"width":0.98},"displayList":{"depth":0.3,"height":0.56,"itemCount":3,"width":0.98},"input":"≞"}
+{"box":{"depth":0.0,"height":1.09409,"width":0.77778},"displayList":{"depth":0.0,"height":1.09409,"itemCount":2,"width":0.77778},"input":"≟"}
+{"box":{"depth":0.13472,"height":0.56528,"width":0.7},"displayList":{"depth":0.13472,"height":0.56528,"itemCount":2,"width":0.7},"input":"\\textcopyright"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.69526},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.69526},"input":"\\tmspace+{3mu}{.1667em}a"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.40221},"displayList":{"depth":0.0,"height":0.69444,"itemCount":3,"width":1.40221},"input":"a · b"}
+{"box":{"depth":0.0,"height":0.44445,"width":0.27778},"displayList":{"depth":0.0,"height":0.44445,"itemCount":1,"width":0.27778},"input":"\\text{·}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.39052},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":1.39052},"input":"\\sout{abc}"}
+{"box":{"depth":0.0,"height":0.69444,"width":1.50001},"displayList":{"depth":0.0,"height":0.69444,"itemCount":4,"width":1.50001},"input":"\\text{\\sout{abc}}"}
+{"box":{"depth":0.0,"height":0.86411,"width":0.97153},"displayList":{"depth":0.0,"height":0.86411,"itemCount":3,"width":0.97153},"input":"\\sout{x^2}"}
+{"box":{"depth":2.50365,"height":3.00365,"width":5.86735},"displayList":{"depth":2.50365,"height":3.00365,"itemCount":12,"width":5.86735},"input":"\\begin{CD} A @>a>> B \\\\ @VbVV @VcVV \\\\ C @>d>> D \\end{CD}"}
+{"box":{"depth":1.38211,"height":1.7314,"width":1.99965},"displayList":{"depth":1.38211,"height":1.7314,"itemCount":6,"width":1.99965},"input":"∏_{k=1}^{n} k"}
+{"box":{"depth":1.35767,"height":1.05001,"width":2.3488},"displayList":{"depth":1.35767,"height":1.05001,"itemCount":4,"width":2.3488},"input":"∐_i S_i"}
+{"box":{"depth":1.34711,"height":1.90834,"width":2.55373},"displayList":{"depth":1.34711,"height":1.90834,"itemCount":6,"width":2.55373},"input":"∑_{m=1}^{M} m"}
+{"box":{"depth":1.35767,"height":1.7314,"width":2.2476},"displayList":{"depth":1.35767,"height":1.7314,"itemCount":7,"width":2.2476},"input":"⋀_{i=1}^n \\varphi_i"}
+{"box":{"depth":1.49378,"height":1.05001,"width":2.3075},"displayList":{"depth":1.49378,"height":1.05001,"itemCount":4,"width":2.3075},"input":"⋁_{j} \\psi_j"}
+{"box":{"depth":1.33001,"height":1.05001,"width":2.43072},"displayList":{"depth":1.33001,"height":1.05001,"itemCount":4,"width":2.43072},"input":"⋂_{n} U_n"}
+{"box":{"depth":1.33001,"height":1.05001,"width":2.36149},"displayList":{"depth":1.33001,"height":1.05001,"itemCount":4,"width":2.36149},"input":"⋃_{\\alpha} V_{\\alpha}"}
+{"box":{"depth":1.35767,"height":1.7314,"width":2.75519},"displayList":{"depth":1.35767,"height":1.7314,"itemCount":7,"width":2.75519},"input":"⨀_{i=1}^r G_i"}
+{"box":{"depth":1.49378,"height":1.05001,"width":2.88737},"displayList":{"depth":1.49378,"height":1.05001,"itemCount":4,"width":2.88737},"input":"⨁_{j} H_j"}
+{"box":{"depth":1.38211,"height":1.05001,"width":2.7948},"displayList":{"depth":1.38211,"height":1.05001,"itemCount":4,"width":2.7948},"input":"⨂_{k} L_k"}
+{"box":{"depth":1.33001,"height":1.05001,"width":2.58439},"displayList":{"depth":1.33001,"height":1.05001,"itemCount":4,"width":2.58439},"input":"⨄_{m} P_m"}
+{"box":{"depth":1.33001,"height":1.05001,"width":2.5385},"displayList":{"depth":1.33001,"height":1.05001,"itemCount":4,"width":2.5385},"input":"⨆_{n} Q_n"}
+{"box":{"depth":0.0,"height":0.43056,"width":0.57153},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.57153},"input":"\\textcolor{#ff000050}{x}"}
