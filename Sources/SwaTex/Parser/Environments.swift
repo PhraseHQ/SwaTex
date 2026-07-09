@@ -582,6 +582,14 @@ private func handleAligned(
         // would trap in `0..<numCols` below). A count whose doubling would
         // overflow is likewise treated as unparseable instead of trapping.
         if let n = Int(argStr), n >= 0, n <= Int.max / 2 {
+            // DoS guard (deliberate divergence, like the recursion stack
+            // guard): the column loop below materializes 2n specs and the
+            // layout stage iterates them per row — a hostile
+            // `\begin{alignat}{999999999}` hung the process (KaTeX/RaTeX
+            // share the quirk). Real documents use single digits.
+            if n > 256 {
+                throw ParseError("alignat column count too large: \(n) (maximum 256)")
+            }
             numMaths = n
             explicitCols = n * 2
         }

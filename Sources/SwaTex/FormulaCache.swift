@@ -47,6 +47,12 @@ public final class FormulaCache: Sendable {
         storage.withLock { ($0.hits, $0.misses) }
     }
 
+    /// Current number of cached entries. Bounded by `capacity` (amortized —
+    /// eviction drops the least-recently-used quarter when the cap is hit).
+    public var count: Int {
+        storage.withLock { $0.entries.count }
+    }
+
     /// Remove all cached formulas (e.g. on memory pressure).
     public func removeAll() {
         storage.withLock { $0.entries.removeAll(keepingCapacity: false) }
