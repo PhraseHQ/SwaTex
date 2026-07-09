@@ -42,7 +42,13 @@ Every major cross-platform math renderer runs LaTeX through a browser or JavaScr
 
 ## What it renders
 
-**Math** — aligned with KaTeX's math syntax: fractions, radicals, integrals, matrices, environments (`pmatrix`, `align`, `cases`, `CD`, …), stretchy delimiters, accents, macros (`\def`, `\newcommand`), and more.
+**Math** — **1007 of 1008 entries in the official KaTeX support table**;
+the only exception is `\includegraphics`, which KaTeX itself gates behind
+`trust`. (Four `\html*` commands render their content but drop DOM-only
+attributes — there is no DOM in a native renderer.) Fractions, radicals,
+integrals, matrices, environments (`pmatrix`, `align`, `cases`, `CD`, …),
+stretchy delimiters, accents, macros (`\def`, `\newcommand`,
+`\expandafter`), and more.
 
 **Chemistry** — full mhchem support via `\ce` and `\pu` (state-machine port verified byte-identical to RaTeX on a 253-case corpus):
 
