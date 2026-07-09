@@ -16,6 +16,21 @@ SwaTex is a ground-up Swift port of [RaTeX](https://github.com/erweixin/RaTeX), 
 \frac{-b \pm \sqrt{b^2-4ac}}{2a}   →   iOS · macOS · tvOS · watchOS · visionOS · SVG · PNG
 ```
 
+<table>
+  <tr>
+    <th>Light</th>
+    <th>Dark — adaptive colors built in</th>
+  </tr>
+  <tr>
+    <td><img src=".github/assets/showcase-light.png" width="420" alt="SwaTex rendering inline math with baseline alignment, a Fourier transform, a 3D rotation matrix, the Schrödinger equation, and mhchem chemistry — light mode"></td>
+    <td><img src=".github/assets/showcase-dark.png" width="420" alt="The same SwaTex showcase rendered in dark mode via dynamic colors"></td>
+  </tr>
+</table>
+
+<sub>Generated straight from the library (SwiftUI `MathView`, dynamic
+`.mathColor(.primary)`) by `Tests/SwaTexRenderTests/ScreenshotGenerator.swift` —
+regenerate with `SWATEX_SCREENSHOTS=.github/assets swift test --filter Screenshot`.</sub>
+
 ## Why
 
 Every major cross-platform math renderer runs LaTeX through a browser or JavaScript engine — a hidden WebView eating 50–150 MB RAM, startup latency before the first formula, no offline guarantee. SwaTex is the same KaTeX-compatible pipeline as a native Swift library:
