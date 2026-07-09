@@ -29,7 +29,10 @@ struct GalleryView: View {
         ("Euler's identity", #"e^{i\pi} + 1 = 0"#),
         ("Eigenvalues", #"\det\begin{pmatrix} a-\lambda & b \\ c & d-\lambda \end{pmatrix} = 0"#),
         ("Chemistry (mhchem)", #"\ce{2H2 + O2 ->[\Delta] 2H2O}"#),
-        ("Maxwell", #"\nabla \times \vec{B} = \mu_0 \vec{J} + \mu_0 \varepsilon_0 \frac{\partial \vec{E}}{\partial t}"#),
+        (
+            "Maxwell",
+            #"\nabla \times \vec{B} = \mu_0 \vec{J} + \mu_0 \varepsilon_0 \frac{\partial \vec{E}}{\partial t}"#
+        ),
         ("Binomial", #"\binom{n}{k} = \frac{n!}{k!(n-k)!}"#),
         ("Cases", #"|x| = \begin{cases} x & x \ge 0 \\ -x & x < 0 \end{cases}"#),
         ("Limits", #"\lim_{x \to 0} \frac{\sin x}{x} = 1"#),

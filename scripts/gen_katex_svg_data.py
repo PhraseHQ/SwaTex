@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# NOTE: after regenerating, run: xcrun swift format --in-place --configuration .swift-format --recursive Sources
+
 """Generate Sources/SwaTex/Layout/KaTeXSvgData.swift from RaTeX's katex_svg.rs.
 
 Extracts every `const NAME: &str = "..."` and `const NAME: [&str; N] = [...]`

@@ -101,19 +101,26 @@
                         Divider()
 
                         SectionLabel(text: "Fourier transform")
-                        Display(latex: #"\hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i x \xi}\, dx"#)
+                        Display(
+                            latex:
+                                #"\hat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\, e^{-2\pi i x \xi}\, dx"#
+                        )
 
                         Divider()
 
                         SectionLabel(text: "3D rotation matrix")
                         Display(
-                            latex: #"R_z(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}"#)
+                            latex:
+                                #"R_z(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}"#
+                        )
 
                         Divider()
 
                         SectionLabel(text: "Schrödinger equation")
                         Display(
-                            latex: #"i\hbar \frac{\partial}{\partial t} \Psi = \left[ -\frac{\hbar^2}{2m} \nabla^2 + V \right] \Psi"#)
+                            latex:
+                                #"i\hbar \frac{\partial}{\partial t} \Psi = \left[ -\frac{\hbar^2}{2m} \nabla^2 + V \right] \Psi"#
+                        )
 
                         Divider()
 

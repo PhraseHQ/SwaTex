@@ -103,7 +103,8 @@ enum MhChemTexify {
         case "text":
             var p1 = str(buf, "p1")
             if p1.contains("^") || p1.contains("_") {
-                p1 = p1
+                p1 =
+                    p1
                     .replacingOccurrences(of: " ", with: "~")
                     .replacingOccurrences(of: "-", with: "\\text{-}")
                 return "\\mathrm{\(p1)}"
@@ -265,11 +266,14 @@ enum MhChemTexify {
         case "~-":
             return "{\\mathrlap{\\raisebox{-.1em}{$-$}}\\raisebox{.1em}{$\\tripledash$}}"
         case "~=":
-            return "{\\mathrlap{\\raisebox{-.2em}{$-$}}\\mathrlap{\\raisebox{.2em}{$\\tripledash$}}-}"
+            return
+                "{\\mathrlap{\\raisebox{-.2em}{$-$}}\\mathrlap{\\raisebox{.2em}{$\\tripledash$}}-}"
         case "~--":
-            return "{\\mathrlap{\\raisebox{-.2em}{$-$}}\\mathrlap{\\raisebox{.2em}{$\\tripledash$}}-}"
+            return
+                "{\\mathrlap{\\raisebox{-.2em}{$-$}}\\mathrlap{\\raisebox{.2em}{$\\tripledash$}}-}"
         case "-~-":
-            return "{\\mathrlap{\\raisebox{-.2em}{$-$}}\\mathrlap{\\raisebox{.2em}{$-$}}\\tripledash}"
+            return
+                "{\\mathrlap{\\raisebox{-.2em}{$-$}}\\mathrlap{\\raisebox{.2em}{$-$}}\\tripledash}"
         case "...":
             return "{{\\cdot}{\\cdot}{\\cdot}}"
         case "....":

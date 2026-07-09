@@ -50,7 +50,9 @@ struct SVGRendererTests {
     struct StubProvider: SVGStandaloneGlyphProvider {
         var glyph: SVGStandaloneGlyph?
 
-        func standaloneGlyph(x: Float, y: Float, glyphEm: Float, font: String, charCode: UInt32) -> SVGStandaloneGlyph? {
+        func standaloneGlyph(x: Float, y: Float, glyphEm: Float, font: String, charCode: UInt32)
+            -> SVGStandaloneGlyph?
+        {
             glyph
         }
     }
@@ -73,7 +75,8 @@ struct SVGRendererTests {
         #expect(!svg.contains("<text"))
         #expect(
             svg.contains(
-                "<path d=\"M1 8 L2 8 Z\" fill=\"rgba(0,0,0,1)\" fill-rule=\"nonzero\" stroke=\"none\"/>"))
+                "<path d=\"M1 8 L2 8 Z\" fill=\"rgba(0,0,0,1)\" fill-rule=\"nonzero\" stroke=\"none\"/>"
+            ))
     }
 
     @Test func embeddedEmojiImageUsesColorAlphaAsOpacity() {
@@ -98,23 +101,33 @@ struct SVGRendererTests {
 
     @Test func opaqueEmbeddedImageOmitsOpacity() {
         let list = DisplayList(
-            items: [.glyphPath(x: 0, y: 1, scale: 1, font: "Emoji-Fallback", charCode: 0x1F600, color: .black)],
+            items: [
+                .glyphPath(
+                    x: 0, y: 1, scale: 1, font: "Emoji-Fallback", charCode: 0x1F600, color: .black)
+            ],
             width: 1.0, height: 1.0, depth: 0.0)
         let svg = renderToSVG(
             list,
             SVGOptions(
                 fontSize: 10.0, padding: 0.0, embedGlyphs: true,
-                glyphProvider: StubProvider(glyph: .image(href: "data:image/png;base64,AAAA", x: 0, y: 0, w: 10, h: 10))))
+                glyphProvider: StubProvider(
+                    glyph: .image(href: "data:image/png;base64,AAAA", x: 0, y: 0, w: 10, h: 10))))
         #expect(!svg.contains("opacity="))
     }
 
     @Test func embedGlyphsFallsBackToTextWhenProviderReturnsNil() {
         let list = DisplayList(
-            items: [.glyphPath(x: 0, y: 0.8, scale: 1, font: "Main-Regular", charCode: UInt32(UInt8(ascii: "a")), color: .black)],
+            items: [
+                .glyphPath(
+                    x: 0, y: 0.8, scale: 1, font: "Main-Regular",
+                    charCode: UInt32(UInt8(ascii: "a")), color: .black)
+            ],
             width: 1.0, height: 1.0, depth: 0.0)
         let svg = renderToSVG(
             list,
-            SVGOptions(fontSize: 10.0, padding: 0.0, embedGlyphs: true, glyphProvider: StubProvider(glyph: nil)))
+            SVGOptions(
+                fontSize: 10.0, padding: 0.0, embedGlyphs: true,
+                glyphProvider: StubProvider(glyph: nil)))
         #expect(svg.contains("<text"))
         #expect(svg.contains("KaTeX_Main"))
     }
@@ -122,7 +135,11 @@ struct SVGRendererTests {
     @Test func embedGlyphsWithoutProviderEmitsText() {
         // Rust: `embed_glyphs` without `font_dir` (non-embed build) keeps `<text>`.
         let list = DisplayList(
-            items: [.glyphPath(x: 0, y: 0.8, scale: 1, font: "Main-Regular", charCode: UInt32(UInt8(ascii: "a")), color: .black)],
+            items: [
+                .glyphPath(
+                    x: 0, y: 0.8, scale: 1, font: "Main-Regular",
+                    charCode: UInt32(UInt8(ascii: "a")), color: .black)
+            ],
             width: 1.0, height: 1.0, depth: 0.0)
         let svg = renderToSVG(list, SVGOptions(fontSize: 10.0, padding: 0.0, embedGlyphs: true))
         #expect(svg.contains("<text"))
@@ -151,7 +168,8 @@ struct SVGFormattingTests {
         #expect(svgColor(Color(r: 1, g: 0, b: 0)) == "rgba(255,0,0,1)")
         #expect(svgColor(Color(r: 0, g: 0, b: 1, a: 0.5)) == "rgba(0,0,255,0.5)")
         #expect(svgColor(Color(r: 1, g: 0, b: 0, a: 0.25)) == "rgba(255,0,0,0.25)")
-        #expect(svgColor(Color(r: 0, g: 0.5, b: 0)) == "rgba(0,128,0,1)")  // 127.5 rounds away from zero
+        // 127.5 rounds away from zero:
+        #expect(svgColor(Color(r: 0, g: 0.5, b: 0)) == "rgba(0,128,0,1)")
         #expect(svgColor(Color(r: 0.2, g: 0.4, b: 0.6)) == "rgba(51,102,153,1)")
         // Out-of-range components clamp; non-finite alpha normalizes to 1.
         #expect(svgColor(Color(r: -1, g: 2, b: 0, a: .nan)) == "rgba(0,255,0,1)")
@@ -182,7 +200,9 @@ struct SVGStandaloneOutlineTests {
             x: 10, y: 20, scale: 2,
             curves: [
                 .line(SVGOutlinePoint(x: 0, y: 0), SVGOutlinePoint(x: 1, y: 0)),
-                .quad(SVGOutlinePoint(x: 1, y: 0), SVGOutlinePoint(x: 2, y: 1), SVGOutlinePoint(x: 1, y: 2)),
+                .quad(
+                    SVGOutlinePoint(x: 1, y: 0), SVGOutlinePoint(x: 2, y: 1),
+                    SVGOutlinePoint(x: 1, y: 2)),
                 .cubic(
                     SVGOutlinePoint(x: 1, y: 2), SVGOutlinePoint(x: 0.5, y: 2),
                     SVGOutlinePoint(x: 0, y: 1), SVGOutlinePoint(x: 0, y: 0)),

@@ -105,7 +105,8 @@ public final class Parser {
         if recursionDepth > maxRecursionDepth || !stackHasHeadroom(above: stackFloor) {
             throw ParseError.recursionLimitExceeded
         }
-        return try parseExpressionImpl(breakOnInfix: breakOnInfix, breakOnTokenText: breakOnTokenText)
+        return try parseExpressionImpl(
+            breakOnInfix: breakOnInfix, breakOnTokenText: breakOnTokenText)
     }
 
     private func parseExpressionImpl(
@@ -518,7 +519,8 @@ public final class Parser {
 
     // Regex is an immutable value type; the missing Sendable conformance is a
     // known stdlib gap (swiftlang#71356), so these constants are safe to share.
-    private nonisolated(unsafe) static let colorRegex = /^(#[a-fA-F0-9]{3,4}|#[a-fA-F0-9]{6}|#[a-fA-F0-9]{8}|[a-fA-F0-9]{6}|[a-zA-Z]+|\d+(\.\d+)?(,\d+(\.\d+)?)*)$/
+    private nonisolated(unsafe) static let colorRegex =
+        /^(#[a-fA-F0-9]{3,4}|#[a-fA-F0-9]{6}|#[a-fA-F0-9]{8}|[a-fA-F0-9]{6}|[a-zA-Z]+|\d+(\.\d+)?(,\d+(\.\d+)?)*)$/
     private nonisolated(unsafe) static let hex6Regex = /^[0-9a-fA-F]{6}$/
 
     /// Parse a color group.

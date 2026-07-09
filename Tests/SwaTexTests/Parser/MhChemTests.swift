@@ -92,17 +92,19 @@ struct MhChemStateResolutionTests {
     }
 
     @Test func unknownNextStateThrowsAtNextIteration() throws {
-        let def = try makeMachine(#"""
-        {"transitions": {"0": [{"pattern": "else", "task": {"nextState": "nowhere"}}]}}
-        """#)
+        let def = try makeMachine(
+            #"""
+            {"transitions": {"0": [{"pattern": "else", "task": {"nextState": "nowhere"}}]}}
+            """#)
         #expect(def.stateIndexByName["0"] != nil)
         #expect(def.stateTable[def.stateIndexByName["0"]!][0].nextStateIndex == nil)
     }
 
     @Test func starFallbackResolves() throws {
-        let def = try makeMachine(#"""
-        {"transitions": {"*": [{"pattern": "empty", "task": {}}]}}
-        """#)
+        let def = try makeMachine(
+            #"""
+            {"transitions": {"*": [{"pattern": "empty", "task": {}}]}}
+            """#)
         #expect(def.starStateIndex != nil)
     }
 }

@@ -244,6 +244,7 @@ struct MathAlphaTests {
     }
 
     @Test func ttfCmapHyphenUnchanged() {
-        #expect(FontId.mainBold.ttfGlyphScalar(forDisplayCharCode: UInt32(UInt8(ascii: "-"))) == "-")
+        #expect(
+            FontId.mainBold.ttfGlyphScalar(forDisplayCharCode: UInt32(UInt8(ascii: "-"))) == "-")
     }
 }

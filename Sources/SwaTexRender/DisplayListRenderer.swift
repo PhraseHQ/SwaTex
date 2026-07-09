@@ -218,7 +218,8 @@ public enum DisplayListRenderer {
         _ ctx: CGContext, at point: CGPoint, scalar: Unicode.Scalar,
         color: SwaTex.Color, size: CGFloat
     ) {
-        let base = CTFontCreateUIFontForLanguage(.system, size, nil)
+        let base =
+            CTFontCreateUIFontForLanguage(.system, size, nil)
             ?? KaTeXFontProvider.shared.font(for: .mainRegular, size: size)
         let str = String(scalar) as CFString
         let font = CTFontCreateForString(base, str, CFRange(location: 0, length: 1))

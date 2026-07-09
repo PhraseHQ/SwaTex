@@ -243,7 +243,8 @@
                         // Antialiasing blends edges toward the backdrop;
                         // require clear red dominance rather than purity.
                         if c.redComponent > 0.7, c.redComponent > c.greenComponent * 2,
-                            c.redComponent > c.blueComponent * 2 {
+                            c.redComponent > c.blueComponent * 2
+                        {
                             sawRed = true
                         }
                     }

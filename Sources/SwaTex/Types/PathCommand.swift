@@ -19,9 +19,11 @@ extension PathCommand: Codable {
         let c = try decoder.container(keyedBy: CodingKeys.self)
         switch try c.decode(String.self, forKey: .type) {
         case "MoveTo":
-            self = try .moveTo(x: c.decode(Double.self, forKey: .x), y: c.decode(Double.self, forKey: .y))
+            self = try .moveTo(
+                x: c.decode(Double.self, forKey: .x), y: c.decode(Double.self, forKey: .y))
         case "LineTo":
-            self = try .lineTo(x: c.decode(Double.self, forKey: .x), y: c.decode(Double.self, forKey: .y))
+            self = try .lineTo(
+                x: c.decode(Double.self, forKey: .x), y: c.decode(Double.self, forKey: .y))
         case "CubicTo":
             self = try .cubicTo(
                 x1: c.decode(Double.self, forKey: .x1), y1: c.decode(Double.self, forKey: .y1),

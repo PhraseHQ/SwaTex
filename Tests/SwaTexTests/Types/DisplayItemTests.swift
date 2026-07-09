@@ -21,7 +21,8 @@ struct DisplayListTests {
                     x: 0, y: 0,
                     commands: [.moveTo(x: 0, y: 0), .lineTo(x: 5, y: 5), .close],
                     fill: false, color: .black),
-                .glyphPath(x: 1, y: 2, scale: 1, font: "Main-Regular", charCode: 0x78, color: .black),
+                .glyphPath(
+                    x: 1, y: 2, scale: 1, font: "Main-Regular", charCode: 0x78, color: .black),
             ],
             width: 10, height: 5, depth: 5)
 
@@ -57,9 +58,14 @@ struct DisplayListTests {
             """
         let dl = try JSONDecoder().decode(DisplayList.self, from: Data(json.utf8))
         #expect(dl.items.count == 4)
-        #expect(dl.items[0] == .glyphPath(x: 1, y: 2, scale: 1, font: "Main-Regular", charCode: 120, color: .black))
+        #expect(
+            dl.items[0]
+                == .glyphPath(
+                    x: 1, y: 2, scale: 1, font: "Main-Regular", charCode: 120, color: .black))
         // `dashed` is optional in the wire format (serde default), decoding as false.
-        #expect(dl.items[1] == .line(x: 0, y: 5, width: 10, thickness: 0.04, color: .black, dashed: false))
+        #expect(
+            dl.items[1]
+                == .line(x: 0, y: 5, width: 10, thickness: 0.04, color: .black, dashed: false))
     }
 }
 

@@ -17,7 +17,8 @@ struct FormulaCacheTests {
 
     @Test func distinctStylesAreDistinctEntries() throws {
         let cache = FormulaCache(capacity: 8)
-        let display = try SwaTexEngine.displayList(for: #"\sum_n x_n"#, style: .display, cache: cache)
+        let display = try SwaTexEngine.displayList(
+            for: #"\sum_n x_n"#, style: .display, cache: cache)
         let inline = try SwaTexEngine.displayList(for: #"\sum_n x_n"#, style: .text, cache: cache)
         #expect(display.totalHeight > inline.totalHeight)
         #expect(cache.statistics.misses == 2)

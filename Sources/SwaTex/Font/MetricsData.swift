@@ -2,7 +2,9 @@
 // Regenerate with scripts/generate_font_data.py
 
 /// Each entry is (charCode, depth, height, italic, skew, width), sorted by charCode.
-typealias MetricsEntry = (code: UInt32, depth: Double, height: Double, italic: Double, skew: Double, width: Double)
+typealias MetricsEntry = (
+    code: UInt32, depth: Double, height: Double, italic: Double, skew: Double, width: Double
+)
 
 enum MetricsData {
 

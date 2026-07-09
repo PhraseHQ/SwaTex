@@ -73,51 +73,51 @@ extension MathConstants {
     /// Three sets of TeX math constants, indexed by size (0=text, 1=script, 2=scriptscript).
     /// Exact values from KaTeX's `fontMetrics.ts` sigmasAndXis table.
     public static let bySize: [MathConstants] = [
-    // [0] textstyle (size index >= 5, >= 9pt) — from cmsy10
-    MathConstants(
-        slant: 0.250, space: 0.0, stretch: 0.0, shrink: 0.0,
-        xHeight: 0.431, quad: 1.0, extraSpace: 0.0,
-        num1: 0.677, num2: 0.394, num3: 0.444,
-        denom1: 0.686, denom2: 0.345,
-        sup1: 0.413, sup2: 0.363, sup3: 0.289,
-        sub1: 0.150, sub2: 0.247,
-        supDrop: 0.386, subDrop: 0.050,
-        delim1: 2.390, delim2: 1.010,
-        axisHeight: 0.250, defaultRuleThickness: 0.04,
-        bigOpSpacing1: 0.111, bigOpSpacing2: 0.166, bigOpSpacing3: 0.2,
-        bigOpSpacing4: 0.6, bigOpSpacing5: 0.1,
-        sqrtRuleThickness: 0.04, ptPerEm: 10.0, doubleRuleSep: 0.2,
-        arrayRuleWidth: 0.04, fboxsep: 0.3, fboxrule: 0.04),
-    // [1] scriptstyle (size index 3-4, 7-8pt) — from cmsy7
-    MathConstants(
-        slant: 0.250, space: 0.0, stretch: 0.0, shrink: 0.0,
-        xHeight: 0.431, quad: 1.171, extraSpace: 0.0,
-        num1: 0.732, num2: 0.384, num3: 0.471,
-        denom1: 0.752, denom2: 0.344,
-        sup1: 0.503, sup2: 0.431, sup3: 0.286,
-        sub1: 0.143, sub2: 0.286,
-        supDrop: 0.353, subDrop: 0.071,
-        delim1: 1.700, delim2: 1.157,
-        axisHeight: 0.250, defaultRuleThickness: 0.049,
-        bigOpSpacing1: 0.111, bigOpSpacing2: 0.166, bigOpSpacing3: 0.2,
-        bigOpSpacing4: 0.611, bigOpSpacing5: 0.143,
-        sqrtRuleThickness: 0.04, ptPerEm: 10.0, doubleRuleSep: 0.2,
-        arrayRuleWidth: 0.04, fboxsep: 0.3, fboxrule: 0.04),
-    // [2] scriptscriptstyle (size index 1-2, 5-6pt) — from cmsy5
-    MathConstants(
-        slant: 0.250, space: 0.0, stretch: 0.0, shrink: 0.0,
-        xHeight: 0.431, quad: 1.472, extraSpace: 0.0,
-        num1: 0.925, num2: 0.387, num3: 0.504,
-        denom1: 1.025, denom2: 0.532,
-        sup1: 0.504, sup2: 0.404, sup3: 0.294,
-        sub1: 0.200, sub2: 0.400,
-        supDrop: 0.494, subDrop: 0.100,
-        delim1: 1.980, delim2: 1.420,
-        axisHeight: 0.250, defaultRuleThickness: 0.049,
-        bigOpSpacing1: 0.111, bigOpSpacing2: 0.166, bigOpSpacing3: 0.2,
-        bigOpSpacing4: 0.611, bigOpSpacing5: 0.143,
-        sqrtRuleThickness: 0.04, ptPerEm: 10.0, doubleRuleSep: 0.2,
-        arrayRuleWidth: 0.04, fboxsep: 0.3, fboxrule: 0.04),
+        // [0] textstyle (size index >= 5, >= 9pt) — from cmsy10
+        MathConstants(
+            slant: 0.250, space: 0.0, stretch: 0.0, shrink: 0.0,
+            xHeight: 0.431, quad: 1.0, extraSpace: 0.0,
+            num1: 0.677, num2: 0.394, num3: 0.444,
+            denom1: 0.686, denom2: 0.345,
+            sup1: 0.413, sup2: 0.363, sup3: 0.289,
+            sub1: 0.150, sub2: 0.247,
+            supDrop: 0.386, subDrop: 0.050,
+            delim1: 2.390, delim2: 1.010,
+            axisHeight: 0.250, defaultRuleThickness: 0.04,
+            bigOpSpacing1: 0.111, bigOpSpacing2: 0.166, bigOpSpacing3: 0.2,
+            bigOpSpacing4: 0.6, bigOpSpacing5: 0.1,
+            sqrtRuleThickness: 0.04, ptPerEm: 10.0, doubleRuleSep: 0.2,
+            arrayRuleWidth: 0.04, fboxsep: 0.3, fboxrule: 0.04),
+        // [1] scriptstyle (size index 3-4, 7-8pt) — from cmsy7
+        MathConstants(
+            slant: 0.250, space: 0.0, stretch: 0.0, shrink: 0.0,
+            xHeight: 0.431, quad: 1.171, extraSpace: 0.0,
+            num1: 0.732, num2: 0.384, num3: 0.471,
+            denom1: 0.752, denom2: 0.344,
+            sup1: 0.503, sup2: 0.431, sup3: 0.286,
+            sub1: 0.143, sub2: 0.286,
+            supDrop: 0.353, subDrop: 0.071,
+            delim1: 1.700, delim2: 1.157,
+            axisHeight: 0.250, defaultRuleThickness: 0.049,
+            bigOpSpacing1: 0.111, bigOpSpacing2: 0.166, bigOpSpacing3: 0.2,
+            bigOpSpacing4: 0.611, bigOpSpacing5: 0.143,
+            sqrtRuleThickness: 0.04, ptPerEm: 10.0, doubleRuleSep: 0.2,
+            arrayRuleWidth: 0.04, fboxsep: 0.3, fboxrule: 0.04),
+        // [2] scriptscriptstyle (size index 1-2, 5-6pt) — from cmsy5
+        MathConstants(
+            slant: 0.250, space: 0.0, stretch: 0.0, shrink: 0.0,
+            xHeight: 0.431, quad: 1.472, extraSpace: 0.0,
+            num1: 0.925, num2: 0.387, num3: 0.504,
+            denom1: 1.025, denom2: 0.532,
+            sup1: 0.504, sup2: 0.404, sup3: 0.294,
+            sub1: 0.200, sub2: 0.400,
+            supDrop: 0.494, subDrop: 0.100,
+            delim1: 1.980, delim2: 1.420,
+            axisHeight: 0.250, defaultRuleThickness: 0.049,
+            bigOpSpacing1: 0.111, bigOpSpacing2: 0.166, bigOpSpacing3: 0.2,
+            bigOpSpacing4: 0.611, bigOpSpacing5: 0.143,
+            sqrtRuleThickness: 0.04, ptPerEm: 10.0, doubleRuleSep: 0.2,
+            arrayRuleWidth: 0.04, fboxsep: 0.3, fboxrule: 0.04),
     ]
 }
 

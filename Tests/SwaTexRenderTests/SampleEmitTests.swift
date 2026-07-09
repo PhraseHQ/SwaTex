@@ -5,7 +5,8 @@ import Testing
 @testable import SwaTexRender
 
 /// Emits sample PNGs for visual inspection when SWATEX_EMIT_SAMPLES is set.
-@Suite("SampleEmit", .enabled(if: ProcessInfo.processInfo.environment["SWATEX_EMIT_SAMPLES"] != nil))
+@Suite(
+    "SampleEmit", .enabled(if: ProcessInfo.processInfo.environment["SWATEX_EMIT_SAMPLES"] != nil))
 struct SampleEmitTests {
     @Test func emitSamples() throws {
         let dir = ProcessInfo.processInfo.environment["SWATEX_EMIT_SAMPLES"]!

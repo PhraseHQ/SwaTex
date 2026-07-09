@@ -170,7 +170,8 @@ struct CoverageRenderTests {
 
         // inlineStyle(false) restores display style
         let display = view.inlineStyle(false)
-        let styleBack = Mirror(reflecting: display).children
+        let styleBack =
+            Mirror(reflecting: display).children
             .first { $0.label == "style" }?.value as? MathStyle
         #expect(styleBack == .display)
     }

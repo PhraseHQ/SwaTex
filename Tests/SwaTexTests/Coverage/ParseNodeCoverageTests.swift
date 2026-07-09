@@ -39,7 +39,8 @@ struct ParseNodeCoverageTests {
             "op", nil
         ),
         (
-            .operatorName(body: [x], alwaysHandleSupSub: false, limits: false, parentIsSupSub: false),
+            .operatorName(
+                body: [x], alwaysHandleSupSub: false, limits: false, parentIsSupSub: false),
             "operatorname", nil
         ),
         (.font(font: "mathrm", body: x), "font", nil),

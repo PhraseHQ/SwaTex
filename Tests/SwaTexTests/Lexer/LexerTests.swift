@@ -124,7 +124,8 @@ struct LexerTests {
     // === Complex expressions ===
 
     @Test func fracExpression() {
-        #expect(lexTexts("\\frac{a^2}{b}") == ["\\frac", "{", "a", "^", "2", "}", "{", "b", "}", "EOF"])
+        #expect(
+            lexTexts("\\frac{a^2}{b}") == ["\\frac", "{", "a", "^", "2", "}", "{", "b", "}", "EOF"])
     }
 
     @Test func sqrtWithOptional() {
@@ -291,7 +292,8 @@ struct LexerTests {
     }
 
     @Test func katexCommentInColor() {
-        #expect(lexTexts("\\color{#f00%red\n}") == ["\\color", "{", "#", "f", "0", "0", "}", "EOF"])
+        #expect(
+            lexTexts("\\color{#f00%red\n}") == ["\\color", "{", "#", "f", "0", "0", "}", "EOF"])
     }
 
     /// KaTeX: `it("should parse comments before an expression")`

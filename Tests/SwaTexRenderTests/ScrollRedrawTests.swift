@@ -199,7 +199,9 @@
 
             let got = try #require(alphaCentroidY(composited))
             let want = try #require(alphaCentroidY(reference))
-            #expect(abs(got - want) < 0.05, "centroid \(got) vs reference \(want) — orientation/placement mismatch")
+            #expect(
+                abs(got - want) < 0.05,
+                "centroid \(got) vs reference \(want) — orientation/placement mismatch")
             window.orderOut(nil)
         }
 

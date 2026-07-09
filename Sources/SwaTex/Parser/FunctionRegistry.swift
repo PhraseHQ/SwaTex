@@ -7,11 +7,12 @@ struct FunctionContext {
 }
 
 /// Handler function signature.
-typealias FunctionHandler = @Sendable (
-    _ ctx: inout FunctionContext,
-    _ args: [ParseNode],
-    _ optArgs: [ParseNode?]
-) throws(ParseError) -> ParseNode
+typealias FunctionHandler =
+    @Sendable (
+        _ ctx: inout FunctionContext,
+        _ args: [ParseNode],
+        _ optArgs: [ParseNode?]
+    ) throws(ParseError) -> ParseNode
 
 /// Argument types for function parameters.
 enum ArgType: Hashable, Sendable {

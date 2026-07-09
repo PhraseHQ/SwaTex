@@ -166,10 +166,12 @@ enum MhChemPatterns {
         let after = rest1[e.1...]
 
         if let (b2e, b2i, e2i, e2e) = part2 {
-            guard let h2 = try findObserveGroups(
-                after, begExcl: b2e, begIncl: b2i, endIncl: e2i, endExcl: e2e,
-                part2: nil, combine: false
-            ) else {
+            guard
+                let h2 = try findObserveGroups(
+                    after, begExcl: b2e, begIncl: b2i, endIncl: e2i, endExcl: e2e,
+                    part2: nil, combine: false
+                )
+            else {
                 return nil
             }
             guard case .s(let m2) = h2.token else {
@@ -231,7 +233,9 @@ enum MhChemPatterns {
         )
     }
 
-    private static func patternStateOfAgg(_ input: Substring) throws(MhChemError) -> MhChemPatternHit? {
+    private static func patternStateOfAgg(_ input: Substring) throws(MhChemError)
+        -> MhChemPatternHit?
+    {
         if let h = try findObserveGroups(
             input, begExcl: "", begIncl: .re(reAggOpen), endIncl: ")",
             endExcl: .str(""), part2: nil, combine: false
@@ -256,10 +260,12 @@ enum MhChemPatterns {
                 remainder: input[m.range.upperBound...]
             )
         }
-        guard let h = try findObserveGroups(
-            input, begExcl: "", begIncl: .str("$"), endIncl: "$",
-            endExcl: .str(""), part2: nil, combine: false
-        ) else {
+        guard
+            let h = try findObserveGroups(
+                input, begExcl: "", begIncl: .str("$"), endIncl: "$",
+                endExcl: .str(""), part2: nil, combine: false
+            )
+        else {
             return nil
         }
         guard case .s(let s) = h.token else {

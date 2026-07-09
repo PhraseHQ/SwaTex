@@ -373,7 +373,8 @@ import SwaTex
                 let flipped = layer.contentsAreFlipped()
                 if cachedContents == nil || cachedContentsFlipped != flipped
                     || cachedContentsScale != scale,
-                    let displayList {
+                    let displayList
+                {
                     rasterizationCount += 1
                     cachedContents = rasterize(displayList, scale: scale, flipped: flipped)
                     cachedContentsFlipped = flipped

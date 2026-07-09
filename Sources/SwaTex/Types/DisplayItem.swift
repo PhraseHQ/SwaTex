@@ -6,7 +6,8 @@ public struct DisplayList: Sendable, Codable {
     public var height: Double
     public var depth: Double
 
-    public init(items: [DisplayItem] = [], width: Double = 0, height: Double = 0, depth: Double = 0) {
+    public init(items: [DisplayItem] = [], width: Double = 0, height: Double = 0, depth: Double = 0)
+    {
         self.items = items
         self.width = width
         self.height = height
@@ -21,7 +22,8 @@ public struct DisplayList: Sendable, Codable {
 /// A single drawing instruction with absolute position.
 public enum DisplayItem: Hashable, Sendable {
     /// Draw a glyph outline at the given position.
-    case glyphPath(x: Double, y: Double, scale: Double, font: String, charCode: UInt32, color: Color)
+    case glyphPath(
+        x: Double, y: Double, scale: Double, font: String, charCode: UInt32, color: Color)
     /// Draw a horizontal line (fraction bars, overlines, etc.).
     /// `dashed` renders a dashed line (for `\hdashline`).
     case line(x: Double, y: Double, width: Double, thickness: Double, color: Color, dashed: Bool)

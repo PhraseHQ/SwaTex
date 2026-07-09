@@ -2,6 +2,7 @@
 // prints layout metrics as JSON — the exact counterpart of RaTeX's
 // `cargo run --bin layout`, used to diff the two engines.
 
+import Foundation
 import SwaTex
 
 func round5(_ v: Double) -> Double {
@@ -27,8 +28,6 @@ func jsonString(_ s: String) -> String {
     }
     return out + "\""
 }
-
-import Foundation
 
 while let line = readLine(strippingNewline: true) {
     let expr = line.trimmingCharacters(in: .whitespaces)

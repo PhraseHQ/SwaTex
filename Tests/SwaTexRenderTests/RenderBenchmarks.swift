@@ -7,7 +7,9 @@ import Testing
 
 /// Render performance benchmarks (results logged to the performance log).
 /// Enabled via SWATEX_BENCH=1 so normal test runs stay fast.
-@Suite("RenderBench", .enabled(if: ProcessInfo.processInfo.environment["SWATEX_BENCH"] != nil), .serialized)
+@Suite(
+    "RenderBench", .enabled(if: ProcessInfo.processInfo.environment["SWATEX_BENCH"] != nil),
+    .serialized)
 struct RenderBenchmarks {
     static let formulas: [String] = [
         #"x^2 + y^2 = z^2"#,
@@ -275,7 +277,8 @@ struct FastPNGBenchmarks {
     }
 }
 
-@Suite("ParallelPNGBench", .enabled(if: ProcessInfo.processInfo.environment["SWATEX_CORPUS"] != nil))
+@Suite(
+    "ParallelPNGBench", .enabled(if: ProcessInfo.processInfo.environment["SWATEX_CORPUS"] != nil))
 struct ParallelPNGBenchmarks {
     @Test func corpusParallelPNG() async throws {
         let corpus = ProcessInfo.processInfo.environment["SWATEX_CORPUS"]!

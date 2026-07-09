@@ -53,7 +53,8 @@ struct MhChemActionTests {
         buffer.beginsWithBond = true
         buffer.o = "A"
         let out = try apply("ce", "charge or bond", .s("-"), buffer: buffer)
-        guard let fields = out.last, case .obj = fields, case .string("bond")? = fields["type_"] else {
+        guard let fields = out.last, case .obj = fields, case .string("bond")? = fields["type_"]
+        else {
             Issue.record("expected trailing bond object, got \(String(describing: out.last))")
             return
         }

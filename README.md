@@ -4,7 +4,7 @@
 
 <p>
   <a href="https://github.com/PhraseHQ/SwaTex/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/PhraseHQ/SwaTex/ci.yml?branch=main&label=CI" alt="CI status"></a>
-  <img src="https://img.shields.io/badge/Swift-6.2-F05138?logo=swift&logoColor=white" alt="Swift 6.2">
+  <img src="https://img.shields.io/badge/Swift-6.1%2B-F05138?logo=swift&logoColor=white" alt="Swift 6.1+">
   <img src="https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20visionOS-333333?logo=apple&logoColor=white" alt="iOS, macOS, tvOS, watchOS, visionOS">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
   <a href="https://phrase.so?utm_source=github&utm_medium=readme&utm_campaign=swatex"><img src="https://img.shields.io/badge/made%20by-Phrase-8CC152" alt="Made by Phrase"></a>
@@ -84,7 +84,7 @@ the engine + SVG with zero platform dependencies:
 Or in Xcode: **File → Add Package Dependencies…** and paste
 `https://github.com/PhraseHQ/SwaTex.git`.
 
-Requires Xcode 16.0+ to build; deploys to iOS 18 / macOS 15 / tvOS 18 /
+Requires Xcode 16.3+ to build; deploys to iOS 18 / macOS 15 / tvOS 18 /
 watchOS 11 / visionOS 2.
 
 ## Usage
@@ -148,7 +148,8 @@ DisplayList ──► CoreGraphics/CoreText (SwaTexRender) ──► CGImage / P
 
 Measured against the Rust reference engine on identical corpora, same
 machine, median of 3 runs, with all 2 541 golden formulas bit-exact
-between the engines:
+between the engines. Every number is reproducible with the commands in
+[BENCHMARKS.md](BENCHMARKS.md):
 
 | Workload | RaTeX (Rust) | SwaTex |
 |---|---|---|
@@ -162,6 +163,27 @@ between the engines:
 - Builds with Swift 6.1+ (Xcode 16.3+); consuming apps can use any Swift language mode
 - Deploys to iOS 18 / macOS 15 / tvOS 18 / watchOS 11 / visionOS 2
   (floor set by `Synchronization.Mutex`)
+
+## Known limitations
+
+- `\includegraphics` is not supported (the one missing entry of KaTeX's
+  1008; KaTeX itself gates it behind `trust`). The four `\html*` commands
+  render their content but drop DOM-only attributes.
+- Deployment floors are iOS 18 / macOS 15 / tvOS 18 / watchOS 11 /
+  visionOS 2 (`Synchronization.Mutex`). Apps targeting older OS versions
+  cannot adopt SwaTex yet.
+- Deliberate, documented divergences favor KaTeX over other engines:
+  size units accept ASCII digits only (KaTeX's JS `\d`; Rust/Swift regex
+  `\d` also accept Unicode digits), and tokenization steps by Unicode
+  scalar, so combining marks on syntax characters behave like the JS/Rust
+  references rather than Swift's grapheme clusters.
+- Shared with KaTeX/RaTeX upstream: `\begin{alignat}{N}` does not bound
+  `N`; hostile inputs should be length-limited by the host app. Deeply
+  nested input is guarded (recursion count + stack headroom → parse
+  error, never a crash).
+- Zero-redraw scrolling on macOS requires a layer-backed host hierarchy
+  (`wantsLayer` — the default in modern AppKit apps).
+- Native Apple platforms only: no React Native / Flutter / Web wrappers.
 
 ## Testing
 

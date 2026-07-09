@@ -94,7 +94,8 @@ struct ReachableGapsTests {
     //    sup/sub multi-scalar bases ────────────────────────────────────────
 
     @Test func deepNestingHitsRecursionLimit() {
-        let deep = String(repeating: "{", count: 3000) + "x"
+        let deep =
+            String(repeating: "{", count: 3000) + "x"
             + String(repeating: "}", count: 3000)
         #expect(throws: ParseError.self) {
             _ = try rendered(deep)

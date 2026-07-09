@@ -139,11 +139,13 @@ private func flattenPathToContours(_ commands: [PathCommand]) -> [[(Double, Doub
             for k in 1...n {
                 let t = Double(k) / Double(n)
                 let u = 1.0 - t
-                let px = u * u * u * x0
+                let px =
+                    u * u * u * x0
                     + 3.0 * u * u * t * x1
                     + 3.0 * u * t * t * x2
                     + t * t * t * x
-                let py = u * u * u * y0
+                let py =
+                    u * u * u * y0
                     + 3.0 * u * u * t * y1
                     + 3.0 * u * t * t * y2
                     + t * t * t * y
@@ -975,8 +977,10 @@ func katexStretchyPath(
             let rightMin = w * (1.0 - 0.251)
             var o = clipPathToRect(lc, xMin: 0.0, xMax: leftMax, yMin: yMin, yMax: yMax)
             o.append(
-                contentsOf: clipPathToRect(mc, xMin: centerMin, xMax: centerMax, yMin: yMin, yMax: yMax))
-            o.append(contentsOf: clipPathToRect(rc, xMin: rightMin, xMax: w, yMin: yMin, yMax: yMax))
+                contentsOf: clipPathToRect(
+                    mc, xMin: centerMin, xMax: centerMax, yMin: yMin, yMax: yMax))
+            o.append(
+                contentsOf: clipPathToRect(rc, xMin: rightMin, xMax: w, yMin: yMin, yMax: yMax))
             out = o
         } else {
             var o = clipPathToRect(lc, xMin: 0.0, xMax: w, yMin: yMin, yMax: yMax)

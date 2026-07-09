@@ -56,15 +56,20 @@ enum MhChemActions {
             buffer.parenthesisLevel -= 1
             return []
         case ("ce", "state of aggregation"):
-            return [.object([
-                "type_": .string("state of aggregation"),
-                "p1": .array(try MhChemEngine.goMachine(data, input: tokenString(m), machine: "o")),
-            ])]
+            return [
+                .object([
+                    "type_": .string("state of aggregation"),
+                    "p1": .array(
+                        try MhChemEngine.goMachine(data, input: tokenString(m), machine: "o")),
+                ])
+            ]
         case ("ce", "comma"):
             return ceComma(buffer, m)
         case ("ce", "oxidation-output"):
             var v: [MhChemValue] = [.string("{")]
-            v.append(contentsOf: try MhChemEngine.goMachine(data, input: tokenString(m), machine: "oxidation"))
+            v.append(
+                contentsOf: try MhChemEngine.goMachine(
+                    data, input: tokenString(m), machine: "oxidation"))
             v.append(.string("}"))
             return v
         case ("ce", "frac-output"):
@@ -74,11 +79,13 @@ enum MhChemActions {
             guard parts.count >= 2 else {
                 throw MhChemError.msg("frac-output len")
             }
-            return [.object([
-                "type_": .string("frac-ce"),
-                "p1": .array(try MhChemEngine.goMachine(data, input: parts[0], machine: "ce")),
-                "p2": .array(try MhChemEngine.goMachine(data, input: parts[1], machine: "ce")),
-            ])]
+            return [
+                .object([
+                    "type_": .string("frac-ce"),
+                    "p1": .array(try MhChemEngine.goMachine(data, input: parts[0], machine: "ce")),
+                    "p2": .array(try MhChemEngine.goMachine(data, input: parts[1], machine: "ce")),
+                ])
+            ]
         case ("ce", "overset-output"), ("ce", "underset-output"), ("ce", "underbrace-output"):
             guard case .a(let parts) = m else {
                 throw MhChemError.msg("two-arg output")
@@ -86,16 +93,19 @@ enum MhChemActions {
             guard parts.count >= 2 else {
                 throw MhChemError.msg("two-arg len")
             }
-            let ty = switch spec.type {
-            case "overset-output": "overset"
-            case "underset-output": "underset"
-            default: "underbrace"
-            }
-            return [.object([
-                "type_": .string(ty),
-                "p1": .array(try MhChemEngine.goMachine(data, input: parts[0], machine: "ce")),
-                "p2": .array(try MhChemEngine.goMachine(data, input: parts[1], machine: "ce")),
-            ])]
+            let ty =
+                switch spec.type {
+                case "overset-output": "overset"
+                case "underset-output": "underset"
+                default: "underbrace"
+                }
+            return [
+                .object([
+                    "type_": .string(ty),
+                    "p1": .array(try MhChemEngine.goMachine(data, input: parts[0], machine: "ce")),
+                    "p2": .array(try MhChemEngine.goMachine(data, input: parts[1], machine: "ce")),
+                ])
+            ]
         case ("ce", "color-output"):
             guard case .a(let parts) = m else {
                 throw MhChemError.msg("color-output")
@@ -103,11 +113,14 @@ enum MhChemActions {
             guard parts.count >= 2 else {
                 throw MhChemError.msg("color-output len")
             }
-            return [.object([
-                "type_": .string("color"),
-                "color1": .string(parts[0]),
-                "color2": .array(try MhChemEngine.goMachine(data, input: parts[1], machine: "ce")),
-            ])]
+            return [
+                .object([
+                    "type_": .string("color"),
+                    "color1": .string(parts[0]),
+                    "color2": .array(
+                        try MhChemEngine.goMachine(data, input: parts[1], machine: "ce")),
+                ])
+            ]
         case ("ce", "operator"):
             let kind = spec.option?.asString ?? matchStr(m) ?? ""
             return [.object(["type_": .string("operator"), "kind_": .string(kind)])]
@@ -120,26 +133,34 @@ enum MhChemActions {
             return []
 
         case ("pq", "state of aggregation"):
-            return [.object([
-                "type_": .string("state of aggregation subscript"),
-                "p1": .array(try MhChemEngine.goMachine(data, input: tokenString(m), machine: "o")),
-            ])]
+            return [
+                .object([
+                    "type_": .string("state of aggregation subscript"),
+                    "p1": .array(
+                        try MhChemEngine.goMachine(data, input: tokenString(m), machine: "o")),
+                ])
+            ]
         case ("pq", "color-output"), ("bd", "color-output"):
             guard case .a(let parts) = m else {
                 throw MhChemError.msg("color bd/pq")
             }
             let sm = machine == "pq" ? "pq" : "bd"
-            return [.object([
-                "type_": .string("color"),
-                "color1": .string(parts[0]),
-                "color2": .array(try MhChemEngine.goMachine(data, input: parts[1], machine: sm)),
-            ])]
+            return [
+                .object([
+                    "type_": .string("color"),
+                    "color1": .string(parts[0]),
+                    "color2": .array(
+                        try MhChemEngine.goMachine(data, input: parts[1], machine: sm)),
+                ])
+            ]
 
         case ("oxidation", "roman-numeral"):
-            return [.object([
-                "type_": .string("roman numeral"),
-                "p1": .string(matchStr(m) ?? ""),
-            ])]
+            return [
+                .object([
+                    "type_": .string("roman numeral"),
+                    "p1": .string(matchStr(m) ?? ""),
+                ])
+            ]
 
         case ("tex-math", "output"), ("tex-math tight", "output"):
             if let o = buffer.o {
@@ -212,7 +233,8 @@ enum MhChemActions {
             trimmed.removeLast()
         }
         let withSpace = trimmed != raw
-        let ty = (withSpace && buffer.parenthesisLevel == 0)
+        let ty =
+            (withSpace && buffer.parenthesisLevel == 0)
             ? "comma enumeration L"
             : "comma enumeration M"
         return [.object(["type_": .string(ty), "p1": .string(trimmed)])]
@@ -265,7 +287,8 @@ enum MhChemActions {
         let c3 = try? MhChemPatterns.matchPattern(data, "one lowercase latin letter $", o)
         let c4 = try? MhChemPatterns.matchPattern(data, "$one lowercase latin letter$ $", o)
         let hOrb = (c1 ?? nil)?.remainder.isEmpty ?? false
-        let hyphenFollows = dash == "-"
+        let hyphenFollows =
+            dash == "-"
             && (hOrb || (c2 ?? nil) != nil || (c3 ?? nil) != nil || (c4 ?? nil) != nil)
 
         if hyphenFollows
@@ -275,7 +298,8 @@ enum MhChemActions {
             && MhChemBuffer.isSlotEmpty(buffer.d)
             && MhChemBuffer.isSlotEmpty(buffer.q)
             && (c1 ?? nil) == nil
-            && (c3 ?? nil) != nil {
+            && (c3 ?? nil) != nil
+        {
             let oo = buffer.o ?? ""
             buffer.o = "$\(oo)$"
         }
@@ -307,7 +331,8 @@ enum MhChemActions {
         let entityFollows = entity?.asInt
 
         if MhChemBuffer.isSlotEmpty(buffer.r) {
-            let emptyPiece = MhChemBuffer.isSlotEmpty(buffer.a)
+            let emptyPiece =
+                MhChemBuffer.isSlotEmpty(buffer.a)
                 && MhChemBuffer.isSlotEmpty(buffer.b)
                 && MhChemBuffer.isSlotEmpty(buffer.p)
                 && MhChemBuffer.isSlotEmpty(buffer.o)
@@ -327,11 +352,14 @@ enum MhChemActions {
             var dType = buffer.dType
             if !MhChemBuffer.isSlotEmpty(buffer.o)
                 && dType == "kv"
-                && ((try? MhChemPatterns.matchPattern(data, "d-oxidation$", buffer.d ?? "")) ?? nil) != nil {
+                && ((try? MhChemPatterns.matchPattern(data, "d-oxidation$", buffer.d ?? "")) ?? nil)
+                    != nil
+            {
                 dType = "oxidation"
             } else if !MhChemBuffer.isSlotEmpty(buffer.o)
                 && dType == "kv"
-                && MhChemBuffer.isSlotEmpty(buffer.q) {
+                && MhChemBuffer.isSlotEmpty(buffer.q)
+            {
                 dType = nil
             }
 
@@ -340,13 +368,15 @@ enum MhChemActions {
                 && MhChemBuffer.isSlotEmpty(buffer.d)
                 && MhChemBuffer.isSlotEmpty(buffer.b)
                 && MhChemBuffer.isSlotEmpty(buffer.p)
-                && entityFollows != 2 {
+                && entityFollows != 2
+            {
                 buffer.o = buffer.a
                 buffer.a = nil
             } else if MhChemBuffer.isSlotEmpty(buffer.o)
                 && MhChemBuffer.isSlotEmpty(buffer.q)
                 && MhChemBuffer.isSlotEmpty(buffer.d)
-                && (!MhChemBuffer.isSlotEmpty(buffer.b) || !MhChemBuffer.isSlotEmpty(buffer.p)) {
+                && (!MhChemBuffer.isSlotEmpty(buffer.b) || !MhChemBuffer.isSlotEmpty(buffer.p))
+            {
                 buffer.o = buffer.a
                 buffer.d = buffer.b
                 buffer.q = buffer.p
@@ -428,12 +458,15 @@ enum MhChemActions {
             ret.append(.string(g0))
         }
         if parts.count > 1, !parts[1].isEmpty {
-            ret.append(contentsOf: try MhChemEngine.goMachine(data, input: parts[1], machine: "pu-9,9"))
+            ret.append(
+                contentsOf: try MhChemEngine.goMachine(data, input: parts[1], machine: "pu-9,9"))
             if parts.count > 2 {
                 let p2 = parts[2]
                 if !p2.isEmpty {
                     if p2.contains(",") || p2.contains(".") {
-                        ret.append(contentsOf: try MhChemEngine.goMachine(data, input: p2, machine: "pu-9,9"))
+                        ret.append(
+                            contentsOf: try MhChemEngine.goMachine(
+                                data, input: p2, machine: "pu-9,9"))
                     } else {
                         ret.append(.string(p2))
                     }
@@ -476,7 +509,8 @@ enum MhChemActions {
             ret.append(.string(g0))
         }
         if parts.count > 1 {
-            ret.append(contentsOf: try MhChemEngine.goMachine(data, input: parts[1], machine: "pu-9,9"))
+            ret.append(
+                contentsOf: try MhChemEngine.goMachine(data, input: parts[1], machine: "pu-9,9"))
         }
         if parts.count > 2 {
             ret.append(.string("^{\(parts[2])}"))
@@ -491,13 +525,15 @@ enum MhChemActions {
         var d = buffer.d ?? ""
         if let md = (try? MhChemPatterns.matchPattern(data, "{(...)}", d)) ?? nil,
             md.remainder.isEmpty,
-            case .s(let inner) = md.token {
+            case .s(let inner) = md.token
+        {
             d = inner
         }
         var qv = buffer.q ?? ""
         if let mq = (try? MhChemPatterns.matchPattern(data, "{(...)}", qv)) ?? nil,
             mq.remainder.isEmpty,
-            case .s(let inner) = mq.token {
+            case .s(let inner) = mq.token
+        {
             qv = inner
         }
         d = d.replacing(reCelsiusC, with: "{}^{\\circ}C")
@@ -510,7 +546,9 @@ enum MhChemActions {
             let b5d = try MhChemEngine.goMachine(data, input: d, machine: "pu")
             let b5q = try MhChemEngine.goMachine(data, input: qv, machine: "pu")
             if buffer.o == "//" {
-                res = [.object(["type_": .string("pu-frac"), "p1": .array(b5d), "p2": .array(b5q)])]
+                res = [
+                    .object(["type_": .string("pu-frac"), "p1": .array(b5d), "p2": .array(b5q)])
+                ]
             } else {
                 var v = b5d
                 if b5d.count > 1 || b5q.count > 1 {
@@ -638,10 +676,12 @@ enum MhChemActions {
             let opt = spec.option?.asString ?? ""
             return [.object(["type_": .string(opt)])]
         case "insert+p1":
-            return [.object([
-                "type_": .string(spec.option?.asString ?? ""),
-                "p1": .string(matchStr(m) ?? ""),
-            ])]
+            return [
+                .object([
+                    "type_": .string(spec.option?.asString ?? ""),
+                    "p1": .string(matchStr(m) ?? ""),
+                ])
+            ]
         case "insert+p1+p2":
             guard case .a(let v) = m else {
                 throw MhChemError.msg("insert+p1+p2")
@@ -649,11 +689,13 @@ enum MhChemActions {
             guard v.count >= 2 else {
                 throw MhChemError.msg("insert+p1+p2 short")
             }
-            return [.object([
-                "type_": .string(spec.option?.asString ?? ""),
-                "p1": .string(v[0]),
-                "p2": .string(v[1]),
-            ])]
+            return [
+                .object([
+                    "type_": .string(spec.option?.asString ?? ""),
+                    "p1": .string(v[0]),
+                    "p2": .string(v[1]),
+                ])
+            ]
         case "copy":
             return [.string(tokenString(m))]
         case "rm":
@@ -662,13 +704,16 @@ enum MhChemActions {
             return try MhChemEngine.goMachine(data, input: tokenString(m), machine: "text")
         case "{text}":
             var v: [MhChemValue] = [.string("{")]
-            v.append(contentsOf: try MhChemEngine.goMachine(data, input: tokenString(m), machine: "text"))
+            v.append(
+                contentsOf: try MhChemEngine.goMachine(data, input: tokenString(m), machine: "text")
+            )
             v.append(.string("}"))
             return v
         case "tex-math":
             return try MhChemEngine.goMachine(data, input: tokenString(m), machine: "tex-math")
         case "tex-math tight":
-            return try MhChemEngine.goMachine(data, input: tokenString(m), machine: "tex-math tight")
+            return try MhChemEngine.goMachine(
+                data, input: tokenString(m), machine: "tex-math tight")
         case "bond":
             let kind = spec.option?.asString ?? matchStr(m) ?? "-"
             return [.object(["type_": .string("bond"), "kind_": .string(kind)])]
@@ -710,7 +755,8 @@ enum MhChemActions {
         guard let cm = (try? reHalf.firstMatch(in: s)) ?? nil else {
             return []
         }
-        let n1 = (cm.output[1].substring.map(String.init) ?? "").replacingOccurrences(of: "$", with: "")
+        let n1 = (cm.output[1].substring.map(String.init) ?? "").replacingOccurrences(
+            of: "$", with: "")
         let n2 = cm.output[2].substring.map(String.init) ?? ""
         ret.append(.object(["type_": .string("frac"), "p1": .string(n1), "p2": .string(n2)]))
         if let t = cm.output[3].substring {

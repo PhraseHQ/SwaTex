@@ -152,7 +152,8 @@ struct ParserSpecEnvironmentsTests {
     }
 
     @Test func matrix3x3() throws {
-        let ast = try parseLaTeX(#"\begin{matrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{matrix}"#)
+        let ast = try parseLaTeX(
+            #"\begin{matrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \end{matrix}"#)
         if case let .array(info) = ast[0].kind {
             #expect(info.body.count == 3)
             for row in info.body {
@@ -433,17 +434,20 @@ struct ParserSpecRecursionLimitTests {
     // `swift test` builds are debug and Swift Testing runs on limited-size
     // stacks, so they are disabled here to mirror that gating.
 
-    @Test(.disabled("Needs release-sized stacks; Rust gates this behind cfg(not(debug_assertions))"))
+    @Test(
+        .disabled("Needs release-sized stacks; Rust gates this behind cfg(not(debug_assertions))"))
     func nestedBracesAtLimitSucceeds() throws {
         _ = try parseLaTeX(nestedBraces(511))
     }
 
-    @Test(.disabled("Needs release-sized stacks; Rust gates this behind cfg(not(debug_assertions))"))
+    @Test(
+        .disabled("Needs release-sized stacks; Rust gates this behind cfg(not(debug_assertions))"))
     func nestedBracesOverLimitFails() {
         assertRecursionLimitErr(nestedBraces(512))
     }
 
-    @Test(.disabled("Needs release-sized stacks; Rust gates this behind cfg(not(debug_assertions))"))
+    @Test(
+        .disabled("Needs release-sized stacks; Rust gates this behind cfg(not(debug_assertions))"))
     func pocDeepNestingDoesNotAbort() {
         assertRecursionLimitErr(nestedBraces(200_000))
     }

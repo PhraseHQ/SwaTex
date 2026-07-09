@@ -87,14 +87,18 @@ public func renderToSVG(_ list: DisplayList, _ opts: SVGOptions) -> String {
     for item in list.items {
         switch item {
         case let .glyphPath(x, y, scale, font, charCode, color):
-            let g = GlyphEmit(x: x, y: y, scale: scale, font: font, charCode: charCode, color: color)
+            let g = GlyphEmit(
+                x: x, y: y, scale: scale, font: font, charCode: charCode, color: color)
             emitGlyphStandalone(&body, g, opts)
         case let .line(x, y, width, thickness, color, dashed):
-            emitLine(&body, x: x, y: y, width: width, thickness: thickness, color: color, dashed: dashed, opts: opts)
+            emitLine(
+                &body, x: x, y: y, width: width, thickness: thickness, color: color, dashed: dashed,
+                opts: opts)
         case let .rect(x, y, width, height, color):
             emitRect(&body, x: x, y: y, width: width, height: height, color: color, opts: opts)
         case let .path(x, y, commands, fill, color):
-            emitPathItem(&body, x: x, y: y, commands: commands, fill: fill, color: color, opts: opts)
+            emitPathItem(
+                &body, x: x, y: y, commands: commands, fill: fill, color: color, opts: opts)
         }
     }
 
@@ -104,7 +108,8 @@ public func renderToSVG(_ list: DisplayList, _ opts: SVGOptions) -> String {
 private func wrapSVG(vbW: Double, vbH: Double, body: String) -> String {
     let w = svgFormatNumber(vbW)
     let h = svgFormatNumber(vbH)
-    return "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 \(w) \(h)\" width=\"\(w)pt\" height=\"\(h)pt\">\(body)</svg>"
+    return
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 \(w) \(h)\" width=\"\(w)pt\" height=\"\(h)pt\">\(body)</svg>"
 }
 
 private func tx(_ xEm: Double, _ opts: SVGOptions) -> Double {
@@ -243,7 +248,11 @@ func katexFace(_ font: String) -> (family: String, weight: String, style: String
     case "CJK-Regular": ("sans-serif", "normal", "normal")
     case "CJK-Fallback": ("sans-serif", "normal", "normal")
     // Stack so SVG `<text>` fallback works across macOS / Windows / Linux.
-    case "Emoji-Fallback": ("Apple Color Emoji, \"Segoe UI Emoji\", \"Noto Color Emoji\", sans-serif", "normal", "normal")
+    case "Emoji-Fallback":
+        (
+            "Apple Color Emoji, \"Segoe UI Emoji\", \"Noto Color Emoji\", sans-serif", "normal",
+            "normal"
+        )
     default: ("KaTeX_Main", "normal", "normal")
     }
 }
@@ -257,7 +266,9 @@ private func emitGlyphStandalone(_ out: inout String, _ g: GlyphEmit, _ opts: SV
         let px = Float(g.x * em + pad)
         let py = Float(g.y * em + pad)
         let glyphEm = Float(g.scale * em)
-        if let glyph = provider.standaloneGlyph(x: px, y: py, glyphEm: glyphEm, font: g.font, charCode: g.charCode) {
+        if let glyph = provider.standaloneGlyph(
+            x: px, y: py, glyphEm: glyphEm, font: g.font, charCode: g.charCode)
+        {
             switch glyph {
             case let .path(d):
                 let fill = svgColor(g.color)
@@ -271,9 +282,11 @@ private func emitGlyphStandalone(_ out: inout String, _ g: GlyphEmit, _ opts: SV
                 let opacity = svgNormalizedAlpha(g.color.a)
                 if opacity < 1.0 {
                     let opacityS = svgFormatNumber(Double(opacity))
-                    out += "<image href=\"\(href)\" x=\"\(xS)\" y=\"\(yS)\" width=\"\(wS)\" height=\"\(hS)\" opacity=\"\(opacityS)\" preserveAspectRatio=\"none\"/>"
+                    out +=
+                        "<image href=\"\(href)\" x=\"\(xS)\" y=\"\(yS)\" width=\"\(wS)\" height=\"\(hS)\" opacity=\"\(opacityS)\" preserveAspectRatio=\"none\"/>"
                 } else {
-                    out += "<image href=\"\(href)\" x=\"\(xS)\" y=\"\(yS)\" width=\"\(wS)\" height=\"\(hS)\" preserveAspectRatio=\"none\"/>"
+                    out +=
+                        "<image href=\"\(href)\" x=\"\(xS)\" y=\"\(yS)\" width=\"\(wS)\" height=\"\(hS)\" preserveAspectRatio=\"none\"/>"
                 }
                 return
             }
@@ -291,7 +304,8 @@ private func emitGlyphText(_ out: inout String, _ g: GlyphEmit, _ opts: SVGOptio
     let xS = svgFormatNumber(tx(g.x, opts))
     let yS = svgFormatNumber(ty(g.y, opts))
     let fsS = svgFormatNumber(fs)
-    out += "<text x=\"\(xS)\" y=\"\(yS)\" font-family=\"\(family)\" font-size=\"\(fsS)\" font-weight=\"\(weight)\" font-style=\"\(style)\" fill=\"\(fill)\" dominant-baseline=\"alphabetic\">\(text)</text>"
+    out +=
+        "<text x=\"\(xS)\" y=\"\(yS)\" font-family=\"\(family)\" font-size=\"\(fsS)\" font-weight=\"\(weight)\" font-style=\"\(style)\" fill=\"\(fill)\" dominant-baseline=\"alphabetic\">\(text)</text>"
 }
 
 private func emitLine(
@@ -316,14 +330,16 @@ private func emitLine(
         let x1s = svgFormatNumber(x0 + w)
         let ts = svgFormatNumber(t)
         let dash = svgFormatNumber(t * 3.0)
-        out += "<line x1=\"\(x0s)\" y1=\"\(ycs)\" x2=\"\(x1s)\" y2=\"\(ycs)\" stroke=\"\(stroke)\" stroke-width=\"\(ts)\" stroke-dasharray=\"\(dash) \(dash)\"/>"
+        out +=
+            "<line x1=\"\(x0s)\" y1=\"\(ycs)\" x2=\"\(x1s)\" y2=\"\(ycs)\" stroke=\"\(stroke)\" stroke-width=\"\(ts)\" stroke-dasharray=\"\(dash) \(dash)\"/>"
     } else {
         let y0 = yc - t / 2.0
         let x0s = svgFormatNumber(x0)
         let y0s = svgFormatNumber(y0)
         let ws = svgFormatNumber(w)
         let hs = svgFormatNumber(t)
-        out += "<rect x=\"\(x0s)\" y=\"\(y0s)\" width=\"\(ws)\" height=\"\(hs)\" fill=\"\(stroke)\"/>"
+        out +=
+            "<rect x=\"\(x0s)\" y=\"\(y0s)\" width=\"\(ws)\" height=\"\(hs)\" fill=\"\(stroke)\"/>"
     }
 }
 
@@ -349,7 +365,9 @@ private func emitRect(
     out += "<rect x=\"\(x0s)\" y=\"\(y0s)\" width=\"\(ws)\" height=\"\(hs)\" fill=\"\(fill)\"/>"
 }
 
-private func pathCommandsToD(originX: Double, originY: Double, em: Double, commands: some Sequence<PathCommand>) -> String {
+private func pathCommandsToD(
+    originX: Double, originY: Double, em: Double, commands: some Sequence<PathCommand>
+) -> String {
     var d = ""
     for cmd in commands {
         switch cmd {
@@ -439,6 +457,7 @@ private func emitPathItem(
             return
         }
         let sw = svgFormatNumber(opts.strokeWidth)
-        out += "<path d=\"\(d)\" fill=\"none\" stroke=\"\(paint)\" stroke-width=\"\(sw)\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>"
+        out +=
+            "<path d=\"\(d)\" fill=\"none\" stroke=\"\(paint)\" stroke-width=\"\(sw)\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>"
     }
 }

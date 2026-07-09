@@ -8,7 +8,9 @@
 
     /// Temporary profiling harness (SWATEX_PROFILE=1): long-running loops of
     /// the two block-editor interactive paths, for `sample` attribution.
-    @Suite("ProfileHarness", .enabled(if: ProcessInfo.processInfo.environment["SWATEX_PROFILE"] != nil))
+    @Suite(
+        "ProfileHarness", .enabled(if: ProcessInfo.processInfo.environment["SWATEX_PROFILE"] != nil)
+    )
     @MainActor
     struct ProfileHarness {
         static let formulas = [

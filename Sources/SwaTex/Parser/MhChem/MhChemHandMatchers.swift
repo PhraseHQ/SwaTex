@@ -159,7 +159,9 @@ enum MhChemHandMatchers {
             return n
         }
 
-        func match(from f: String.Index? = nil, groups: [Range<String.Index>?] = []) -> MhChemRegex.Match {
+        func match(from f: String.Index? = nil, groups: [Range<String.Index>?] = [])
+            -> MhChemRegex.Match
+        {
             MhChemRegex.Match(range: (f ?? start)..<i, groups: groups)
         }
     }
@@ -224,34 +226,37 @@ enum MhChemHandMatchers {
             return m.consume("i" as Unicode.Scalar) && m.atDollar ? m.match() : nil
         },
         // "letters" — (scalar class | \greekname (\s+|{}|(?![a-zA-Z])))+
-        #"^(?:[a-zA-Z\u03B1-\u03C9\u0391-\u03A9?@]|(?:\\(?:alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|omicron|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)(?:\s+|\{\}|(?![a-zA-Z]))))+"#: { s, from in
-            var m = S(s, from)
-            var any = false
-            loop: while let c = m.peek() {
-                if isLetterAZ(c) || (c.value >= 0x3B1 && c.value <= 0x3C9)
-                    || (c.value >= 0x391 && c.value <= 0x3A9) || c == "?" || c == "@" {
-                    m.advance()
-                    any = true
-                    continue
+        #"^(?:[a-zA-Z\u03B1-\u03C9\u0391-\u03A9?@]|(?:\\(?:alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|omicron|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)(?:\s+|\{\}|(?![a-zA-Z]))))+"#:
+            { s, from in
+                var m = S(s, from)
+                var any = false
+                loop: while let c = m.peek() {
+                    if isLetterAZ(c) || (c.value >= 0x3B1 && c.value <= 0x3C9)
+                        || (c.value >= 0x391 && c.value <= 0x3A9) || c == "?" || c == "@"
+                    {
+                        m.advance()
+                        any = true
+                        continue
+                    }
+                    if c == "\\" {
+                        var g = m
+                        g.advance()
+                        guard greekTail(&g) else { break loop }
+                        m = g
+                        any = true
+                        continue
+                    }
+                    break
                 }
-                if c == "\\" {
-                    var g = m
-                    g.advance()
-                    guard greekTail(&g) else { break loop }
-                    m = g
-                    any = true
-                    continue
-                }
-                break
-            }
-            return any ? m.match() : nil
-        },
+                return any ? m.match() : nil
+            },
         // "\greek" — single \greekname (\s+|{}|(?![a-zA-Z]))
-        #"^\\(?:alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|omicron|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)(?:\s+|\{\}|(?![a-zA-Z]))"#: { s, from in
-            var m = S(s, from)
-            guard m.consume("\\" as Unicode.Scalar), greekTail(&m) else { return nil }
-            return m.match()
-        },
+        #"^\\(?:alpha|beta|gamma|delta|epsilon|zeta|eta|theta|iota|kappa|lambda|mu|nu|xi|omicron|pi|rho|sigma|tau|upsilon|phi|chi|psi|omega|Gamma|Delta|Theta|Lambda|Xi|Pi|Sigma|Upsilon|Phi|Psi|Omega)(?:\s+|\{\}|(?![a-zA-Z]))"#:
+            { s, from in
+                var m = S(s, from)
+                guard m.consume("\\" as Unicode.Scalar), greekTail(&m) else { return nil }
+                return m.match()
+            },
         // "digits"
         #"^[0-9]+"#: { s, from in
             var m = S(s, from)
@@ -297,7 +302,8 @@ enum MhChemHandMatchers {
         #"^(?:\\\{|\[|\()"#: { s, from in
             var m = S(s, from)
             if m.consume(#"\{"#) || m.consume("[" as Unicode.Scalar)
-                || m.consume("(" as Unicode.Scalar) {
+                || m.consume("(" as Unicode.Scalar)
+            {
                 return m.match()
             }
             return nil
@@ -306,7 +312,8 @@ enum MhChemHandMatchers {
         #"^(?:\)|\]|\\\})"#: { s, from in
             var m = S(s, from)
             if m.consume(")" as Unicode.Scalar) || m.consume("]" as Unicode.Scalar)
-                || m.consume(#"\}"#) {
+                || m.consume(#"\}"#)
+            {
                 return m.match()
             }
             return nil
@@ -494,12 +501,14 @@ enum MhChemHandMatchers {
             guard m.consume("-" as Unicode.Scalar) else { return nil }
             guard let n = m.peek() else { return m.match() }  // $
             if isSpace(n) || n == "_" || n == "}" || n == "," || n == ";" || n == "]"
-                || n == "/" || m.atDollar {
+                || n == "/" || m.atDollar
+            {
                 return m.match()
             }
             var l = m
             if l.consume("(" as Unicode.Scalar), l.skip(while: isLowerAZ) > 0,
-                l.consume(")" as Unicode.Scalar) {
+                l.consume(")" as Unicode.Scalar)
+            {
                 return m.match()
             }
             return nil
@@ -540,7 +549,8 @@ enum MhChemHandMatchers {
         #"^(?:\\pm|\$\\pm\$|\+-|\+\/-)"#: { s, from in
             var m = S(s, from)
             if m.consume(#"\pm"#) || m.consume(#"$\pm$"#) || m.consume("+-")
-                || m.consume("+/-") {
+                || m.consume("+/-")
+            {
                 return m.match()
             }
             return nil
@@ -715,7 +725,11 @@ enum MhChemHandMatchers {
                 var a = S(s, from)
                 if takeSign { a.advance() }
                 var spaceOpts: [Bool] = []
-                if let c = a.peek(), isSpace(c) { spaceOpts = [true, false] } else { spaceOpts = [false] }
+                if let c = a.peek(), isSpace(c) {
+                    spaceOpts = [true, false]
+                } else {
+                    spaceOpts = [false]
+                }
                 for takeSpace in spaceOpts {
                     var b = a
                     if takeSpace { b.advance() }

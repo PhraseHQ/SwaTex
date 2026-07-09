@@ -13,11 +13,12 @@ struct EnvContext {
 }
 
 /// Handler function signature for environments.
-typealias EnvHandler = @Sendable (
-    _ ctx: inout EnvContext,
-    _ args: [ParseNode],
-    _ optArgs: [ParseNode?]
-) throws(ParseError) -> ParseNode
+typealias EnvHandler =
+    @Sendable (
+        _ ctx: inout EnvContext,
+        _ args: [ParseNode],
+        _ optArgs: [ParseNode?]
+    ) throws(ParseError) -> ParseNode
 
 /// Specification for a registered environment.
 struct EnvSpec: Sendable {

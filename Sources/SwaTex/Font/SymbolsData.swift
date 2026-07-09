@@ -4,7 +4,9 @@
 /// Symbol definition: (name, mode, font, group, codepoint)
 /// mode: 0 = math, 1 = text
 /// font: 0 = main, 1 = ams
-typealias SymbolEntry = (name: String, mode: UInt8, font: UInt8, group: String, codepoint: Unicode.Scalar?)
+typealias SymbolEntry = (
+    name: String, mode: UInt8, font: UInt8, group: String, codepoint: Unicode.Scalar?
+)
 
 enum SymbolsData {
     static let symbols: [SymbolEntry] = [

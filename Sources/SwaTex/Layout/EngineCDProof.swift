@@ -906,7 +906,8 @@ private func layoutProofBranch(_ tree: ProofBranch, _ options: LayoutOptions) ->
     return ProofTreeLayout(
         width: maxX - minX,
         height: conclusionBaselineY,
-        depth: children
+        depth:
+            children
             .map { $0.baselineY + $0.box.depth - conclusionBaselineY }
             .reduce(0.0, max),
         rootWidth: conclusionWidth,

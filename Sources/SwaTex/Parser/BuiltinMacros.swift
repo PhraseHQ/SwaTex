@@ -78,7 +78,10 @@ extension MacroExpander {
         ("\\clap", "\\mathclap{\\textrm{#1}}"),
 
         // ── Logos ──
-        ("\\TeX", "\\textrm{\\html@mathml{T\\kern-.1667em\\raisebox{-.5ex}{E}\\kern-.125emX}{TeX}}"),
+        (
+            "\\TeX",
+            "\\textrm{\\html@mathml{T\\kern-.1667em\\raisebox{-.5ex}{E}\\kern-.125emX}{TeX}}"
+        ),
         (
             "\\LaTeX",
             "\\textrm{\\html@mathml{L\\kern-.36em\\raisebox{0.21em}{\\scriptstyle A}\\kern-.15em\\TeX}{LaTeX}}"
@@ -311,7 +314,10 @@ extension MacroExpander {
         ("\\bra", "\\mathinner{\\langle{#1}|}"),
         ("\\ket", "\\mathinner{|{#1}\\rangle}"),
         ("\\braket", "\\mathinner{\\langle{#1}\\rangle}"),
-        ("\\Braket", "\\bra@ket{\\left\\langle}{\\,\\middle\\vert\\,}{\\,\\middle\\vert\\,}{\\right\\rangle}"),
+        (
+            "\\Braket",
+            "\\bra@ket{\\left\\langle}{\\,\\middle\\vert\\,}{\\,\\middle\\vert\\,}{\\right\\rangle}"
+        ),
         ("\\Bra", "\\left\\langle#1\\right|"),
         ("\\Ket", "\\left|#1\\right\\rangle"),
 
@@ -407,7 +413,10 @@ extension MacroExpander {
 
         // ── set/Set (braket notation, simplified) ──
         ("\\set", "\\bra@set{\\{\\,}{\\mid}{}{\\,\\}}"),
-        ("\\Set", "\\bra@set{\\left\\{\\:}{\\;\\middle\\vert\\;}{\\;\\middle\\Vert\\;}{\\:\\right\\}}"),
+        (
+            "\\Set",
+            "\\bra@set{\\left\\{\\:}{\\;\\middle\\vert\\;}{\\;\\middle\\Vert\\;}{\\:\\right\\}}"
+        ),
 
         // ── KaTeX mhchem (\tripledash for \bond ~ forms) ──
         (

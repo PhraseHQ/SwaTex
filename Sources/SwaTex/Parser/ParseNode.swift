@@ -39,7 +39,9 @@ public struct AlignSpec: Sendable {
     public var pregap: Double?
     public var postgap: Double?
 
-    public init(alignType: AlignType, align: String? = nil, pregap: Double? = nil, postgap: Double? = nil) {
+    public init(
+        alignType: AlignType, align: String? = nil, pregap: Double? = nil, postgap: Double? = nil
+    ) {
         self.alignType = alignType
         self.align = align
         self.pregap = pregap
@@ -156,7 +158,8 @@ public struct ParseNode: Sendable {
         case horizBrace(label: String, isOver: Bool, base: ParseNode)
         case enclose(label: String, backgroundColor: String?, borderColor: String?, body: ParseNode)
         case lap(alignment: String, body: ParseNode)
-        case mathChoice(display: [ParseNode], text: [ParseNode], script: [ParseNode], scriptscript: [ParseNode])
+        case mathChoice(
+            display: [ParseNode], text: [ParseNode], script: [ParseNode], scriptscript: [ParseNode])
         case raiseBox(dy: Measurement, body: ParseNode)
         case vcenter(body: ParseNode)
         case xArrow(label: String, body: ParseNode, below: ParseNode?)

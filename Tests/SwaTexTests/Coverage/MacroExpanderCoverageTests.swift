@@ -179,8 +179,11 @@ struct MacroExpanderCoverageTests {
         let lr = nodes.first { $0.typeName == "leftright" }
         #expect(lr != nil)
         if case let .leftRight(body, left, right, _) = lr!.kind {
-            #expect(left == "\u{27E8}" || left == "\\langle" || left.contains("angle") || left == "⟨")
-            #expect(right == "\u{27E9}" || right == "\\rangle" || right.contains("angle") || right == "⟩")
+            #expect(
+                left == "\u{27E8}" || left == "\\langle" || left.contains("angle") || left == "⟨")
+            #expect(
+                right == "\u{27E9}" || right == "\\rangle" || right.contains("angle")
+                    || right == "⟩")
             #expect(body.filter { $0.typeName == "middle" }.count == 2)
         }
     }

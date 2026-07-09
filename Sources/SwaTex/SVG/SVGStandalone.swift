@@ -48,7 +48,8 @@ public protocol SVGStandaloneGlyphProvider: Sendable {
     ///   - glyphEm: Glyph size in user units (layout scale × options font size).
     ///   - font: Internal font id string, e.g. `"Main-Regular"` (see ``FontId``).
     ///   - charCode: Display character code from the display list.
-    func standaloneGlyph(x: Float, y: Float, glyphEm: Float, font: String, charCode: UInt32) -> SVGStandaloneGlyph?
+    func standaloneGlyph(x: Float, y: Float, glyphEm: Float, font: String, charCode: UInt32)
+        -> SVGStandaloneGlyph?
 }
 
 /// One quadratic/cubic segment (or line) of a glyph outline in **font units**

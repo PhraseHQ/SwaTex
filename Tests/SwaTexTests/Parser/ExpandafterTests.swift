@@ -28,7 +28,8 @@ struct ExpandafterTests {
         // \expandafter, the stream is `\let\first AB`: \let binds \first:=A
         // and the remaining B stays in the stream (true TeX behavior), then
         // `\first\pair` yields A AB.
-        let result = try parseLaTeX(#"\def\pair{AB}\expandafter\let\expandafter\first\pair \first\pair"#)
+        let result = try parseLaTeX(
+            #"\def\pair{AB}\expandafter\let\expandafter\first\pair \first\pair"#)
         let texts = result.compactMap(\.symbolText)
         #expect(texts == ["B", "A", "A", "B"])
     }

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# NOTE: after regenerating, run: xcrun swift format --in-place --configuration .swift-format --recursive Sources
+
 """Convert RaTeX's generated Rust font data tables to Swift.
 
 Sources (auto-generated from KaTeX's fontMetricsData.js / symbols.ts):
