@@ -28,6 +28,12 @@ public struct LayoutBox: Sendable {
         LayoutBox(width: 0, height: 0, depth: 0, content: .empty)
     }
 
+    /// Zero-size marker for a subtree a recursion guard dropped
+    /// (see ``BoxContent/degraded``).
+    static var degradedBox: LayoutBox {
+        LayoutBox(width: 0, height: 0, depth: 0, content: .degraded)
+    }
+
     public static func kern(_ width: Double) -> LayoutBox {
         LayoutBox(width: width, height: 0, depth: 0, content: .kern)
     }
@@ -168,6 +174,14 @@ public indirect enum BoxContent: Sendable {
 
     /// Empty placeholder.
     case empty
+
+    /// A subtree dropped by a recursion guard on stack exhaustion. Behaves
+    /// like `empty` everywhere except emission, which converts it into
+    /// ``DisplayList/truncated`` — degradation travels *in the tree*, so the
+    /// signal costs nothing on paths that never degrade (layout runs on
+    /// threads with unknown stack; an iterative parse can admit accent
+    /// chains deeper than any small stack fits, see `layoutNode`).
+    case degraded
 }
 
 /// Layout data for a matrix/array, grouped because of its many fields.

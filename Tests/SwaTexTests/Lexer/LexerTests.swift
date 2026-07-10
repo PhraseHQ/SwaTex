@@ -400,6 +400,30 @@ struct LexerTests {
             ])
     }
 
+    /// Unterminated \verb rewinds to the bare control word (KaTeX: the verb
+    /// regex fails to match, and content is not swallowed as a delimiter).
+    @Test func verbUnterminatedRewinds() {
+        #expect(lexTexts("\\verb|ab") == ["\\verb", "|", "a", "b", "EOF"])
+    }
+
+    /// The verbatim body may not span a newline (KaTeX's verb regex cannot
+    /// match across lines).
+    @Test func verbNewlineBeforeCloseRewinds() {
+        #expect(lexTexts("\\verb|a\nb|") == ["\\verb", "|", "a", " ", "b", "|", "EOF"])
+    }
+
+    @Test func verbStarUnterminatedRewinds() {
+        #expect(lexTexts("\\verb*|a") == ["\\verb", "*", "|", "a", "EOF"])
+    }
+
+    /// Many consecutive comment lines must not overflow the stack: the lexer
+    /// loops past comments instead of recursing (regression: `return lex()`
+    /// crashed with SIGSEGV around ~50k comment lines).
+    @Test func manyCommentLinesDoNotOverflowStack() {
+        let input = String(repeating: "%c\n", count: 200_000) + "x"
+        #expect(lexTexts(input) == ["x", "EOF"])
+    }
+
     // =========================================================================
     // Real-world LaTeX expressions
     // =========================================================================

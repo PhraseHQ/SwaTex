@@ -307,6 +307,20 @@ struct ParserSpecOperatorsTests {
         }
     }
 
+    /// KaTeX: "Limit controls must follow a math operator" — a limit control
+    /// after a non-operator (or at the start) is an error, not a no-op.
+    @Test(arguments: [#"x\limits^2"#, #"x\nolimits_1"#, #"\limits^2"#])
+    func limitControlAfterNonOperatorThrows(_ latex: String) {
+        #expect(throws: ParseError.self) {
+            try parseLaTeX(latex)
+        }
+    }
+
+    @Test func limitControlAfterOperatorParses() throws {
+        let ast = try parseLaTeX(#"\int\limits_0^1"#)
+        #expect(ast.count == 1)
+    }
+
     @Test func limTextOp() throws {
         let ast = try parseLaTeX(#"\lim"#)
         #expect(ast.count == 1)
@@ -352,15 +366,56 @@ struct ParserSpecOperatorsTests {
         }
     }
 
-    @Test func sumWithExplicitNolimitsDoesNotForceSupsubHandling() throws {
+    @Test func sumWithExplicitNolimitsClearsLimitsOnly() throws {
+        // KaTeX (Parser.ts): a limit control on an op base always sets
+        // alwaysHandleSupSub = true; \nolimits only clears `limits`. With
+        // limits == false the flag is inert (every layout read conjoins the
+        // two), so scripts still render beside the operator.
         let ast = try parseLaTeX(#"\sum\nolimits_{i=0}^{n}"#)
         #expect(ast.count == 1)
         if case let .supSub(base, _, _) = ast[0].kind {
             if case let .op(limits, alwaysHandleSupSub, _, _, _, _, _) = base?.kind {
                 #expect(!limits)
-                #expect(alwaysHandleSupSub == false)
+                #expect(alwaysHandleSupSub == true)
             } else {
                 Issue.record("expected op base")
+            }
+        } else {
+            Issue.record("expected supsub")
+        }
+    }
+
+    @Test func plainOperatornameIgnoresLimitControls() throws {
+        // KaTeX: `\operatorname` (alwaysHandleSupSub == false) silently
+        // ignores \limits — no error, no limits, and the flag must NOT be
+        // overwritten. Regression: \limits used to force both to true,
+        // rendering the superscript above instead of beside.
+        let ast = try parseLaTeX(#"\operatorname{f}\limits^2"#)
+        #expect(ast.count == 1)
+        if case let .supSub(base, _, _) = ast[0].kind {
+            if case let .operatorName(_, alwaysHandleSupSub, limits, _) = base?.kind {
+                #expect(alwaysHandleSupSub == false)
+                #expect(limits == false)
+            } else {
+                Issue.record("expected operatorname base")
+            }
+        } else {
+            Issue.record("expected supsub")
+        }
+    }
+
+    @Test func operatornameStarNolimitsKeepsSupsubHandling() throws {
+        // KaTeX: `\operatorname*` honors limit controls — \nolimits clears
+        // `limits` but never clears alwaysHandleSupSub. Regression:
+        // \nolimits used to clear both, changing the display-style layout.
+        let ast = try parseLaTeX(#"\operatorname*{sup}\nolimits_x"#)
+        #expect(ast.count == 1)
+        if case let .supSub(base, _, _) = ast[0].kind {
+            if case let .operatorName(_, alwaysHandleSupSub, limits, _) = base?.kind {
+                #expect(alwaysHandleSupSub == true)
+                #expect(limits == false)
+            } else {
+                Issue.record("expected operatorname base")
             }
         } else {
             Issue.record("expected supsub")

@@ -1,6 +1,7 @@
 #if canImport(AppKit) && !canImport(UIKit)
     import AppKit
     import SwiftUI
+    import Synchronization
     import Testing
 
     @testable import SwaTex
@@ -185,7 +186,7 @@
 
         /// A probe Layout that records each subview's ``MathViewAscentKey``.
         private struct AscentProbeLayout: Layout {
-            let record: (CGFloat) -> Void
+            let record: @Sendable (CGFloat) -> Void
 
             func sizeThatFits(
                 proposal: ProposedViewSize, subviews: Subviews, cache: inout ()
@@ -206,9 +207,10 @@
             }
         }
 
-        @MainActor
-        private final class AscentBox {
-            var values: [CGFloat] = []
+        /// SwiftUI may call `Layout` methods off the main actor; the probe
+        /// records through a `Mutex` so the closure is genuinely `@Sendable`.
+        private final class AscentBox: Sendable {
+            let values = Mutex<[CGFloat]>([])
         }
 
         @Test func mathViewPublishesAscentForCustomLayouts() throws {
@@ -216,7 +218,9 @@
             let latex = #"\frac{a}{b}"#
             let fontSize: CGFloat = 24
 
-            let probe = AscentProbeLayout(record: { box.values.append($0) })
+            let probe = AscentProbeLayout(record: { v in
+                box.values.withLock { $0.append(v) }
+            })
             let root = probe {
                 MathView(latex).font(size: fontSize)
             }
@@ -232,9 +236,10 @@
                 for: list, options: RenderOptions(fontSize: fontSize, padding: 0)
             ).baseline
             #expect(expected > 0)
+            let seen = box.values.withLock { $0 }
             #expect(
-                box.values.contains { abs($0 - expected) < 0.01 },
-                "Layout saw ascents \(box.values), expected \(expected)")
+                seen.contains { abs($0 - expected) < 0.01 },
+                "Layout saw ascents \(seen), expected \(expected)")
         }
 
         /// End-to-end pixel check: a SwiftUI dynamic color reaches the

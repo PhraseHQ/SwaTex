@@ -50,3 +50,12 @@ func stackHasHeadroom(above floor: UInt) -> Bool {
 /// use. Raising this hardens margins but starts rejecting legitimate
 /// nesting on small debug-build threads.
 let minimumParseStackHeadroom = 96 * 1024
+
+/// Minimum stack headroom required to *enter* another layout/emission level.
+///
+/// Smaller than the parse reserve on purpose: layout frames are much larger
+/// (≈16 KB/level debug, ≈1.4 KB release), so a 96 KB reserve would reject
+/// legitimate ~30-level formulas on 512 KB debug threads that the walk
+/// actually fits. 32 KB covers the worst single inter-probe chain while
+/// leaving release-build capacity at ~350 levels on a 512 KB thread.
+let minimumLayoutStackHeadroom = 32 * 1024

@@ -10,8 +10,11 @@ typealias MacroHandler = @Sendable (MacroExpander) throws(ParseError) -> [Token]
 enum MacroDefinition: Sendable {
     /// Simple string expansion (e.g. `\def\foo{bar}` → "bar")
     case text(String)
-    /// Pre-tokenized expansion with argument count
-    case tokens([Token], numArgs: Int)
+    /// Pre-tokenized expansion with argument count. `delimiters` holds the
+    /// parameter text of a `\def` with delimited parameters: `delimiters[0]`
+    /// precedes `#1`, `delimiters[i]` terminates `#i` (KaTeX `MacroExpansion.
+    /// delimiters`). `nil` for ordinary undelimited macros.
+    case tokens([Token], numArgs: Int, delimiters: [[String]]?)
     /// Function-based macro (consumes tokens directly, returns expansion)
     case function(MacroHandler)
 }
@@ -21,6 +24,7 @@ enum MacroDefinition: Sendable {
 struct MacroExpansion {
     var tokens: [Token]
     var numArgs: Int
+    var delimiters: [[String]]? = nil
 }
 
 /// A consumed macro argument. `tokens` are in *stack order* (reversed).
@@ -50,6 +54,12 @@ private struct MacroNamespace {
     }
 
     mutating func setGlobal(_ name: String, _ def: MacroDefinition) {
+        // A global assignment survives group exit: drop any pending undo
+        // records for this name so endGroup doesn't restore an older local
+        // value over it (KaTeX Namespace.set with global=true).
+        for i in groupStack.indices {
+            groupStack[i][name] = nil
+        }
         current[name] = def
     }
 
@@ -260,9 +270,13 @@ final class MacroExpander {
 
         try countExpansion(1)
         var tokens = exp.tokens
-        if exp.numArgs > 0 {
-            let args = try consumeArgs(exp.numArgs)
-            tokens = substituteArgs(tokens, args)
+        // KaTeX calls consumeArgs unconditionally: a zero-arg delimited macro
+        // (`\def\foo xy{bar}`) still validates and consumes `delimiters[0]`.
+        if exp.numArgs > 0 || exp.delimiters != nil {
+            let args = try consumeArgs(exp.numArgs, delimiters: exp.delimiters)
+            if exp.numArgs > 0 {
+                tokens = substituteArgs(tokens, args)
+            }
         }
         stack.append(contentsOf: tokens)
         return true
@@ -308,8 +322,8 @@ final class MacroExpander {
             }
             return MacroExpansion(
                 tokens: lexStringToStackTokens(text), numArgs: numArgs)
-        case .tokens(let tokens, let numArgs):
-            return MacroExpansion(tokens: tokens, numArgs: numArgs)
+        case .tokens(let tokens, let numArgs, let delimiters):
+            return MacroExpansion(tokens: tokens, numArgs: numArgs, delimiters: delimiters)
         case .function:
             // `expandOnce` matches `.function` before calling `getExpansion`,
             // so this is only reached by direct calls (DirectUnitTests);
@@ -342,8 +356,13 @@ final class MacroExpander {
 
     /// Consume a single argument from the token stream.
     /// The returned tokens are in *stack order* (reversed).
+    ///
+    /// A delimited argument (`delims` non-empty) extends until the full
+    /// delimiter token sequence appears at brace depth 0, matching KaTeX's
+    /// `consumeArg`; the delimiter tokens are not part of the argument.
     func consumeArg(delims: [String]? = nil) throws(ParseError) -> ConsumedArg {
-        let isDelimited = delims.map { !$0.isEmpty } ?? false
+        let delims = delims ?? []
+        let isDelimited = !delims.isEmpty
         if !isDelimited {
             consumeSpaces()
         }
@@ -351,6 +370,7 @@ final class MacroExpander {
         let start = future()
         var tokens: [Token] = []
         var depth = 0
+        var match = 0
         var endTok = start
 
         while true {
@@ -369,12 +389,22 @@ final class MacroExpander {
                 throw ParseError("Unexpected end of input in a macro argument", token: tok)
             }
 
-            if depth == 0 && !isDelimited {
-                break
-            }
-
-            if isDelimited, depth == 0, let last = delims?.last, tok.text == last {
-                tokens.removeLast()
+            if isDelimited {
+                // A `{` delimiter (from `\def\a#1#{…}`) matches at depth 1
+                // because the brace itself just incremented the depth.
+                if (depth == 0 || (depth == 1 && delims[match] == "{")),
+                    tok.text == delims[match]
+                {
+                    match += 1
+                    if match == delims.count {
+                        // Delimiter tokens are not part of the argument.
+                        tokens.removeLast(match)
+                        break
+                    }
+                } else {
+                    match = 0
+                }
+            } else if depth == 0 {
                 break
             }
         }
@@ -389,11 +419,30 @@ final class MacroExpander {
     }
 
     /// Consume N arguments. Each argument's tokens are in stack order.
-    func consumeArgs(_ numArgs: Int) throws(ParseError) -> [[Token]] {
+    ///
+    /// `delimiters`, when present, is the parameter text of a delimited
+    /// macro: `delimiters[0]` must literally follow the macro name, and
+    /// `delimiters[i]` terminates argument `i` (KaTeX `consumeArgs`).
+    func consumeArgs(
+        _ numArgs: Int, delimiters: [[String]]? = nil
+    ) throws(ParseError) -> [[Token]] {
+        if let delimiters {
+            guard delimiters.count == numArgs + 1 else {
+                throw ParseError(
+                    "The length of delimiters doesn't match the number of args!")
+            }
+            for delim in delimiters[0] {
+                let tok = popToken()
+                if tok.text != delim {
+                    throw ParseError(
+                        "Use of the macro doesn't match its definition", token: tok)
+                }
+            }
+        }
         var args: [[Token]] = []
         args.reserveCapacity(numArgs)
-        for _ in 0..<numArgs {
-            args.append(try consumeArg().tokens)
+        for i in 0..<numArgs {
+            args.append(try consumeArg(delims: delimiters?[i + 1]).tokens)
         }
         return args
     }
@@ -479,7 +528,7 @@ private func handleNewcommand(
     }
 
     let bodyArg = try me.consumeArg()
-    me.setMacro(name, .tokens(bodyArg.tokens, numArgs: numArgs))
+    me.setMacro(name, .tokens(bodyArg.tokens, numArgs: numArgs, delimiters: nil))
     return []
 }
 
@@ -496,7 +545,8 @@ extension MacroExpander {
         for (name, expansion) in builtinTextMacros {
             m[name] = .tokens(
                 lexStringToStackTokens(expansion),
-                numArgs: textMacroArgCount(expansion))
+                numArgs: textMacroArgCount(expansion),
+                delimiters: nil)
         }
         addFunctionMacros(&m)
         return m
@@ -547,14 +597,15 @@ extension MacroExpander {
             return args[1]
         }
 
-        // \@ifnextchar{C}{T}{F}: peek; if next non-space == C then T else F
+        // \@ifnextchar{C}{T}{F}: peek; if next non-space == C then T else F.
+        // KaTeX only matches when the first argument is exactly one token;
+        // a multi-token argument always takes the false branch.
         m["\\@ifnextchar"] = .function { me throws(ParseError) in
             let args = try me.consumeArgs(3)
             me.consumeSpaces()
             let next = me.future().text
-            // args[0] is reversed; the "first" char in original order is the last element
-            let charText = args[0].first?.text ?? ""
-            return next == charText ? args[1] : args[2]
+            let matches = args[0].count == 1 && args[0][0].text == next
+            return matches ? args[1] : args[2]
         }
 
         // \@ifstar{with-star}{without-star}: if next is * → consume * and use first arg
@@ -685,7 +736,7 @@ extension MacroExpander {
             expansion.append(Token("\\operatorname", start: 0, end: 0))
             // `expansion` was assembled directly in stack order above.
             // amsopn defines operators globally (\gdef-like); match that.
-            me.setMacroGlobal(name, .tokens(expansion, numArgs: 0))
+            me.setMacroGlobal(name, .tokens(expansion, numArgs: 0, delimiters: nil))
             return []
         }
 

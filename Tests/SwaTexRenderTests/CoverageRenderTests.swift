@@ -187,11 +187,25 @@ struct CoverageRenderTests {
 
     @MainActor
     @Test func mathViewBodyErrorPath() {
-        let view = MathView(#"\frac{1}"#)
+        // The render body lives in MathCanvasContent (MathView.body only
+        // routes between the static- and dynamic-color configurations).
+        let view = MathCanvasContent(
+            latex: #"\frac{1}"#, fontSize: 20, style: .display, color: .black)
         let body = view.body
         let desc = String(describing: body)
         // The failure branch renders the ParseError description as Text.
         #expect(desc.contains("ParseError") || desc.contains("Text"))
+    }
+
+    @MainActor
+    @Test func mathViewStaticColorPathAvoidsEnvironmentDependency() {
+        // The default configuration must route to the environment-free
+        // static branch; only .mathColor(SwiftUI.Color) opts into the
+        // environment-reading dynamic branch.
+        let staticBody = MathView("x").body
+        #expect(String(describing: type(of: staticBody)).contains("MathCanvasContent"))
+        let dynamicBody = MathView("x").mathColor(SwiftUI.Color.primary).body
+        #expect(String(describing: dynamicBody).contains("DynamicColorMathContent"))
     }
 
     @MainActor

@@ -199,8 +199,10 @@ public enum DisplayListRenderer {
             guard let font, !glyphs.isEmpty else { return }
 
             ctx.saveGState()
+            // The fill color already carries the alpha channel — an extra
+            // ctx.setAlpha would composite glyphs at a², out of step with
+            // rules/paths and the SVG backend (which apply alpha once).
             ctx.setFillColor(cgColor(color))
-            ctx.setAlpha(CGFloat(color.a))
             // One flip for the whole run: the context is y-down, CoreText
             // draws y-up. CTM·S(1,−1) applied to (pₓ, −p_y) equals the
             // per-glyph CTM·T(p)·S(1,−1) at the origin, so rasterization is
@@ -221,18 +223,31 @@ public enum DisplayListRenderer {
         let base =
             CTFontCreateUIFontForLanguage(.system, size, nil)
             ?? KaTeXFontProvider.shared.font(for: .mainRegular, size: size)
-        let str = String(scalar) as CFString
-        let font = CTFontCreateForString(base, str, CFRange(location: 0, length: 1))
+        let str = String(scalar)
+        var utf16 = Array(str.utf16)
+        // Cover the full UTF-16 range: a length of 1 hands non-BMP scalars
+        // (most emoji) only their high surrogate, so the cascade resolved
+        // LastResort instead of the color emoji font.
+        let font = CTFontCreateForString(
+            base, str as CFString, CFRange(location: 0, length: utf16.count))
 
-        var utf16 = Array(String(scalar).utf16)
         var glyphs = [CGGlyph](repeating: 0, count: utf16.count)
         let found = CTFontGetGlyphsForCharacters(font, &utf16, &glyphs, utf16.count)
         guard found, let glyph = glyphs.first, glyph != 0 else { return }
 
         ctx.saveGState()
         defer { ctx.restoreGState() }
-        ctx.setFillColor(cgColor(color))
-        ctx.setAlpha(CGFloat(color.a))
+        if color.a < 1, CTFontGetSymbolicTraits(font).contains(.traitColorGlyphs) {
+            // Color-bitmap glyphs (Apple Color Emoji) ignore the fill color,
+            // so translucency must come from the context alpha — the single
+            // application for this branch. Opaque colors skip the traits
+            // query: both branches then draw identically.
+            ctx.setAlpha(CGFloat(color.a))
+        } else {
+            // Monochrome fallback (CJK): fill color carries alpha;
+            // no ctx.setAlpha (see GlyphRun.flush).
+            ctx.setFillColor(cgColor(color))
+        }
         ctx.scaleBy(x: 1, y: -1)
         ctx.textMatrix = .identity
         var g = glyph

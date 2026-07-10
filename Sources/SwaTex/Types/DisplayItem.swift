@@ -9,13 +9,26 @@ public struct DisplayList: Sendable, Codable {
     public var height: Double
     /// Depth below the baseline, in em.
     public var depth: Double
+    /// True when emission dropped a subtree to avoid stack exhaustion:
+    /// `width`/`height`/`depth` still describe the complete formula, but
+    /// `items` are partial. Excluded from the wire format (RaTeX parity).
+    public var truncated: Bool = false
 
-    public init(items: [DisplayItem] = [], width: Double = 0, height: Double = 0, depth: Double = 0)
-    {
+    // Keep the serialized form identical to RaTeX's serde encoding:
+    // `truncated` is a local diagnostic, not part of the wire format.
+    private enum CodingKeys: String, CodingKey {
+        case items, width, height, depth
+    }
+
+    public init(
+        items: [DisplayItem] = [], width: Double = 0, height: Double = 0, depth: Double = 0,
+        truncated: Bool = false
+    ) {
         self.items = items
         self.width = width
         self.height = height
         self.depth = depth
+        self.truncated = truncated
     }
 
     /// `height + depth` — the full vertical extent, in em.

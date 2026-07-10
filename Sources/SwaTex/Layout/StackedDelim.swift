@@ -155,41 +155,6 @@ private func widthEmForLabel(_ label: String) -> Double {
     }
 }
 
-private func shiftPathY(_ cmds: [PathCommand], dy: Double) -> [PathCommand] {
-    cmds.map { c in
-        switch c {
-        case .moveTo(let x, let y):
-            .moveTo(x: x, y: y + dy)
-        case .lineTo(let x, let y):
-            .lineTo(x: x, y: y + dy)
-        case .cubicTo(let x1, let y1, let x2, let y2, let x, let y):
-            .cubicTo(x1: x1, y1: y1 + dy, x2: x2, y2: y2 + dy, x: x, y: y + dy)
-        case .quadTo(let x1, let y1, let x, let y):
-            .quadTo(x1: x1, y1: y1 + dy, x: x, y: y + dy)
-        case .close:
-            .close
-        }
-    }
-}
-
-private func scalePathToEm(_ cmds: [PathCommand]) -> [PathCommand] {
-    let s = 0.001
-    return cmds.map { c in
-        switch c {
-        case .moveTo(let x, let y):
-            .moveTo(x: x * s, y: y * s)
-        case .lineTo(let x, let y):
-            .lineTo(x: x * s, y: y * s)
-        case .cubicTo(let x1, let y1, let x2, let y2, let x, let y):
-            .cubicTo(x1: x1 * s, y1: y1 * s, x2: x2 * s, y2: y2 * s, x: x * s, y: y * s)
-        case .quadTo(let x1, let y1, let x, let y):
-            .quadTo(x1: x1 * s, y1: y1 * s, x: x * s, y: y * s)
-        case .close:
-            .close
-        }
-    }
-}
-
 private func makeTallSvgDelim(
     _ kind: StackDelimKind, heightTotal: Double, options: LayoutOptions
 ) -> LayoutBox? {
@@ -228,8 +193,10 @@ private func makeTallSvgDelim(
     // baseline and positive y extends downward.  Shift every y by -height_total so the
     // path spans [-height_total, 0] (above baseline to baseline), matching the declared
     // LayoutBox dimensions (height=height_total, depth=0).
-    let cmdsRaw = scalePathToEm(raw)
-    let cmds = shiftPathY(cmdsRaw, dy: -heightTotal)
+    // One fused pass; bit-identical to .scaled(by:).shiftedY(-heightTotal)
+    // (the intermediate +0.0/*1.0 steps are exact IEEE identities given
+    // heightTotal > 0), without the intermediate array.
+    let cmds = raw.map { $0.mapPoints(sx: 0.001, sy: 0.001, dy: -heightTotal) }
     let w = widthEmForLabel(label)
     let inner = LayoutBox(
         width: w, height: heightTotal, depth: 0.0,

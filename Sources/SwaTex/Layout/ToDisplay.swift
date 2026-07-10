@@ -15,11 +15,16 @@ private let surdChar: UInt32 = 0x221A
 public func toDisplayList(_ root: LayoutBox) -> DisplayList {
     var items: [DisplayItem] = []
     let baselineY = root.height
-    emitBox(root, x: 0.0, y: baselineY, scale: 1.0, items: &items)
+    let floor = stackFloorAddress(headroom: minimumLayoutStackHeadroom)
+    var truncated = false
+    emitBox(
+        root, x: 0.0, y: baselineY, scale: 1.0, items: &items, floor: floor,
+        depth: 1, truncated: &truncated)
 
     if items.isEmpty {
         return DisplayList(
-            items: items, width: root.width, height: root.height, depth: root.depth)
+            items: items, width: root.width, height: root.height, depth: root.depth,
+            truncated: truncated)
     }
 
     // Compute visual bounding box from actual display items.
@@ -98,21 +103,45 @@ public func toDisplayList(_ root: LayoutBox) -> DisplayList {
         depth = maxY - height
     }
 
-    return DisplayList(items: items, width: width, height: height, depth: depth)
+    return DisplayList(
+        items: items, width: width, height: height, depth: depth, truncated: truncated)
 }
+
+/// Maximum `emitBox` recursion depth: the non-Darwin backstop mirroring
+/// `maxLayoutRecursionDepth` (the probe is vacuously true there). The box
+/// tree nests several levels per layout node, so the cap is a multiple of
+/// the layout cap — a bound against runaway trees fed to the public
+/// `toDisplayList(_:)`, not a tight limit.
+#if canImport(Darwin)
+    private let maxEmitRecursionDepth = Int.max
+#else
+    private let maxEmitRecursionDepth = 8192
+#endif
 
 /// Recursively emit DisplayItems for a LayoutBox at the given position.
 ///
 /// `x`, `y` are the position of the box's baseline-left corner in absolute coordinates.
 /// `scale` is the cumulative size multiplier (1.0 at root, 0.7 in script, 0.5 in scriptscript).
 private func emitBox(
-    _ lbox: LayoutBox, x: Double, y: Double, scale: Double, items: inout [DisplayItem]
+    _ lbox: LayoutBox, x: Double, y: Double, scale: Double, items: inout [DisplayItem],
+    floor: UInt, depth: Int, truncated: inout Bool
 ) {
+    // The emission walk recurses over the box tree, which can nest several
+    // levels per input node; on a 512 KB worker thread a deeply nested (but
+    // guard-passing) formula used to overflow here. Drop the subtree's items
+    // instead of crashing (same degradation policy as `layoutNode`) and
+    // record the truncation so callers can tell partial output from complete.
+    guard depth <= maxEmitRecursionDepth, stackHasHeadroom(above: floor) else {
+        truncated = true
+        return
+    }
     switch lbox.content {
     case .hbox(let children):
         var curX = x
         for child in children {
-            emitBox(child, x: curX, y: y, scale: scale, items: &items)
+            emitBox(
+                child, x: curX, y: y, scale: scale, items: &items, floor: floor, depth: depth + 1,
+                truncated: &truncated)
             curX += child.width * scale
         }
 
@@ -122,7 +151,9 @@ private func emitBox(
             switch child.kind {
             case .box(let b):
                 curY += b.height * scale
-                emitBox(b, x: x + child.shift * scale, y: curY, scale: scale, items: &items)
+                emitBox(
+                    b, x: x + child.shift * scale, y: curY, scale: scale, items: &items,
+                    floor: floor, depth: depth + 1, truncated: &truncated)
                 curY += b.depth * scale
             case .kern(let k):
                 curY += k * scale
@@ -150,10 +181,14 @@ private func emitBox(
         let childDenomScale = scale * dSc
 
         var fracX = x + (lbox.width * scale - numer.width * childNumerScale) / 2.0
-        emitBox(numer, x: fracX, y: y - numerShift * scale, scale: childNumerScale, items: &items)
+        emitBox(
+            numer, x: fracX, y: y - numerShift * scale, scale: childNumerScale, items: &items,
+            floor: floor, depth: depth + 1, truncated: &truncated)
 
         fracX = x + (lbox.width * scale - denom.width * childDenomScale) / 2.0
-        emitBox(denom, x: fracX, y: y + denomShift * scale, scale: childDenomScale, items: &items)
+        emitBox(
+            denom, x: fracX, y: y + denomShift * scale, scale: childDenomScale, items: &items,
+            floor: floor, depth: depth + 1, truncated: &truncated)
 
         if barThickness > 0.0 {
             let metrics = MathConstants.forSize(0)
@@ -171,14 +206,18 @@ private func emitBox(
             centerScripts
             ? x + (lbox.width - base.width) * scale / 2.0
             : x
-        emitBox(base, x: baseX, y: y, scale: scale, items: &items)
+        emitBox(
+            base, x: baseX, y: y, scale: scale, items: &items, floor: floor, depth: depth + 1,
+            truncated: &truncated)
         if let supBox = sup {
             let childScale = scale * ss
             let supX =
                 centerScripts
                 ? x + (lbox.width * scale - supBox.width * childScale) / 2.0
                 : baseX + (base.width + italicCorrection) * scale
-            emitBox(supBox, x: supX, y: y - supShift * scale, scale: childScale, items: &items)
+            emitBox(
+                supBox, x: supX, y: y - supShift * scale, scale: childScale, items: &items,
+                floor: floor, depth: depth + 1, truncated: &truncated)
         }
         if let subBox = sub {
             let childScale = scale * bs
@@ -186,7 +225,9 @@ private func emitBox(
                 centerScripts
                 ? x + (lbox.width * scale - subBox.width * childScale) / 2.0
                 : baseX + base.width * scale + subHKern * scale
-            emitBox(subBox, x: subX, y: y + subShift * scale, scale: childScale, items: &items)
+            emitBox(
+                subBox, x: subX, y: y + subShift * scale, scale: childScale, items: &items,
+                floor: floor, depth: depth + 1, truncated: &truncated)
         }
 
     case .radical(
@@ -213,7 +254,8 @@ private func emitBox(
             let childScale = scale * indexScale
             emitBox(
                 indexBox, x: surdX + (5.0 / 18.0) * scale, y: indexBaselineY,
-                scale: childScale, items: &items)
+                scale: childScale, items: &items, floor: floor, depth: depth + 1,
+                truncated: &truncated)
         }
         let surdFontId = surdFont(forInnerHeight: innerHeight)
         let gh =
@@ -235,13 +277,17 @@ private func emitBox(
                 width: body.width * scale, thickness: ruleThickness * scale,
                 color: lbox.color, dashed: false))
 
-        emitBox(body, x: surdX + radicalWidth * scale, y: y, scale: scale, items: &items)
+        emitBox(
+            body, x: surdX + radicalWidth * scale, y: y, scale: scale, items: &items, floor: floor,
+            depth: depth + 1, truncated: &truncated)
 
     case .opLimits(
         let base, let sup, let sub, let baseShift, let supKern, let subKern, let slant,
         let ss, let bs):
         let baseX = x + (lbox.width - base.width) * scale / 2.0
-        emitBox(base, x: baseX, y: y + baseShift * scale, scale: scale, items: &items)
+        emitBox(
+            base, x: baseX, y: y + baseShift * scale, scale: scale, items: &items, floor: floor,
+            depth: depth + 1, truncated: &truncated)
 
         if let supBox = sup {
             let childScale = scale * ss
@@ -254,7 +300,9 @@ private func emitBox(
                 - (base.height - baseShift) * scale
                 - supKern * scale
                 - supBox.depth * childScale
-            emitBox(supBox, x: supX, y: supY, scale: childScale, items: &items)
+            emitBox(
+                supBox, x: supX, y: supY, scale: childScale, items: &items, floor: floor,
+                depth: depth + 1, truncated: &truncated)
         }
         if let subBox = sub {
             let childScale = scale * bs
@@ -266,15 +314,21 @@ private func emitBox(
                 + (base.depth + baseShift) * scale
                 + subKern * scale
                 + subBox.height * childScale
-            emitBox(subBox, x: subX, y: subY, scale: childScale, items: &items)
+            emitBox(
+                subBox, x: subX, y: subY, scale: childScale, items: &items, floor: floor,
+                depth: depth + 1, truncated: &truncated)
         }
 
     case .accent(let base, let accent, let clearance, let skew, let isBelow, let underGapEm):
-        emitBox(base, x: x, y: y, scale: scale, items: &items)
+        emitBox(
+            base, x: x, y: y, scale: scale, items: &items, floor: floor, depth: depth + 1,
+            truncated: &truncated)
         if isBelow {
             let accentX = x + (base.width - accent.width) * scale / 2.0
             let accentY = y + (base.depth + underGapEm) * scale + accent.height * scale
-            emitBox(accent, x: accentX, y: accentY, scale: scale, items: &items)
+            emitBox(
+                accent, x: accentX, y: accentY, scale: scale, items: &items, floor: floor,
+                depth: depth + 1, truncated: &truncated)
         } else {
             let accentX = x + (base.width - accent.width) * scale / 2.0 + skew * scale
             // Position accent so its TOP is at (clearance + effective_accent_height) above baseline.
@@ -292,16 +346,24 @@ private func emitBox(
                 // Simpler: shift glyph so top is at y - clearance - small_gap
                 accentY = y - clearance * scale + (accent.height - min(0.35, accent.height)) * scale
             }
-            emitBox(accent, x: accentX, y: accentY, scale: scale, items: &items)
+            emitBox(
+                accent, x: accentX, y: accentY, scale: scale, items: &items, floor: floor,
+                depth: depth + 1, truncated: &truncated)
         }
 
     case .leftRight(let left, let right, let inner):
         var curX = x
-        emitBox(left, x: curX, y: y, scale: scale, items: &items)
+        emitBox(
+            left, x: curX, y: y, scale: scale, items: &items, floor: floor, depth: depth + 1,
+            truncated: &truncated)
         curX += left.width * scale
-        emitBox(inner, x: curX, y: y, scale: scale, items: &items)
+        emitBox(
+            inner, x: curX, y: y, scale: scale, items: &items, floor: floor, depth: depth + 1,
+            truncated: &truncated)
         curX += inner.width * scale
-        emitBox(right, x: curX, y: y, scale: scale, items: &items)
+        emitBox(
+            right, x: curX, y: y, scale: scale, items: &items, floor: floor, depth: depth + 1,
+            truncated: &truncated)
 
     case .array(let a):
         let yTop = y - a.offset * scale
@@ -388,7 +450,9 @@ private func emitBox(
                 case "r": cellX = curX + (cw - cell.width) * scale
                 default: cellX = curX + (cw - cell.width) * scale / 2.0
                 }
-                emitBox(cell, x: cellX, y: curY, scale: scale, items: &items)
+                emitBox(
+                    cell, x: cellX, y: curY, scale: scale, items: &items, floor: floor,
+                    depth: depth + 1, truncated: &truncated)
                 curX += cw * scale
                 if c + 1 < row.count {
                     curX += a.colGap * scale
@@ -398,14 +462,16 @@ private func emitBox(
                 if r < a.rowTags.count, let tb = a.rowTags[r] {
                     let tagStartEm = a.arrayInnerWidth - a.contentXOffset + a.tagGapEm
                     let tagX = x + tagStartEm * scale + (a.tagColWidth - tb.width) * scale
-                    emitBox(tb, x: tagX, y: curY, scale: scale, items: &items)
+                    emitBox(
+                        tb, x: tagX, y: curY, scale: scale, items: &items, floor: floor,
+                        depth: depth + 1, truncated: &truncated)
                 }
             }
             curY += a.rowDepths[r] * scale
         }
 
     case .svgPath(let commands, let fill):
-        let scaled = commands.map { scalePathCommand($0, scale: scale) }
+        let scaled = commands.scaled(by: scale)
         items.append(.path(x: x, y: y, commands: scaled, fill: fill, color: lbox.color))
 
     case .framed(
@@ -441,21 +507,31 @@ private func emitBox(
 
         // Body content (shifted by padding + border from left baseline)
         let innerOffset = (padding + borderThickness) * scale
-        emitBox(body, x: x + innerOffset, y: y, scale: scale, items: &items)
+        emitBox(
+            body, x: x + innerOffset, y: y, scale: scale, items: &items, floor: floor,
+            depth: depth + 1, truncated: &truncated)
 
     case .raiseBox(let body, let shift):
-        emitBox(body, x: x, y: y - shift * scale, scale: scale, items: &items)
+        emitBox(
+            body, x: x, y: y - shift * scale, scale: scale, items: &items, floor: floor,
+            depth: depth + 1, truncated: &truncated)
 
     case .scaled(let body, let childScale):
-        emitBox(body, x: x, y: y, scale: scale * childScale, items: &items)
+        emitBox(
+            body, x: x, y: y, scale: scale * childScale, items: &items, floor: floor,
+            depth: depth + 1, truncated: &truncated)
 
     case .angl(let pathCommands, let body):
-        let scaled = pathCommands.map { scalePathCommand($0, scale: scale) }
+        let scaled = pathCommands.scaled(by: scale)
         items.append(.path(x: x, y: y, commands: scaled, fill: false, color: lbox.color))
-        emitBox(body, x: x, y: y, scale: scale, items: &items)
+        emitBox(
+            body, x: x, y: y, scale: scale, items: &items, floor: floor, depth: depth + 1,
+            truncated: &truncated)
 
     case .overline(let body, let ruleThickness):
-        emitBox(body, x: x, y: y, scale: scale, items: &items)
+        emitBox(
+            body, x: x, y: y, scale: scale, items: &items, floor: floor, depth: depth + 1,
+            truncated: &truncated)
         // Rule center is at 2.5 * rule_thickness above the body's top
         let ruleCenterY = y - (body.height + 2.5 * ruleThickness) * scale
         items.append(
@@ -464,7 +540,9 @@ private func emitBox(
                 thickness: ruleThickness * scale, color: lbox.color, dashed: false))
 
     case .underline(let body, let ruleThickness, let offset):
-        emitBox(body, x: x, y: y, scale: scale, items: &items)
+        emitBox(
+            body, x: x, y: y, scale: scale, items: &items, floor: floor, depth: depth + 1,
+            truncated: &truncated)
         let ruleCenterY = y + (body.depth + offset) * scale
         items.append(
             .line(
@@ -476,7 +554,7 @@ private func emitBox(
         for child in children {
             emitBox(
                 child.box, x: x + child.x * scale, y: topY + child.baselineY * scale,
-                scale: scale, items: &items)
+                scale: scale, items: &items, floor: floor, depth: depth + 1, truncated: &truncated)
         }
         for rule in rules {
             items.append(
@@ -488,25 +566,11 @@ private func emitBox(
 
     case .kern, .empty:
         break
-    }
-}
 
-private func scalePathCommand(_ cmd: PathCommand, scale: Double) -> PathCommand {
-    switch cmd {
-    case .moveTo(let x, let y):
-        .moveTo(x: x * scale, y: y * scale)
-    case .lineTo(let x, let y):
-        .lineTo(x: x * scale, y: y * scale)
-    case .cubicTo(let x1, let y1, let x2, let y2, let x, let y):
-        .cubicTo(
-            x1: x1 * scale, y1: y1 * scale, x2: x2 * scale, y2: y2 * scale,
-            x: x * scale, y: y * scale)
-    // The bundled KaTeX geometry uses only line/cubic commands; quad
-    // scaling is covered by DirectUnitTests via a hand-built path.
-    case .quadTo(let x1, let y1, let x, let y):
-        .quadTo(x1: x1 * scale, y1: y1 * scale, x: x * scale, y: y * scale)
-    case .close:
-        .close
+    case .degraded:
+        // A layout-stage guard already dropped this subtree; surface it
+        // through the same signal as emission-stage drops.
+        truncated = true
     }
 }
 

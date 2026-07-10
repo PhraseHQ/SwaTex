@@ -12,7 +12,7 @@ struct KaTeXSvgTests {
     }
 
     @Test func parseKatexVecPath() {
-        let cmds = scaleSvgPathThousandths(parseSvgPath(KaTeXSvgData.katexVecPath))
+        let cmds = parseSvgPath(KaTeXSvgData.katexVecPath).scaled(by: 0.001)
         #expect(cmds.count >= 8, "vec path should parse to multiple segments")
         if case .moveTo(let x, let y) = cmds[0] {
             #expect(abs(x - 0.377) < 0.001)

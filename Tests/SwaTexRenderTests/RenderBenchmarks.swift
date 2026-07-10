@@ -195,7 +195,7 @@ struct DrawBenchmarks {
 
         // Draw only (context reused)
         let ctx = makeCtx()
-        _ = DisplayListRenderer.draw(list, in: ctx, options: opts)  // warm
+        DisplayListRenderer.draw(list, in: ctx, options: opts)  // warm
         t0 = ContinuousClock.now
         for _ in 0..<1000 { DisplayListRenderer.draw(list, in: ctx, options: opts) }
         let drawTime = (ContinuousClock.now - t0) / 1000

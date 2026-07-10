@@ -206,8 +206,9 @@ func layoutPmb(_ body: [ParseNode], _ options: LayoutOptions) -> LayoutBox {
     let h = base.height
     let d = base.depth
 
-    // Shadow copy shifted right 0.02em, down 0.01em — same content, same color
-    let shadow = layoutExpression(body, options, isRealGroup: true)
+    // Shadow copy shifted right 0.02em, down 0.01em — same content, same color.
+    // `LayoutBox` is a value type, so this is a copy, not a second layout pass.
+    let shadow = base
     let shadowShiftX = 0.02
     // let shadowShiftY = 0.01 (unused, see below)
 

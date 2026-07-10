@@ -71,3 +71,39 @@ extension PathCommand: Codable {
         }
     }
 }
+
+extension PathCommand {
+    /// Apply the axis-aligned affine map `x′ = x·sx + dx`, `y′ = y·sy + dy`
+    /// to every control point — the only transform family the layout engine
+    /// needs (unit scaling, per-axis stretch, and vertical shifts).
+    func mapPoints(sx: Double = 1, sy: Double = 1, dx: Double = 0, dy: Double = 0) -> PathCommand {
+        switch self {
+        case let .moveTo(x, y):
+            .moveTo(x: x * sx + dx, y: y * sy + dy)
+        case let .lineTo(x, y):
+            .lineTo(x: x * sx + dx, y: y * sy + dy)
+        case let .cubicTo(x1, y1, x2, y2, x, y):
+            .cubicTo(
+                x1: x1 * sx + dx, y1: y1 * sy + dy,
+                x2: x2 * sx + dx, y2: y2 * sy + dy,
+                x: x * sx + dx, y: y * sy + dy)
+        case let .quadTo(x1, y1, x, y):
+            .quadTo(x1: x1 * sx + dx, y1: y1 * sy + dy, x: x * sx + dx, y: y * sy + dy)
+        case .close:
+            .close
+        }
+    }
+}
+
+extension [PathCommand] {
+    /// Uniform scale about the origin (e.g. ×0.001 for KaTeX's
+    /// thousandths-of-an-em glyph coordinates → em units).
+    func scaled(by s: Double) -> [PathCommand] {
+        map { $0.mapPoints(sx: s, sy: s) }
+    }
+
+    /// Vertical translation.
+    func shiftedY(_ dy: Double) -> [PathCommand] {
+        map { $0.mapPoints(dy: dy) }
+    }
+}

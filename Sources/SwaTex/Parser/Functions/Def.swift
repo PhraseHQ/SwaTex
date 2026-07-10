@@ -121,35 +121,43 @@ private func handleDef(
     var numArgs = 0
     var insertBrace = false
 
-    // Parse parameter text: read tokens until `{`
+    // Parse parameter text: read tokens until `{`. Delimiter tokens between
+    // parameters are recorded and enforced at use sites (KaTeX def.js):
+    // delimiters[0] must follow the macro name literally, delimiters[i]
+    // terminates argument #i.
+    var delimiters: [[String]] = [[]]
     while ctx.parser.gullet.future().text != "{" {
         let tok = ctx.parser.gullet.popToken()
         if tok.text == "#" {
+            // `#{` — the final parameter is delimited by `{`, which also
+            // reappears at the end of the replacement text (TeXbook §203).
             if ctx.parser.gullet.future().text == "{" {
                 insertBrace = true
+                delimiters[numArgs].append("{")
                 break
             }
             let numTok = ctx.parser.gullet.popToken()
-            guard let n = Int(numTok.text) else {
+            guard numTok.text.count == 1, let n = Int(numTok.text), n >= 1 else {
                 throw ParseError("Invalid argument number \"\(numTok.text)\"")
             }
             if n != numArgs + 1 {
                 throw ParseError("Argument number \"\(n)\" out of order")
             }
             numArgs += 1
+            delimiters.append([])
         } else if tok.isEOF {
             throw ParseError("Expected a macro definition")
+        } else {
+            delimiters[numArgs].append(tok.text)
         }
-        // Delimiter tokens between parameters are consumed but not stored
-        // (simplified: we don't support delimited macros with inter-parameter text)
     }
 
     let arg = try ctx.parser.gullet.consumeArg()
     var tokens = arg.tokens
 
     if insertBrace {
-        let braceTok = Token("{", start: 0, end: 0)
-        tokens.append(braceTok)
+        // Stack order is reversed, so index 0 is the logically-last token.
+        tokens.insert(Token("{", start: 0, end: 0), at: 0)
     }
 
     if ctx.funcName == "\\edef" || ctx.funcName == "\\xdef" {
@@ -165,7 +173,12 @@ private func handleDef(
     }
 
     let isGlobalDef = ctx.funcName == "\\gdef" || ctx.funcName == "\\xdef"
-    let def = MacroDefinition.tokens(tokens, numArgs: numArgs)
+    // Store nil for ordinary undelimited macros (the documented
+    // `MacroDefinition.tokens` invariant): expansion then skips the
+    // delimiter-matching path entirely.
+    let def = MacroDefinition.tokens(
+        tokens, numArgs: numArgs,
+        delimiters: delimiters.allSatisfy(\.isEmpty) ? nil : delimiters)
     if isGlobalDef {
         ctx.parser.gullet.setMacroGlobal(name, def)
     } else {
@@ -227,7 +240,7 @@ private func letCommand(
         def = macroDef
     } else {
         tok.noexpand = true
-        def = .tokens([tok], numArgs: 0)
+        def = .tokens([tok], numArgs: 0, delimiters: nil)
     }
 
     if global {

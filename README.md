@@ -176,7 +176,14 @@ between the engines. Every number is reproducible with the commands in
   size units accept ASCII digits only (KaTeX's JS `\d`; Rust/Swift regex
   `\d` also accept Unicode digits), and tokenization steps by Unicode
   scalar, so combining marks on syntax characters behave like the JS/Rust
-  references rather than Swift's grapheme clusters.
+  references rather than Swift's grapheme clusters. Additional
+  KaTeX-correct divergences from RaTeX (each pinned by a regression
+  test): unterminated `\verb` and `x\limits^2` are parse errors instead
+  of being silently accepted; `\vcenter` physically centers ink on the
+  math axis; `\gdef`/`\xdef` survive group exit; zero-arg delimited
+  `\def` macros validate and consume their parameter text; `\middle`
+  nested deeper than 8 `\left…\right` stretch scopes renders at natural
+  (unstretched) size.
 - Shared with KaTeX/RaTeX upstream: `\begin{alignat}{N}` does not bound
   `N`; hostile inputs should be length-limited by the host app. Deeply
   nested input is guarded (recursion count + stack headroom → parse

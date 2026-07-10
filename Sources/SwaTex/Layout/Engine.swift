@@ -14,9 +14,32 @@ func styleStrToMathStyle(_ style: StyleStr) -> MathStyle {
     }
 }
 
+/// Maximum `layoutNode` recursion depth.
+///
+/// On Darwin the stack probe measures the thread's real headroom, so no
+/// artificial ceiling is imposed: legitimately deep trees (e.g. long
+/// combining-accent chains, which build depth without parser recursion)
+/// render fully on big stacks and degrade exactly at true exhaustion on
+/// small ones. Elsewhere `stackFloorAddress` is unavailable (the probe is
+/// vacuously true) and a fixed cap stands alone as the backstop; the parser
+/// admits at most 512 nesting levels, but macro- and accent-produced trees
+/// can be deeper than their parse recursion.
+#if canImport(Darwin)
+    let maxLayoutRecursionDepth = Int.max
+#else
+    let maxLayoutRecursionDepth = 1024
+#endif
+
 /// Main entry point: lay out a list of ParseNodes into a LayoutBox.
 public func layout(_ nodes: [ParseNode], options: LayoutOptions) -> LayoutBox {
-    layoutExpression(nodes, options, isRealGroup: true)
+    var options = options
+    if options.stackFloor == 0 {
+        // Same calibration as the parser: layout runs on whatever thread the
+        // caller uses — possibly a 512 KB worker even when parsing happened
+        // on the 8 MB main thread — so probe this thread's own headroom.
+        options.stackFloor = stackFloorAddress(headroom: minimumLayoutStackHeadroom)
+    }
+    return layoutExpression(nodes, options, isRealGroup: true)
 }
 
 /// KaTeX `binLeftCanceller` / `binRightCanceller` (TeXbook p.442–446, Rules 5–6).
@@ -24,8 +47,12 @@ public func layout(_ nodes: [ParseNode], options: LayoutOptions) -> LayoutBox {
 func applyBinCancellation(_ raw: [MathClass?]) -> [MathClass?] {
     let n = raw.count
     var eff = raw
+    // Left-cancellation walks left-to-right using each predecessor's already
+    // resolved (effective) class — matching TeX/KaTeX's single forward pass.
+    // Using the raw class here would wrongly cancel a Bin whose predecessor is
+    // itself a just-cancelled Bin (e.g. the 2nd `+` in `(+ + a`).
     for i in 0..<n where raw[i] == .bin {
-        let prev = i == 0 ? nil : raw[i - 1]
+        let prev = i == 0 ? nil : eff[i - 1]
         let leftCancel =
             switch prev {
             case nil, .bin, .open, .rel, .op, .punct: true
@@ -35,7 +62,10 @@ func applyBinCancellation(_ raw: [MathClass?]) -> [MathClass?] {
             eff[i] = .ord
         }
     }
-    for i in 0..<n where raw[i] == .bin {
+    // Right-cancellation looks at the following atom's original class (a later
+    // Bin has not yet been resolved and, per TeXbook Rule 6, its raw class is
+    // what matters to the operator on its left).
+    for i in 0..<n where eff[i] == .bin {
         let next = i + 1 < n ? raw[i + 1] : nil
         let rightCancel =
             switch next {
@@ -59,8 +89,13 @@ private func nodeIsMiddleFence(_ node: ParseNode) -> Bool {
 }
 
 /// Lay out an expression (list of nodes) as a horizontal sequence with spacing.
+///
+/// `boxFor`, when given, supplies the box for the node at each index instead
+/// of `layoutNode` — used by `layoutLeftRight` to reuse first-pass boxes for
+/// `\middle`-free subtrees in its stretch pass.
 func layoutExpression(
-    _ nodes: [ParseNode], _ options: LayoutOptions, isRealGroup: Bool
+    _ nodes: [ParseNode], _ options: LayoutOptions, isRealGroup: Bool,
+    boxFor: ((Int, ParseNode) -> LayoutBox)? = nil
 ) -> LayoutBox {
     if nodes.isEmpty {
         return .empty
@@ -72,7 +107,7 @@ func layoutExpression(
         return false
     }
     if hasCr {
-        return layoutMultiline(nodes, options, isRealGroup: isRealGroup)
+        return layoutMultiline(nodes, options, isRealGroup: isRealGroup, boxFor: boxFor)
     }
 
     let rawClasses = nodes.map(nodeMathClass)
@@ -84,7 +119,14 @@ func layoutExpression(
     var prevClassNodeIdx: Int?
 
     for (i, node) in nodes.enumerated() {
-        let lbox = layoutNode(node, options)
+        // No `??` here: its autoclosure adds measurable stack per recursion
+        // level in debug builds, and this loop is on the recursion hot path.
+        let lbox: LayoutBox
+        if let boxFor {
+            lbox = boxFor(i, node)
+        } else {
+            lbox = layoutNode(node, options)
+        }
         let curClass = i < effClasses.count ? effClasses[i] : nil
 
         if isRealGroup, let prev = prevClass, let cur = curClass {
@@ -115,7 +157,8 @@ func layoutExpression(
 
 /// Layout an expression containing line-break nodes (\\, \newline) as a VBox.
 private func layoutMultiline(
-    _ nodes: [ParseNode], _ options: LayoutOptions, isRealGroup: Bool
+    _ nodes: [ParseNode], _ options: LayoutOptions, isRealGroup: Bool,
+    boxFor: ((Int, ParseNode) -> LayoutBox)? = nil
 ) -> LayoutBox {
     let metrics = options.metrics
     let pt = 1.0 / metrics.ptPerEm
@@ -133,7 +176,15 @@ private func layoutMultiline(
     }
     rows.append(nodes[start...])
 
-    let rowBoxes = rows.map { layoutExpression(Array($0), options, isRealGroup: isRealGroup) }
+    let rowBoxes = rows.map { row in
+        layoutExpression(
+            Array(row), options, isRealGroup: isRealGroup,
+            boxFor: boxFor.map { f in
+                // Rebase row-local indices to the original node list so a
+                // caller-provided box cache stays index-aligned.
+                { i, node in f(row.startIndex + i, node) }
+            })
+    }
 
     let totalWidth = rowBoxes.map(\.width).reduce(0, max)
 
@@ -157,7 +208,41 @@ private func layoutMultiline(
 }
 
 /// Lay out a single ParseNode.
+///
+/// This thin wrapper holds the recursion guard: the layout walk recurses
+/// over the tree the parser admitted, with larger frames than the parser's
+/// own recursion — and possibly on a smaller stack (a 512 KB worker thread)
+/// than the one that parsed. Degrade to an empty box instead of overflowing
+/// (mirrors the parser's guard in `parseExpression`; see StackGuard.swift).
+///
+/// Kept separate from `layoutNodeDispatch` on purpose: giving the giant
+/// dispatcher switch a mutable `options` local measurably inflates its debug
+/// frame (~16 KB → ~24 KB per level), which alone overflows small stacks
+/// that the unmodified dispatcher fits on.
 func layoutNode(_ node: ParseNode, _ options: LayoutOptions) -> LayoutBox {
+    #if canImport(Darwin)
+        // The stack probe measures this thread's real headroom, so the depth
+        // counter is unused (`maxLayoutRecursionDepth` is `Int.max`) — skip the
+        // per-node LayoutOptions copy that only existed to bump it.
+        guard stackHasHeadroom(above: options.stackFloor) else {
+            return .degradedBox
+        }
+        return layoutNodeDispatch(node, options)
+    #else
+        let depth = options.layoutDepth + 1
+        guard depth <= maxLayoutRecursionDepth,
+            stackHasHeadroom(above: options.stackFloor)
+        else {
+            return .degradedBox
+        }
+        var next = options
+        next.layoutDepth = depth
+        return layoutNodeDispatch(node, next)
+    #endif
+}
+
+/// The per-node dispatcher. Only ever called via `layoutNode`.
+private func layoutNodeDispatch(_ node: ParseNode, _ options: LayoutOptions) -> LayoutBox {
     switch node.kind {
     case let .mathOrd(text), let .textOrd(text), let .atom(_, text), let .opToken(text):
         return layoutSymbol(text, node.mode, options)
@@ -334,7 +419,7 @@ func layoutNode(_ node: ParseNode, _ options: LayoutOptions) -> LayoutBox {
             return makeStretchyDelim(delim, h, options)
         }
         // First pass inside \left...\right: reserve width but don't affect inner height.
-        let placeholder = makeStretchyDelim(delim, 1.0, options)
+        let placeholder = makeStretchyDelim(delim, naturalDelimHeightEm, options)
         return LayoutBox(
             width: placeholder.width, height: 0, depth: 0,
             content: .empty, color: options.color)
@@ -349,13 +434,8 @@ func layoutNode(_ node: ParseNode, _ options: LayoutOptions) -> LayoutBox {
         return layoutExpression(body, options, isRealGroup: true)
 
     case let .mathChoice(display, text, script, scriptscript):
-        let branch =
-            switch options.style {
-            case .display, .displayCramped: display
-            case .text, .textCramped: text
-            case .script, .scriptCramped: script
-            case .scriptScript, .scriptScriptCramped: scriptscript
-            }
+        let branch = options.style.mathChoiceBranch(
+            display: display, text: text, script: script, scriptscript: scriptscript)
         return layoutExpression(branch, options, isRealGroup: true)
 
     case let .lap(alignment, body):
@@ -396,14 +476,19 @@ func layoutNode(_ node: ParseNode, _ options: LayoutOptions) -> LayoutBox {
         return layoutRaiseBox(measurementToEm(dy, options), body, options)
 
     case let .vcenter(body):
-        // Vertically center on the math axis
+        // Vertically center the content on the math axis. Adjusting height/
+        // depth alone doesn't move the ink — the HBox emit pass keeps children
+        // on a shared baseline — so physically raise the box (same technique
+        // as centered \mathop bodies in EngineOps.swift).
         let inner = layoutNode(body, options)
         let axis = options.metrics.axisHeight
-        let total = inner.height + inner.depth
-        let height = total / 2 + axis
+        let raise = axis - (inner.height - inner.depth) / 2
         return LayoutBox(
-            width: inner.width, height: height, depth: total - height,
-            content: inner.content, color: inner.color)
+            width: inner.width,
+            height: max(inner.height + raise, 0),
+            depth: max(inner.depth - raise, 0),
+            content: .raiseBox(body: inner, shift: raise),
+            color: inner.color)
 
     case let .verb(body, star):
         return layoutVerb(body, star, options)

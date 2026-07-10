@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.3.0 — 2026-07-10
+
+### Added
+- `DisplayList.truncated`: true when a recursion guard dropped a subtree
+  (layout- or emission-stage) on stack exhaustion — partial output is now
+  distinguishable from a complete render. Excluded from the serialized
+  wire format (RaTeX parity). `FormulaCache` never persists truncated
+  results (they are thread-dependent), so a later render on a larger
+  stack recomputes fully.
+- Emoji rendering fixes in the CoreGraphics backend: translucent colors
+  now apply to color-bitmap emoji exactly once, and non-BMP emoji resolve
+  the color emoji font (previously fell back to monochrome LastResort).
+
+### Changed (KaTeX-correctness; may affect callers of lenient inputs)
+- Unterminated `\verb` and `x\limits^2` now throw `ParseError`
+  (previously accepted silently, matching a RaTeX bug).
+- `\gdef`/`\xdef`/`\global\def` defined inside a group now survive group
+  exit; zero-arg delimited `\def` macros validate and consume their
+  parameter text; `\def\a#{…}` keeps braces balanced (TeXbook §203).
+- `\operatorname`/`\operatorname*` limit-control semantics now match
+  KaTeX exactly; `\vcenter` physically centers ink on the math axis;
+  multi-char `\cancel` no longer overlaps the following atom.
+- `\middle` nested deeper than 8 `\left…\right` stretch scopes renders
+  at natural size (visible, unstretched) instead of exponential work or
+  invisible placeholders; `\middle` inside `\hbox` stretches correctly.
+- Layout recursion on Darwin is bounded by the stack-headroom probe alone
+  (no artificial 1024-depth ceiling); deep-but-legitimate trees (long
+  combining-accent chains) render fully on large stacks.
+
+### Fixed
+- SVG output is well-formed XML for the emoji font stack, escapes
+  provider-supplied path/href strings (including quotes fused with
+  combining marks), and cache hit/miss statistics count each request
+  exactly once under concurrency.
+
+### Performance
+- PNG chunk CRC-32 via libz hardware instructions (~80× the table loop);
+  glyph translucency and SVG escaping hot paths trimmed; `\middle`
+  containment scan short-circuits; per-node layout dispatch no longer
+  copies options on Darwin.
+
 ## 0.2.0 — 2026-07-09
 
 ### Added

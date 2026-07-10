@@ -76,7 +76,7 @@
 {"box":{"depth":0.48377,"height":1.07123,"width":1.88062},"displayList":{"depth":0.48377,"height":1.07123,"itemCount":2,"width":1.88062},"input":"x\\Huge y"}
 {"box":{"depth":0.0,"height":0.89444,"width":0.83334},"displayList":{"depth":0.0,"height":0.89444,"itemCount":2,"width":0.83334},"input":"\\raisebox{2pt}{hi}"}
 {"box":{"depth":0.3,"height":0.39444,"width":0.77778},"displayList":{"depth":0.3,"height":0.39444,"itemCount":2,"width":0.77778},"input":"\\raisebox{-3pt}{lo}"}
-{"box":{"depth":0.64678,"height":1.14678,"width":1.72635},"displayList":{"depth":0.686,"height":1.14678,"itemCount":5,"width":1.72635},"input":"a\\vcenter{\\frac{a}{b}}b"}
+{"box":{"depth":0.64678,"height":1.14678,"width":1.72635},"displayList":{"depth":0.64678,"height":1.14678,"itemCount":5,"width":1.72635},"input":"a\\vcenter{\\frac{a}{b}}b"}
 {"box":{"depth":0.0,"height":0.0,"width":0.0},"displayList":{"depth":0.0,"height":0.0,"itemCount":0,"width":0.0},"input":"\\relax"}
 {"box":{"depth":0.0,"height":0.69444,"width":0.95776},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":0.95776},"input":"a\\relax b"}
 {"box":{"depth":0.0,"height":0.0,"width":1.39052},"displayList":{"depth":0.0,"height":0.0,"itemCount":0,"width":1.39052},"input":"\\hphantom{abc}"}
@@ -873,7 +873,7 @@
 {"box":{"depth":0.0,"height":0.64444,"width":3.28878},"displayList":{"depth":0.0,"height":0.64444,"itemCount":6,"width":3.28878},"input":"\\hbox to 5em{x}"}
 {"box":{"depth":0.0,"height":0.69444,"width":4.41947},"displayList":{"depth":0.0,"height":0.69444,"itemCount":8,"width":4.41947},"input":"\\text{\\raisebox{2pt}{up} normal}"}
 {"box":{"depth":0.0,"height":0.46528,"width":0.57153},"displayList":{"depth":0.0,"height":0.46528,"itemCount":1,"width":0.57153},"input":"\\vcenter{x}"}
-{"box":{"depth":0.3643,"height":0.8643,"width":1.54995},"displayList":{"depth":0.48111,"height":0.8643,"itemCount":5,"width":1.54995},"input":"a\\vcenter{\\hbox{$\\frac{p}{q}$}}b"}
+{"box":{"depth":0.3643,"height":0.8643,"width":1.54995},"displayList":{"depth":0.3643,"height":0.8643,"itemCount":5,"width":1.54995},"input":"a\\vcenter{\\hbox{$\\frac{p}{q}$}}b"}
 {"box":{"depth":0.19084,"height":0.84916,"width":1.3595},"displayList":{"depth":0.19444,"height":0.84916,"itemCount":3,"width":1.3595},"input":"\\sqrt{\\smash[b]{y}}"}
 {"box":{"depth":0.54,"height":0.43056,"width":0.57153},"displayList":{"depth":0.54,"height":0.43056,"itemCount":4,"width":0.57153},"input":"\\underline{\\underline{\\underline{x}}}"}
 {"box":{"depth":0.0,"height":1.2,"width":0.0},"displayList":{"depth":0.0,"height":1.2,"itemCount":0,"width":0.0},"input":"\\newline"}
@@ -1236,8 +1236,8 @@
 {"box":{"depth":0.5465,"height":1.0465,"width":7.0},"displayList":{"depth":0.5465,"height":1.0465,"itemCount":2,"width":7.0},"input":"\\begin{CD} @>>> @>>> \\end{CD}"}
 {"box":{"depth":0.686,"height":1.10756,"width":0.76859},"displayList":{"depth":0.686,"height":1.10756,"itemCount":3,"width":0.76859},"input":"\\genfrac{}{}{0.04em}{}{a}{b}"}
 {"box":{"depth":0.48111,"height":0.85,"width":1.27508},"displayList":{"depth":0.48111,"height":0.85,"itemCount":5,"width":1.27508},"input":"\\genfrac{(}{]}{0.02em}{1}{x}{y}"}
-{"box":{"depth":0.0,"height":0.61111,"width":1.05},"displayList":{"depth":0.0,"height":0.61111,"itemCount":2,"width":1.05},"input":"\\verb|abc"}
-{"box":{"depth":0.11111,"height":0.43056,"width":1.05},"displayList":{"depth":0.11111,"height":0.43056,"itemCount":2,"width":1.05},"input":"\\verb*|a b"}
+{"error":true,"input":"\\verb|abc","message":"ParseError at position 0: \\verb ended by end of line instead of matching delimiter"}
+{"error":true,"input":"\\verb*|a b","message":"ParseError at position 0: \\verb ended by end of line instead of matching delimiter"}
 {"box":{"depth":0.0,"height":0.43056,"width":0.525},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.525},"input":"\\text{\\verb|x|}"}
 {"box":{"depth":0.35,"height":0.85,"width":0.525},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":0.525},"input":"\\begin{matrix} \\verb|q| \\end{matrix}"}
 {"box":{"depth":0.18,"height":0.43056,"width":0.57246},"displayList":{"depth":0.18,"height":0.43056,"itemCount":2,"width":0.57246},"input":"\\underline{\\textcolor{blue}{u}}"}
@@ -1313,7 +1313,7 @@
 {"box":{"depth":1.65823,"height":2.19223,"width":1.00001},"displayList":{"depth":1.65823,"height":2.19223,"itemCount":3,"width":1.00001},"input":"\\intop\\limits_0^1"}
 {"error":true,"input":"\\limits x","message":"ParseError at position 8: Expected 'EOF', got 'x'"}
 {"error":true,"input":"\\nolimits y","message":"ParseError at position 10: Expected 'EOF', got 'y'"}
-{"box":{"depth":0.0,"height":0.86411,"width":0.97153},"displayList":{"depth":0.0,"height":0.86411,"itemCount":2,"width":0.97153},"input":"x\\limits^2"}
+{"error":true,"input":"x\\limits^2","message":"ParseError at position 1: Limit controls must follow a math operator"}
 {"box":{"depth":0.34222,"height":0.69444,"width":8.0},"displayList":{"depth":0.34222,"height":0.69444,"itemCount":21,"width":8.0},"input":"\\url{http://gyp.jq/}"}
 {"box":{"depth":0.34222,"height":0.43056,"width":0.525},"displayList":{"depth":0.34222,"height":0.43056,"itemCount":3,"width":0.525},"input":"\\url{g}"}
 {"box":{"depth":0.34222,"height":0.43056,"width":1.675},"displayList":{"depth":0.34222,"height":0.43056,"itemCount":7,"width":1.675},"input":"\\url{qqq}"}

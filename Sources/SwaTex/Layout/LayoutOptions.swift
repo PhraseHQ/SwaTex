@@ -12,6 +12,19 @@ public struct LayoutOptions: Sendable {
     /// to match browser tracking.
     public var interGlyphKernEm: Double
 
+    /// Layout recursion depth, incremented per `layoutNode` level. Guards
+    /// against stack overflow on pathologically nested input (mirrors the
+    /// parser's recursion-count guard; see `StackGuard.swift`).
+    var layoutDepth: Int = 0
+    /// Stack floor for the layout walk's headroom probe, computed once at
+    /// the `layout()` entry point on the laying-out thread. 0 disables the
+    /// probe (direct internal calls, non-Darwin platforms).
+    var stackFloor: UInt = 0
+    /// Nesting depth of `\left…\middle…\right` stretch passes. Bounds the
+    /// second (stretch) layout pass so adversarially nested `\middle`
+    /// groups degrade instead of doing exponential work.
+    var middlePassDepth: Int = 0
+
     public init(
         style: MathStyle = .display,
         color: Color = .black,

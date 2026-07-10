@@ -47,6 +47,14 @@ struct MacroExpanderCoverageTests {
         #expect(try symbolTexts(#"\@ifnextchar q{y}{n}xc"#) == ["n", "x", "c"])
     }
 
+    @Test func ifNextCharMultiTokenArgTakesFalseBranch() throws {
+        // KaTeX requires the first argument to be exactly one token; a
+        // multi-token argument never matches (regression: the old code
+        // compared the last token in original order, so `{ab}` before `b`
+        // wrongly took the true branch).
+        #expect(try symbolTexts(#"\@ifnextchar{ab}{y}{n}bc"#) == ["n", "b", "c"])
+    }
+
     @Test func ifStarWithStar() throws {
         #expect(try symbolTexts(#"\@ifstar{s}{n}*x"#) == ["s", "x"])
     }

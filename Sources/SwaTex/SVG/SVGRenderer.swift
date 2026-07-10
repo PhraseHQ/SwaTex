@@ -200,15 +200,31 @@ private func svgExpandExponent(_ s: String) -> String {
 }
 
 private func xmlEscapeText(_ s: String) -> String {
+    // Fast path: glyph path data, data-URI hrefs, and font names almost
+    // never contain an escapable byte — a UTF-8 scan (no grapheme decoding,
+    // no rebuild) covers the hot per-glyph calls. All four escapable
+    // characters are single ASCII bytes, which never occur inside a UTF-8
+    // continuation sequence, so the byte scan is exact.
+    let clean = s.utf8.allSatisfy { byte in
+        byte != UInt8(ascii: "&") && byte != UInt8(ascii: "<")
+            && byte != UInt8(ascii: ">") && byte != UInt8(ascii: "\"")
+    }
+    if clean {
+        return s
+    }
     var out = ""
-    out.reserveCapacity(s.count)
-    for ch in s {
-        switch ch {
+    out.reserveCapacity(s.utf8.count + 8)
+    // Iterate scalars, not Characters: an escapable byte fused with a
+    // following combining mark forms one grapheme cluster that would match
+    // no case and slip through raw (e.g. `"` + U+0301), reopening the very
+    // attribute-injection hole this escaping closes.
+    for scalar in s.unicodeScalars {
+        switch scalar {
         case "&": out += "&amp;"
         case "<": out += "&lt;"
         case ">": out += "&gt;"
         case "\"": out += "&quot;"
-        default: out.append(ch)
+        default: out.unicodeScalars.append(scalar)
         }
     }
     return out
@@ -249,9 +265,11 @@ func katexFace(_ font: String) -> (family: String, weight: String, style: String
     case "CJK-Regular": ("sans-serif", "normal", "normal")
     case "CJK-Fallback": ("sans-serif", "normal", "normal")
     // Stack so SVG `<text>` fallback works across macOS / Windows / Linux.
+    // Single quotes inside: the family is interpolated into a double-quoted
+    // XML attribute, where embedded `"` would make the document unparseable.
     case "Emoji-Fallback":
         (
-            "Apple Color Emoji, \"Segoe UI Emoji\", \"Noto Color Emoji\", sans-serif", "normal",
+            "Apple Color Emoji, 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif", "normal",
             "normal"
         )
     default: ("KaTeX_Main", "normal", "normal")
@@ -273,9 +291,14 @@ private func emitGlyphStandalone(_ out: inout String, _ g: GlyphEmit, _ opts: SV
             switch glyph {
             case let .path(d):
                 let fill = svgColor(g.color)
-                out += "<path d=\"\(d)\" fill=\"\(fill)\" fill-rule=\"nonzero\" stroke=\"none\"/>"
+                // Provider-supplied strings are host code but still untrusted
+                // as XML: escape them so a `"`/`&` can't break the attribute.
+                let dEsc = xmlEscapeText(d)
+                out +=
+                    "<path d=\"\(dEsc)\" fill=\"\(fill)\" fill-rule=\"nonzero\" stroke=\"none\"/>"
                 return
             case let .image(href, x, y, w, h):
+                let hrefEsc = xmlEscapeText(href)
                 let xS = svgFormatNumber(Double(x))
                 let yS = svgFormatNumber(Double(y))
                 let wS = svgFormatNumber(Double(w))
@@ -284,10 +307,10 @@ private func emitGlyphStandalone(_ out: inout String, _ g: GlyphEmit, _ opts: SV
                 if opacity < 1.0 {
                     let opacityS = svgFormatNumber(Double(opacity))
                     out +=
-                        "<image href=\"\(href)\" x=\"\(xS)\" y=\"\(yS)\" width=\"\(wS)\" height=\"\(hS)\" opacity=\"\(opacityS)\" preserveAspectRatio=\"none\"/>"
+                        "<image href=\"\(hrefEsc)\" x=\"\(xS)\" y=\"\(yS)\" width=\"\(wS)\" height=\"\(hS)\" opacity=\"\(opacityS)\" preserveAspectRatio=\"none\"/>"
                 } else {
                     out +=
-                        "<image href=\"\(href)\" x=\"\(xS)\" y=\"\(yS)\" width=\"\(wS)\" height=\"\(hS)\" preserveAspectRatio=\"none\"/>"
+                        "<image href=\"\(hrefEsc)\" x=\"\(xS)\" y=\"\(yS)\" width=\"\(wS)\" height=\"\(hS)\" preserveAspectRatio=\"none\"/>"
                 }
                 return
             }
@@ -299,6 +322,9 @@ private func emitGlyphStandalone(_ out: inout String, _ g: GlyphEmit, _ opts: SV
 private func emitGlyphText(_ out: inout String, _ g: GlyphEmit, _ opts: SVGOptions) {
     let ch = Unicode.Scalar(g.charCode).map(Character.init) ?? "\u{fffd}"
     let text = xmlEscapeText(String(ch))
+    // katexFace values are compile-time constants declared XML-attribute-safe
+    // — the invariant is pinned by SVGWellFormednessTests.katexFaceValues
+    // AreAttributeSafe, so this per-glyph hot path skips re-escaping them.
     let (family, weight, style) = katexFace(g.font)
     let fs = g.scale * opts.emPx
     let fill = svgColor(g.color)

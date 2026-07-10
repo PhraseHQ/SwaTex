@@ -152,8 +152,11 @@ func layoutCancel(_ label: String, _ body: ParseNode, _ options: LayoutOptions) 
         content: .svgPath(commands: commands, fill: false),
         color: options.color)
 
-    // For multi-char the body is inset by h_pad from the line-box's left edge.
-    let bodyKern = -(lineW - hPad)
+    // The line box starts at hbox x=0 and its path spans [-hPad, w+hPad], so
+    // the content origin (x=0) is hPad in from the box's left edge. Pull the
+    // body back by the full line-box width so its ink registers at x=0 and the
+    // strike extends hPad past each side symmetrically (KaTeX cancel-pad).
+    let bodyKern = -lineW
     let bodyShifted = makeHBox([.kern(bodyKern), inner])
     return LayoutBox(
         width: w,
@@ -285,7 +288,7 @@ func layoutHorizBrace(
     //   underbrace: feet at y=0 (top), peak at y=+brace_h (bottom)
     // Both use height=0, depth=brace_h so the rendering code's SVG accent path handles them.
     let yShift = braceH / 2.0
-    let commands = shiftPathY(rawCommands, yShift)
+    let commands = rawCommands.shiftedY(yShift)
 
     let braceBox = LayoutBox(
         width: w,
@@ -596,21 +599,4 @@ func ellipseOverlayPath(_ width: Double, _ height: Double, _ depth: Double) -> [
         .cubicTo(x1: cx + k * a, y1: cy + b, x2: cx + a, y2: cy + k * b, x: cx + a, y: cy),
         .close,
     ]
-}
-
-func shiftPathY(_ cmds: [PathCommand], _ dy: Double) -> [PathCommand] {
-    cmds.map { c in
-        switch c {
-        case let .moveTo(x, y):
-            .moveTo(x: x, y: y + dy)
-        case let .lineTo(x, y):
-            .lineTo(x: x, y: y + dy)
-        case let .cubicTo(x1, y1, x2, y2, x, y):
-            .cubicTo(x1: x1, y1: y1 + dy, x2: x2, y2: y2 + dy, x: x, y: y + dy)
-        case let .quadTo(x1, y1, x, y):
-            .quadTo(x1: x1, y1: y1 + dy, x: x, y: y + dy)
-        case .close:
-            .close
-        }
-    }
 }

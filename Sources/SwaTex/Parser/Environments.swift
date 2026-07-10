@@ -227,7 +227,7 @@ func parseArray(
             switch def {
             case .text(let text):
                 s = text
-            case .tokens(let tokens, _):
+            case .tokens(let tokens, _, _):
                 // Tokens are stored in reverse order (stack convention for expansion)
                 s = tokens.reversed().map(\.text).joined()
             case .function:

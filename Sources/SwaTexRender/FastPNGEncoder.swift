@@ -13,6 +13,14 @@ private func zlibCompress2(
     _ source: UnsafePointer<UInt8>, _ sourceLen: UInt, _ level: Int32
 ) -> Int32
 
+// libz's running CRC-32 (same table polynomial as PNG, RFC 2083 §15) with
+// hardware CRC instructions on arm64 — ~80x the byte-at-a-time table loop.
+// Seed with 0; libz applies the 0xFFFFFFFF pre/post conditioning itself.
+@_silgen_name("crc32")
+private func zlibCrc32(
+    _ crc: UInt, _ buf: UnsafePointer<UInt8>?, _ len: UInt32
+) -> UInt
+
 /// Minimal, fast PNG encoder for formula bitmaps.
 ///
 /// ImageIO's `CGImageDestination` is a general-purpose encoder (color
@@ -41,32 +49,31 @@ enum FastPNGEncoder {
         let bytesPerRow = ctx.bytesPerRow
         guard width > 0, height > 0 else { return nil }
 
-        // 1. Un-premultiply alpha (PNG stores straight alpha). SIMD via vImage.
+        // 1+2. Un-premultiply alpha (PNG stores straight alpha) directly into
+        // the filtered-scanline layout: each PNG row is `0x00 (filter None) +
+        // pixels`, so pointing vImage's destination at offset 1 with a row
+        // stride of `1 + rowBytes` interleaves the filter bytes for free —
+        // no zero-fill and no second full-buffer copy.
         var src = vImage_Buffer(
             data: base, height: vImagePixelCount(height),
             width: vImagePixelCount(width), rowBytes: bytesPerRow)
         let straightRowBytes = width * 4
-        var straight = [UInt8](repeating: 0, count: straightRowBytes * height)
-        let unpremulError = straight.withUnsafeMutableBytes { buf -> vImage_Error in
+        let filteredRowBytes = 1 + straightRowBytes
+        var unpremulError: vImage_Error = kvImageNoError
+        let raw = [UInt8](unsafeUninitializedCapacity: height * filteredRowBytes) {
+            buf, count in
+            let p = buf.baseAddress!
+            for row in 0..<height {
+                p[row * filteredRowBytes] = 0  // filter 0 = None
+            }
             var dst = vImage_Buffer(
-                data: buf.baseAddress, height: vImagePixelCount(height),
-                width: vImagePixelCount(width), rowBytes: straightRowBytes)
-            return vImageUnpremultiplyData_RGBA8888(&src, &dst, vImage_Flags(kvImageNoFlags))
+                data: p + 1, height: vImagePixelCount(height),
+                width: vImagePixelCount(width), rowBytes: filteredRowBytes)
+            unpremulError = vImageUnpremultiplyData_RGBA8888(
+                &src, &dst, vImage_Flags(kvImageNoFlags))
+            count = height * filteredRowBytes
         }
         guard unpremulError == kvImageNoError else { return nil }
-
-        // 2. Add PNG row filter bytes (filter 0 = None per scanline).
-        var raw = [UInt8]()
-        raw.reserveCapacity(height * (1 + straightRowBytes))
-        straight.withUnsafeBytes { buf in
-            let p = buf.baseAddress!.assumingMemoryBound(to: UInt8.self)
-            for row in 0..<height {
-                raw.append(0)
-                raw.append(
-                    contentsOf: UnsafeBufferPointer(
-                        start: p + row * straightRowBytes, count: straightRowBytes))
-            }
-        }
 
         // 3. zlib stream via libz at level 1 (speed over ratio).
         let dstCapacity = raw.count + raw.count / 1000 + 64  // > compressBound
@@ -92,40 +99,41 @@ enum FastPNGEncoder {
         appendChunk(type: "IHDR", payload: ihdr, to: &out)
 
         // compress2 output is a complete zlib stream (header + Adler-32).
-        appendChunk(type: "IDAT", payload: Data(deflated), to: &out)
+        appendChunk(type: "IDAT", payload: deflated, to: &out)
 
-        appendChunk(type: "IEND", payload: Data(), to: &out)
+        appendChunk(type: "IEND", payload: [], to: &out)
         return out
     }
 
     // MARK: - PNG plumbing
 
-    private static func appendChunk(type: String, payload: Data, to out: inout Data) {
+    private static func appendChunk(
+        type: String, payload: some Collection<UInt8> & ContiguousBytes, to out: inout Data
+    ) {
         appendBigEndian(UInt32(payload.count), to: &out)
-        var body = Data(type.utf8)
-        body.append(payload)
-        out.append(body)
-        appendBigEndian(crc32(body), to: &out)
+        let typeBytes = Array(type.utf8)
+        out.append(contentsOf: typeBytes)
+        out.append(contentsOf: payload)
+        // The chunk CRC covers type + payload; chain the running CRC over
+        // both instead of concatenating them into a throwaway buffer.
+        var crc = crc32Chained(0, typeBytes)
+        crc = crc32Chained(crc, payload)
+        appendBigEndian(UInt32(truncatingIfNeeded: crc), to: &out)
+    }
+
+    /// Advance a running libz CRC-32. Empty input returns `crc` unchanged —
+    /// never forward a nil/empty buffer to libz, whose NULL-buf convention
+    /// is "reset to the initial value", which would corrupt the chain
+    /// (e.g. IEND's empty payload).
+    private static func crc32Chained(_ crc: UInt, _ bytes: some ContiguousBytes) -> UInt {
+        bytes.withUnsafeBytes { buf in
+            guard let base = buf.baseAddress, !buf.isEmpty else { return crc }
+            return zlibCrc32(
+                crc, base.assumingMemoryBound(to: UInt8.self), UInt32(buf.count))
+        }
     }
 
     private static func appendBigEndian(_ v: UInt32, to data: inout Data) {
         withUnsafeBytes(of: v.bigEndian) { data.append(contentsOf: $0) }
-    }
-
-    /// CRC-32 (ISO 3309), table-driven.
-    private static let crcTable: [UInt32] = (0..<256).map { n in
-        var c = UInt32(n)
-        for _ in 0..<8 {
-            c = (c & 1) != 0 ? 0xEDB8_8320 ^ (c >> 1) : c >> 1
-        }
-        return c
-    }
-
-    private static func crc32(_ data: Data) -> UInt32 {
-        var c: UInt32 = 0xFFFF_FFFF
-        for byte in data {
-            c = crcTable[Int((c ^ UInt32(byte)) & 0xFF)] ^ (c >> 8)
-        }
-        return c ^ 0xFFFF_FFFF
     }
 }

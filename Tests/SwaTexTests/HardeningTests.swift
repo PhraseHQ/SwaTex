@@ -30,6 +30,92 @@ struct HardeningTests {
         #expect(list.items.count > 0)
     }
 
+    @Test func nestedMiddleLayoutIsNotExponential() throws {
+        // Each \left…\middle…\right level used to re-lay its whole body
+        // twice → 2^depth work (~19 s at depth 21, unbounded beyond).
+        // With first-pass box reuse this is linear.
+        let n = 24
+        let latex =
+            String(repeating: #"\left(\middle| "#, count: n) + "x"
+            + String(repeating: #"\right)"#, count: n)
+        let start = ContinuousClock.now
+        let list = try SwaTexEngine.displayList(for: latex)
+        #expect(list.items.count > 0)
+        #expect(ContinuousClock.now - start < .seconds(2), "must be linear, not 2^n")
+    }
+
+    @Test func nestedMiddleInGroupsIsBounded() {
+        // Wrapping each \middle in a brace group defeats the per-child box
+        // reuse (the group child itself contains the \middle), so this shape
+        // leans on the middlePassDepth cap: stretch passes stop at depth 8;
+        // deeper scopes lay out once at natural delim height (visible,
+        // unstretched \middle). Debug builds may instead reject the depth
+        // via the parser's stack-probe guard on small test threads. Either
+        // way: fast, no crash, no 2^n.
+        let n = 24
+        let latex =
+            String(repeating: #"\left({\middle| "#, count: n) + "x"
+            + String(repeating: #"}\right)"#, count: n)
+        let start = ContinuousClock.now
+        if let list = try? SwaTexEngine.displayList(for: latex) {
+            #expect(list.items.count > 0)
+            #expect(list.width.isFinite)
+        }
+        #expect(ContinuousClock.now - start < .seconds(2), "must be bounded, not 2^n")
+    }
+
+    @Test func deepTreeLayoutDegradesOnSmallStackThread() async throws {
+        // Parse on the main thread (8 MB stack) so the parser's guard admits
+        // the tree, then lay out on a 512 KB cooperative thread. Layout used
+        // to have no recursion guard at all and SIGBUS'd here.
+        let n = 250
+        let latex =
+            String(repeating: #"\sqrt{"#, count: n) + "x"
+            + String(repeating: "}", count: n)
+        let ast = try await MainActor.run { try parseLaTeX(latex) }
+        let box = await Task.detached { layout(ast, options: LayoutOptions()) }.value
+        // Must complete without crashing; the box may be degraded (empty
+        // subtrees) but its dimensions stay finite.
+        #expect(box.width.isFinite && box.height.isFinite && box.depth.isFinite)
+    }
+
+    @Test func deepAccentChainRendersFullyOnBigStack() throws {
+        // 1500 combining marks form a 1500-deep accent chain with zero
+        // parser recursion. Darwin trusts the stack probe: on a big stack
+        // the chain renders completely. Regression: a hard 1024-depth cap
+        // silently dropped the base and innermost marks even on threads
+        // with headroom to spare.
+        let n = 1500
+        let latex = "a" + String(repeating: "\u{0301}", count: n)
+        let result = runOnThread(stackSize: 64 << 20) {
+            Result { () throws(ParseError) -> DisplayList in
+                try SwaTexEngine.displayList(for: latex)
+            }
+        }
+        let list = try result.get()
+        #expect(list.items.count == n + 1, "all \(n) marks plus the base must render")
+        #expect(!list.truncated)
+    }
+
+    @Test func emissionTruncationIsSignaled() throws {
+        // Layout admits a tree on a big stack; emitting the same tree on a
+        // tiny stack degrades — and must SAY so. Regression: emitBox dropped
+        // subtrees silently while the DisplayList kept full-size metrics,
+        // indistinguishable from a complete render.
+        let n = 600
+        let latex = "a" + String(repeating: "\u{0301}", count: n)
+        let ast = try parseLaTeX(latex)
+        let box = runOnThread(stackSize: 64 << 20) {
+            layout(ast, options: LayoutOptions())
+        }
+        let small = runOnThread(stackSize: 64 << 10) { toDisplayList(box) }
+        let big = runOnThread(stackSize: 64 << 20) { toDisplayList(box) }
+        #expect(small.truncated, "tiny-stack emission must signal truncation")
+        #expect(small.items.count < n + 1)
+        #expect(!big.truncated)
+        #expect(big.items.count == n + 1)
+    }
+
     @Test func macroExpansionBombIsBounded() {
         // Exponential expansion must hit maxExpand, quickly.
         let bomb =
@@ -190,5 +276,14 @@ struct CoreEdgeCasesTests {
         _ = try? SwaTexEngine.displayList(for: "\\verb%a%")
         // A fresh custom active char via \def on ~ (catcode 13):
         _ = try SwaTexEngine.displayList(for: "\\def~{x}~")
+    }
+
+    /// Unterminated \verb must be a ParseError, not silent truncation
+    /// (KaTeX: "\verb ended by end of line instead of matching delimiter").
+    @Test(arguments: ["\\verb|abc", "\\verb*|a b", "\\verb|a\nb|", "\\verb", "\\verb*"])
+    func unterminatedVerbThrows(_ latex: String) {
+        #expect(throws: ParseError.self) {
+            try SwaTexEngine.displayList(for: latex)
+        }
     }
 }

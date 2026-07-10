@@ -114,117 +114,126 @@ public struct Lexer: Sendable {
     }
 
     /// Lex `\verb*<d>...<d>` or `\verb<d>...<d>` after `\verb` has been consumed.
+    ///
+    /// Mirrors KaTeX: the verbatim body may not contain a newline, and an
+    /// unterminated `\verb` does not swallow its content. In both failure
+    /// cases the lexer rewinds and returns the bare `\verb` control word,
+    /// which the parser rejects with "\verb ended by end of line instead of
+    /// matching delimiter" (matching KaTeX's `\verb` fallback macro).
     private mutating func lexVerb(start: Int) -> Token {
-        if atEnd {
-            return Token("\\verb", start: start, end: pos)
-        }
+        let wordEnd = pos
         // Check for \verb* variant
         if peekByte() == UInt8(ascii: "*") {
             pos += 1
         }
-        if atEnd {
-            return Token(text(from: start), start: start, end: pos)
-        }
         // The next character is the delimiter
-        let delim = advanceScalar()!
-        // Scan until matching delimiter or end of input
-        while let ch = advanceScalar() {
-            if ch == delim {
-                return Token(text(from: start), start: start, end: pos)
+        if let (delim, delimLen) = currentScalar(), delim != "\n" {
+            pos += delimLen
+            // Scan until the matching delimiter, stopping at end of line
+            // (KaTeX's verb regex cannot match across newlines).
+            while let (ch, chLen) = currentScalar(), ch != "\n" {
+                pos += chLen
+                if ch == delim {
+                    return Token(text(from: start), start: start, end: pos)
+                }
             }
         }
-        // Unterminated \verb — return what we have
+        // Unterminated \verb — rewind so the content re-lexes normally and
+        // surface just the control word for the parser to reject.
+        pos = wordEnd
         return Token(text(from: start), start: start, end: pos)
     }
 
     /// Lex a single token from the current position.
     public mutating func lex() -> Token {
-        if atEnd {
-            return .eof(at: pos)
-        }
+        // Loop instead of recursing past comments: Swift does not guarantee
+        // tail-call elimination for mutating methods, so `return lex()` after
+        // a comment overflows the stack on inputs with many comment lines —
+        // below the parser's StackGuard, which cannot catch it.
+        while !atEnd {
+            let start = pos
+            guard let (ch, chLen) = currentScalar() else {
+                // Mid-stream decode failure — only reachable with malformed
+                // UTF-8 bytes (the `init(bytes:)` seam; the `String` initializer
+                // cannot produce them). Covered by DirectUnitTests.
+                return .eof(at: pos)
+            }
 
-        let start = pos
-        guard let (ch, chLen) = currentScalar() else {
-            // Mid-stream decode failure — only reachable with malformed
-            // UTF-8 bytes (the `init(bytes:)` seam; the `String` initializer
-            // cannot produce them). Covered by DirectUnitTests.
-            return .eof(at: pos)
-        }
+            // Whitespace → single space token
+            if let b = peekByte(), Self.isWhitespace(b) {
+                skipWhitespace()
+                return Token(" ", start: start, end: pos)
+            }
 
-        // Whitespace → single space token
-        if let b = peekByte(), Self.isWhitespace(b) {
-            skipWhitespace()
-            return Token(" ", start: start, end: pos)
-        }
+            // Comment character (catcode 14, default `%`)
+            if catcode(ch) == 14 {
+                pos += chLen
+                // Skip to end of line, then loop for the next real token
+                while !atEnd {
+                    if peekByte() == UInt8(ascii: "\n") {
+                        pos += 1
+                        break
+                    }
+                    pos += 1
+                }
+                continue
+            }
 
-        // Comment character (catcode 14, default `%`)
-        if catcode(ch) == 14 {
+            // Backslash → control sequence
+            if ch == "\\" {
+                pos += 1  // consume the backslash
+                if atEnd {
+                    return Token("\\", start: start, end: pos)
+                }
+
+                let nextByte = bytes[pos]
+
+                if Self.isWhitespace(nextByte) {
+                    // Control space: \<whitespace> → "\ " token, then skip trailing whitespace
+                    pos += 1
+                    skipWhitespace()
+                    return Token("\\ ", start: start, end: pos)
+                }
+
+                if Self.isControlWordChar(nextByte) {
+                    // Control word: \<letters or @>
+                    while pos < bytes.count, Self.isControlWordChar(bytes[pos]) {
+                        pos += 1
+                    }
+                    let text = text(from: start)
+
+                    // Handle \verb and \verb* — verbatim content delimited by next char
+                    if text == "\\verb" {
+                        return lexVerb(start: start)
+                    }
+
+                    let end = pos
+                    // Skip trailing whitespace after control word (KaTeX behavior)
+                    skipWhitespace()
+                    return Token(text, start: start, end: end)
+                }
+
+                // Control symbol: \<single non-letter char>
+                advanceScalar()
+                return Token(text(from: start), start: start, end: pos)
+            }
+
+            // Active character (catcode 13, default `~`) → single-char token
+            if catcode(ch) == 13 {
+                pos += chLen
+                return Token(String(ch), start: start, end: pos)
+            }
+
+            // Regular character (including {, }, ^, _, &, etc.)
+            // Consume trailing combining diacritical marks (U+0300–U+036F) to form
+            // a single token, matching KaTeX's regex behavior.
             pos += chLen
-            // Skip to end of line
-            while !atEnd {
-                if peekByte() == UInt8(ascii: "\n") {
-                    pos += 1
-                    break
-                }
-                pos += 1
+            while let (next, nextLen) = currentScalar(), Self.isCombiningDiacritical(next) {
+                pos += nextLen
             }
-            // Recurse to get the next real token
-            return lex()
-        }
-
-        // Backslash → control sequence
-        if ch == "\\" {
-            pos += 1  // consume the backslash
-            if atEnd {
-                return Token("\\", start: start, end: pos)
-            }
-
-            let nextByte = bytes[pos]
-
-            if Self.isWhitespace(nextByte) {
-                // Control space: \<whitespace> → "\ " token, then skip trailing whitespace
-                pos += 1
-                skipWhitespace()
-                return Token("\\ ", start: start, end: pos)
-            }
-
-            if Self.isControlWordChar(nextByte) {
-                // Control word: \<letters or @>
-                while pos < bytes.count, Self.isControlWordChar(bytes[pos]) {
-                    pos += 1
-                }
-                let text = text(from: start)
-
-                // Handle \verb and \verb* — verbatim content delimited by next char
-                if text == "\\verb" {
-                    return lexVerb(start: start)
-                }
-
-                let end = pos
-                // Skip trailing whitespace after control word (KaTeX behavior)
-                skipWhitespace()
-                return Token(text, start: start, end: end)
-            }
-
-            // Control symbol: \<single non-letter char>
-            advanceScalar()
             return Token(text(from: start), start: start, end: pos)
         }
-
-        // Active character (catcode 13, default `~`) → single-char token
-        if catcode(ch) == 13 {
-            pos += chLen
-            return Token(String(ch), start: start, end: pos)
-        }
-
-        // Regular character (including {, }, ^, _, &, etc.)
-        // Consume trailing combining diacritical marks (U+0300–U+036F) to form
-        // a single token, matching KaTeX's regex behavior.
-        pos += chLen
-        while let (next, nextLen) = currentScalar(), Self.isCombiningDiacritical(next) {
-            pos += nextLen
-        }
-        return Token(text(from: start), start: start, end: pos)
+        return .eof(at: pos)
     }
 
     /// Lex all remaining tokens until EOF (inclusive).

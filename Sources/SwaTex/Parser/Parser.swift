@@ -237,25 +237,31 @@ public final class Parser {
             case "\\limits", "\\nolimits":
                 let isLimits = lex.text == "\\limits"
                 consume()
-                if var baseNode = base {
-                    switch baseNode.kind {
-                    case .op(
-                        _, _, let suppressBaseShift, let parentIsSupSub,
-                        let symbol, let name, let body):
-                        baseNode.kind = .op(
-                            limits: isLimits, alwaysHandleSupSub: isLimits,
-                            suppressBaseShift: suppressBaseShift,
-                            parentIsSupSub: parentIsSupSub, symbol: symbol,
-                            name: name, body: body)
-                        base = baseNode
-                    case .operatorName(let body, _, _, let parentIsSupSub):
-                        baseNode.kind = .operatorName(
-                            body: body, alwaysHandleSupSub: isLimits,
+                switch base?.kind {
+                case .op(
+                    _, _, let suppressBaseShift, let parentIsSupSub,
+                    let symbol, let name, let body):
+                    // KaTeX: limit controls on an op set `limits` and always
+                    // mark the op as handling its own sup/sub placement.
+                    base?.kind = .op(
+                        limits: isLimits, alwaysHandleSupSub: true,
+                        suppressBaseShift: suppressBaseShift,
+                        parentIsSupSub: parentIsSupSub, symbol: symbol,
+                        name: name, body: body)
+                case .operatorName(let body, let alwaysHandleSupSub, _, let parentIsSupSub):
+                    // KaTeX: only `\operatorname*` (alwaysHandleSupSub == true)
+                    // honors limit controls; plain `\operatorname` silently
+                    // ignores them and never gains sup/sub handling.
+                    if alwaysHandleSupSub {
+                        base?.kind = .operatorName(
+                            body: body, alwaysHandleSupSub: alwaysHandleSupSub,
                             limits: isLimits, parentIsSupSub: parentIsSupSub)
-                        base = baseNode
-                    default:
-                        break
                     }
+                default:
+                    // KaTeX: a limit control after anything else (or with no
+                    // base at all) is an error, not a silently dropped token.
+                    throw ParseError(
+                        "Limit controls must follow a math operator", token: lex)
                 }
             case "^":
                 if superscript != nil {
@@ -373,7 +379,7 @@ public final class Parser {
 
         var result = try parseFunction(breakOnTokenText: breakOnTokenText, name: name)
         if result == nil {
-            result = (try? parseSymbolInner()) ?? nil
+            result = try parseSymbolInner()
         }
 
         if result == nil, text.hasPrefix("\\"), !implicitCommands.contains(text) {
@@ -793,7 +799,12 @@ public final class Parser {
                 rest = rest.dropFirst()
             }
             if rest.count < 2 {
-                throw ParseError("\\verb assertion failed", token: nucleus)
+                // The lexer only surfaces a bare `\verb` control word when the
+                // verbatim body was unterminated or hit end of line (KaTeX
+                // reports the same error via its `\verb` fallback macro).
+                throw ParseError(
+                    "\\verb ended by end of line instead of matching delimiter",
+                    token: nucleus)
             }
             let body = String(rest.dropFirst().dropLast())
             return ParseNode(.verb(body: body, star: star), mode: .text, loc: nucleus.loc)

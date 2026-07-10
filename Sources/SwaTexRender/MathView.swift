@@ -46,10 +46,6 @@ public struct MathView: View {
     private var color: SwaTex.Color = .black
     private var dynamicColor: SwiftUI.Color?
 
-    /// `Color.resolve(in:)` needs the full environment; only consulted when
-    /// a dynamic color is set.
-    @Environment(\.self) private var environment
-
     public init(_ latex: String) {
         self.latex = latex
     }
@@ -92,26 +88,63 @@ public struct MathView: View {
         return copy
     }
 
-    private var effectiveColor: SwaTex.Color {
-        guard let dynamicColor else { return color }
-        let resolved = dynamicColor.resolve(in: environment)
-        return SwaTex.Color(
-            r: resolved.red, g: resolved.green, b: resolved.blue, a: resolved.opacity)
+    public var body: some View {
+        if let dynamicColor {
+            // Only the dynamic-color configuration reads the environment
+            // (`Color.resolve(in:)` needs all of it). Isolating that read in
+            // a child view keeps the default static-color MathView free of
+            // any environment dependency — otherwise every environment
+            // change (window activation, dynamic type, focus) would
+            // re-rasterize every visible formula's Canvas.
+            DynamicColorMathContent(
+                latex: latex, fontSize: fontSize, style: style, dynamicColor: dynamicColor)
+        } else {
+            MathCanvasContent(latex: latex, fontSize: fontSize, style: style, color: color)
+        }
     }
+}
+
+/// Resolves a dynamic SwiftUI color against the environment, then hands off
+/// to the environment-independent canvas content. Because
+/// ``MathCanvasContent`` has value-type inputs, SwiftUI skips its body (and
+/// the Canvas raster pass) whenever the resolved color is unchanged.
+struct DynamicColorMathContent: View {
+    let latex: String
+    let fontSize: CGFloat
+    let style: MathStyle
+    let dynamicColor: SwiftUI.Color
+
+    @Environment(\.self) private var environment
+
+    var body: some View {
+        let resolved = dynamicColor.resolve(in: environment)
+        MathCanvasContent(
+            latex: latex, fontSize: fontSize, style: style,
+            color: SwaTex.Color(
+                r: resolved.red, g: resolved.green, b: resolved.blue, a: resolved.opacity))
+    }
+}
+
+/// The environment-independent render body shared by both color paths.
+struct MathCanvasContent: View {
+    let latex: String
+    let fontSize: CGFloat
+    let style: MathStyle
+    let color: SwaTex.Color
 
     /// Parse + layout are memoized through ``FormulaCache/shared``: SwiftUI
     /// evaluates `body` on every parent update, and without the cache each
     /// evaluation would re-run the full engine (~70 µs). A cache hit is a
     /// dictionary lookup.
-    private func rendered(color: SwaTex.Color) -> Result<DisplayList, ParseError> {
+    private var rendered: Result<DisplayList, ParseError> {
         Result { () throws(ParseError) -> DisplayList in
             try SwaTexEngine.displayList(
                 for: latex, style: style, color: color, cache: .shared)
         }
     }
 
-    public var body: some View {
-        switch rendered(color: effectiveColor) {
+    var body: some View {
+        switch rendered {
         case .success(let list):
             let options = RenderOptions(fontSize: fontSize, padding: 0)
             let metrics = DisplayListRenderer.metrics(for: list, options: options)

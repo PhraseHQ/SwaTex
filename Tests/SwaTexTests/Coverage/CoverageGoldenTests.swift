@@ -14,6 +14,13 @@ import Testing
 /// commands, genfrac variants, and more. Metrics must match Rust exactly
 /// (both engines round to 5 decimals). Entries with `"error": true` were
 /// rejected by the Rust engine and must be rejected by SwaTex too.
+///
+/// EXCEPTIONS — do NOT blindly regenerate from RaTeX: five entries were
+/// hand-edited to KaTeX-correct values where RaTeX shares the original bug
+/// (unterminated `\verb`, `x\limits^2` — now errors; `\vcenter` depths —
+/// now axis-centered ink). They are pinned by LayoutFixRegressionTests /
+/// ParserSpecTests / HardeningTests; regeneration must preserve them (see
+/// README "Known limitations").
 @Suite("CoverageGolden")
 struct CoverageGoldenTests {
     struct Fixture: Decodable {

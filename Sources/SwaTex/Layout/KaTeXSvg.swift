@@ -18,7 +18,7 @@ func katexAccentPath(
         let wEm = 0.471
         let hEm = 0.714
         let raw = parseSvgPath(KaTeXSvgData.katexVecPath)
-        let cmds = scaleSvgPathThousandths(raw)
+        let cmds = raw.scaled(by: 0.001)
         return (cmds, wEm, hEm, true)
     case "\\widehat", "\\widecheck":
         let isHat = label == "\\widehat"
@@ -230,24 +230,6 @@ private func clipSegmentToRect(
     let a = (x0 + t0 * dx, y0 + t0 * dy)
     let b = (x0 + t1 * dx, y0 + t1 * dy)
     return [(a, b)]
-}
-
-func scaleSvgPathThousandths(_ cmds: [PathCommand]) -> [PathCommand] {
-    let s = 0.001
-    return cmds.map { c in
-        switch c {
-        case .moveTo(let x, let y):
-            .moveTo(x: x * s, y: y * s)
-        case .lineTo(let x, let y):
-            .lineTo(x: x * s, y: y * s)
-        case .cubicTo(let x1, let y1, let x2, let y2, let x, let y):
-            .cubicTo(x1: x1 * s, y1: y1 * s, x2: x2 * s, y2: y2 * s, x: x * s, y: y * s)
-        case .quadTo(let x1, let y1, let x, let y):
-            .quadTo(x1: x1 * s, y1: y1 * s, x: x * s, y: y * s)
-        case .close:
-            .close
-        }
-    }
 }
 
 /// KaTeX `svgSpan` / `svgGeometry.js`: `imgIndex = [1,1,2,2,3,3][numChars]` for `numChars` ≤ 5;
