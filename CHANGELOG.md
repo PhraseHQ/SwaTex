@@ -1,6 +1,13 @@
 # Changelog
 
-## Unreleased
+## 0.4.0 — 2026-07-13
+
+Performance release: the engine drops from 17.5 to **14.1 µs/formula**
+(−19 %) on the full golden corpus, measured same-day against the Rust
+reference engine at 39.9 µs/formula — **2.8× faster**. Layout output
+remains bit-exact across all 2 541 cross-engine fixtures, the full test
+suite now also runs on an iOS Simulator in CI, and a reproducible
+memory-leak audit reports zero engine leaks over the whole corpus.
 
 ### Performance
 - Stretchy-element geometry (arrows, braces, group/bracket overlays) is
