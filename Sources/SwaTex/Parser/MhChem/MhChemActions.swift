@@ -6,11 +6,66 @@ import Foundation
 
 enum MhChemActions {
     // Compiled once; `Regex` values are immutable and thread-safe to share.
-    nonisolated(unsafe) private static let reDigitsOnly = try! Regex(#"^[0-9]+$"#)
-    nonisolated(unsafe) private static let reCelsiusC = try! Regex(#"\u{00B0}C|\^oC|\^\{o\}C"#)
-    nonisolated(unsafe) private static let reCelsiusF = try! Regex(#"\u{00B0}F|\^oF|\^\{o\}F"#)
+    // (P-029: the other three action regexes — digits-only and the two
+    // Celsius replaces — are hand scanners below; the Swift `Regex`
+    // interpreter plus the generic `replacing` machinery cost ~5 % of
+    // corpus samples for what are literal alternations. `reHalf` stays on
+    // `Regex`: it is capture-heavy and profiled at ~0 samples.)
     nonisolated(unsafe) private static let reHalf =
         try! Regex(#"^([0-9]+|\$[a-z]\$|[a-z])\/([0-9]+)(\$[a-z]\$|[a-z])?$"#)
+
+    /// `^[0-9]+$` on inputs that can never contain a line terminator
+    /// (`normalizeInput` rewrites `\n` to a space): non-empty, ASCII
+    /// digits only. `[0-9]` is an ASCII range in every reference engine
+    /// (JS, Rust `regex`, Swift `Regex`), so this is exact.
+    static func isAllAsciiDigits(_ s: String) -> Bool {
+        !s.isEmpty && s.utf8.allSatisfy { $0 &- UInt8(ascii: "0") < 10 }
+    }
+
+    /// Replace every occurrence of `°X` / `^oX` / `^{o}X` with
+    /// `{}^{\circ}X` for X = the given ASCII unit letter (C or F) —
+    /// the mhchem Celsius/Fahrenheit rewrite (a three-literal alternation
+    /// with pairwise-distinct prefixes, so leftmost-first matching is a
+    /// per-position prefix test). The scan matches by *scalar*, like the
+    /// JS reference and Rust's `regex` (and ICU, pinned by the diff test)
+    /// — the Swift `Regex` it replaces used grapheme semantics, which
+    /// declined to match `°C` before a combining mark; scalar semantics
+    /// is the more reference-faithful behavior (same story as P-015).
+    /// Byte-level scan is UTF-8-safe: `°` is C2 B0 (C2 is never a
+    /// continuation byte) and `^` is ASCII. Returns the input unchanged
+    /// (no allocation) when no `°`/`^` byte occurs — the overwhelmingly
+    /// common case.
+    static func replaceCelsius(_ s: String, unit: UInt8) -> String {
+        let caret = UInt8(ascii: "^")
+        let bytes = s.utf8
+        guard bytes.contains(where: { $0 == 0xC2 || $0 == caret }) else {
+            return s
+        }
+        let degreeNeedle: [UInt8] = [0xC2, 0xB0, unit]
+        let bracedNeedle: [UInt8] = Array("{o}".utf8) + [unit]
+        let replacement: [UInt8] = Array("{}^{\\circ}".utf8) + [unit]
+        var out = [UInt8]()
+        out.reserveCapacity(bytes.count + 16)
+        var rest = bytes[...]
+        while let b = rest.first {
+            if b == 0xC2, rest.starts(with: degreeNeedle) {
+                out.append(contentsOf: replacement)
+                rest = rest.dropFirst(3)
+            } else if b == caret, rest.dropFirst().first == UInt8(ascii: "o"),
+                rest.dropFirst(2).first == unit
+            {
+                out.append(contentsOf: replacement)
+                rest = rest.dropFirst(3)
+            } else if b == caret, rest.dropFirst().starts(with: bracedNeedle) {
+                out.append(contentsOf: replacement)
+                rest = rest.dropFirst(5)
+            } else {
+                out.append(b)
+                rest = rest.dropFirst()
+            }
+        }
+        return String(decoding: out, as: UTF8.self)
+    }
 
     static func apply(
         _ data: MhChemData,
@@ -246,7 +301,7 @@ enum MhChemActions {
         _ m: MhChemMatchToken
     ) throws(MhChemError) -> [MhChemValue] {
         var ret: [MhChemValue] = []
-        let digitsOnly = buffer.d.map { (try? reDigitsOnly.firstMatch(in: $0)) != nil } ?? false
+        let digitsOnly = buffer.d.map(isAllAsciiDigits) ?? false
         if digitsOnly {
             let tmp = buffer.d
             buffer.d = nil
@@ -536,10 +591,10 @@ enum MhChemActions {
         {
             qv = inner
         }
-        d = d.replacing(reCelsiusC, with: "{}^{\\circ}C")
-        qv = qv.replacing(reCelsiusC, with: "{}^{\\circ}C")
-        d = d.replacing(reCelsiusF, with: "{}^{\\circ}F")
-        qv = qv.replacing(reCelsiusF, with: "{}^{\\circ}F")
+        d = replaceCelsius(d, unit: UInt8(ascii: "C"))
+        qv = replaceCelsius(qv, unit: UInt8(ascii: "C"))
+        d = replaceCelsius(d, unit: UInt8(ascii: "F"))
+        qv = replaceCelsius(qv, unit: UInt8(ascii: "F"))
 
         let res: [MhChemValue]
         if !qv.isEmpty {

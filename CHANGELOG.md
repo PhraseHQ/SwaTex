@@ -6,9 +6,27 @@
 - Stretchy-element geometry (arrows, braces, group/bracket overlays) is
   memoized per (label, width): the flatten + clip pipeline no longer
   re-runs for recurring stretchy elements. Full golden corpus
-  17.5 → 15.1 µs/formula (−14 %), cold single pass −8 %; 2.6× the Rust
-  reference measured same-day. Bounded at 128 entries (~5 MB worst case,
-  cleared on overflow); reproduce via BENCHMARKS.md §1.
+  17.5 → 15.1 µs/formula (−14 %), cold single pass −8 %. Bounded at 128
+  entries (~5 MB worst case, cleared on overflow); reproduce via
+  BENCHMARKS.md §1.
+- mhchem's Celsius rewrites and digits-only check no longer run the
+  Swift `Regex` interpreter per action (which also re-instantiated
+  keypath patterns and type metadata per call inside the generic
+  `replacing` machinery): hand UTF-8 scanners, differentially tested
+  against ICU over an exhaustive needle-alphabet sweep. `\ce`/`\pu`
+  corpus −9 %, full corpus −4 %; net of both changes the engine measures
+  14.1 µs/formula, 2.8× the Rust reference (same-day, same machine).
+  The Celsius scan now matches by scalar like the mhchem.js reference
+  (the replaced Swift `Regex` used grapheme clusters and declined to
+  match `°C` before a combining mark — unreachable in practice).
+
+### Fixed
+- The wall-clock performance sentinels (`PerfRegression` suite) are now
+  skipped in simulators, matching their existing CI gating: a debug
+  simulator sharing a busy host measures the environment, not the
+  engine, and could fail the suite spuriously on iOS. All functional
+  suites (including the render/pixel tests) pass on the iOS Simulator;
+  `SWATEX_FORCE_PERF=1` still force-enables the sentinels anywhere.
 
 ## 0.3.0 — 2026-07-10
 

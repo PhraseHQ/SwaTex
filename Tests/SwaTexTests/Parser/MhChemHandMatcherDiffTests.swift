@@ -130,3 +130,72 @@ struct MhChemHandMatcherDiffTests {
         #expect(got.remainder == "\u{301}b")
     }
 }
+
+/// P-029 safety net: the hand-rolled action scanners must be
+/// observationally identical to the reference regex semantics they encode.
+/// `replaceCelsius` is pinned against live ICU global replacement (scalar
+/// semantics — the JS/Rust reference behavior; the Swift `Regex` it
+/// replaced used grapheme semantics, deliberately not preserved).
+/// `isAllAsciiDigits` is pinned against the Swift `Regex` it replaced over
+/// every input reachable through `normalizeInput` (no line terminators).
+@Suite("MhChemActionScannerDiff")
+struct MhChemActionScannerDiffTests {
+    private func icuReplaceCelsius(_ s: String, unitLetter: String) throws -> String {
+        let re = try NSRegularExpression(
+            pattern: "\u{00B0}\(unitLetter)|\\^o\(unitLetter)|\\^\\{o\\}\(unitLetter)")
+        let template = NSRegularExpression.escapedTemplate(for: "{}^{\\circ}\(unitLetter)")
+        return re.stringByReplacingMatches(
+            in: s, range: NSRange(s.startIndex..., in: s), withTemplate: template)
+    }
+
+    @Test func replaceCelsiusMatchesICUReplacement() throws {
+        var inputs: [String] = [
+            "", "C", "F", "°", "°C", "°F", "° C", "°c", "^oC", "^oF", "^oc",
+            "^{o}C", "^{o}F", "^{o C", "^{oC", "^o", "^", "^{", "^{o",
+            "^{o}", "x°Cy", "25 °C", "25°C und 77 °F", "^oC^oC", "°C°C",
+            "°F°C", "^{o}C^oC°C", "a^ob", "a^{o}b", "°^oC", "°°C",
+            "\u{00B0}\u{00B0}", "℃", "℉", "e\u{301}°C", "°C\u{301}",
+            "°\u{308}C", "\n°C\n", "12^{o}Fx", "$^oC$", "^{^{o}C}", "^o^oC",
+            "^{o}}C", "^^oC", "25.0^{o}C 77^oF °F",
+        ]
+        // Exhaustive sweep: every 5-scalar string over the needle alphabet
+        // covers all overlap/adjacency shapes up to the longest needle.
+        let alphabet = ["°", "^", "o", "{", "}", "C"]
+        for a in alphabet {
+            for b in alphabet {
+                for c in alphabet {
+                    for d in alphabet {
+                        for e in alphabet {
+                            inputs.append(a + b + c + d + e)
+                        }
+                    }
+                }
+            }
+        }
+        for s in inputs {
+            for (unit, byte) in [("C", UInt8(ascii: "C")), ("F", UInt8(ascii: "F"))] {
+                let hand = MhChemActions.replaceCelsius(s, unit: byte)
+                let icu = try icuReplaceCelsius(s, unitLetter: unit)
+                #expect(hand == icu, "unit \(unit), input \(s.debugDescription)")
+            }
+        }
+    }
+
+    @Test func isAllAsciiDigitsMatchesReplacedRegex() throws {
+        let re = try Regex(#"^[0-9]+$"#)
+        // No line terminators: `normalizeInput` rewrites `\n` to a space,
+        // and on terminator-free inputs Swift Regex `$`, JS `$`, and Rust
+        // `$` all mean end-of-string, so the scanner is exact.
+        let inputs = [
+            "", "0", "9", "123", "0123456789", "12a", "a12", "1 2", " 12",
+            "12 ", "-1", "+1", "1.5", "١٢٣", "12٣", "①", "12\u{00A0}",
+            "\u{0660}", "e4", "12e", "۹", "𝟙", "3\u{301}", "/", ":",
+            String(repeating: "7", count: 300),
+        ]
+        for s in inputs {
+            let hand = MhChemActions.isAllAsciiDigits(s)
+            let regex = (try? re.firstMatch(in: s)) != nil
+            #expect(hand == regex, "\(s.debugDescription)")
+        }
+    }
+}
