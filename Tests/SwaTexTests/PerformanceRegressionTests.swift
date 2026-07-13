@@ -7,15 +7,24 @@ import Testing
 /// regressions (an accidental O(n²), a lost cache, a dropped fast path) —
 /// not machine variance. Thresholds sit ~25× above dev medians.
 ///
-/// **Skipped on shared CI runners** (`CI` env, set by GitHub Actions):
-/// absolute timing on a co-tenant VM is too noisy to gate a release on.
-/// They run locally by default and in dedicated perf jobs. Force-enable
-/// anywhere with `SWATEX_FORCE_PERF=1`.
+#if targetEnvironment(simulator)
+    private let perfSentinelHostIsSimulator = true
+#else
+    private let perfSentinelHostIsSimulator = false
+#endif
+
+/// **Skipped on shared CI runners** (`CI` env, set by GitHub Actions) and
+/// **in simulators**: absolute timing on a co-tenant VM — or in a debug
+/// simulator competing with whatever the host Mac is doing — measures the
+/// environment, not the engine. They run locally by default and in
+/// dedicated perf jobs. Force-enable anywhere with `SWATEX_FORCE_PERF=1`.
 @Suite(
     "PerfRegression",
     .enabled(
         if: ProcessInfo.processInfo.environment["SWATEX_FORCE_PERF"] != nil
-            || ProcessInfo.processInfo.environment["CI"] == nil),
+            || (ProcessInfo.processInfo.environment["CI"] == nil
+                && !perfSentinelHostIsSimulator)
+    ),
     .serialized)
 struct PerformanceRegressionTests {
     private static let corpus = [
