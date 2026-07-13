@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Performance
+- Stretchy-element geometry (arrows, braces, group/bracket overlays) is
+  memoized per (label, width): the flatten + clip pipeline no longer
+  re-runs for recurring stretchy elements. Full golden corpus
+  17.5 → 15.1 µs/formula (−14 %), cold single pass −8 %; 2.6× the Rust
+  reference measured same-day. Bounded at 128 entries (~5 MB worst case,
+  cleared on overflow); reproduce via BENCHMARKS.md §1.
+
 ## 0.3.0 — 2026-07-10
 
 ### Added

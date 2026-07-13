@@ -5,7 +5,7 @@ figures: Apple Silicon (M-series, arm64), macOS 26, Xcode 26 /
 Swift 6.3.2, `-c release`, user CPU time, **median of 3 runs**. Absolute
 numbers vary by machine; the Swift-vs-Rust ratios have been stable.
 
-## 1. Engine throughput (16.3 µs/formula, 2.4× the Rust reference)
+## 1. Engine throughput (15.1 µs/formula, 2.6× the Rust reference)
 
 The corpus is checked into this repo as the golden fixtures (2 541
 formulas, of which **123 are deliberate error cases** — error output for

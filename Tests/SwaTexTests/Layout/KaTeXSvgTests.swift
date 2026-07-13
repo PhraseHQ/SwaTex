@@ -83,4 +83,25 @@ struct KaTeXSvgTests {
                 "lateral extent should match horizontal arrow ink height ~0.522em, got \(w)")
         }
     }
+
+    // P-028: the (label, widthEm) memo must be value-transparent — a hit
+    // returns exactly what a cold computation returns — and survive its
+    // clear-on-overflow bound. Unknown labels stay nil (and uncached).
+    @Test func stretchyPathMemoSemantics() throws {
+        let first = try #require(katexStretchyPath("\\xrightarrow", widthEm: 3.25))
+        let again = try #require(katexStretchyPath("\\xrightarrow", widthEm: 3.25))
+        #expect(again.commands == first.commands)
+        #expect(again.heightEm == first.heightEm)
+
+        #expect(katexStretchyPath("\\notAStretchyLabel", widthEm: 1.0) == nil)
+
+        // Enough distinct keys to force at least one clear-on-overflow pass.
+        for i in 0..<600 {
+            let w = 1.0 + Double(i) / 64.0
+            let r = try #require(katexStretchyPath("\\xrightarrow", widthEm: w))
+            #expect(!r.commands.isEmpty)
+        }
+        let after = try #require(katexStretchyPath("\\xrightarrow", widthEm: 3.25))
+        #expect(after.commands == first.commands)
+    }
 }

@@ -153,9 +153,9 @@ between the engines. Every number is reproducible with the commands in
 
 | Workload | RaTeX (Rust) | SwaTex |
 |---|---|---|
-| parse → layout → display list | 39.3 µs/formula | **16.3 µs/formula (2.4×)** |
+| parse → layout → display list | 39.9 µs/formula | **15.1 µs/formula (2.6×)** |
 | PNG batch, 100 formulas @40px 2× | ~200 µs/formula | **34 µs effective (parallel, 5.9×)** |
-| repeated formula (editor cache hit) | 39.3 µs | **105 ns (~374×)** |
+| repeated formula (editor cache hit) | 39.9 µs | **105 ns (~380×)** |
 | editor scroll | — | **0 glyph rasterization (`updateLayer`)** |
 
 ## Requirements

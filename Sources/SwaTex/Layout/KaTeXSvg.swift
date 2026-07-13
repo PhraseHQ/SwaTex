@@ -854,12 +854,55 @@ private func pathForName(_ name: String) -> String? {
     }
 }
 
+/// Memo key for `katexStretchyPath`. `widthEm` is keyed by bit pattern:
+/// recurrences come from identical layout inputs, so they are bit-exact,
+/// and bit-pattern equality sidesteps `Double`'s `-0.0 == 0.0` / NaN
+/// hashing semantics (distinct keys at worst — the bound absorbs it).
+private struct StretchyPathKey: Hashable {
+    let label: String
+    let widthBits: UInt64
+}
+
+/// Memoized front-end for `katexStretchyPathUncached` (P-028). The uncached
+/// path re-runs parse → scale → flatten (16 steps/curve) → Liang–Barsky
+/// clipping on every call — ~17 % of engine samples on the golden corpus —
+/// while stretchy elements recur constantly at identical widths (repeated
+/// notation, alignment rows, mhchem arrows). Same clear-on-overflow design
+/// as the P-020 path memo, but bounded at 128: entries are 13–38 KB command
+/// arrays (measured), so 128 caps worst-case residency at ~5 MB while real
+/// documents use a few dozen distinct keys (the full golden corpus shows no
+/// hit-rate loss vs 512). `nil` results are not cached (the miss path is a
+/// single table probe). Returned arrays are value types — callers may
+/// mutate their copies freely.
+private let stretchyPathMemo = Mutex<
+    [StretchyPathKey: (commands: [PathCommand], heightEm: Double)]
+>([:])
+
 /// Generalized KaTeX stretchy element renderer.
 ///
 /// Returns `(commands, heightEm)` where commands are centered at y=0
 /// (shaft/midline at y≈0, extending ±heightEm/2 above/below), or `nil` if
 /// the label is not in the lookup table.
 func katexStretchyPath(
+    _ label: String, widthEm: Double
+) -> (commands: [PathCommand], heightEm: Double)? {
+    let key = StretchyPathKey(label: label, widthBits: widthEm.bitPattern)
+    return stretchyPathMemo.withLock { cache in
+        if let hit = cache[key] {
+            return hit
+        }
+        guard let computed = katexStretchyPathUncached(label, widthEm: widthEm) else {
+            return nil
+        }
+        if cache.count >= 128 {
+            cache.removeAll(keepingCapacity: true)
+        }
+        cache[key] = computed
+        return computed
+    }
+}
+
+private func katexStretchyPathUncached(
     _ label: String, widthEm: Double
 ) -> (commands: [PathCommand], heightEm: Double)? {
     guard let data = katexImageData(label) else {
