@@ -22,20 +22,34 @@ jobs:
       # The GoldenLayout suite inside `swift test` asserts all 1190
       # cross-engine fixtures, so layout parity is CI-enforced.
 
-  build-platforms:
-    name: Build iOS / watchOS
+  test-ios:
+    name: xcodebuild test (iOS Simulator)
     runs-on: macos-latest
-    strategy:
-      matrix:
-        destination:
-          - "generic/platform=iOS Simulator"
-          - "generic/platform=watchOS Simulator"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_26.app || sudo xcode-select -s "$(ls -d /Applications/Xcode*.app | sort -V | tail -1)"
+      - name: Test
+        # Full package suite on iOS — golden parity, mhchem, render/pixel
+        # tests, UIKit SwaTexView. The wall-clock perf sentinels self-gate
+        # off CI and simulators. Device picked from whatever the runner
+        # image ships (names change across Xcode versions).
+        run: |
+          DEVICE=$(xcrun simctl list devices available | grep -oE 'iPhone [^(]+' | head -1 | sed 's/ *$//')
+          echo "Using simulator: $DEVICE"
+          xcodebuild test -scheme SwaTex-Package \
+            -destination "platform=iOS Simulator,name=$DEVICE" \
+            -derivedDataPath .dd
+
+  build-platforms:
+    name: Build watchOS
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - name: Build
         run: |
           xcodebuild -scheme SwaTex-Package \
-            -destination "${{ matrix.destination }}" \
+            -destination "generic/platform=watchOS Simulator" \
             -derivedDataPath .dd build
 
   format:

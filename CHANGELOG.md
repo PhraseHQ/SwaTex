@@ -28,6 +28,13 @@
   suites (including the render/pixel tests) pass on the iOS Simulator;
   `SWATEX_FORCE_PERF=1` still force-enables the sentinels anywhere.
 
+### Infrastructure
+- CI now runs the full test suite on an iOS Simulator (previously iOS was
+  build-only), so golden parity, mhchem, and the UIKit render/pixel tests
+  are enforced on both platforms on every push. Memory-leak audit
+  procedure documented in BENCHMARKS.md §5 (engine: 0 leaks over the full
+  corpus).
+
 ## 0.3.0 — 2026-07-10
 
 ### Added
