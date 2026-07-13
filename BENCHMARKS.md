@@ -89,6 +89,38 @@ swift test --filter ScrollRedraw
 SWATEX_SCREENSHOTS=.github/assets swift test --filter ScreenshotGenerator
 ```
 
+## 5. Memory-leak audit
+
+Two measurements (macOS `leaks`; toolchain-signed binaries refuse
+inspection, so re-sign a copy with `get-task-allow` first):
+
+```sh
+# (a) Core engine, definitive at-exit check over the full corpus:
+cp .build/release/LayoutDump /tmp/LayoutDump
+cat > /tmp/gta.plist <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+    <key>com.apple.security.get-task-allow</key><true/>
+</dict></plist>
+EOF
+codesign -s - -f --entitlements /tmp/gta.plist /tmp/LayoutDump
+leaks --atExit -- /tmp/LayoutDump < /tmp/corpus.txt > /tmp/leaks.txt 2>&1
+tail -3 /tmp/leaks.txt   # expect: 0 leaks for 0 total leaked bytes
+
+# (b) Render stack: attach to the live test process mid-run.
+# (`leaks --atExit` on a raw `xctest` invocation executes 0 swift-testing
+# tests and reports a vacuous 0 — attach to the real run instead.)
+SWATEX_BENCH=1 SWATEX_PROFILE=1 swift test -c release \
+  -Xswiftc -enable-testing --filter "ScrollStress|ProfileHarness|RenderBench" &
+sleep 4 && leaks $(pgrep -f SwaTexPackageTests | head -1)
+```
+
+Status (2026-07-13): engine **0 leaks / 0 bytes** over all 2 541 corpus
+formulas; render stack shows no SwaTex-owned objects — the only reported
+nodes are Apple `com.apple.linkd.autoShortcut` XPC retain cycles inside
+the system frameworks, present in any AppKit test host.
+
 ## Provenance
 
 - Golden fixtures were generated with RaTeX's `ratex-layout` (built from
