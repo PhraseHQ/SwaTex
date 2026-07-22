@@ -162,4 +162,15 @@ struct DefTests {
                 return false
             }, "the re-emitted brace must open the group that captures v")
     }
+
+    /// Internal invariant guard: `consumeArgs` requires
+    /// `delimiters.count == numArgs + 1` (KaTeX throws the same error).
+    /// Unreachable through `\def` (which always builds a matching pair),
+    /// so exercised directly.
+    @Test func consumeArgsRejectsMismatchedDelimiters() {
+        let gullet = MacroExpander("x", mode: .math)
+        #expect(throws: ParseError.self) {
+            try gullet.consumeArgs(1, delimiters: [[]])
+        }
+    }
 }

@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Engine: two-layer macro namespace (shared read-only builtins + tiny
+  per-parse layer, KaTeX's own design) stops a full CoW copy of the
+  ~500-entry builtin table on every array/matrix environment —
+  **−18 %** on environment-heavy input.
+
 - Engine: first-byte filters gate the macro-table and function-registry
   lookups, and a 128-entry direct-index table replaces dictionary hashing
   for single-ASCII-character symbols — 13.2 → **13.0 µs/formula**, with a

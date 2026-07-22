@@ -35,7 +35,16 @@ struct ConsumedArg {
 }
 
 /// Scoped macro namespace supporting group nesting.
+///
+/// Two layers, exactly like KaTeX's `Namespace(builtins, globalMacros)`:
+/// `builtins` is the prebuilt table shared read-only by every parse, and
+/// `current` holds only this parse's definitions, shadowing builtins by
+/// name. The layering is also a performance invariant (P-027): with a
+/// single merged dictionary, the first `set` of a parse CoW-copied all
+/// ~500 builtin entries — a large-malloc per `\begin{matrix}` (which
+/// defines `\cr`). `current` stays tiny, so sets never touch the big table.
 private struct MacroNamespace {
+    let builtins: [String: MacroDefinition]
     var current: [String: MacroDefinition] = [:]
     var groupStack: [[String: MacroDefinition?]] = []
     /// First-byte filter over macro names — `get` runs once per token
@@ -43,10 +52,18 @@ private struct MacroNamespace {
     /// set by an undone definition costs one redundant hash, never a miss.
     var firstBytes = FirstByteSet()
 
+    init(builtins: [String: MacroDefinition] = [:], firstBytes: FirstByteSet = FirstByteSet()) {
+        self.builtins = builtins
+        self.firstBytes = firstBytes
+    }
+
     @inline(__always)
     func get(_ name: String) -> MacroDefinition? {
         guard firstBytes.mayContain(name) else { return nil }
-        return current[name]
+        if !current.isEmpty, let def = current[name] {
+            return def
+        }
+        return builtins[name]
     }
 
     mutating func set(_ name: String, _ def: MacroDefinition) {
@@ -72,7 +89,7 @@ private struct MacroNamespace {
     }
 
     func has(_ name: String) -> Bool {
-        current[name] != nil
+        current[name] != nil || builtins[name] != nil
     }
 
     mutating func beginGroup() {
@@ -144,10 +161,10 @@ final class MacroExpander {
     init(_ input: String, mode: Mode) {
         self.lexer = Lexer(input)
         self.mode = mode
-        // CoW share of the prebuilt builtin table: O(1) instead of ~370
-        // dictionary inserts per parse (measured in the performance log P-009).
+        // Shared read-only builtin layer: O(1) per parse instead of ~370
+        // dictionary inserts (P-009), and immune to CoW copies (P-027).
         macros = MacroNamespace(
-            current: Self.builtinMacroTable, firstBytes: Self.builtinMacroFirstBytes)
+            builtins: Self.builtinMacroTable, firstBytes: Self.builtinMacroFirstBytes)
     }
 
     func setMacro(_ name: String, _ def: MacroDefinition) {
