@@ -20,6 +20,9 @@ private func handleRaiseBox(
     _ ctx: inout FunctionContext, _ args: [ParseNode], _ optArgs: [ParseNode?]
 ) throws(ParseError) -> ParseNode {
     guard case let .size(dy, _) = args[0].kind else {
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): args[0] is
+        // declared `.size`, and `parseSizeGroup` for a required argument
+        // always returns a `.size` node or throws.
         throw ParseError("Expected size for \\raisebox")
     }
     let body = args[1]

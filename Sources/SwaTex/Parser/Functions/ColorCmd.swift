@@ -109,6 +109,9 @@ private func extractColor(_ node: ParseNode) throws(ParseError) -> String {
     if case let .colorToken(color) = node.kind {
         return color
     }
+    // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): every caller passes
+    // an argument declared `.color`, and `parseColorGroup` for a required
+    // argument always returns a `.colorToken` node or throws.
     throw ParseError("Expected color token")
 }
 

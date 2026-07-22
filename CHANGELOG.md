@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Testing: coverage raised to the release bar across both targets — zero
+  unmarked uncovered executable lines in `SwaTex` and `SwaTexRender`
+  (77 new tests, 817 total); every intentionally uncovered line carries a
+  grep-auditable proof marker. The full performance diff was additionally
+  adversarially reviewed with zero confirmed findings.
+
 - Engine: the end-of-expression check is a first-byte-failing switch
   instead of a per-token `Set<String>` hash, and `callFunction` reuses
   the registry entry `parseFunction` already fetched (−1.7 %,

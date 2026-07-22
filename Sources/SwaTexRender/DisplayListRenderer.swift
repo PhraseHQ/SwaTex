@@ -139,7 +139,10 @@ public enum DisplayListRenderer {
             run.flush(into: ctx)
             switch item {
             case .glyphPath:
-                break  // handled above
+                // INTENTIONALLY UNCOVERED: unreachable — the batching pass
+                // above consumes every .glyphPath item and `continue`s; the
+                // case exists only to keep this switch exhaustive.
+                break
 
             case let .line(x, y, width, thickness, color, dashed):
                 drawLine(

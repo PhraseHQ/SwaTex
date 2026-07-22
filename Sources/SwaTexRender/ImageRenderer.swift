@@ -32,6 +32,9 @@ public enum ImageRenderer {
                 space: CGColorSpace(name: CGColorSpace.sRGB)!,
                 bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
         else {
+            // INTENTIONALLY UNCOVERED: CGBitmapContext creation only fails on
+            // invalid dimensions or resource exhaustion — the caller-computed
+            // sizes are always valid, and the failure is not injectable.
             return nil
         }
         ctx.scaleBy(x: displayScale, y: displayScale)
@@ -95,6 +98,9 @@ public enum ImageRenderer {
                 space: CGColorSpace(name: CGColorSpace.sRGB)!,
                 bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
         else {
+            // INTENTIONALLY UNCOVERED: CGBitmapContext creation only fails on
+            // invalid dimensions or resource exhaustion — the caller-computed
+            // sizes are always valid, and the failure is not injectable.
             return nil
         }
 
@@ -126,10 +132,15 @@ public enum ImageRenderer {
             let dest = CGImageDestinationCreateWithData(
                 data, UTType.png.identifier as CFString, 1, nil)
         else {
+            // INTENTIONALLY UNCOVERED: ImageIO only refuses a destination for
+            // an unknown UTI or invalid count — both constant here; the
+            // failure is not injectable.
             return nil
         }
         CGImageDestinationAddImage(dest, image, nil)
         guard CGImageDestinationFinalize(dest) else {
+            // INTENTIONALLY UNCOVERED: finalize fails only on I/O or encoder
+            // faults ImageIO does not let a test inject.
             return nil
         }
         return data as Data

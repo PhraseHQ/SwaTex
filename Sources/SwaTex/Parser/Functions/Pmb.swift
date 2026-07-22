@@ -21,6 +21,9 @@ private func binrelClass(_ arg: ParseNode) -> String {
     if case let .ordGroup(body, _) = arg.kind {
         atom = body.isEmpty ? arg : body[0]
     } else {
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): \pmb's argument
+        // has no declared argType, so `parseArgumentGroup` always wraps it
+        // in an `.ordGroup` node.
         atom = arg
     }
     if case let .atom(family, _) = atom.kind {

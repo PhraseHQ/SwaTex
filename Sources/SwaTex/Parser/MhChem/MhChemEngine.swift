@@ -114,10 +114,19 @@ enum MhChemEngine {
                 watchdog -= 1
             }
             if watchdog <= 0 {
+                // Reachable: a trailing line terminator (e.g. "\r") matches
+                // the zero-width `empty` pattern (ICU `$` before one final
+                // terminator) without consuming it, looping until the
+                // watchdog fires — KaTeX's own "mhchem bug U" behavior.
                 throw MhChemError.msg("mhchem bug U")
             }
 
             guard let si = stateIndex ?? mdef.starStateIndex else {
+                // INTENTIONALLY UNCOVERED (data-invariant KEEP): every
+                // vendored machine defines a "*" fallback state (asserted by
+                // FunctionCoverageTests.mhchemMachineDataInvariants), so
+                // `starStateIndex` is never nil. Kept for parity with the
+                // pre-resolution dictionary-miss diagnostic.
                 throw MhChemError.msg("no transitions for state \(stateName)")
             }
 

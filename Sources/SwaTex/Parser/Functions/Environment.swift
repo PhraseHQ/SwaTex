@@ -49,6 +49,9 @@ private func extractEnvName(_ nameGroup: ParseNode) throws(ParseError) -> String
         }
         return envName
     default:
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): the name argument
+        // is declared `.text`, and `parseArgumentGroup` always wraps a
+        // required argument in an `.ordGroup` node.
         throw ParseError("Invalid environment name")
     }
 }
@@ -71,6 +74,10 @@ private func handleBeginEnd(
         for _ in 0..<env.numArgs {
             let arg = try ctx.parser.parseArgumentGroup(optional: false, mode: nil)
             guard let a = arg else {
+                // INTENTIONALLY UNCOVERED (defensive guard KEEP):
+                // `parseArgumentGroup(optional: false)` never returns nil —
+                // `scanArgument(isOptional: false)` throws on missing input
+                // instead of returning nil.
                 throw ParseError("Expected argument to \\begin{\(envName)}")
             }
             envArgs.append(a)
@@ -89,6 +96,10 @@ private func handleBeginEnd(
         // Parse \end{name} as a function call
         let endNode = try ctx.parser.parseFunction(breakOnTokenText: nil, name: nil)
         guard let endNode, case let .environment(endName, _) = endNode.kind else {
+            // INTENTIONALLY UNCOVERED (defensive guard KEEP): the preceding
+            // `expect("\\end")` guarantees the next token is the registered
+            // \end function, whose handler always returns an `.environment`
+            // node or throws; `parseFunction` cannot return nil for it.
             throw ParseError("Expected \\end after environment body")
         }
 

@@ -175,6 +175,9 @@ enum MhChemPatterns {
                 return nil
             }
             guard case .s(let m2) = h2.token else {
+                // INTENTIONALLY UNCOVERED (defensive guard KEEP): the inner
+                // call is made with `part2: nil`, and that path always
+                // produces a `.s` token.
                 throw MhChemError.msg("nested Fog pair")
             }
             let tok: MhChemMatchToken = combine ? .s(m1 + m2) : .a([m1, m2])
@@ -222,6 +225,9 @@ enum MhChemPatterns {
 
     private static func patternSci(_ input: Substring) -> MhChemPatternHit? {
         guard let m = reSci.match(input) else {
+            // INTENTIONALLY UNCOVERED (defensive guard KEEP): every part of
+            // `reSci` is optional, so the ICU match always succeeds (possibly
+            // zero-width); the empty case is rejected just below.
             return nil
         }
         if m.range.isEmpty {
@@ -269,6 +275,9 @@ enum MhChemPatterns {
             return nil
         }
         guard case .s(let s) = h.token else {
+            // INTENTIONALLY UNCOVERED (defensive guard KEEP): the `$...$`
+            // findObserveGroups call above uses `part2: nil`, which always
+            // produces a `.s` token.
             return nil
         }
         if reAmountDollar.match(s) != nil {

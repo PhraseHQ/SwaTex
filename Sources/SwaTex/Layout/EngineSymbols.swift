@@ -85,6 +85,12 @@ func layoutSymbol(_ text: String, _ mode: Mode, _ options: LayoutOptions) -> Lay
         if let m = fontId.metrics(forChar: metricCp) {
             (width, height, depth) = (mathGlyphAdvanceEm(m, mode), m.height, m.depth)
         } else {
+            // INTENTIONALLY UNCOVERED (defensive-fallback KEEP): every
+            // codepoint `FontId.mathAlphanumeric` maps lands on an ASCII
+            // letter/digit metric slot that exists in the mapped font.
+            // `LayoutCoverageTests.mathAlphanumericAlwaysHasMetrics`
+            // exhaustively verifies this over U+1D400–U+1D7FF; the fallback
+            // is kept in case a bundled metrics table ever loses a slot.
             (width, height, depth) = missingGlyphMetricsFallback(ch, options)
         }
         return LayoutBox(

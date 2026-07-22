@@ -26,6 +26,39 @@ struct CoverageRenderTests {
         return n
     }
 
+    // ── Deterministic branches that parallel test ordering left flaky ───
+
+    /// The CGColor memo clears (not grows) at 256 entries — per-glyph
+    /// rainbow documents must not grow the cache unboundedly.
+    @Test func cgColorCacheEvictsAtCapacity() {
+        for i in 0..<300 {
+            let c = SwaTex.Color(
+                r: Float(i % 256) / 255, g: Float(i / 256) / 255, b: 0, a: 1)
+            _ = DisplayListRenderer.cgColor(c)
+        }
+        // Post-eviction lookups still work and re-cache.
+        let again = DisplayListRenderer.cgColor(SwaTex.Color(r: 0, g: 0, b: 0, a: 1))
+        #expect(again.alpha == 1)
+    }
+
+    /// A pattern CGColor has no sRGB representation: the conversion
+    /// initializer must fail (the view then falls back to `mathColor`).
+    @Test func patternCGColorConversionFails() throws {
+        var callbacks = CGPatternCallbacks(
+            version: 0, drawPattern: { _, _ in }, releaseInfo: nil)
+        let pattern = try #require(
+            CGPattern(
+                info: nil, bounds: CGRect(x: 0, y: 0, width: 1, height: 1),
+                matrix: .identity, xStep: 1, yStep: 1, tiling: .noDistortion,
+                isColored: true, callbacks: &callbacks))
+        var alpha: CGFloat = 1
+        let patternColor = try #require(
+            CGColor(
+                patternSpace: CGColorSpace(patternBaseSpace: nil)!,
+                pattern: pattern, components: &alpha))
+        #expect(SwaTex.Color(cgColor: patternColor) == nil)
+    }
+
     // ── RenderOptions.backgroundColor ───────────────────────────────────
 
     @Test func backgroundColorFillsEveryPixel() throws {

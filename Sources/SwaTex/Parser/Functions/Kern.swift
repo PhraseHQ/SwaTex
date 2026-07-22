@@ -21,6 +21,9 @@ private func handleKern(
     if case let .size(value, _) = args[0].kind {
         dimension = value
     } else {
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): args[0] is
+        // declared `.size`, and `parseSizeGroup` for a required argument
+        // always returns a `.size` node or throws.
         dimension = Measurement(number: 0.0, unit: "em")
     }
 

@@ -632,6 +632,10 @@ enum MhChemActions {
                 if mrm.remainder.isEmpty, case .s(let inner) = mrm.token {
                     res = try MhChemEngine.goMachine(data, input: inner, machine: "pu")
                 } else if mrm.remainder.isEmpty {
+                    // INTENTIONALLY UNCOVERED (defensive guard KEEP): the
+                    // `{(...)}` pattern is a part2-less findObserveGroups,
+                    // which always produces a `.s` token, so an empty
+                    // remainder always takes the branch above.
                     res = []
                 } else {
                     res = [.object(["type_": .string("rm"), "p1": .string(rm)])]

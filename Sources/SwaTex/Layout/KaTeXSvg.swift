@@ -55,7 +55,7 @@ func katexStretchyArrowPath(
     katexStretchyPath(label, widthEm: widthEm).map { $0.commands }
 }
 
-private func scaleCmdTwoheadUniform(
+func scaleCmdTwoheadUniform(
     _ cmd: PathCommand, s: Double, vbCy: Double, xShift: Double
 ) -> PathCommand {
     switch cmd {
@@ -80,7 +80,7 @@ private func scaleCmdTwoheadUniform(
 /// Clip path to rectangle [xMin, xMax] x [yMin, yMax]. Curves are flattened then clipped.
 /// For filled closed contours, the clip boundary edges are implicitly added by emitting
 /// LineTo(a) whenever the start of a newly-visible segment doesn't match the current position.
-private func clipPathToRect(
+func clipPathToRect(
     _ commands: [PathCommand],
     xMin: Double, xMax: Double, yMin: Double, yMax: Double
 ) -> [PathCommand] {
@@ -116,7 +116,7 @@ private func clipPathToRect(
     return out
 }
 
-private func flattenPathToContours(_ commands: [PathCommand]) -> [[(Double, Double)]] {
+func flattenPathToContours(_ commands: [PathCommand]) -> [[(Double, Double)]] {
     var contours: [[(Double, Double)]] = []
     var current: [(Double, Double)] = []
     var last: (Double, Double) = (0.0, 0.0)
@@ -399,7 +399,7 @@ private func buildOvergroup(widthEm: Double, hEm: Double, isOver: Bool) -> [Path
     }
 }
 
-private func scaleCmdXY(_ cmd: PathCommand, sx: Double, sy: Double) -> PathCommand {
+func scaleCmdXY(_ cmd: PathCommand, sx: Double, sy: Double) -> PathCommand {
     switch cmd {
     case .moveTo(let x, let y):
         .moveTo(x: x * sx, y: y * sy)
@@ -915,6 +915,12 @@ private func katexStretchyPathUncached(
     let yMax = heightEm / 2.0
 
     func makeCmds(_ pathName: String, xShift: Double) -> [PathCommand]? {
+        // INTENTIONALLY UNCOVERED (defensive-fallback KEEP, this guard and
+        // the three `guard … makeCmds` else-branches below): every path
+        // name referenced by a `katexImageData` entry resolves in
+        // `pathForName` (both are static generated tables), so `makeCmds`
+        // never returns nil. Kept so a future table edit fails soft (nil →
+        // caller's hand-drawn fallback) instead of crashing.
         guard let svgStr = pathForName(pathName) else {
             return nil
         }
@@ -926,6 +932,7 @@ private func katexStretchyPathUncached(
     case 1:
         let xShift = data.align == "xMaxYMin" ? widthEm - 400_000.0 * s : 0.0
         guard let cmds = makeCmds(data.paths[0], xShift: xShift) else {
+            // INTENTIONALLY UNCOVERED (defensive guard KEEP — see makeCmds).
             return nil
         }
         return (
@@ -937,6 +944,7 @@ private func katexStretchyPathUncached(
         guard let lc = makeCmds(data.paths[0], xShift: 0.0),
             let rc = makeCmds(data.paths[1], xShift: xR)
         else {
+            // INTENTIONALLY UNCOVERED (defensive guard KEEP — see makeCmds).
             return nil
         }
         let isXmapsto = data.paths[0] == "leftmapsto" && data.paths[1] == "rightarrow"
@@ -985,6 +993,7 @@ private func katexStretchyPathUncached(
             let mc = makeCmds(data.paths[1], xShift: xM),
             let rc = makeCmds(data.paths[2], xShift: xR)
         else {
+            // INTENTIONALLY UNCOVERED (defensive guard KEEP — see makeCmds).
             return nil
         }
         // KaTeX `stretchy.ts` + `katex.scss`: three stacked spans with overflow hidden —
@@ -1008,6 +1017,11 @@ private func katexStretchyPathUncached(
                 contentsOf: clipPathToRect(rc, xMin: rightMin, xMax: w, yMin: yMin, yMax: yMax))
             out = o
         } else {
+            // INTENTIONALLY UNCOVERED (defensive-fallback KEEP): overbrace
+            // and underbrace are the only 3-path entries in
+            // `katexImageData`, so this generic 3-piece branch has no
+            // reachable label today. Kept as the correct KaTeX `stretchy.ts`
+            // behavior should a new 3-path element ever be added.
             var o = clipPathToRect(lc, xMin: 0.0, xMax: w, yMin: yMin, yMax: yMax)
             o.append(contentsOf: clipPathToRect(mc, xMin: 0.0, xMax: w, yMin: yMin, yMax: yMax))
             o.append(contentsOf: clipPathToRect(rc, xMin: 0.0, xMax: w, yMin: yMin, yMax: yMax))
@@ -1015,11 +1029,15 @@ private func katexStretchyPathUncached(
         }
         return (out, heightEm)
     default:
+        // INTENTIONALLY UNCOVERED (defensive-fallback KEEP): every
+        // `katexImageData` entry has 1, 2, or 3 paths; a different count is
+        // impossible with the current static table. Kept so a malformed
+        // future entry fails soft (nil) rather than crashing.
         return nil
     }
 }
 
-private func mapPathXYHorizontalToVerticalCd(
+func mapPathXYHorizontalToVerticalCd(
     _ cmds: [PathCommand], _ map: (Double, Double) -> (Double, Double)
 ) -> [PathCommand] {
     cmds.map { c in
@@ -1057,6 +1075,11 @@ func katexCdVertArrowFromRightarrow(
     let rowHeight = totalHeightEm - rowDepth
     guard let (cmdsH, lateralEm) = katexStretchyPath("\\cdrightarrow", widthEm: totalHeightEm)
     else {
+        // INTENTIONALLY UNCOVERED (defensive-fallback KEEP): the label is
+        // the literal "\\cdrightarrow", which has a `katexImageData` entry
+        // whose single path name resolves in `pathForName`, so the lookup
+        // never fails. Kept so a table regression degrades to no-arrow
+        // rather than crashing CD layout.
         return nil
     }
     let wLat = lateralEm

@@ -93,6 +93,9 @@ private func extractTrailingTagFromLastCell(
 ) throws(ParseError) -> ArrayTag {
     let defaultTag: ArrayTag = .auto(autoNumber)
     guard !row.isEmpty else {
+        // INTENTIONALLY UNCOVERED (defensive guard KEEP): the only caller
+        // (`parseArray`) appends the just-parsed cell to `row` before
+        // calling, so `row` is never empty here.
         return defaultTag
     }
     let lastIdx = row.count - 1
@@ -102,6 +105,9 @@ private func extractTrailingTagFromLastCell(
     var inner = row[lastIdx]
     if case let .styling(_, stylingBody) = row[lastIdx].kind {
         if stylingBody.count != 1 {
+            // INTENTIONALLY UNCOVERED (defensive guard KEEP): `parseArray`
+            // builds styled cells as `.styling(style, [cell])` — exactly one
+            // element — so this mismatch cannot occur.
             return defaultTag
         }
         isStyled = true
@@ -109,6 +115,9 @@ private func extractTrailingTagFromLastCell(
     }
 
     guard case let .ordGroup(obodyOrig, semisimple) = inner.kind else {
+        // INTENTIONALLY UNCOVERED (defensive guard KEEP): `parseArray` cells
+        // are always an `.ordGroup`, optionally wrapped in `.styling` — the
+        // unwrapped inner node is an `.ordGroup` in both shapes.
         return defaultTag
     }
     var obody = obodyOrig
@@ -122,6 +131,10 @@ private func extractTrailingTagFromLastCell(
                 row[lastIdx].kind = .styling(style: style, body: [newInner])
             }
         } else {
+            // INTENTIONALLY UNCOVERED (defensive branch KEEP): every
+            // `parseArray` caller passes a non-nil cell style (`dCellStyle`
+            // never returns nil; the rest pass `.display`/`.script`), so
+            // cells are always styling-wrapped and `isStyled` is true.
             row[lastIdx] = newInner
         }
     }
@@ -162,6 +175,9 @@ private func extractTrailingTagFromLastCell(
                 return .explicit(tag)
             }
         }
+        // INTENTIONALLY UNCOVERED (defensive fallthrough KEEP): `popped` is
+        // the node at `tagIndices[0]`, which was collected by matching
+        // `case .tag` above, so the `if case .tag` always binds.
         return defaultTag
     } else if !nonumberIndices.isEmpty {
         // Handle \nonumber / \notag
@@ -281,12 +297,20 @@ func parseArray(
                     {
                         isEmptyTrailing = ob.isEmpty
                     } else {
+                        // INTENTIONALLY UNCOVERED (defensive branch KEEP):
+                        // styled cells are always `.styling(_, [ordGroup])`
+                        // (built a few lines above), so the pattern in the
+                        // `if` always matches.
                         isEmptyTrailing = false
                     }
                 } else {
                     isEmptyTrailing = false
                 }
             } else if case let .ordGroup(ob, _) = cell.kind {
+                // INTENTIONALLY UNCOVERED (defensive branch KEEP, this
+                // branch and the `else` below): every `parseArray` caller
+                // passes a non-nil style (`dCellStyle` never returns nil),
+                // so the `style == nil` arm is unreachable.
                 isEmptyTrailing = ob.isEmpty
             } else {
                 isEmptyTrailing = false
@@ -347,6 +371,12 @@ func parseArray(
                     processed.append(.explicit(nodes))
                     anyVisible = true
                 } else {
+                    // INTENTIONALLY UNCOVERED (defensive branch KEEP):
+                    // `.explicit` tags come only from
+                    // `extractTrailingTagFromLastCell`, which returns
+                    // `.auto(false)` for empty tag bodies (and non-starred
+                    // `\tag{…}` always adds parens), so `.explicit([])`
+                    // cannot occur.
                     // Empty \tag{}: treat as suppressed
                     processed.append(.auto(false))
                 }
@@ -406,6 +436,11 @@ private func handleArray(
     if case let .ordGroup(ordBody, _) = args[0].kind {
         colalign = ordBody
     } else if args[0].isSymbolNode {
+        // INTENTIONALLY UNCOVERED (defensive branches KEEP, this arm and
+        // the `else` throw): environment arguments are produced by
+        // `Parser.parseArgumentGroup`, which always wraps the expression in
+        // an `.ordGroup`, so `args[0]` matches the first pattern. Kept to
+        // mirror KaTeX's handler, which also accepts a bare symbol node.
         colalign = [args[0]]
     } else {
         throw ParseError("Invalid column alignment for array")
@@ -601,6 +636,8 @@ private func handleAligned(
     if case let .array(info) = res.kind {
         numCols = info.body.map(\.count).max() ?? 0
     } else {
+        // INTENTIONALLY UNCOVERED (defensive branch KEEP): `res` comes from
+        // `parseArray`, which always returns an `.array` node.
         numCols = 0
     }
 
@@ -630,6 +667,11 @@ private func handleAligned(
                         "Too many math in a row: expected \(numMaths), but got \(curMaths)")
                 }
             } else if numCols < info.body[r].count {
+                // INTENTIONALLY UNCOVERED (Rust-port artifact KEEP):
+                // `numCols` is initialized to the maximum row width above
+                // and the loop never grows a row, so no row exceeds it.
+                // RaTeX computes the running maximum here instead; the
+                // assignment is kept to match the port line-for-line.
                 numCols = info.body[r].count
             }
         }
@@ -953,7 +995,7 @@ private func cdParseRow(
 /// Object rows already alternate: obj, h-arrow, obj, h-arrow, …, obj.
 /// Arrow rows contain only CdArrow nodes (plus whitespace OrdGroups which we strip),
 /// and need empty OrdGroup fillers inserted between consecutive arrows.
-private func cdStructureRow(_ cells: [ParseNode], _ mode: Mode) -> [ParseNode] {
+func cdStructureRow(_ cells: [ParseNode], _ mode: Mode) -> [ParseNode] {
     // Detect arrow row: all cells are either CdArrow or empty OrdGroup
     let isArrowRow =
         cells.allSatisfy { c in
@@ -982,6 +1024,9 @@ private func cdStructureRow(_ cells: [ParseNode], _ mode: Mode) -> [ParseNode] {
         }
 
         if arrows.isEmpty {
+            // INTENTIONALLY UNCOVERED (defensive guard KEEP): `isArrowRow`
+            // requires `cells.contains` a `.cdArrow`, so the filter above
+            // always keeps at least one arrow.
             return []
         }
 
@@ -1013,6 +1058,11 @@ private func handleSubarray(
     if case let .ordGroup(ordBody, _) = args[0].kind {
         colalign = ordBody
     } else if args[0].isSymbolNode {
+        // INTENTIONALLY UNCOVERED (defensive branches KEEP, this arm and
+        // the `else` throw): environment arguments are produced by
+        // `Parser.parseArgumentGroup`, which always wraps the expression in
+        // an `.ordGroup`, so `args[0]` matches the first pattern. Kept to
+        // mirror KaTeX's handler, which also accepts a bare symbol node.
         colalign = [args[0]]
     } else {
         throw ParseError("Invalid column alignment for subarray")
@@ -1090,6 +1140,9 @@ private func parseProoftreeArg(
     _ parser: Parser, _ command: String
 ) throws(ParseError) -> [ParseNode] {
     guard let arg = try parser.parseArgumentGroup(optional: false, mode: nil) else {
+        // INTENTIONALLY UNCOVERED (defensive guard KEEP): with
+        // `optional: false`, `scanArgument` never returns nil — a missing
+        // argument makes `consumeArg` throw before this guard is reached.
         throw ParseError("Expected argument for \(command)")
     }
     return ParseNode.ordArgument(arg)

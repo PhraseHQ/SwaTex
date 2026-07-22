@@ -224,6 +224,10 @@ final class MhChemData: Sendable {
             do {
                 map[k] = try MhChemRegex(src)
             } catch {
+                // INTENTIONALLY UNCOVERED (embedded-data KEEP): `init` only
+                // ever compiles the vendored `patterns_regex.json` sources,
+                // all of which compile; reachable only if the generated data
+                // is corrupted.
                 throw MhChemError.msg("regex compile \"\(k)\": \(error)")
             }
         }
@@ -244,6 +248,9 @@ final class MhChemData: Sendable {
         do {
             return try MhChemData()
         } catch {
+            // INTENTIONALLY UNCOVERED (embedded-data KEEP): reachable only if
+            // the vendored JSON fails to decode or compile — a programming
+            // error, matching the Rust `.expect(...)`.
             fatalError("mhchem static data must parse and compile: \(error)")
         }
     }()

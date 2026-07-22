@@ -5,7 +5,7 @@
 
 private let lap = 0.008
 
-private enum StackDelimKind {
+enum StackDelimKind {
     case brace(open: Bool)
     case bracket(open: Bool)
     case paren(open: Bool)
@@ -56,6 +56,11 @@ func isStackNeverDelim(_ delim: String) -> Bool {
 
 private func size4Glyph(_ charCode: UInt32, _ options: LayoutOptions) -> LayoutBox {
     guard let m = FontId.size4Regular.metrics(forChar: charCode) else {
+        // INTENTIONALLY UNCOVERED (fatalError guard): callers pass only the
+        // U+23A7–U+23AD brace/group piece codepoints, all present in the
+        // bundled Size4 metrics (checked by the callers' own `guard`s
+        // before any piece is built). A fatalError cannot be exercised by a
+        // test without crashing the process.
         fatalError("stacked delim piece")
     }
     return LayoutBox(
@@ -70,6 +75,9 @@ private func heightDepth(_ m: CharMetrics) -> Double {
 
 private func braceRepeatSvg(innerHeightEm: Double, options: LayoutOptions) -> LayoutBox {
     guard let m = FontId.size4Regular.metrics(forChar: 0x23aa) else {
+        // INTENTIONALLY UNCOVERED (fatalError guard): U+23AA is present in
+        // the bundled Size4 metrics; a fatalError cannot be exercised by a
+        // test without crashing the process.
         fatalError("brace repeat")
     }
     let x0 = 384.0 / 1000.0
@@ -98,7 +106,7 @@ private func axisCenterStackedVBox(_ body: LayoutBox, _ options: LayoutOptions) 
         color: options.color)
 }
 
-private func tallDelimSvgPath(_ label: String, midTh: Int) -> String {
+func tallDelimSvgPath(_ label: String, midTh: Int) -> String {
     let m = midTh
     switch label {
     case "lbrack":
@@ -155,7 +163,7 @@ private func widthEmForLabel(_ label: String) -> Double {
     }
 }
 
-private func makeTallSvgDelim(
+func makeTallSvgDelim(
     _ kind: StackDelimKind, heightTotal: Double, options: LayoutOptions
 ) -> LayoutBox? {
     let label = svgLabelFor(kind)
@@ -186,6 +194,11 @@ private func makeTallSvgDelim(
     let d = tallDelimSvgPath(label, midTh: midTh)
     let raw = parseSvgPathData(d)
     if raw.isEmpty {
+        // INTENTIONALLY UNCOVERED (defensive-fallback KEEP): `label` comes
+        // from `svgLabelFor`, whose non-empty outputs are exactly the eight
+        // keys `tallDelimSvgPath` renders, and each template produces a
+        // non-empty parseable path for every `midTh`. Kept so a template
+        // regression degrades to glyph stacking rather than drawing garbage.
         return nil
     }
     // The KaTeX SVG paths use a top-origin coordinate system (y=0 at top, y=height_total
@@ -205,7 +218,7 @@ private func makeTallSvgDelim(
     return axisCenterStackedVBox(inner, options)
 }
 
-private func makeGlyphStackDelim(
+func makeGlyphStackDelim(
     _ kind: StackDelimKind, heightTotal: Double, options: LayoutOptions
 ) -> LayoutBox? {
     func lapKern(_ k: Double) -> VBoxChild {
@@ -225,6 +238,11 @@ private func makeGlyphStackDelim(
             let mid = FontId.size4Regular.metrics(forChar: midC),
             let bot = FontId.size4Regular.metrics(forChar: botC)
         else {
+            // INTENTIONALLY UNCOVERED (defensive-fallback KEEP): the brace
+            // piece codepoints U+23A7/U+23A8/U+23A9/U+23AB/U+23AC/U+23AD are
+            // all present in the bundled Size4 metrics, so the guard never
+            // fails. Kept so a metrics regression degrades to no stacked
+            // delimiter instead of crashing.
             return nil
         }
         let topHt = heightDepth(top)
@@ -254,6 +272,11 @@ private func makeGlyphStackDelim(
         guard let top = FontId.size4Regular.metrics(forChar: topC),
             let bot = FontId.size4Regular.metrics(forChar: botC)
         else {
+            // INTENTIONALLY UNCOVERED (defensive-fallback KEEP): the group
+            // piece codepoints U+23A7/U+23A9/U+23AB/U+23AD are all present
+            // in the bundled Size4 metrics, so the guard never fails. Kept
+            // so a metrics regression degrades to no stacked delimiter
+            // instead of crashing.
             return nil
         }
         let topHt = heightDepth(top)

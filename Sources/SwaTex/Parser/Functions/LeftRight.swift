@@ -57,6 +57,10 @@ private func handleLeft(
     let rightNode = try ctx.parser.parseFunction(breakOnTokenText: nil, name: nil)
 
     guard let rightNode, case let .leftRightRight(right, rightColor) = rightNode.kind else {
+        // INTENTIONALLY UNCOVERED (defensive guard KEEP): the preceding
+        // `expect("\\right")` guarantees the next token is the registered
+        // \right function, whose handler always returns a `.leftRightRight`
+        // node; `parseFunction` cannot return nil for it.
         throw ParseError("Expected \\right after \\left")
     }
 

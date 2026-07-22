@@ -109,6 +109,9 @@ private func handleGenfrac(
     case "\\\\brackfrac":
         (hasBarLine, leftDelim, rightDelim) = (false, "[", "]")
     default:
+        // INTENTIONALLY UNCOVERED (exhaustive-registration KEEP): the switch
+        // enumerates all ten names this handler is registered under, so the
+        // default arm cannot be reached.
         (hasBarLine, leftDelim, rightDelim) = (true, nil, nil)
     }
 
@@ -156,6 +159,9 @@ private func handleGenfracFull(
             (hasBarLine, barSize) = (value.number > 0.0, value)
         }
     } else {
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): args[2] is
+        // declared `.size`, and `parseSizeGroup` for a required argument
+        // always returns a `.size` node or throws.
         (hasBarLine, barSize) = (true, nil)
     }
 
@@ -166,7 +172,12 @@ private func handleGenfracFull(
             styleStrs.indices.contains(n) ? styleStrs[n] : nil
         }
     } else {
+        // Reached only for an *empty* style group: args[3] is declared
+        // `.text`, so it is always an `.ordGroup` node.
         style = extractTextordNum(args[3]).flatMap { n in
+            // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): an ordGroup
+            // is never a `.textOrd`, so extractTextordNum returns nil here
+            // and this index-mapping closure cannot run.
             styleStrs.indices.contains(n) ? styleStrs[n] : nil
         }
     }
@@ -188,6 +199,9 @@ private func extractDelim(_ node: ParseNode) -> String? {
     let text: String
     switch node.kind {
     case let .atom(_, t):
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): the delimiter
+        // arguments are declared `.math`, and `parseArgumentGroup` always
+        // wraps a required argument in an `.ordGroup` node.
         text = t
     case let .ordGroup(body, _) where body.count == 1:
         if case let .atom(_, t) = body[0].kind {
@@ -199,6 +213,10 @@ private func extractDelim(_ node: ParseNode) -> String? {
         return nil
     }
     if text == "." || text.isEmpty {
+        // INTENTIONALLY UNCOVERED (symbol-table KEEP): atom nodes keep their
+        // token text, and no token producing an atom is "." (the period is a
+        // textord; `\ldotp` keeps the text "\ldotp") or empty. Kept to match
+        // KaTeX's genfrac "." (no delimiter) convention.
         return nil
     }
     return text
@@ -218,6 +236,9 @@ private func handleAboveInfix(
     if case let .size(value, _) = args[0].kind {
         size = value
     } else {
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): args[0] is
+        // declared `.size`, and `parseSizeGroup` for a required argument
+        // always returns a `.size` node or throws.
         size = nil
     }
 
@@ -236,6 +257,10 @@ private func handleAbovefrac(
     if case let .infix(_, size) = args[1].kind {
         barSize = size
     } else {
+        // INTENTIONALLY UNCOVERED (internal-name KEEP): `\\abovefrac` cannot
+        // be lexed from user input (its name contains two backslashes); it is
+        // produced only by the parser's infix replacement, which always
+        // passes the original `.infix` node as args[1].
         barSize = nil
     }
 

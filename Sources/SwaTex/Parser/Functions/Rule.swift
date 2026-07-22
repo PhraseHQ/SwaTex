@@ -27,9 +27,14 @@ private func handleRule(
     }
 
     guard case let .size(width, _) = args[0].kind else {
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): both required
+        // arguments are declared `.size`, and `parseSizeGroup` for a
+        // required argument always returns a `.size` node or throws.
         throw ParseError("Expected size for \\rule width")
     }
     guard case let .size(height, _) = args[1].kind else {
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): see the width
+        // guard above.
         throw ParseError("Expected size for \\rule height")
     }
 

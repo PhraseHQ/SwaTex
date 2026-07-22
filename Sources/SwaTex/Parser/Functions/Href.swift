@@ -37,6 +37,9 @@ private func handleHref(
     let bodyArg = args[1]
 
     guard case let .url(href) = urlArg.kind else {
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): args[0] is
+        // declared `.url`; `parseURLGroup` for a required argument always
+        // returns a `.url` node.
         throw ParseError("Expected URL")
     }
 
@@ -51,6 +54,9 @@ private func handleUrl(
     let urlArg = args[0]
 
     guard case let .url(url) = urlArg.kind else {
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): args[0] is
+        // declared `.url`; `parseURLGroup` for a required argument always
+        // returns a `.url` node.
         throw ParseError("Expected URL")
     }
 

@@ -43,6 +43,9 @@ private func handleHtmlStyle(
     _ ctx: inout FunctionContext, _ args: [ParseNode], _ optArgs: [ParseNode?]
 ) throws(ParseError) -> ParseNode {
     guard case let .raw(style) = args[0].kind else {
+        // INTENTIONALLY UNCOVERED (argType-guarantee KEEP): args[0] is
+        // declared `.raw`; `parseGroupOfType(.raw)` for a required argument
+        // always returns a `.raw` node.
         throw ParseError("Expected raw style for \\htmlStyle")
     }
     let body = ParseNode.ordArgument(args[1])

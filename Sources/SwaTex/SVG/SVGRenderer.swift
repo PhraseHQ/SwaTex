@@ -171,7 +171,12 @@ func svgFormatFloat(_ f: Float) -> String {
 }
 
 /// Rewrite `d.dddde±xx` scientific notation to plain positional notation.
-private func svgExpandExponent(_ s: String) -> String {
+/// Internal (not private) so FunctionCoverageTests can drive the
+/// point-inside-digits branch directly: Swift's `Float` description only
+/// switches to scientific notation for exponents ≥ 16 or ≤ −5, which with a
+/// one-digit normalized mantissa always lands the decimal point outside the
+/// digit string.
+func svgExpandExponent(_ s: String) -> String {
     guard let eIdx = s.firstIndex(where: { $0 == "e" || $0 == "E" }),
         let exp = Int(s[s.index(after: eIdx)...])
     else { return s }
@@ -462,10 +467,17 @@ private func emitPathItem(
                 let seg = commands[start..<i]
                 start = i
                 if seg.isEmpty {
+                    // INTENTIONALLY UNCOVERED (defensive guard KEEP): `start`
+                    // is 0 or the index of the previous MoveTo split, both
+                    // strictly less than `i`, so `commands[start..<i]` always
+                    // holds at least one command.
                     continue
                 }
                 let d = pathCommandsToD(originX: ox, originY: oy, em: em, commands: seg)
                 if d.isEmpty {
+                    // INTENTIONALLY UNCOVERED (defensive guard KEEP): every
+                    // PathCommand case appends at least its opcode letter, so
+                    // a non-empty segment never renders to an empty `d`.
                     continue
                 }
                 out += "<path d=\"\(d)\" fill=\"\(paint)\" fill-rule=\"nonzero\" stroke=\"none\"/>"

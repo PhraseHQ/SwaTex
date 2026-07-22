@@ -278,6 +278,11 @@ func layoutHorizBrace(
     if let (c, h) = katexStretchyPath(stretchKey, widthEm: w) {
         (rawCommands, braceH, braceFill) = (c, h, true)
     } else {
+        // INTENTIONALLY UNCOVERED (defensive-fallback KEEP): `stretchKey` is
+        // always one of overbrace/underbrace/overbracket/underbracket, all
+        // present in `katexImageData` with path names that resolve in
+        // `pathForName`, so `katexStretchyPath` never returns nil here. Kept
+        // as the correct behavior if the generated table loses an entry.
         let h = 0.35
         (rawCommands, braceH, braceFill) = (horizBracePath(w, h, isOver), h, false)
     }

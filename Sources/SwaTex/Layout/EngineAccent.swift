@@ -113,6 +113,12 @@ func layoutAccent(
         if let (c, h) = katexStretchyPath(label, widthEm: baseW) {
             (commands, arrowH, fillArrow) = (c, h, true)
         } else {
+            // INTENTIONALLY UNCOVERED (defensive-fallback KEEP): reachable
+            // only if `katexStretchyPath` returns nil, but `useArrowPath`
+            // restricts `label` to the `isArrowAccent` set, every member of
+            // which has a `katexImageData` entry whose path names all
+            // resolve in `pathForName` — so the lookup never misses. Kept as
+            // the correct behavior if the generated table loses an entry.
             let h = 0.3
             let c = stretchyAccentPath(label, baseW, h)
             let fill = label == "\\xtwoheadrightarrow" || label == "\\xtwoheadleftarrow"

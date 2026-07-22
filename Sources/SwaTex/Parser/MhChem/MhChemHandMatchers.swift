@@ -89,8 +89,6 @@ enum MhChemHandMatchers {
             i = from
         }
 
-        var atEnd: Bool { i >= end }
-
         /// ICU non-multiline `$`: end of region, **or** the remaining text
         /// is exactly one final line terminator (LF, VT, FF, CR, CRLF, NEL,
         /// LS, PS) — but never *between* the CR and LF of a CRLF pair.

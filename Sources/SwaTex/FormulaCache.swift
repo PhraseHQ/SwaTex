@@ -17,13 +17,16 @@ public final class FormulaCache: Sendable {
     /// and `MathView`. Capacity 1024 ≈ a few MB for typical formulas.
     public static let shared = FormulaCache(capacity: 1024)
 
-    private struct Key: Hashable {
+    // Key/Flight/Storage/storage/lead are internal (not private) so
+    // FunctionCoverageTests can drive the lead-vs-lead race re-check
+    // deterministically; production callers use only `displayList`.
+    struct Key: Hashable {
         var latex: String
         var style: MathStyle
         var color: Color
     }
 
-    private struct Entry {
+    struct Entry {
         var value: Result<DisplayList, ParseError>
         var tick: UInt64
     }
@@ -32,11 +35,11 @@ public final class FormulaCache: Sendable {
     /// publishing the flight and holds it while computing; followers block
     /// on `gate` and read the finished result. By construction the slot is
     /// always filled by the time a follower can acquire the lock.
-    private final class Flight: Sendable {
+    final class Flight: Sendable {
         let gate = Mutex<Result<DisplayList, ParseError>?>(nil)
     }
 
-    private struct Storage {
+    struct Storage {
         var entries: [Key: Entry] = [:]
         var flights: [Key: Flight] = [:]
         var tick: UInt64 = 0
@@ -45,7 +48,7 @@ public final class FormulaCache: Sendable {
         var computes: UInt64 = 0
     }
 
-    private let storage: Mutex<Storage>
+    let storage: Mutex<Storage>
     private let capacity: Int
 
     public init(capacity: Int = 1024) {
@@ -146,7 +149,7 @@ public final class FormulaCache: Sendable {
     /// behavior pinned the same threads doing N redundant computes instead
     /// of one. `Mutex` additionally donates blocked callers' QoS to the
     /// leader; a non-blocking follower path would require an async surface.
-    private func lead(_ key: Key) -> Result<DisplayList, ParseError> {
+    func lead(_ key: Key) -> Result<DisplayList, ParseError> {
         let flight = Flight()
         return flight.gate.withLock { slot in
             // Re-check under our own gate: another leader may have raced us
