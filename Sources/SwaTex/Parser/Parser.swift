@@ -15,7 +15,9 @@ private let maxRecursionDepth = 512
 /// - `parseFunction()` → parse a function call with arguments
 /// - `parseSymbol()` → parse a single symbol
 public final class Parser {
-    public var mode: Mode
+    // Read in every parseAtom/parseSymbol iteration; exclusivity opted out
+    // with the other hot properties below (performance log P-025).
+    @exclusivity(unchecked) public var mode: Mode
     let gullet: MacroExpander
     var leftrightDepth = 0
     private var recursionDepth = 0
@@ -24,7 +26,10 @@ public final class Parser {
     /// once here — init runs on the thread that parses — so the hot-path
     /// check is a single address comparison.
     private let stackFloor = stackFloorAddress(headroom: minimumParseStackHeadroom)
-    private var nextToken: Token?
+    // Single-threaded, never aliased via overlapping inout — dynamic
+    // exclusivity checks opted out (performance log P-025, same rationale
+    // as MacroExpander's hot properties).
+    @exclusivity(unchecked) private var nextToken: Token?
     var equationCounter = 0
 
     public init(_ input: String) {

@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Engine: parser hot state (`MacroExpander` stack/lexer/macro namespace,
+  `Parser.mode`) opted out of dynamic exclusivity enforcement with
+  `@exclusivity(unchecked)` — full corpus 14.5 → **13.2 µs/formula (−9 %)**,
+  3.1× the Rust reference measured same-day. Single-threaded, non-aliased
+  access verified per property; layout output bit-exact on all 2 541
+  cross-engine fixtures.
+
 ## 0.4.0 — 2026-07-13
 
 Performance release: the engine drops from 17.5 to **14.1 µs/formula**

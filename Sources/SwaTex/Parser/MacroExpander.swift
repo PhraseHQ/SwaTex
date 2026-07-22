@@ -121,11 +121,16 @@ private func dotscSpaceAfter(_ next: String) -> Bool {
 ///
 /// Modeled after KaTeX's MacroExpander.ts.
 final class MacroExpander {
-    var lexer: Lexer
-    var mode: Mode
-    private var stack: [Token] = []
-    private var macros = MacroNamespace()
-    private var expansionCount = 0
+    // The gullet is strictly single-threaded and never aliases these
+    // properties through overlapping inout accesses (verified: `lexer.lex()`
+    // and the `stack`/`macros` mutations never re-enter MacroExpander while
+    // the access is live). Dynamic exclusivity checks on them cost ~4 % of
+    // total parse time (performance log P-025), so they are opted out.
+    @exclusivity(unchecked) var lexer: Lexer
+    @exclusivity(unchecked) var mode: Mode
+    @exclusivity(unchecked) private var stack: [Token] = []
+    @exclusivity(unchecked) private var macros = MacroNamespace()
+    @exclusivity(unchecked) private var expansionCount = 0
     private let maxExpand = 1000
 
     init(_ input: String, mode: Mode) {
