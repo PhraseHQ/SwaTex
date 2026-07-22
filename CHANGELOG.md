@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Engine: the end-of-expression check is a first-byte-failing switch
+  instead of a per-token `Set<String>` hash, and `callFunction` reuses
+  the registry entry `parseFunction` already fetched (−1.7 %,
+  interleaved A/B).
+
 - Engine: two-layer macro namespace (shared read-only builtins + tiny
   per-parse layer, KaTeX's own design) stops a full CoW copy of the
   ~500-entry builtin table on every array/matrix environment —

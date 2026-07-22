@@ -1,7 +1,16 @@
 import Foundation
 
-/// End-of-expression tokens.
-private let endOfExpression: Set<String> = ["}", "\\endgroup", "\\end", "\\right", "&"]
+/// End-of-expression tokens. A switch, not a `Set<String>`: this runs once
+/// per token in `parseExpression`, and sequential small-string compares
+/// (most fail on the first byte) beat a full String hash (performance
+/// log P-029).
+@inline(__always)
+private func isEndOfExpression(_ text: String) -> Bool {
+    switch text {
+    case "}", "\\endgroup", "\\end", "\\right", "&": true
+    default: false
+    }
+}
 
 private let maxRecursionDepth = 512
 
@@ -126,7 +135,7 @@ public final class Parser {
 
             let lex = try fetch()
 
-            if endOfExpression.contains(lex.text) {
+            if isEndOfExpression(lex.text) {
                 break
             }
             if let breakText = breakOnTokenText, lex.text == breakText {
@@ -432,7 +441,7 @@ public final class Parser {
         let (args, optArgs) = try parseArguments(funcName, funcData)
 
         return try callFunction(
-            funcName, args: args, optArgs: optArgs,
+            funcName, spec: funcData, args: args, optArgs: optArgs,
             token: token, breakOnTokenText: breakOnTokenText)
     }
 
@@ -449,7 +458,22 @@ public final class Parser {
             // Exercised directly by DirectUnitTests.
             throw ParseError("No function handler for \(name)")
         }
+        return try callFunction(
+            name, spec: spec, args: args, optArgs: optArgs,
+            token: token, breakOnTokenText: breakOnTokenText)
+    }
 
+    /// Overload for callers that already hold the registry entry —
+    /// `parseFunction` looked it up two calls ago; re-hashing the name
+    /// here showed up in profiles (performance log P-029).
+    func callFunction(
+        _ name: String,
+        spec: FunctionSpec,
+        args: [ParseNode],
+        optArgs: [ParseNode?],
+        token: Token? = nil,
+        breakOnTokenText: String? = nil
+    ) throws(ParseError) -> ParseNode {
         var ctx = FunctionContext(
             funcName: name, parser: self, token: token, breakOnTokenText: breakOnTokenText)
         return try spec.handler(&ctx, args, optArgs)
