@@ -566,14 +566,14 @@ private func handleNewcommand(
 // ── Built-in macros ─────────────────────────────────────────────────────────
 
 extension MacroExpander {
-    /// The builtin macro table, built once per process.
-    ///
-    /// Text macros are pre-tokenized: `.text` re-lexes its body on every
-    /// expansion, but builtins never change, so we bake tokens + arg count
     /// First-byte filter matching `builtinMacroTable`, shared into each
     /// parse's namespace the same way (performance log P-026).
     static let builtinMacroFirstBytes = FirstByteSet(keys: builtinMacroTable.keys)
 
+    /// The builtin macro table, built once per process.
+    ///
+    /// Text macros are pre-tokenized: `.text` re-lexes its body on every
+    /// expansion, but builtins never change, so we bake tokens + arg count
     /// at first use (P-009 in the performance log).
     static let builtinMacroTable: [String: MacroDefinition] = {
         var m = [String: MacroDefinition](minimumCapacity: 512)
