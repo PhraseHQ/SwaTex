@@ -481,7 +481,7 @@ public final class Parser {
             }
 
             let arg = try parseGroupOfType(
-                name: "argument to '\(funcName)'", argType: effectiveType, optional: isOptional)
+                funcName: funcName, argType: effectiveType, optional: isOptional)
 
             if isOptional {
                 optArgs.append(arg)
@@ -499,7 +499,7 @@ public final class Parser {
     /// absent-optional-argument branches (no builtin declares an optional
     /// hbox/color/url argument, so the pipeline never takes them).
     func parseGroupOfType(
-        name: String, argType: ArgType?, optional: Bool
+        funcName: String, argType: ArgType?, optional: Bool
     ) throws(ParseError) -> ParseNode? {
         switch argType {
         case .color:
@@ -512,6 +512,11 @@ public final class Parser {
                 // exercised directly by DirectUnitTests.
                 throw ParseError("A primitive argument cannot be optional")
             }
+            // The "argument to '…'" label is built HERE, not by the caller:
+            // it only reaches error messages and this branch, and the common
+            // .math/.text/nil cases below never look at it — interpolating
+            // per argument cost ~0.4 % of parse time (performance log P-028).
+            let name = "argument to '\(funcName)'"
             guard let group = try parseGroup(name: name, breakOnTokenText: nil) else {
                 throw ParseError("Expected group as \(name)")
             }

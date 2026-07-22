@@ -100,7 +100,7 @@ extension DirectUnitTests {
     @Test func absentOptionalArgumentReturnsNil() throws {
         // Empty / non-bracket input → the optional argument is absent.
         let hboxNil = try Parser("").parseGroupOfType(
-            name: "\\hbox", argType: .hbox, optional: true)
+            funcName: "\\hbox", argType: .hbox, optional: true)
         #expect(hboxNil == nil)
 
         let colorNil = try Parser("x").parseColorGroup(optional: true)
@@ -124,7 +124,7 @@ extension DirectUnitTests {
     @Test func primitiveOptionalArgumentThrows() {
         #expect(throws: ParseError.self) {
             _ = try Parser("x").parseGroupOfType(
-                name: "\\somecmd", argType: .primitive, optional: true)
+                funcName: "\\somecmd", argType: .primitive, optional: true)
         }
     }
 

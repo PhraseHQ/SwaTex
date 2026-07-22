@@ -7,6 +7,10 @@
   ~500-entry builtin table on every array/matrix environment —
   **−18 %** on environment-heavy input.
 
+- Engine: argument parsing no longer interpolates an "argument to '…'"
+  error label on the happy path — 13.0 → **12.5 µs/formula (−3 %)**,
+  3.3× the Rust reference.
+
 - Engine: first-byte filters gate the macro-table and function-registry
   lookups, and a 128-entry direct-index table replaces dictionary hashing
   for single-ASCII-character symbols — 13.2 → **13.0 µs/formula**, with a
