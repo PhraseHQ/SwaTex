@@ -38,12 +38,19 @@ struct ConsumedArg {
 private struct MacroNamespace {
     var current: [String: MacroDefinition] = [:]
     var groupStack: [[String: MacroDefinition?]] = []
+    /// First-byte filter over macro names — `get` runs once per token
+    /// (performance log P-026). Grows on `set`, never shrinks: a bit left
+    /// set by an undone definition costs one redundant hash, never a miss.
+    var firstBytes = FirstByteSet()
 
+    @inline(__always)
     func get(_ name: String) -> MacroDefinition? {
-        current[name]
+        guard firstBytes.mayContain(name) else { return nil }
+        return current[name]
     }
 
     mutating func set(_ name: String, _ def: MacroDefinition) {
+        firstBytes.insert(firstByteOf: name)
         if !groupStack.isEmpty {
             let last = groupStack.count - 1
             if groupStack[last][name] == nil {
@@ -54,6 +61,7 @@ private struct MacroNamespace {
     }
 
     mutating func setGlobal(_ name: String, _ def: MacroDefinition) {
+        firstBytes.insert(firstByteOf: name)
         // A global assignment survives group exit: drop any pending undo
         // records for this name so endGroup doesn't restore an older local
         // value over it (KaTeX Namespace.set with global=true).
@@ -138,7 +146,8 @@ final class MacroExpander {
         self.mode = mode
         // CoW share of the prebuilt builtin table: O(1) instead of ~370
         // dictionary inserts per parse (measured in the performance log P-009).
-        macros = MacroNamespace(current: Self.builtinMacroTable)
+        macros = MacroNamespace(
+            current: Self.builtinMacroTable, firstBytes: Self.builtinMacroFirstBytes)
     }
 
     func setMacro(_ name: String, _ def: MacroDefinition) {
@@ -544,6 +553,10 @@ extension MacroExpander {
     ///
     /// Text macros are pre-tokenized: `.text` re-lexes its body on every
     /// expansion, but builtins never change, so we bake tokens + arg count
+    /// First-byte filter matching `builtinMacroTable`, shared into each
+    /// parse's namespace the same way (performance log P-026).
+    static let builtinMacroFirstBytes = FirstByteSet(keys: builtinMacroTable.keys)
+
     /// at first use (P-009 in the performance log).
     static let builtinMacroTable: [String: MacroDefinition] = {
         var m = [String: MacroDefinition](minimumCapacity: 512)

@@ -46,6 +46,11 @@ struct FunctionSpec: Sendable {
 /// Built once, lazily and thread-safely (`static let` is the Swift
 /// equivalent of Rust's `LazyLock`).
 enum Functions {
+    /// First-byte filter over `registry` keys: `parseFunction` runs for
+    /// every atom, and most tokens can be rejected without hashing
+    /// (performance log P-026).
+    static let registryFirstBytes = FirstByteSet(keys: registry.keys)
+
     static let registry: [String: FunctionSpec] = {
         var map: [String: FunctionSpec] = [:]
         registerGenfrac(&map)

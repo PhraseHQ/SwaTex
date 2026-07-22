@@ -403,7 +403,9 @@ public final class Parser {
         let token = try fetch()
         let funcName = token.text
 
-        guard let funcData = Functions.registry[funcName] else {
+        guard Functions.registryFirstBytes.mayContain(funcName),
+            let funcData = Functions.registry[funcName]
+        else {
             return nil
         }
 

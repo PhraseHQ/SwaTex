@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Engine: first-byte filters gate the macro-table and function-registry
+  lookups, and a 128-entry direct-index table replaces dictionary hashing
+  for single-ASCII-character symbols — 13.2 → **13.0 µs/formula**, with a
+  new differential suite pinning fast-path == dictionary semantics.
+
 - Engine: parser hot state (`MacroExpander` stack/lexer/macro namespace,
   `Parser.mode`) opted out of dynamic exclusivity enforcement with
   `@exclusivity(unchecked)` — full corpus 14.5 → **13.2 µs/formula (−9 %)**,

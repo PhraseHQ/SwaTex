@@ -44,7 +44,9 @@ public struct SymbolInfo: Sendable {
 /// Lazily built lookup indices over the generated symbol table.
 /// `static let` gives thread-safe once-only initialization (the Swift
 /// equivalent of Rust's `OnceLock`).
-private enum SymbolMaps {
+/// Internal (not private) so `FirstByteSetTests` can differential-test the
+/// P-026 ASCII fast table against the dictionaries it bypasses.
+enum SymbolMaps {
     // Flat per-mode dictionaries: symbol resolution runs for every parsed
     // token, so a nested `[UInt8: [String: Int]]` would pay two hash lookups
     // plus an extra retain per call (P-010 in the performance log).
@@ -56,6 +58,23 @@ private enum SymbolMaps {
     /// codepoint → index into SymbolsData.symbols, per mode.
     static let mathByCodepoint: [Unicode.Scalar: Int] = buildByCodepoint(mode: 0)
     static let textByCodepoint: [Unicode.Scalar: Int] = buildByCodepoint(mode: 1)
+
+    /// Single-ASCII-character fast path (performance log P-026): most parsed
+    /// tokens are one ASCII scalar ("x", "2", "+"), and each paid a String
+    /// hash here. 128-entry direct-index tables replace it; entries merge the
+    /// name-then-codepoint precedence of `SymbolInfo.init(name:mode:)`.
+    /// −1 = no symbol.
+    static let mathASCII: [Int] = buildASCII(byName: mathByName, byCodepoint: mathByCodepoint)
+    static let textASCII: [Int] = buildASCII(byName: textByName, byCodepoint: textByCodepoint)
+
+    private static func buildASCII(
+        byName: [String: Int], byCodepoint: [Unicode.Scalar: Int]
+    ) -> [Int] {
+        (0..<128).map { c in
+            let scalar = Unicode.Scalar(UInt8(c))
+            return byName[String(scalar)] ?? byCodepoint[scalar] ?? -1
+        }
+    }
 
     private static func buildByName(mode: UInt8) -> [String: Int] {
         var map = [String: Int](minimumCapacity: SymbolsData.symbols.count)
@@ -101,6 +120,16 @@ extension SymbolInfo {
     /// matching KaTeX's `acceptUnicodeChar` behavior where both `name` and `replace`
     /// are valid keys (e.g. both `\alpha` and `α` resolve to the same symbol).
     public init?(name: String, mode: Mode) {
+        // Single-ASCII-character fast path: direct table index, no hashing
+        // (performance log P-026). Semantics identical to the general path
+        // below (name lookup first, then codepoint).
+        let utf8 = name.utf8
+        if let byte = utf8.first, byte < 128, utf8.count == 1 {
+            let idx = (mode == .math ? SymbolMaps.mathASCII : SymbolMaps.textASCII)[Int(byte)]
+            if idx < 0 { return nil }
+            self.init(entryAt: idx, mode: mode)
+            return
+        }
         // Direct name lookup (command name like "\alpha")
         let byName = mode == .math ? SymbolMaps.mathByName : SymbolMaps.textByName
         if let idx = byName[name] {
