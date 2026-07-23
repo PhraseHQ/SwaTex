@@ -1,38 +1,46 @@
 # Changelog
 
-## Unreleased
+## 0.5.0 — 2026-07-22
 
-- Testing: coverage raised to the release bar across both targets — zero
-  unmarked uncovered executable lines in `SwaTex` and `SwaTexRender`
-  (77 new tests, 817 total); every intentionally uncovered line carries a
-  grep-auditable proof marker. The full performance diff was additionally
-  adversarially reviewed with zero confirmed findings.
+Performance and assurance release: the engine drops from 14.1 to
+**12.5 µs/formula (−11 %)** on the full golden corpus — **3.3×** the Rust
+reference engine (41.4 µs same-day, same machine), with matrix/array-heavy
+input a further **−18 %**. Layout output remains bit-exact across all
+2 541 cross-engine fixtures. Test coverage now meets the release bar
+across **both** targets (zero unmarked uncovered lines), and the entire
+optimization diff passed an independent adversarial review with zero
+findings. Rendering verified end-to-end on iOS (full simulator suite) and
+macOS across SwiftUI, UIKit, and AppKit hosts.
 
-- Engine: the end-of-expression check is a first-byte-failing switch
-  instead of a per-token `Set<String>` hash, and `callFunction` reuses
-  the registry entry `parseFunction` already fetched (−1.7 %,
-  interleaved A/B).
-
-- Engine: two-layer macro namespace (shared read-only builtins + tiny
-  per-parse layer, KaTeX's own design) stops a full CoW copy of the
-  ~500-entry builtin table on every array/matrix environment —
-  **−18 %** on environment-heavy input.
-
-- Engine: argument parsing no longer interpolates an "argument to '…'"
-  error label on the happy path — 13.0 → **12.5 µs/formula (−3 %)**,
-  3.3× the Rust reference.
-
-- Engine: first-byte filters gate the macro-table and function-registry
-  lookups, and a 128-entry direct-index table replaces dictionary hashing
-  for single-ASCII-character symbols — 13.2 → **13.0 µs/formula**, with a
-  new differential suite pinning fast-path == dictionary semantics.
-
-- Engine: parser hot state (`MacroExpander` stack/lexer/macro namespace,
+### Performance
+- Parser hot state (`MacroExpander` stack/lexer/macro namespace,
   `Parser.mode`) opted out of dynamic exclusivity enforcement with
-  `@exclusivity(unchecked)` — full corpus 14.5 → **13.2 µs/formula (−9 %)**,
-  3.1× the Rust reference measured same-day. Single-threaded, non-aliased
-  access verified per property; layout output bit-exact on all 2 541
-  cross-engine fixtures.
+  `@exclusivity(unchecked)` — 14.5 → **13.2 µs/formula (−9 %)**.
+  Single-threaded, non-aliased access verified per property.
+- First-byte filters gate the macro-table and function-registry lookups,
+  and a 128-entry direct-index table replaces dictionary hashing for
+  single-ASCII-character symbols — 13.2 → **13.0 µs/formula**, with a
+  differential suite pinning fast-path == dictionary semantics.
+- Two-layer macro namespace (shared read-only builtins + tiny per-parse
+  layer, KaTeX's own design) stops a full CoW copy of the ~500-entry
+  builtin table on every array/matrix environment — **−18 %** on
+  environment-heavy input.
+- Argument parsing no longer interpolates an "argument to '…'" error
+  label on the happy path — 13.0 → **12.5 µs/formula (−3 %)**.
+- The end-of-expression check is a first-byte-failing switch instead of
+  a per-token `Set<String>` hash, and `callFunction` reuses the registry
+  entry `parseFunction` already fetched (−1.7 %, interleaved A/B).
+
+### Testing
+- Coverage raised to the release bar across both targets: zero unmarked
+  uncovered executable lines in `SwaTex` and `SwaTexRender` (77 new
+  tests, 817 total). Every intentionally uncovered line carries a
+  grep-auditable `INTENTIONALLY UNCOVERED` proof marker. En route, the
+  mhchem watchdog guard — long assumed dead code — was proven reachable
+  and is now pinned by a test.
+- The full performance diff was adversarially reviewed by an independent
+  pass (aliasing/exclusivity, filter false-negatives, namespace scoping
+  semantics, error-message parity): zero confirmed findings.
 
 ## 0.4.0 — 2026-07-13
 

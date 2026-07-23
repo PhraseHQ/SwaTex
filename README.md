@@ -64,7 +64,7 @@ Swift Package Manager. In `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/PhraseHQ/SwaTex.git", from: "0.4.0")
+    .package(url: "https://github.com/PhraseHQ/SwaTex.git", from: "0.5.0")
 ]
 ```
 
