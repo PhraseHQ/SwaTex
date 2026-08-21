@@ -106,10 +106,45 @@ public final class KaTeXFontProvider: Sendable {
         return glyph
     }
 
+    /// The TTF for a KaTeX face, looked up in the HOST bundle before this target's own
+    /// resource bundle.
+    ///
+    /// `Bundle.module` resolves to `Bundle.main.bundleURL/SwaTex_SwaTexRender.bundle`. For
+    /// a command-line binary that is the directory holding the executable and it is
+    /// correct, but for a `.app` `bundleURL` is the app itself, so the path lands at the
+    /// bundle ROOT beside `Contents/` - the one place a macOS app may not put anything.
+    /// Measured with `codesign` on a Developer ID signature:
+    ///
+    /// | placement                     | signs                                    |
+    /// |-------------------------------|------------------------------------------|
+    /// | app root (real dir or symlink)| "unsealed contents present in bundle root"|
+    /// | `Contents/MacOS/*.bundle`     | "bundle format unrecognized"             |
+    /// | `Contents/Resources/`         | valid, but `Bundle.module` never looks    |
+    ///
+    /// So an app embedding this package has no placement that is both signable and
+    /// findable, and the generated `Bundle.module` accessor calls `fatalError` when both
+    /// of its candidates miss. The failure hides on the build machine, where the absolute
+    /// `.build` path compiled into the binary still resolves, and arrives as a crash on
+    /// the first equation everywhere else.
+    ///
+    /// Checking `Bundle.main` first gives the host a placement it can sign: copy the faces
+    /// into `Contents/Resources/Fonts`. Nothing changes for a SwiftPM executable or a test
+    /// run, where `Bundle.main` has no `Fonts` directory and the module bundle answers as
+    /// before.
+    private static func fontURL(named name: String) -> URL? {
+        hostFontURL(named: name)
+            ?? Bundle.module.url(forResource: name, withExtension: "ttf", subdirectory: "Fonts")
+    }
+
+    /// The host-bundle half of `fontURL(named:)`, separated so a test can name the bundle.
+    /// It must stay free of `Bundle.module`, which traps rather than returning nil.
+    static func hostFontURL(named name: String, in bundle: Bundle = .main) -> URL? {
+        bundle.url(forResource: name, withExtension: "ttf", subdirectory: "Fonts")
+    }
+
     private static func makeUnitFont(_ fontId: FontId) -> CTFont {
         if let name = resourceName(for: fontId),
-            let url = Bundle.module.url(
-                forResource: name, withExtension: "ttf", subdirectory: "Fonts"),
+            let url = fontURL(named: name),
             let data = try? Data(contentsOf: url),
             let descriptor = CTFontManagerCreateFontDescriptorFromData(data as CFData)
         {

@@ -23,6 +23,22 @@ struct FontProviderTests {
         }
     }
 
+    /// The host bundle wins, and the module bundle is the fallback rather than the only
+    /// route. An app cannot ship this package's resource bundle where `Bundle.module`
+    /// looks for it - that path is the `.app`'s root, which `codesign` refuses - so a host
+    /// copies the faces into its own `Contents/Resources/Fonts` instead.
+    @Test func hostBundleIsPreferredOverTheModuleBundle() {
+        // Under `swift test` the host IS the test runner, which carries no Fonts
+        // directory. That is the miss the fallback exists for, and every other test in
+        // this suite passes through it.
+        #expect(KaTeXFontProvider.hostFontURL(named: "KaTeX_Main-Regular") == nil)
+
+        // Point the same lookup at a bundle that DOES carry them and it resolves without
+        // touching `Bundle.module`, which is what an app's Contents/Resources gives it.
+        let hosted = KaTeXFontProvider.hostFontURL(named: "KaTeX_Main-Regular", in: .module)
+        #expect(hosted?.lastPathComponent == "KaTeX_Main-Regular.ttf")
+    }
+
     @Test func glyphLookupForBasicLatin() {
         let font = KaTeXFontProvider.shared.font(for: .mainRegular, size: 12)
         var chars: [UniChar] = [UniChar(UInt8(ascii: "x"))]
