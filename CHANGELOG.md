@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- KaTeX faces are looked up in `Bundle.main/Fonts` before this target's own
+  resource bundle. `Bundle.module` resolves to
+  `Bundle.main.bundleURL/SwaTex_SwaTexRender.bundle`, which inside a `.app` is
+  the bundle root beside `Contents/` - a location `codesign` rejects with
+  "unsealed contents present in the bundle root", while the flat resource
+  directory cannot be signed as nested code under `Contents/MacOS` either. An
+  embedding app therefore had no placement that was both signable and findable,
+  and the generated accessor's `fatalError` fired on the first equation on every
+  machine except the one that built the app, where the absolute `.build` path
+  compiled into the binary still resolved. A host can now copy the faces into
+  `Contents/Resources/Fonts`. SwiftPM executables and test runs are unaffected:
+  `Bundle.main` has no `Fonts` directory there and the module bundle answers as
+  before.
+
 ## 0.5.0 — 2026-07-22
 
 Performance and assurance release: the engine drops from 14.1 to
