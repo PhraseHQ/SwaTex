@@ -153,15 +153,15 @@
 {"box":{"depth":1.25,"height":1.75,"width":0.52859},"displayList":{"depth":1.25,"height":1.75,"itemCount":2,"width":0.52859},"input":"\\begin{gathered} a \\\\ b \\end{gathered}"}
 {"box":{"depth":1.25,"height":1.75,"width":2.80637},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":2.80637},"input":"\\begin{gather} a \\\\ b \\end{gather}"}
 {"box":{"depth":1.25,"height":1.75,"width":2.17998},"displayList":{"depth":1.25,"height":1.75,"itemCount":4,"width":2.17998},"input":"\\begin{gather*} a+b \\\\ c \\end{gather*}"}
-{"box":{"depth":1.25,"height":1.75,"width":6.71484},"displayList":{"depth":1.25,"height":1.75,"itemCount":18,"width":6.71484},"input":"\\begin{alignat}{2} a &= b & c &= d \\\\ e &= f & g &= h \\end{alignat}"}
-{"box":{"depth":0.5,"height":1.0,"width":4.13324},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.13324},"input":"\\begin{alignat*}{2} a &= b & c &= d \\end{alignat*}"}
-{"box":{"depth":0.5,"height":1.0,"width":4.13324},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.13324},"input":"\\begin{alignedat}{2} a &= b & c &= d \\end{alignedat}"}
-{"box":{"depth":1.25,"height":1.75,"width":4.60464},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.60464},"input":"\\begin{align} a &= b \\\\ c &= d \\end{align}"}
-{"box":{"depth":0.5,"height":1.0,"width":2.23554},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.23554},"input":"\\begin{align*} a &= b \\end{align*}"}
-{"box":{"depth":1.25,"height":1.75,"width":2.32686},"displayList":{"depth":1.25,"height":1.75,"itemCount":6,"width":2.32686},"input":"\\begin{aligned} a &= b \\\\ c &= d \\end{aligned}"}
+{"box":{"depth":1.25,"height":1.75,"width":7.15928},"displayList":{"depth":1.25,"height":1.75,"itemCount":18,"width":7.15928},"input":"\\begin{alignat}{2} a &= b & c &= d \\\\ e &= f & g &= h \\end{alignat}"}
+{"box":{"depth":0.5,"height":1.0,"width":4.57768},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.57768},"input":"\\begin{alignat*}{2} a &= b & c &= d \\end{alignat*}"}
+{"box":{"depth":0.5,"height":1.0,"width":4.57768},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.57768},"input":"\\begin{alignedat}{2} a &= b & c &= d \\end{alignedat}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.6602},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.6602},"input":"\\begin{align} a &= b \\\\ c &= d \\end{align}"}
+{"box":{"depth":0.5,"height":1.0,"width":2.2911},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.2911},"input":"\\begin{align*} a &= b \\end{align*}"}
+{"box":{"depth":1.25,"height":1.75,"width":2.38242},"displayList":{"depth":1.25,"height":1.75,"itemCount":6,"width":2.38242},"input":"\\begin{aligned} a &= b \\\\ c &= d \\end{aligned}"}
 {"box":{"depth":0.35,"height":0.85,"width":4.56888},"displayList":{"depth":0.35,"height":0.85,"itemCount":6,"width":4.56888},"input":"\\begin{equation} a = b \\end{equation}"}
 {"box":{"depth":0.35,"height":0.85,"width":2.2911},"displayList":{"depth":0.35,"height":0.85,"itemCount":3,"width":2.2911},"input":"\\begin{equation*} a = b \\end{equation*}"}
-{"box":{"depth":1.25,"height":1.75,"width":2.23913},"displayList":{"depth":1.25,"height":1.75,"itemCount":5,"width":2.23913},"input":"\\begin{split} a &= b \\\\ &= c \\end{split}"}
+{"box":{"depth":1.25,"height":1.75,"width":2.29469},"displayList":{"depth":1.25,"height":1.75,"itemCount":5,"width":2.29469},"input":"\\begin{split} a &= b \\\\ &= c \\end{split}"}
 {"box":{"depth":1.55,"height":2.05,"width":4.70198},"displayList":{"depth":1.55,"height":2.05,"itemCount":24,"width":4.70198},"input":"\\begin{array}{l|c:r} a & b & c \\\\ \\hline d & e & f \\\\ \\hdashline g & h & i \\end{array}"}
 {"box":{"depth":0.95,"height":1.45,"width":3.04908},"displayList":{"depth":0.95,"height":1.45,"itemCount":4,"width":3.04908},"input":"\\begin{darray}{cc} a & b \\\\ c & d \\end{darray}"}
 {"box":{"depth":0.95,"height":1.45,"width":3.41749},"displayList":{"depth":0.95,"height":1.45,"itemCount":6,"width":3.41749},"input":"\\begin{matrix*}[l] a & -b \\\\ -c & d \\end{matrix*}"}
@@ -620,8 +620,8 @@
 {"error":true,"input":"\\mspace{18mu}","message":"ParseError at position 0: Undefined control sequence: \\mspace"}
 {"box":{"depth":0.0,"height":0.61508,"width":2.92234},"displayList":{"depth":0.0,"height":0.61508,"itemCount":6,"width":2.92234},"input":"\\@ifstar{star}{nostar}"}
 {"box":{"depth":0.686,"height":1.10756,"width":0.76859},"displayList":{"depth":0.686,"height":1.10756,"itemCount":6,"width":0.76859},"input":"\\pmb{\\frac{a}{b}}"}
-{"box":{"depth":1.25,"height":1.75,"width":4.67617},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.67617},"input":"\\begin{align} a &= b \\tag{x} \\\\ c &= d \\nonumber \\end{align}"}
-{"box":{"depth":0.5,"height":1.0,"width":2.23554},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.23554},"input":"\\begin{align} a &= b \\notag \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.73173},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.73173},"input":"\\begin{align} a &= b \\tag{x} \\\\ c &= d \\nonumber \\end{align}"}
+{"box":{"depth":0.5,"height":1.0,"width":2.2911},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.2911},"input":"\\begin{align} a &= b \\notag \\end{align}"}
 {"box":{"depth":0.0,"height":0.68333,"width":0.78195},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.78195},"input":"\\gdef\\foo{F}\\foo"}
 {"box":{"depth":0.0,"height":0.68333,"width":1.5639},"displayList":{"depth":0.0,"height":0.68333,"itemCount":2,"width":1.5639},"input":"\\def\\foo{F}\\foo\\foo"}
 {"box":{"depth":0.0,"height":0.43056,"width":0.52859},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.52859},"input":"\\edef\\foo{a}\\foo"}
@@ -745,18 +745,18 @@
 {"box":{"depth":0.0,"height":10.22775,"width":1.4},"displayList":{"depth":0.0,"height":10.22775,"itemCount":4,"width":1.4},"input":"\\sqrt[3]{\\rule{1pt}{100pt}}"}
 {"box":{"depth":0.35,"height":0.85,"width":0.52859},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":0.52859},"input":"\\begin{matrix} a \\\\ \\end{matrix}"}
 {"box":{"depth":0.35001,"height":0.85,"width":2.87444},"displayList":{"depth":0.35001,"height":0.85,"itemCount":4,"width":2.87444},"input":"\\begin{pmatrix} a & b \\\\ \\end{pmatrix}"}
-{"box":{"depth":0.5,"height":1.0,"width":4.51332},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.51332},"input":"\\begin{align} a &= b \\\\ \\end{align}"}
+{"box":{"depth":0.5,"height":1.0,"width":4.56888},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.56888},"input":"\\begin{align} a &= b \\\\ \\end{align}"}
 {"box":{"depth":1.95,"height":2.45,"width":0.52859},"displayList":{"depth":1.95,"height":2.45,"itemCount":2,"width":0.52859},"input":"\\begin{matrix} a \\\\[2em] b \\end{matrix}"}
 {"box":{"depth":0.95,"height":1.45,"width":0.52859},"displayList":{"depth":0.95,"height":1.45,"itemCount":2,"width":0.52859},"input":"\\begin{matrix} a \\\\[-3pt] b \\end{matrix}"}
-{"box":{"depth":1.6,"height":2.1,"width":4.60464},"displayList":{"depth":1.6,"height":2.1,"itemCount":12,"width":4.60464},"input":"\\begin{align} a &= b \\\\[1em] c &= d \\end{align}"}
+{"box":{"depth":1.6,"height":2.1,"width":4.6602},"displayList":{"depth":1.6,"height":2.1,"itemCount":12,"width":4.6602},"input":"\\begin{align} a &= b \\\\[1em] c &= d \\end{align}"}
 {"box":{"depth":2.1,"height":2.6,"width":2.80637},"displayList":{"depth":2.1,"height":2.6,"itemCount":8,"width":2.80637},"input":"\\begin{gather} a \\\\[2em] b \\end{gather}"}
-{"box":{"depth":0.5,"height":1.0,"width":4.01332},"displayList":{"depth":0.5,"height":1.0,"itemCount":5,"width":4.01332},"input":"\\begin{align} a &= b \\tag{} \\end{align}"}
-{"box":{"depth":0.5,"height":1.0,"width":5.07293},"displayList":{"depth":0.5,"height":1.0,"itemCount":7,"width":5.07293},"input":"\\begin{align} a &= b \\tag*{star} \\end{align}"}
-{"box":{"depth":1.25,"height":1.75,"width":4.51691},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":4.51691},"input":"\\begin{equation} \\begin{split} a &= b \\\\ &= c \\end{split} \\end{equation}"}
-{"box":{"depth":1.25,"height":1.75,"width":4.86992},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.86992},"input":"\\begin{align} x &= y \\nonumber \\\\ z &= w \\end{align}"}
-{"box":{"depth":0.5,"height":1.0,"width":6.30721},"displayList":{"depth":0.5,"height":1.0,"itemCount":9,"width":6.30721},"input":"\\begin{alignedat}{3} a &= b & c &= d & e &= f \\end{alignedat}"}
-{"box":{"depth":1.25,"height":1.75,"width":3.24353},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":3.24353},"input":"\\begin{aligned}[t] a &= b \\\\ c &= d \\end{aligned}"}
-{"box":{"depth":1.25,"height":1.75,"width":3.31159},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":3.31159},"input":"\\begin{aligned}[b] a &= b \\\\ c &= d \\end{aligned}"}
+{"box":{"depth":0.5,"height":1.0,"width":4.06888},"displayList":{"depth":0.5,"height":1.0,"itemCount":5,"width":4.06888},"input":"\\begin{align} a &= b \\tag{} \\end{align}"}
+{"box":{"depth":0.5,"height":1.0,"width":5.12849},"displayList":{"depth":0.5,"height":1.0,"itemCount":7,"width":5.12849},"input":"\\begin{align} a &= b \\tag*{star} \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.57247},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":4.57247},"input":"\\begin{equation} \\begin{split} a &= b \\\\ &= c \\end{split} \\end{equation}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.92548},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.92548},"input":"\\begin{align} x &= y \\nonumber \\\\ z &= w \\end{align}"}
+{"box":{"depth":0.5,"height":1.0,"width":6.97388},"displayList":{"depth":0.5,"height":1.0,"itemCount":9,"width":6.97388},"input":"\\begin{alignedat}{3} a &= b & c &= d & e &= f \\end{alignedat}"}
+{"box":{"depth":1.25,"height":1.75,"width":3.29909},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":3.29909},"input":"\\begin{aligned}[t] a &= b \\\\ c &= d \\end{aligned}"}
+{"box":{"depth":1.25,"height":1.75,"width":3.36715},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":3.36715},"input":"\\begin{aligned}[b] a &= b \\\\ c &= d \\end{aligned}"}
 {"error":true,"input":"\\begin{array}{@{}l@{\\quad}r@{}} a & b \\end{array}","message":"ParseError: Unknown column alignment: @"}
 {"error":true,"input":"\\begin{array}{cc} \\a & b \\end{array}","message":"ParseError at position 18: Undefined control sequence: \\a"}
 {"box":{"depth":0.35,"height":0.85,"width":2.95776},"displayList":{"depth":0.35,"height":0.85,"itemCount":2,"width":2.95776},"input":"\\begin{darray}{cc} a & b \\end{darray}"}
@@ -842,7 +842,7 @@
 {"box":{"depth":0.35001,"height":0.85,"width":3.69446},"displayList":{"depth":0.35001,"height":0.85,"itemCount":5,"width":3.69446},"input":"\\begin{pmatrix*} -1 & 2 \\end{pmatrix*}"}
 {"error":true,"input":"\\hdashline x","message":"ParseError: \\hdashline valid only within array environment"}
 {"error":true,"input":"\\begin{array}{c} a \\\\ \\hdashline b \\\\ \\cdashline{1} c \\end{array}","message":"ParseError at position 38: Undefined control sequence: \\cdashline"}
-{"box":{"depth":1.25,"height":1.75,"width":6.55905},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":6.55905},"input":"\\begin{alignat}{2} x &= y & a &= b \\\\ &= z & &= c \\end{alignat}"}
+{"box":{"depth":1.25,"height":1.75,"width":7.00349},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":7.00349},"input":"\\begin{alignat}{2} x &= y & a &= b \\\\ &= z & &= c \\end{alignat}"}
 {"box":{"depth":0.25,"height":0.75,"width":3.70881},"displayList":{"depth":0.25,"height":0.75,"itemCount":6,"width":3.70881},"input":"\\tag{5} x = y"}
 {"box":{"depth":1.25,"height":1.75,"width":2.81922},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":2.81922},"input":"\\begin{gather} a \\tag{g} \\\\ b \\end{gather}"}
 {"box":{"depth":0.35,"height":0.85,"width":2.65568},"displayList":{"depth":0.35,"height":0.85,"itemCount":4,"width":2.65568},"input":"\\begin{equation} a \\tag*{[x]} \\end{equation}"}
@@ -1011,15 +1011,15 @@
 {"box":{"depth":0.5,"height":1.0,"width":0.52859},"displayList":{"depth":0.5,"height":1.0,"itemCount":1,"width":0.52859},"input":"\\begin{align} a \\notag \\end{align}"}
 {"box":{"depth":0.5,"height":1.0,"width":2.66748},"displayList":{"depth":0.5,"height":1.0,"itemCount":4,"width":2.66748},"input":"\\begin{align*} a \\tag{t} \\end{align*}"}
 {"box":{"depth":0.95,"height":1.45,"width":0.52859},"displayList":{"depth":0.95,"height":1.45,"itemCount":1,"width":0.52859},"input":"\\begin{matrix} a \\\\ {} \\end{matrix}"}
-{"box":{"depth":0.5,"height":1.0,"width":4.51332},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.51332},"input":"\\begin{align} a &= b \\\\ & \\end{align}"}
-{"box":{"depth":1.25,"height":1.75,"width":4.51332},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":4.51332},"input":"\\begin{align} a &= b \\\\ &= {} \\end{align}"}
+{"box":{"depth":0.5,"height":1.0,"width":4.56888},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.56888},"input":"\\begin{align} a &= b \\\\ & \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.56888},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":4.56888},"input":"\\begin{align} a &= b \\\\ &= {} \\end{align}"}
 {"box":{"depth":0.35,"height":0.85,"width":1.52859},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":1.52859},"input":"\\begin{array}c a \\end{array}"}
 {"box":{"depth":0.35,"height":0.85,"width":1.52859},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":1.52859},"input":"\\begin{array}l a \\end{array}"}
 {"error":true,"input":"\\begin{array}{\\frac{a}{b}} x \\end{array}","message":"ParseError: Expected column alignment character"}
 {"error":true,"input":"\\begin{array}5 a \\end{array}","message":"ParseError: Unknown column alignment: 5"}
 {"box":{"depth":1.25,"height":1.75,"width":3.75962},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":3.75962},"input":"\\begin{alignat}{2} a \\\\ b & c & d \\end{alignat}"}
-{"box":{"depth":0.5,"height":1.0,"width":1.72385},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":1.72385},"input":"\\begin{aligned} a & b & c \\end{aligned}"}
-{"box":{"depth":0.5,"height":1.0,"width":2.83497},"displayList":{"depth":0.5,"height":1.0,"itemCount":4,"width":2.83497},"input":"\\begin{aligned} a &= b & c \\end{aligned}"}
+{"box":{"depth":0.5,"height":1.0,"width":2.39052},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.39052},"input":"\\begin{aligned} a & b & c \\end{aligned}"}
+{"box":{"depth":0.5,"height":1.0,"width":3.72386},"displayList":{"depth":0.5,"height":1.0,"itemCount":4,"width":3.72386},"input":"\\begin{aligned} a &= b & c \\end{aligned}"}
 {"box":{"depth":1.48367,"height":1.05001,"width":2.18265},"displayList":{"depth":1.48367,"height":1.05001,"itemCount":3,"width":2.18265},"input":"\\sum_{\\begin{subarray}c i \\end{subarray}} x"}
 {"box":{"depth":0.05,"height":0.55,"width":0.37001},"displayList":{"depth":0.05,"height":0.55,"itemCount":1,"width":0.37001},"input":"\\begin{subarray}c a \\end{subarray}"}
 {"error":true,"input":"\\begin{subarray}{\\frac{a}{b}} x \\end{subarray}","message":"ParseError: Expected column alignment character"}
@@ -1278,7 +1278,7 @@
 {"box":{"depth":0.0,"height":0.79444,"width":1.83334},"displayList":{"depth":0.3,"height":0.79444,"itemCount":4,"width":1.83334},"input":"\\angl{n \\text{ka}}"}
 {"error":true,"input":"\\actuarialangle","message":"ParseError at position 0: Undefined control sequence: \\actuarialangle"}
 {"error":true,"input":"\\begin{array}{c} \\multicolumn{1}{c}{x} \\end{array}","message":"ParseError at position 17: Undefined control sequence: \\multicolumn"}
-{"box":{"depth":0.5,"height":1.0,"width":2.44445},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.44445},"input":"\\begin{align} & \\end{align}"}
+{"box":{"depth":0.5,"height":1.0,"width":2.27778},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.27778},"input":"\\begin{align} & \\end{align}"}
 {"box":{"depth":0.5,"height":1.0,"width":2.27778},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.27778},"input":"\\begin{align} \\\\ \\end{align}"}
 {"box":{"depth":0.5,"height":1.0,"width":2.27778},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.27778},"input":"\\begin{gather} \\\\ \\end{gather}"}
 {"box":{"depth":0.5,"height":1.0,"width":2.27778},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.27778},"input":"\\begin{alignat}{2} & \\end{alignat}"}
@@ -1326,14 +1326,14 @@
 {"box":{"depth":0.686,"height":1.10756,"width":0.76859},"displayList":{"depth":0.686,"height":1.10756,"itemCount":3,"width":0.76859},"input":"\\genfrac{}{}{}4{a}{b}"}
 {"box":{"depth":0.686,"height":1.10756,"width":0.76859},"displayList":{"depth":0.686,"height":1.10756,"itemCount":3,"width":0.76859},"input":"\\genfrac{{(}}{{)}}{}{0}{a}{b}"}
 {"box":{"depth":0.95003,"height":1.45,"width":1.2647},"displayList":{"depth":0.95003,"height":1.45,"itemCount":4,"width":1.2647},"input":"\\genfrac{{(}}{)}{}0{a}{b}"}
-{"box":{"depth":0.5,"height":1.0,"width":4.63324},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.63324},"input":"\\begin{aligned} a &= b & c &= d \\end{aligned}"}
-{"box":{"depth":0.5,"height":1.0,"width":7.14054},"displayList":{"depth":0.5,"height":1.0,"itemCount":9,"width":7.14054},"input":"\\begin{aligned} a &= b & c &= d & e &= f \\end{aligned}"}
-{"box":{"depth":0.5,"height":1.0,"width":4.51332},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.51332},"input":"\\begin{align} \\textstyle a &= b \\end{align}"}
+{"box":{"depth":0.5,"height":1.0,"width":5.57768},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":5.57768},"input":"\\begin{aligned} a &= b & c &= d \\end{aligned}"}
+{"box":{"depth":0.5,"height":1.0,"width":8.97388},"displayList":{"depth":0.5,"height":1.0,"itemCount":9,"width":8.97388},"input":"\\begin{aligned} a &= b & c &= d & e &= f \\end{aligned}"}
+{"box":{"depth":0.5,"height":1.0,"width":4.56888},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.56888},"input":"\\begin{align} \\textstyle a &= b \\end{align}"}
 {"box":{"depth":1.25,"height":1.75,"width":2.75351},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":2.75351},"input":"\\begin{gather} \\small a \\\\ b \\end{gather}"}
 {"box":{"depth":0.35,"height":0.85,"width":0.52859},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":0.52859},"input":"\\let\\arraystretch=\\relax\\begin{matrix}a\\end{matrix}"}
 {"box":{"depth":0.35,"height":0.85,"width":0.52859},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":0.52859},"input":"\\def\\arraystretch{}\\begin{matrix}a\\end{matrix}"}
 {"box":{"depth":2.75,"height":3.25,"width":2.27859},"displayList":{"depth":2.768,"height":3.25,"itemCount":4,"width":2.27859},"input":"\\def\\arraystretch{2.5}\\begin{pmatrix}a\\\\b\\end{pmatrix}"}
-{"box":{"depth":1.25,"height":1.75,"width":4.60464},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.60464},"input":"\\begin{align} a &= b \\notag \\\\ c &= d \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.6602},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.6602},"input":"\\begin{align} a &= b \\notag \\\\ c &= d \\end{align}"}
 {"box":{"depth":1.25,"height":1.75,"width":2.80637},"displayList":{"depth":1.25,"height":1.75,"itemCount":5,"width":2.80637},"input":"\\begin{align} a \\nonumber \\\\ b \\end{align}"}
 {"box":{"depth":0.22222,"height":0.43056,"width":2.35},"displayList":{"depth":0.22222,"height":0.43056,"itemCount":4,"width":2.35},"input":"\\texttt{gy pq}"}
 {"box":{"depth":0.0,"height":0.86786,"width":0.30556},"displayList":{"depth":0.0,"height":0.86786,"itemCount":1,"width":0.30556},"input":"\\texttt{\\raisebox{2pt}{j}}"}
@@ -1342,9 +1342,9 @@
 {"box":{"depth":0.35,"height":0.85,"width":0.52859},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":0.52859},"input":"\\let\\arraystretch=\\ce\\begin{matrix}a\\end{matrix}"}
 {"box":{"depth":0.5,"height":1.0,"width":2.80637},"displayList":{"depth":0.5,"height":1.0,"itemCount":4,"width":2.80637},"input":"\\begin{align} {a} \\end{align}"}
 {"box":{"depth":1.25,"height":1.75,"width":3.23554},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":3.23554},"input":"\\begin{gather} {\\displaystyle a b} \\\\ c \\end{gather}"}
-{"box":{"depth":1.25,"height":1.75,"width":4.60464},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.60464},"input":"\\begin{align} \\displaystyle a &= b \\\\ c &= d \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.6602},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.6602},"input":"\\begin{align} \\displaystyle a &= b \\\\ c &= d \\end{align}"}
 {"box":{"depth":0.5,"height":1.0,"width":3.6683},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":3.6683},"input":"\\begin{gather} \\displaystyle a b c \\end{gather}"}
-{"box":{"depth":0.5,"height":1.0,"width":4.51332},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.51332},"input":"\\begin{align} a &= {b \\nonumber} \\end{align}"}
+{"box":{"depth":0.5,"height":1.0,"width":4.56888},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.56888},"input":"\\begin{align} a &= {b \\nonumber} \\end{align}"}
 {"box":{"depth":0.35,"height":0.85,"width":0.57153},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":0.57153},"input":"\\begin{equation} x \\nonumber \\end{equation}"}
 {"box":{"depth":0.35,"height":0.85,"width":0.57153},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":0.57153},"input":"\\begin{equation} x \\notag \\end{equation}"}
 {"box":{"depth":1.25,"height":1.75,"width":2.84931},"displayList":{"depth":1.25,"height":1.75,"itemCount":5,"width":2.84931},"input":"\\begin{gather} x \\nonumber \\\\ y \\end{gather}"}

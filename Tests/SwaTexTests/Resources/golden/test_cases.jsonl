@@ -31,12 +31,12 @@
 {"box":{"depth":0.0,"height":0.69444,"width":0.61111},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\alef"}
 {"box":{"depth":0.0,"height":0.69444,"width":0.61111},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\alefsym"}
 {"box":{"depth":0.0,"height":0.69444,"width":0.61111},"displayList":{"depth":0.0,"height":0.69444,"itemCount":1,"width":0.61111},"input":"\\aleph"}
-{"box":{"depth":1.25,"height":1.75,"width":5.57028},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.57028},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
-{"box":{"depth":1.25,"height":1.75,"width":5.57028},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.57028},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
-{"box":{"depth":1.25,"height":1.75,"width":5.57028},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.57028},"input":"\\begin{aligned} a&=b+c \\\\ d+e&=f \\end{aligned}"}
-{"box":{"depth":1.25,"height":1.75,"width":5.48658},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":5.48658},"input":"\\begin{alignat*}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignat*}"}
-{"box":{"depth":1.25,"height":1.75,"width":5.48658},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":5.48658},"input":"\\begin{alignat*}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignat*}"}
-{"box":{"depth":1.25,"height":1.75,"width":5.48658},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":5.48658},"input":"\\begin{alignedat}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignedat}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.62583},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.62583},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.62583},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.62583},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.62583},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.62583},"input":"\\begin{aligned} a&=b+c \\\\ d+e&=f \\end{aligned}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.70881},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":5.70881},"input":"\\begin{alignat*}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignat*}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.70881},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":5.70881},"input":"\\begin{alignat*}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignat*}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.70881},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":5.70881},"input":"\\begin{alignedat}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignedat}"}
 {"box":{"depth":0.0,"height":0.68333,"width":0.75},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.75},"input":"\\Alpha"}
 {"box":{"depth":0.0,"height":0.43056,"width":0.6434},"displayList":{"depth":0.0,"height":0.43056,"itemCount":1,"width":0.6434},"input":"\\alpha"}
 {"box":{"depth":0.0,"height":0.68333,"width":0.75},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.75},"input":"\\amalg"}
@@ -548,10 +548,10 @@
 {"box":{"depth":0.25142,"height":0.74111,"width":0.27778},"displayList":{"depth":0.25142,"height":0.74111,"itemCount":1,"width":0.27778},"input":"\\nmid"}
 {"box":{"depth":0.0,"height":0.69444,"width":1.20776},"displayList":{"depth":0.0,"height":0.69444,"itemCount":2,"width":1.20776},"input":"a\\nobreakspace b"}
 {"box":{"depth":0.15,"height":0.69444,"width":1.83897},"displayList":{"depth":0.15,"height":0.69444,"itemCount":4,"width":1.83897},"input":"\\lim\\nolimits_x"}
-{"box":{"depth":1.25,"height":1.75,"width":5.57028},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.57028},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.62583},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.62583},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
 {"box":{"depth":0.0,"height":0.69444,"width":5.07647},"displayList":{"depth":0.0,"height":0.69444,"itemCount":10,"width":5.07647},"input":"\\normalsize normalsize"}
 {"box":{"depth":0.19444,"height":0.69444,"width":0.77778},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":2,"width":0.77778},"input":"\\not ="}
-{"box":{"depth":1.25,"height":1.75,"width":5.57028},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.57028},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
+{"box":{"depth":1.25,"height":1.75,"width":5.62583},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":5.62583},"input":"\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}"}
 {"box":{"depth":0.25,"height":0.75,"width":0.66667},"displayList":{"depth":0.25,"height":0.75,"itemCount":2,"width":0.66667},"input":"\\notin"}
 {"box":{"depth":0.19444,"height":0.69444,"width":0.66667},"displayList":{"depth":0.19444,"height":0.69444,"itemCount":2,"width":0.66667},"input":"\\notni"}
 {"box":{"depth":0.25142,"height":0.74111,"width":0.5},"displayList":{"depth":0.25142,"height":0.74111,"itemCount":1,"width":0.5},"input":"\\nparallel"}
@@ -737,7 +737,7 @@
 {"box":{"depth":0.12963,"height":0.69444,"width":0.77778},"displayList":{"depth":0.12963,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\spades"}
 {"box":{"depth":0.12963,"height":0.69444,"width":0.77778},"displayList":{"depth":0.12963,"height":0.69444,"itemCount":1,"width":0.77778},"input":"\\spadesuit"}
 {"box":{"depth":0.03517,"height":0.52239,"width":0.72222},"displayList":{"depth":0.03517,"height":0.52239,"itemCount":1,"width":0.72222},"input":"\\sphericalangle"}
-{"box":{"depth":1.25,"height":1.75,"width":4.09145},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.09145},"input":"\\begin{equation*} \\begin{split} a &=b+c\\\\ &=e+f \\end{split} \\end{equation*}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.14701},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.14701},"input":"\\begin{equation*} \\begin{split} a &=b+c\\\\ &=e+f \\end{split} \\end{equation*}"}
 {"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\sqcap"}
 {"box":{"depth":0.0,"height":0.55556,"width":0.66667},"displayList":{"depth":0.0,"height":0.55556,"itemCount":1,"width":0.66667},"input":"\\sqcup"}
 {"box":{"depth":0.0,"height":0.675,"width":0.77778},"displayList":{"depth":0.0,"height":0.675,"itemCount":1,"width":0.77778},"input":"\\square"}
@@ -989,10 +989,10 @@
 {"box":{"depth":0.0,"height":0.92,"width":4.0},"displayList":{"depth":0.0,"height":0.92,"itemCount":4,"width":4.0},"input":"\\text{😊🎉✅⭐}"}
 {"box":{"depth":0.36205,"height":0.86205,"width":3.83995},"displayList":{"depth":0.36205,"height":0.86205,"itemCount":5,"width":3.83995},"input":"\\begin{equation*} E=mc^2 \\end{equation*}"}
 {"box":{"depth":0.36205,"height":0.86205,"width":6.11773},"displayList":{"depth":0.36205,"height":0.86205,"itemCount":8,"width":6.11773},"input":"\\begin{equation} E=mc^2 \\end{equation}"}
-{"box":{"depth":1.25,"height":1.75,"width":4.62709},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.62709},"input":"\\begin{align} x &= 1 \\\\ y &= 2 \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.68265},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.68265},"input":"\\begin{align} x &= 1 \\\\ y &= 2 \\end{align}"}
 {"box":{"depth":1.25,"height":1.75,"width":4.56888},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.56888},"input":"\\begin{gather} a=b \\\\ c=d \\end{gather}"}
-{"box":{"depth":1.25,"height":1.75,"width":4.62709},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.62709},"input":"\\begin{align} x &= 1 \\nonumber \\\\ y &= 2 \\end{align}"}
-{"box":{"depth":1.25,"height":1.75,"width":7.3249},"displayList":{"depth":1.25,"height":1.75,"itemCount":17,"width":7.3249},"input":"\\begin{align} x &= 1 \\tag{custom} \\\\ y &= 2 \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.68265},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.68265},"input":"\\begin{align} x &= 1 \\nonumber \\\\ y &= 2 \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":7.38046},"displayList":{"depth":1.25,"height":1.75,"itemCount":17,"width":7.38046},"input":"\\begin{align} x &= 1 \\tag{custom} \\\\ y &= 2 \\end{align}"}
 {"box":{"depth":0.97003,"height":1.59901,"width":3.78692},"displayList":{"depth":0.97003,"height":1.59901,"itemCount":8,"width":3.78692},"input":"\\displaystyle \\iiint_{-\\infty}^{infty}"}
 {"box":{"depth":0.29971,"height":0.80429,"width":2.42017},"displayList":{"depth":0.29971,"height":0.80429,"itemCount":5,"width":2.42017},"input":"\\textstyle\\sum_{n=1}^{\\infty}"}
 {"box":{"depth":1.04711,"height":1.4314,"width":1.31461},"displayList":{"depth":1.04711,"height":1.4314,"itemCount":5,"width":1.31461},"input":"\\textstyle\\sum\\limits_{n=1}^{\\infty}"}

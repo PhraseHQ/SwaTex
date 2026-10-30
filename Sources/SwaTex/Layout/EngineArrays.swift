@@ -14,14 +14,13 @@ func layoutArray(
     let arrayskip = arraystretch * baselineskip
     let arstrutH = 0.7 * arrayskip
     let arstrutD = 0.3 * arrayskip
-    // align/aligned/alignedat: use thin space (3mu) so "x" and "=" are closer,
-    // and cap relation spacing in cells to 3mu so spacing before/after "=" is equal.
-    let alignRelationMu = 3.0
+    // align/alignat: no \arraycolsep between columns, as in KaTeX; each
+    // column's own pregap/postgap applies instead (see `columnGaps` below).
+    // Relation spacing inside the cells is the ordinary thickmuskip, so
+    // `a &= b` is spaced like `a = b`.
     let colGap: Double =
         switch colSeparationType {
-        case "align":
-            muToEm(alignRelationMu, quad: metrics.quad)
-        case "alignat":
+        case "align", "alignat":
             0.0
         case "small":
             // smallmatrix: 2 × thickspace × (script_multiplier / current_multiplier)
@@ -31,10 +30,7 @@ func layoutArray(
         default:
             2.0 * 5.0 * pt  // 2 × arraycolsep
         }
-    var cellOptions = options
-    if colSeparationType == "align" || colSeparationType == "alignat" {
-        cellOptions.alignRelationSpacing = alignRelationMu
-    }
+    let cellOptions = options
 
     let numRows = body.count
     if numRows == 0 {
@@ -42,6 +38,21 @@ func layoutArray(
     }
 
     let numCols = body.map(\.count).max() ?? 0
+
+    // Space between column c and c + 1 for align/alignat: postgap of c plus
+    // pregap of c + 1 (KaTeX's array builder). `aligned` gives every column
+    // pair after the first a 1 em pregap (one \quad); `alignat` gives none.
+    let columnGaps: [Double] = {
+        guard colSeparationType == "align" || colSeparationType == "alignat", numCols > 1 else {
+            return []
+        }
+        let specs = (cols ?? []).filter { $0.alignType == .align }
+        return (1..<numCols).map { c in
+            let postgap = c - 1 < specs.count ? specs[c - 1].postgap ?? 0 : 0
+            let pregap = c < specs.count ? specs[c].pregap ?? 0 : 0
+            return postgap + pregap
+        }
+    }()
 
     // Extract per-column alignment and column separators from cols spec.
     let colAligns: [Character] = {
@@ -168,7 +179,8 @@ func layoutArray(
     // Width of the cell grid including horizontal padding (no tag column).
     let arrayInnerWidth =
         colWidths.reduce(0, +)
-        + colGap * Double(numCols > 0 ? numCols - 1 : 0)
+        + (columnGaps.isEmpty
+            ? colGap * Double(numCols > 0 ? numCols - 1 : 0) : columnGaps.reduce(0, +))
         + 2.0 * contentXOffset
 
     var rowTagBoxes = [LayoutBox?](repeating: nil, count: numRows)
@@ -215,7 +227,8 @@ func layoutArray(
                 tagGapEm: tagGapEm,
                 tagColWidth: tagColWidth,
                 rowTags: rowTagBoxes,
-                tagsLeft: tagsLeft)),
+                tagsLeft: tagsLeft,
+                columnGaps: columnGaps)),
         color: options.color)
 }
 

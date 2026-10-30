@@ -407,12 +407,10 @@ private func emitBox(
         }
 
         // Draw vertical column separator lines ('|' = solid, ':' = dashed).
-        // Separator at position i has local x = content_x_offset - col_gap/2 + sum(col_widths[..i]) + col_gap * i.
-        let colGapHalf = a.colGap / 2.0
+        // The position lives in ArrayLayout so this recursive function's frame stays small.
         for (i, sep) in a.colSeparators.enumerated() {
             if let isDashed = sep {
-                let prefixW = a.colWidths[..<i].reduce(0.0, +)
-                let localX = a.contentXOffset - colGapHalf + prefixW + a.colGap * Double(i)
+                let localX = a.separatorX(before: i)
                 let absX = x + localX * scale - lineThickness / 2.0
                 if isDashed {
                     // Dashed vertical line: draw segments (dash=4t, gap=4t) top to bottom.
@@ -455,7 +453,7 @@ private func emitBox(
                     depth: depth + 1, truncated: &truncated)
                 curX += cw * scale
                 if c + 1 < row.count {
-                    curX += a.colGap * scale
+                    curX += a.gap(after: c) * scale
                 }
             }
             if a.tagColWidth > 0.0 {

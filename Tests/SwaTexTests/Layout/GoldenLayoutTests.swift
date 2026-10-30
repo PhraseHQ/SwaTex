@@ -10,6 +10,15 @@ import Testing
 /// `target/release/ratex-layout < tests/golden/<corpus>.txt`). Every formula's
 /// box metrics and display-list summary must match the Rust engine **exactly**
 /// (both engines round to 5 decimals).
+///
+/// EXCEPTIONS — do NOT blindly regenerate from RaTeX: the 12 align-family
+/// entries in `test_cases.jsonl` (`align`, `aligned`, `alignat`, `alignedat`,
+/// `split`) carry SwaTex's KaTeX-correct widths. RaTeX caps relation spacing
+/// at 3 mu there and, outside `alignat`, adds a 3 mu column gap; KaTeX uses no
+/// gap inside a column pair, one \quad between pairs in `aligned`, and the
+/// ordinary thickmuskip.
+/// Pinned by `LayoutFixRegressionTests`; regeneration must preserve them (see
+/// README "Known limitations").
 @Suite("GoldenLayout")
 struct GoldenLayoutTests {
     struct Fixture: Decodable {

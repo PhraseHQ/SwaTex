@@ -4,8 +4,9 @@ import Testing
 
 /// Regression tests for layout-correctness fixes that intentionally diverge
 /// from the RaTeX (Rust) reference, aligning with KaTeX/TeX instead:
-/// `\cancel` body registration, `\vcenter` ink movement, and TeXbook Rule 5
-/// bin cancellation over effective (already-resolved) classes.
+/// `\cancel` body registration, `\vcenter` ink movement, TeXbook Rule 5
+/// bin cancellation over effective (already-resolved) classes, and the
+/// column and relation spacing of align environments.
 @Suite("LayoutFixRegression")
 struct LayoutFixRegressionTests {
     private func displayList(_ latex: String) throws -> DisplayList {
@@ -131,5 +132,66 @@ struct LayoutFixRegressionTests {
         #expect(
             ink.glyphs + ink.paths >= n,
             "all \(n) \\middle bars must render ink, got \(ink)")
+    }
+
+    /// Horizontal advance from the glyph before `char` to `char`, and from
+    /// `char` to the glyph after it (the first `char` from the end).
+    private func spacing(around char: Character, in latex: String) throws -> (
+        before: Double, after: Double
+    ) {
+        let xs = try glyphs(displayList(latex)).sorted { $0.x < $1.x }
+        let code = try #require(char.unicodeScalars.first).value
+        let index = try #require(xs.lastIndex { $0.char == code })
+        try #require(index > 0 && index + 1 < xs.count)
+        return (xs[index].x - xs[index - 1].x, xs[index + 1].x - xs[index].x)
+    }
+
+    /// KaTeX sets `a &= b` in aligned like `a = b`: no column gap inside the
+    /// pair and a thickmuskip on both sides of the relation. Regression (from
+    /// RaTeX): a 3 mu cap on relation spacing, plus a 3 mu column gap outside
+    /// alignat, gave 6 mu before `=` and 3 mu after it (3 mu / 3 mu in
+    /// alignedat), and 3 mu around later relations.
+    @Test func alignSpacesRelationsLikeInlineMath() throws {
+        for (aligned, plain) in [
+            (#"\begin{aligned}a&=b\end{aligned}"#, #"a=b"#),
+            (#"\begin{aligned}x&=b=c\end{aligned}"#, #"x=b=c"#),
+            (#"\begin{align*}a&=b\end{align*}"#, #"a=b"#),
+            (#"\begin{alignedat}{1}a&=b\end{alignedat}"#, #"a=b"#),
+        ] {
+            let inAlign = try spacing(around: "=", in: aligned)
+            let inline = try spacing(around: "=", in: plain)
+            #expect(abs(inAlign.before - inline.before) < 1e-6, "\(aligned)")
+            #expect(abs(inAlign.after - inline.after) < 1e-6, "\(aligned)")
+        }
+    }
+
+    /// KaTeX's aligned puts one \quad (1 em) before every column pair after
+    /// the first; alignedat puts nothing. Regression: aligned used a uniform
+    /// 3 mu gap instead of alternating zero and one-quad gaps.
+    @Test func alignedSeparatesColumnPairsByAQuad() throws {
+        let cChar = UInt32(UInt8(ascii: "c"))
+        let aligned = try #require(
+            glyphs(displayList(#"\begin{aligned}a&=b&c&=d\end{aligned}"#)).first {
+                $0.char == cChar
+            }?.x)
+        let alignedat = try #require(
+            glyphs(displayList(#"\begin{alignedat}{2}a&=b&c&=d\end{alignedat}"#)).first {
+                $0.char == cChar
+            }?.x)
+        #expect(abs((aligned - alignedat) - 1.0) < 1e-6)
+    }
+
+    /// A vertical rule sits in the middle of the gap in front of its column,
+    /// whether the gaps are uniform (`colGap`) or uneven (`columnGaps`).
+    @Test func separatorsSitInTheMiddleOfTheirGap() {
+        func layout(_ columnGaps: [Double]) -> ArrayLayout {
+            ArrayLayout(
+                cells: [], colWidths: [1, 2, 3], colAligns: ["c", "c", "c"], rowHeights: [],
+                rowDepths: [], colGap: 0.5, offset: 0, columnGaps: columnGaps)
+        }
+        let uniform = layout([])
+        #expect((0...3).map { uniform.separatorX(before: $0) } == [-0.25, 1.25, 3.75, 7.25])
+        let uneven = layout([0, 1])
+        #expect((0...3).map { uneven.separatorX(before: $0) } == [-0.25, 1.0, 3.5, 7.25])
     }
 }

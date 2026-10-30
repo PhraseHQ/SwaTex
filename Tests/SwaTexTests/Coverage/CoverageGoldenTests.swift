@@ -18,9 +18,11 @@ import Testing
 /// EXCEPTIONS — do NOT blindly regenerate from RaTeX: five entries were
 /// hand-edited to KaTeX-correct values where RaTeX shares the original bug
 /// (unterminated `\verb`, `x\limits^2` — now errors; `\vcenter` depths —
-/// now axis-centered ink). They are pinned by LayoutFixRegressionTests /
-/// ParserSpecTests / HardeningTests; regeneration must preserve them (see
-/// README "Known limitations").
+/// now axis-centered ink), and the 30 align-family entries carry SwaTex's
+/// KaTeX-correct column and relation spacing (no RaTeX 3 mu relation cap or
+/// 3 mu column gap; one \quad between `aligned` column pairs). They are
+/// pinned by LayoutFixRegressionTests / ParserSpecTests / HardeningTests;
+/// regeneration must preserve them (see README "Known limitations").
 @Suite("CoverageGolden")
 struct CoverageGoldenTests {
     struct Fixture: Decodable {
