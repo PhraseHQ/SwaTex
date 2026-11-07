@@ -219,6 +219,9 @@ public struct ArrayLayout: Sendable {
     public var rowTags: [LayoutBox?]
     /// When true, tags sit left of the grid (leqno-style).
     public var tagsLeft: Bool
+    /// Space after each column but the last (em) when columns are not evenly
+    /// spaced, as in align environments; empty means `colGap` everywhere.
+    public var columnGaps: [Double]
 
     public init(
         cells: [[LayoutBox]], colWidths: [Double], colAligns: [Character],
@@ -227,7 +230,7 @@ public struct ArrayLayout: Sendable {
         hlinesBeforeRow: [[Bool]] = [], ruleThickness: Double = 0.04,
         doubleRuleSep: Double = 0.2, arrayInnerWidth: Double = 0,
         tagGapEm: Double = 0, tagColWidth: Double = 0, rowTags: [LayoutBox?] = [],
-        tagsLeft: Bool = false
+        tagsLeft: Bool = false, columnGaps: [Double] = []
     ) {
         self.cells = cells
         self.colWidths = colWidths
@@ -246,6 +249,26 @@ public struct ArrayLayout: Sendable {
         self.tagColWidth = tagColWidth
         self.rowTags = rowTags
         self.tagsLeft = tagsLeft
+        self.columnGaps = columnGaps
+    }
+
+    /// The space after `column` (em).
+    public func gap(after column: Int) -> Double {
+        column < columnGaps.count ? columnGaps[column] : colGap
+    }
+
+    /// Local x of the vertical rule before `column`: content_x_offset −
+    /// col_gap/2 + sum(col_widths[..column]) + col_gap × column, or the middle
+    /// of the gap in front of the column when gaps are uneven.
+    public func separatorX(before column: Int) -> Double {
+        let prefixWidth = colWidths[..<column].reduce(0.0, +)
+        guard !columnGaps.isEmpty else {
+            return contentXOffset - colGap / 2.0 + prefixWidth + colGap * Double(column)
+        }
+        var gaps = 0.0
+        for c in 0..<max(column - 1, 0) { gaps += gap(after: c) }
+        return contentXOffset + prefixWidth + gaps
+            + (column > 0 ? gap(after: column - 1) / 2.0 : -colGap / 2.0)
     }
 }
 

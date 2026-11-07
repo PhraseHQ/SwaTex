@@ -183,7 +183,10 @@ between the engines. Every number is reproducible with the commands in
   math axis; `\gdef`/`\xdef` survive group exit; zero-arg delimited
   `\def` macros validate and consume their parameter text; `\middle`
   nested deeper than 8 `\left…\right` stretch scopes renders at natural
-  (unstretched) size.
+  (unstretched) size; align-family environments space relations with the
+  ordinary thickmuskip, put no gap inside a column pair and one `\quad`
+  between `aligned` pairs (RaTeX caps relation spacing at 3 mu and, outside
+  `alignat`, adds a 3 mu column gap, so `a &= b` came out 6 mu / 3 mu).
 - Shared with KaTeX/RaTeX upstream: `\begin{alignat}{N}` does not bound
   `N`; hostile inputs should be length-limited by the host app. Deeply
   nested input is guarded (recursion count + stack headroom → parse

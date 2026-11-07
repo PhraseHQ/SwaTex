@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+- `align`, `aligned`, `alignat`, `alignedat` and `split` now space columns
+  and relations as KaTeX does. `a &= b` gets a thickmuskip (5 mu) on both
+  sides of `=`, like `a = b`, instead of 6 mu before and 3 mu after (3 mu
+  on both sides in `alignat`); relations later in a cell get 5 mu instead of
+  3 mu; and `aligned` puts one `\quad` between column pairs instead of 3 mu. These are KaTeX-correct
+  divergences from RaTeX; the 42 affected golden fixtures were updated and
+  are pinned by `LayoutFixRegressionTests`.
+
+### API
+- `ArrayLayout.columnGaps` (with `gap(after:)` and `separatorX(before:)`)
+  carries per-column spacing when columns are not evenly spaced. It defaults
+  to empty, which keeps the uniform `colGap`.
+
 ## 0.5.0 — 2026-07-22
 
 Performance and assurance release: the engine drops from 14.1 to

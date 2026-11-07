@@ -2,8 +2,9 @@
 public struct LayoutOptions: Sendable {
     public var style: MathStyle
     public var color: Color
-    /// When set (e.g. in align/aligned), cap relation spacing to this many mu
-    /// for consistency.
+    /// When set, cap relation spacing to this many mu. The engine itself no
+    /// longer sets it: align environments use the ordinary thickmuskip, as
+    /// KaTeX does.
     public var alignRelationSpacing: Double?
     /// When inside `\left...\right`, the stretch height for `\middle`
     /// delimiters (second pass only).
