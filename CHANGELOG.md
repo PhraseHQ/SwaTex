@@ -30,6 +30,11 @@
   row now renders at the grid's right edge instead of being dropped
   (`\begin{array}{ll|}` with one cell). Verified against KaTeX 0.16.11 in a
   browser.
+- `\char` rejects a first digit outside its base, as KaTeX does
+  (`Invalid base-16 digit Z`). It was read as zero, so the command drew
+  U+0000 and left the rest to render as text: `\char"ZZ` produced a NUL
+  glyph followed by "ZZ", and a bare `\char` drew U+0000. Every `\char`
+  form in the golden corpora uses a valid digit, so no fixture changed.
 - An `\fbox` / `\boxed` border inherits the formula color instead of always
   painting black, so `\textcolor{red}{\fbox{x}}` frames red ink in red.
   KaTeX gives the border no color of its own unless one is named, so it

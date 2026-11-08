@@ -46,6 +46,23 @@ struct HardeningTests {
         #expect(error?.message.contains("invalid code point") == true, "\(error?.message ?? "")")
     }
 
+    /// KaTeX throws `Invalid base-${base} digit ${token.text}` when `\char`'s
+    /// first token is not a digit in the base (macros.js). Reading it as zero
+    /// instead drew U+0000 and left the rest to render as text, so
+    /// `\char"ZZ` produced a NUL glyph followed by "ZZ".
+    @Test(arguments: [
+        (#"\char"ZZ"#, "Invalid base-16 digit Z"),
+        (#"\char'99"#, "Invalid base-8 digit 9"),
+        (#"\char""#, "Invalid base-16 digit EOF"),
+        (#"\char"#, "Invalid base-10 digit EOF"),
+    ])
+    func charRejectsADigitOutsideItsBase(_ latex: String, _ message: String) {
+        let error = #expect(throws: ParseError.self) {
+            _ = try SwaTexEngine.displayList(for: latex)
+        }
+        #expect(error?.message == message)
+    }
+
     /// The ordinary forms keep working: all three bases and the backtick form
     /// still resolve to "A".
     @Test(arguments: [#"\char65"#, #"\char"41"#, #"\char'101"#, #"\char`A"#])

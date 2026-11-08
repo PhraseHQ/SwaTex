@@ -208,7 +208,7 @@ commands in [BENCHMARKS.md](BENCHMARKS.md):
   black rather than the formula color, and lends a multi-glyph base's last
   italic correction to its subscript (where SwaTex takes one only from a
   symbol base, as KaTeX does, keeping it for `\oiint` / `\oiiint`); RaTeX
-  fixed all five upstream after our fixtures were cut.
+  fixed all six upstream after our fixtures were cut.
 - `\begin{alignat}{N}` bounds `N` at 256 (a deliberate divergence: KaTeX
   and RaTeX leave it unbounded, where a hostile count hangs the process).
   Deeply nested input is guarded the same way (recursion count + stack

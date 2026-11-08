@@ -729,7 +729,14 @@ extension MacroExpander {
             }
 
             if let b = base {
-                number = Double(Int64(tok.text, radix: b) ?? 0)
+                // KaTeX throws `Invalid base-${base} digit ${token.text}` when the
+                // first token is not a digit in the base (macros.js). Reading it
+                // as zero instead drew U+0000 and left the rest to render as
+                // text, so `\char"ZZ` produced a NUL glyph followed by "ZZ".
+                guard let firstDigit = Int64(tok.text, radix: b) else {
+                    throw ParseError("Invalid base-\(b) digit \(tok.text)")
+                }
+                number = Double(firstDigit)
                 while true {
                     let next = me.future().text
                     if let d = Int64(next, radix: b) {
