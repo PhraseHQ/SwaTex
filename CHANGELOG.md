@@ -1,6 +1,20 @@
 # Changelog
 
-## Unreleased
+## 0.6.0 — 2026-11-08
+
+Correctness release. Array layout now resolves every column and vertical
+rule position from one KaTeX-faithful track, which fixes the `align`
+family's column and relation spacing — the largest remaining divergence
+from KaTeX — along with doubled and trailing rules and cells beyond a
+column spec. `\tag`, automatic equation numbers past 9, the `\fbox` border
+color, subscript italic correction, `\char` validation and `alignat` column
+counts now follow KaTeX where the RaTeX reference shared an upstream bug.
+Every deliberate divergence from RaTeX is listed in a machine-readable
+manifest that the cross-engine diff reads, so a regression and an expected
+difference are reported apart. Source-breaking for code that reads
+`ArrayLayout` directly (see API below). All 2 541 cross-engine fixtures
+remain pinned apart from the listed divergences; 846 tests across both
+targets.
 
 ### Fixed
 - `align`, `aligned`, `alignat`, `alignedat` and `split` now space columns
