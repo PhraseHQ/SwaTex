@@ -687,13 +687,22 @@ extension MacroExpander {
         // \char: parse decimal/octal/hex/backtick number → \@char{N}
         m["\\char"] = .function { me throws(ParseError) in
             var tok = me.popToken()
-            var number: Int64 = 0
+            // KaTeX accumulates the literal in a JS number — a double — so it
+            // never wraps: `\char` past the code-point range reaches `\@char`
+            // as a huge value and is rejected there. Accumulating in `Int64`
+            // with wrapping arithmetic (which matched RaTeX's release-mode
+            // `i64`) silently aliased a hostile literal onto a valid glyph:
+            // `\char18446744073709551681` drew "A". RaTeX fixed the same gap
+            // upstream in 872270fa.
+            var number: Double = 0
             let base: Int?
 
-            func atCharTokens(_ number: Int64, loc: SourceLocation) -> [Token] {
-                // Build \@char{N} tokens in reverse (stack order)
+            func atCharTokens(_ number: Double, loc: SourceLocation) -> [Token] {
+                // Build \@char{N} tokens in reverse (stack order). "%.0f"
+                // prints an integral double in full, as JS number→string does
+                // below 1e21, so the value `\@char` reports matches KaTeX's.
                 var result = [Token("}", start: loc.start, end: loc.end)]
-                for ch in String(number).reversed() {
+                for ch in String(format: "%.0f", number).reversed() {
                     result.append(Token(String(ch), start: loc.start, end: loc.end))
                 }
                 result.append(Token("{", start: loc.start, end: loc.end))
@@ -710,9 +719,9 @@ extension MacroExpander {
             } else if tok.text == "`" {
                 tok = me.popToken()
                 if tok.text.hasPrefix("\\") {
-                    number = Int64(tok.text.unicodeScalars.dropFirst().first?.value ?? 0)
+                    number = Double(tok.text.unicodeScalars.dropFirst().first?.value ?? 0)
                 } else {
-                    number = Int64(tok.text.unicodeScalars.first?.value ?? 0)
+                    number = Double(tok.text.unicodeScalars.first?.value ?? 0)
                 }
                 return atCharTokens(number, loc: tok.loc)
             } else {
@@ -720,15 +729,14 @@ extension MacroExpander {
             }
 
             if let b = base {
-                number = Int64(tok.text, radix: b) ?? 0
+                number = Double(Int64(tok.text, radix: b) ?? 0)
                 while true {
                     let next = me.future().text
                     if let d = Int64(next, radix: b) {
                         me.popToken()
-                        // Wrapping arithmetic: an unbounded digit run (e.g.
-                        // `\char9999...`) must not trap; matches the Rust
-                        // release-mode `i64` overflow behavior.
-                        number = number &* Int64(b) &+ d
+                        // Every digit is consumed, as KaTeX does, so the error
+                        // comes from the value and not from leftover tokens.
+                        number = number * Double(b) + Double(d)
                     } else {
                         break
                     }

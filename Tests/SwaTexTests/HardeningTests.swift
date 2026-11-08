@@ -27,6 +27,35 @@ struct HardeningTests {
         #expect(ContinuousClock.now - start < .seconds(1), "must fail fast, not hang")
     }
 
+    /// An overflowing `\char` literal must be rejected, not wrapped onto a
+    /// valid code point. Accumulating in a wrapping `Int64` made
+    /// `\char18446744073709551681` (2^64 + 65) draw "A" silently. KaTeX
+    /// accumulates in a double, so the value stays huge and is rejected by
+    /// range; RaTeX fixed the same gap upstream in 872270fa.
+    @Test(arguments: [
+        #"\char18446744073709551681"#,  // 2^64 + 65: used to render "A"
+        #"\char18446744073709551616"#,  // 2^64: used to render U+0000
+        #"\char"FFFFFFFFFFFFFFFFFF"#,
+        #"\char999999999999999999999"#,
+    ])
+    func overflowingCharLiteralIsRejected(_ latex: String) {
+        let error = #expect(throws: ParseError.self) {
+            _ = try SwaTexEngine.displayList(for: latex)
+        }
+        // Numeric but out of range, so a range error rather than "non-numeric".
+        #expect(error?.message.contains("invalid code point") == true, "\(error?.message ?? "")")
+    }
+
+    /// The ordinary forms keep working: all three bases and the backtick form
+    /// still resolve to "A".
+    @Test(arguments: [#"\char65"#, #"\char"41"#, #"\char'101"#, #"\char`A"#])
+    func ordinaryCharFormsStillResolve(_ latex: String) throws {
+        let plainA = try SwaTexEngine.displayList(for: "A")
+        let list = try SwaTexEngine.displayList(for: latex)
+        #expect(abs(list.width - plainA.width) < 1e-9)
+        #expect(list.items.count == plainA.items.count)
+    }
+
     @Test func alignatAtTheCapStillWorks() throws {
         let list = try SwaTexEngine.displayList(for: #"\begin{alignat}{256}a\end{alignat}"#)
         #expect(list.items.count > 0)

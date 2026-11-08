@@ -30,6 +30,13 @@
   row now renders at the grid's right edge instead of being dropped
   (`\begin{array}{ll|}` with one cell). Verified against KaTeX 0.16.11 in a
   browser.
+- An overflowing `\char` literal is rejected instead of wrapping onto a
+  valid code point. The literal accumulated in a wrapping `Int64` (matching
+  RaTeX's release-mode `i64`), so `\char18446744073709551681` silently drew
+  "A". KaTeX accumulates in a double, leaving the value out of range, and
+  reports it as an invalid code point rather than a non-numeric argument —
+  both of which SwaTex now does. No golden fixture pinned the overflow, so
+  none changed. RaTeX fixed the same gap upstream in `872270fa`.
 - An automatic equation number of two or more digits draws every digit:
   equation 10 is `(10)`, not `(1)`. The number was built as a single symbol
   node, which lays out as one glyph. No golden fixture reaches ten numbered

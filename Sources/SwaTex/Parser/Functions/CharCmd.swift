@@ -30,6 +30,12 @@ private func handleAtChar(
     }
 
     guard let code = UInt32(numberStr) else {
+        // KaTeX reads the argument with `parseInt` and then range-checks it,
+        // so a numeric literal too large for a code point is rejected by
+        // range — only a non-numeric one is "non-numeric".
+        if !numberStr.isEmpty, numberStr.allSatisfy({ $0.isASCII && $0.isNumber }) {
+            throw ParseError("\\@char with invalid code point \(numberStr)")
+        }
         throw ParseError("\\@char has non-numeric argument \(numberStr)")
     }
 
