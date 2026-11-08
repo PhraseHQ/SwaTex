@@ -12,6 +12,15 @@ reads so that an expected divergence is reported apart from a regression.
 Exit status is 0 only when every difference is an expected divergence and every
 expected divergence actually showed up; anything else exits 1.
 
+That exit status is a parity gate only against the RaTeX revision the golden
+fixtures were cut from (see "Provenance" in BENCHMARKS.md). RaTeX's layout
+engine keeps moving, so run against a newer upstream a REGRESSION line may be
+an upstream change SwaTex has not ported rather than a fault here; triage
+before acting. Note too that RaTeX's dump also runs `validate_layout`, its
+output-item resource guard, and prints an error row when the budget is
+exceeded, which `LayoutDump` has no counterpart for — that shows up as an
+`error-mismatch` and needs adversarial input to reach, not a corpus formula.
+
 Usage:
   diff_layout.py <formulas.txt> <rust_layout_bin> <swift_layoutdump_bin>
                  [--tol 1e-4] [--divergences PATH | --no-divergences]

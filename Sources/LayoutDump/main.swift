@@ -1,6 +1,13 @@
 // Differential-testing CLI: reads LaTeX formulas from stdin (one per line) and
-// prints layout metrics as JSON — the exact counterpart of RaTeX's
-// `cargo run --bin layout`, used to diff the two engines.
+// prints layout metrics as JSON, line for line with RaTeX's own dump
+// (`cargo run --release -p ratex-layout --bin ratex-layout`), so that
+// `scripts/diff_layout.py` can diff the two engines.
+//
+// One asymmetry, deliberate: RaTeX's dump also runs `validate_layout`, its
+// output-item resource guard, and prints an error row when the budget is
+// exceeded. That fires only on adversarial input — a corpus formula cannot
+// reach the budget — so the dumps agree over the golden corpus, and this side
+// keeps the guard out of the measured path.
 
 import Foundation
 import SwaTex

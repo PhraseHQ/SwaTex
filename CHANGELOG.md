@@ -49,7 +49,7 @@
   golden suites assert and which it previously ignored. `RaTeXDivergenceTests`
   keeps the manifest in step with the corpora.
 
-### API
+### API (source-breaking for direct callers)
 - `ArrayLayout` now carries an `ArrayTrack` (`columnXs`, `rules`, `width`):
   the resolved x of every column and of every vertical rule, computed once
   at layout time. It replaces `colGap`, `contentXOffset`, `columnGaps`,

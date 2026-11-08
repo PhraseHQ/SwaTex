@@ -39,6 +39,8 @@ done
 
 ```sh
 git clone https://github.com/erweixin/RaTeX && cd RaTeX
+# For a parity diff, check out the revision the fixtures were cut from
+# (see "Provenance" below) — not main, which has moved on.
 cargo build --release -p ratex-layout
 /usr/bin/time -p target/release/ratex-layout < /tmp/corpus80.txt > /dev/null
 ```
@@ -129,7 +131,11 @@ the system frameworks, present in any AppKit test host.
 ## Provenance
 
 - Golden fixtures were generated with RaTeX's `ratex-layout` (built from
-  the RaTeX main branch, 2026-07-08) and are re-checked against the Swift
-  engine on every `swift test`.
+  the RaTeX main branch, 2026-07-08 — `3c7753a`, that day's last commit,
+  in the 0.1.13 series; no commit that day touched `crates/ratex-layout`,
+  so any 2026-07-08 revision lays out identically) and are re-checked
+  against the Swift engine on every `swift test`. Reproduce a cross-engine
+  diff from that revision, not from main: RaTeX's layout engine has moved
+  since, so main reports its own evolution alongside any real regression.
 - The published Rust comparison used the same machine and the same input
   files for both engines, back to back.

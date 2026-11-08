@@ -28,7 +28,12 @@ SwaTex is verified against reference engines, and PRs are held to that:
 - **Cross-engine diff**: `scripts/diff_layout.py <corpus> <ratex-layout>
   <LayoutDump>` reports a regression apart from an expected divergence and
   exits non-zero only on the former, so adding a divergence means adding it
-  to the manifest with a reason and a pinning test.
+  to the manifest with a reason and a pinning test. Build the Rust side at
+  the revision the fixtures were cut from (see “Provenance” in
+  BENCHMARKS.md): RaTeX's layout engine keeps moving, so against a newer
+  upstream a reported difference may be an upstream change SwaTex has not
+  ported rather than a regression here. Triage each one — regression,
+  unported upstream change, or new divergence — before acting on it.
 - **Differential suites** pin hand-written fast paths to their reference
   implementations at runtime: mhchem matchers vs live ICU
   (`MhChemHandMatcherDiffTests`), size scanners vs the original regexes
