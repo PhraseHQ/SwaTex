@@ -1,5 +1,5 @@
 {
-  "comment": "Golden inputs whose fixtures hold SwaTex's KaTeX-correct values instead of the RaTeX reference's. Every other fixture must match RaTeX exactly. Regenerating a corpus from RaTeX overwrites these rows, so the golden suites will fail until the values here are restored -- this file says which rows and why. Each reason is also listed under \"Known limitations\" in the README and pinned by a regression test. scripts/diff_layout.py reads this file to tell an expected divergence from a regression, and RaTeXDivergenceTests keeps it in step with the corpora.",
+  "comment": "Golden inputs whose fixtures hold SwaTex's KaTeX-correct values instead of the RaTeX reference's. Every other fixture must match RaTeX exactly. Regenerating a corpus from RaTeX overwrites these rows, so the golden suites will fail until the values here are restored -- this file says which rows and why. Each reason is also listed under \"Known limitations\" in the README and pinned by a regression test. A row that diverges for more than one reason is listed under one of them, because scripts/diff_layout.py maps each input to a single reason; three align-family rows carrying a \\tag are such rows. A divergence is relative to the pinned fixture revision (see \"Provenance\" in BENCHMARKS.md): where RaTeX has since adopted the same behaviour upstream, the row still diverges from the fixtures and stays listed here. scripts/diff_layout.py reads this file to tell an expected divergence from a regression, and RaTeXDivergenceTests keeps it in step with the corpora.",
   "divergences": [
     {
       "reason": "align-family column and relation spacing",
@@ -66,6 +66,17 @@
       "inputs": [
         "a\\vcenter{\\frac{a}{b}}b",
         "a\\vcenter{\\hbox{$\\frac{p}{q}$}}b"
+      ]
+    },
+    {
+      "reason": "a \\tag renders in text mode, as KaTeX expands it",
+      "pinnedBy": "LayoutFixRegressionTests",
+      "inputs": [
+        "\\begin{gather} a \\tag{g} \\\\ b \\end{gather}",
+        "\\begin{equation} a \\tag*{[x]} \\end{equation}",
+        "\\begin{align*} a \\tag{t} \\end{align*}",
+        "\\left( \\tag{t} x \\middle| y \\right)",
+        "\\begin{gather} x \\tag{q} \\\\ y \\end{gather}"
       ]
     }
   ]

@@ -400,4 +400,24 @@ struct LayoutFixRegressionTests {
         #expect(digits.filter { $0 == "0" }.count == 1)
         #expect(digits.count == 11)
     }
+
+    /// KaTeX expands `\tag{X}` to `\text{({X})}` and `\tag*{X}` to `\text{X}`
+    /// (macros.js `\tag@paren` / `\tag@literal`, consumed by array.js through
+    /// `parser.subparse([new Token("\\df@tag")])`), so a tag renders upright.
+    /// RaTeX 0.1.13 -- our fixture revision -- parses it in math mode, giving
+    /// italic; fixed upstream in 0ba0d8c0, after the fixtures were cut.
+    @Test func aTagRendersUprightAsKaTeXDoes() throws {
+        var fonts: [UInt32: Set<String>] = [:]
+        for item in try displayList(#"\begin{align} a &= b \tag{t} \end{align}"#).items {
+            if case let .glyphPath(_, _, _, font, charCode, _) = item {
+                fonts[charCode, default: []].insert(font)
+            }
+        }
+        let ascii = { UInt32(UInt8(ascii: $0)) }
+        // The tag body and its parentheses are text mode: upright.
+        #expect(fonts[ascii("t")] == ["Main-Regular"])
+        #expect(fonts[ascii("(")] == ["Main-Regular"])
+        // The equation body stays math mode: italic.
+        #expect(fonts[ascii("b")] == ["Math-Italic"])
+    }
 }

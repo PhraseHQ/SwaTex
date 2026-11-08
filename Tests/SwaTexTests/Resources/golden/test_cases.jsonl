@@ -992,7 +992,7 @@
 {"box":{"depth":1.25,"height":1.75,"width":4.68265},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.68265},"input":"\\begin{align} x &= 1 \\\\ y &= 2 \\end{align}"}
 {"box":{"depth":1.25,"height":1.75,"width":4.56888},"displayList":{"depth":1.25,"height":1.75,"itemCount":12,"width":4.56888},"input":"\\begin{gather} a=b \\\\ c=d \\end{gather}"}
 {"box":{"depth":1.25,"height":1.75,"width":4.68265},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.68265},"input":"\\begin{align} x &= 1 \\nonumber \\\\ y &= 2 \\end{align}"}
-{"box":{"depth":1.25,"height":1.75,"width":7.38046},"displayList":{"depth":1.25,"height":1.75,"itemCount":17,"width":7.38046},"input":"\\begin{align} x &= 1 \\tag{custom} \\\\ y &= 2 \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":7.29934},"displayList":{"depth":1.25,"height":1.75,"itemCount":17,"width":7.29934},"input":"\\begin{align} x &= 1 \\tag{custom} \\\\ y &= 2 \\end{align}"}
 {"box":{"depth":0.97003,"height":1.59901,"width":3.78692},"displayList":{"depth":0.97003,"height":1.59901,"itemCount":8,"width":3.78692},"input":"\\displaystyle \\iiint_{-\\infty}^{infty}"}
 {"box":{"depth":0.29971,"height":0.80429,"width":2.42017},"displayList":{"depth":0.29971,"height":0.80429,"itemCount":5,"width":2.42017},"input":"\\textstyle\\sum_{n=1}^{\\infty}"}
 {"box":{"depth":1.04711,"height":1.4314,"width":1.31461},"displayList":{"depth":1.04711,"height":1.4314,"itemCount":5,"width":1.31461},"input":"\\textstyle\\sum\\limits_{n=1}^{\\infty}"}

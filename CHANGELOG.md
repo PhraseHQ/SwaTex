@@ -35,6 +35,12 @@
   node, which lays out as one glyph. No golden fixture reaches ten numbered
   rows, so none changed. RaTeX shares the bug up to 0.1.15 and fixed it
   upstream in `d7d9bd2a`, after the revision our fixtures were cut from.
+- A `\tag` renders in text mode, so it is upright rather than math italic.
+  KaTeX expands `\tag{X}` to `\text{({X})}` and `\tag*{X}` to `\text{X}`
+  (`macros.js` `\tag@paren` / `\tag@literal`, consumed by `array.js` through
+  `parser.subparse`), so the parentheses are text-mode characters too. Eight
+  golden rows hold SwaTex's values and are named in
+  `ratex_divergences.json`; RaTeX fixed the same gap upstream in `0ba0d8c0`.
 - `\begin{alignat}{N}` and `\begin{alignedat}{N}` reject an `N` that is not
   a decimal integer — `{x}`, `{-1}`, `{2.5}` — instead of silently laying
   the rows out as `aligned`, which spaces column pairs a `\quad` apart.

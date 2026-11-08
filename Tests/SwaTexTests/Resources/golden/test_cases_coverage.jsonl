@@ -620,7 +620,7 @@
 {"error":true,"input":"\\mspace{18mu}","message":"ParseError at position 0: Undefined control sequence: \\mspace"}
 {"box":{"depth":0.0,"height":0.61508,"width":2.92234},"displayList":{"depth":0.0,"height":0.61508,"itemCount":6,"width":2.92234},"input":"\\@ifstar{star}{nostar}"}
 {"box":{"depth":0.686,"height":1.10756,"width":0.76859},"displayList":{"depth":0.686,"height":1.10756,"itemCount":6,"width":0.76859},"input":"\\pmb{\\frac{a}{b}}"}
-{"box":{"depth":1.25,"height":1.75,"width":4.73173},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.73173},"input":"\\begin{align} a &= b \\tag{x} \\\\ c &= d \\nonumber \\end{align}"}
+{"box":{"depth":1.25,"height":1.75,"width":4.68798},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.68798},"input":"\\begin{align} a &= b \\tag{x} \\\\ c &= d \\nonumber \\end{align}"}
 {"box":{"depth":0.5,"height":1.0,"width":2.2911},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.2911},"input":"\\begin{align} a &= b \\notag \\end{align}"}
 {"box":{"depth":0.0,"height":0.68333,"width":0.78195},"displayList":{"depth":0.0,"height":0.68333,"itemCount":1,"width":0.78195},"input":"\\gdef\\foo{F}\\foo"}
 {"box":{"depth":0.0,"height":0.68333,"width":1.5639},"displayList":{"depth":0.0,"height":0.68333,"itemCount":2,"width":1.5639},"input":"\\def\\foo{F}\\foo\\foo"}
@@ -751,7 +751,7 @@
 {"box":{"depth":1.6,"height":2.1,"width":4.6602},"displayList":{"depth":1.6,"height":2.1,"itemCount":12,"width":4.6602},"input":"\\begin{align} a &= b \\\\[1em] c &= d \\end{align}"}
 {"box":{"depth":2.1,"height":2.6,"width":2.80637},"displayList":{"depth":2.1,"height":2.6,"itemCount":8,"width":2.80637},"input":"\\begin{gather} a \\\\[2em] b \\end{gather}"}
 {"box":{"depth":0.5,"height":1.0,"width":4.06888},"displayList":{"depth":0.5,"height":1.0,"itemCount":5,"width":4.06888},"input":"\\begin{align} a &= b \\tag{} \\end{align}"}
-{"box":{"depth":0.5,"height":1.0,"width":5.12849},"displayList":{"depth":0.5,"height":1.0,"itemCount":7,"width":5.12849},"input":"\\begin{align} a &= b \\tag*{star} \\end{align}"}
+{"box":{"depth":0.5,"height":1.0,"width":4.96611},"displayList":{"depth":0.5,"height":1.0,"itemCount":7,"width":4.96611},"input":"\\begin{align} a &= b \\tag*{star} \\end{align}"}
 {"box":{"depth":1.25,"height":1.75,"width":4.57247},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":4.57247},"input":"\\begin{equation} \\begin{split} a &= b \\\\ &= c \\end{split} \\end{equation}"}
 {"box":{"depth":1.25,"height":1.75,"width":4.92548},"displayList":{"depth":1.25,"height":1.75,"itemCount":9,"width":4.92548},"input":"\\begin{align} x &= y \\nonumber \\\\ z &= w \\end{align}"}
 {"box":{"depth":0.5,"height":1.0,"width":6.97388},"displayList":{"depth":0.5,"height":1.0,"itemCount":9,"width":6.97388},"input":"\\begin{alignedat}{3} a &= b & c &= d & e &= f \\end{alignedat}"}
@@ -844,8 +844,8 @@
 {"error":true,"input":"\\begin{array}{c} a \\\\ \\hdashline b \\\\ \\cdashline{1} c \\end{array}","message":"ParseError at position 38: Undefined control sequence: \\cdashline"}
 {"box":{"depth":1.25,"height":1.75,"width":7.00349},"displayList":{"depth":1.25,"height":1.75,"itemCount":16,"width":7.00349},"input":"\\begin{alignat}{2} x &= y & a &= b \\\\ &= z & &= c \\end{alignat}"}
 {"box":{"depth":0.25,"height":0.75,"width":3.70881},"displayList":{"depth":0.25,"height":0.75,"itemCount":6,"width":3.70881},"input":"\\tag{5} x = y"}
-{"box":{"depth":1.25,"height":1.75,"width":2.81922},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":2.81922},"input":"\\begin{gather} a \\tag{g} \\\\ b \\end{gather}"}
-{"box":{"depth":0.35,"height":0.85,"width":2.65568},"displayList":{"depth":0.35,"height":0.85,"itemCount":4,"width":2.65568},"input":"\\begin{equation} a \\tag*{[x]} \\end{equation}"}
+{"box":{"depth":1.25,"height":1.75,"width":2.80637},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":2.80637},"input":"\\begin{gather} a \\tag{g} \\\\ b \\end{gather}"}
+{"box":{"depth":0.35,"height":0.85,"width":2.61193},"displayList":{"depth":0.35,"height":0.85,"itemCount":4,"width":2.61193},"input":"\\begin{equation} a \\tag*{[x]} \\end{equation}"}
 {"box":{"depth":0.19444,"height":0.43056,"width":2.43103},"displayList":{"depth":0.19444,"height":0.43056,"itemCount":3,"width":2.43103},"input":"\\notag x = y"}
 {"box":{"depth":0.5,"height":1.0,"width":2.27778},"displayList":{"depth":0.5,"height":1.0,"itemCount":3,"width":2.27778},"input":"\\begin{align} \\end{align}"}
 {"box":{"depth":0.0,"height":0.69444,"width":2.7028},"displayList":{"depth":0.0,"height":0.69444,"itemCount":7,"width":2.7028},"input":"\\text{\\sout{struck}}"}
@@ -1009,7 +1009,7 @@
 {"box":{"depth":1.25,"height":1.75,"width":0.52859},"displayList":{"depth":1.25,"height":1.75,"itemCount":2,"width":0.52859},"input":"\\begin{gather*} a \\\\ b \\end{gather*}"}
 {"box":{"depth":0.35,"height":0.85,"width":0.57153},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":0.57153},"input":"\\begin{equation*} x \\end{equation*}"}
 {"box":{"depth":0.5,"height":1.0,"width":0.52859},"displayList":{"depth":0.5,"height":1.0,"itemCount":1,"width":0.52859},"input":"\\begin{align} a \\notag \\end{align}"}
-{"box":{"depth":0.5,"height":1.0,"width":2.66748},"displayList":{"depth":0.5,"height":1.0,"itemCount":4,"width":2.66748},"input":"\\begin{align*} a \\tag{t} \\end{align*}"}
+{"box":{"depth":0.5,"height":1.0,"width":2.69526},"displayList":{"depth":0.5,"height":1.0,"itemCount":4,"width":2.69526},"input":"\\begin{align*} a \\tag{t} \\end{align*}"}
 {"box":{"depth":0.95,"height":1.45,"width":0.52859},"displayList":{"depth":0.95,"height":1.45,"itemCount":1,"width":0.52859},"input":"\\begin{matrix} a \\\\ {} \\end{matrix}"}
 {"box":{"depth":0.5,"height":1.0,"width":4.56888},"displayList":{"depth":0.5,"height":1.0,"itemCount":6,"width":4.56888},"input":"\\begin{align} a &= b \\\\ & \\end{align}"}
 {"box":{"depth":1.25,"height":1.75,"width":4.56888},"displayList":{"depth":1.25,"height":1.75,"itemCount":10,"width":4.56888},"input":"\\begin{align} a &= b \\\\ &= {} \\end{align}"}
@@ -1064,7 +1064,7 @@
 {"box":{"depth":0.25,"height":0.75,"width":2.15325},"displayList":{"depth":0.25,"height":0.75,"itemCount":5,"width":2.15325},"input":"\\left( \\textcolor{red}{x \\middle| y} \\right)"}
 {"box":{"depth":0.95001,"height":1.45001,"width":3.22513},"displayList":{"depth":0.95001,"height":1.45001,"itemCount":6,"width":3.22513},"input":"\\left( \\colorbox{yellow}{$x \\middle| y$} \\right)"}
 {"box":{"depth":0.99001,"height":1.49001,"width":3.30513},"displayList":{"depth":0.99001,"height":1.49001,"itemCount":9,"width":3.30513},"input":"\\left( \\boxed{x \\middle| y} \\right)"}
-{"box":{"depth":0.25,"height":0.75,"width":3.29214},"displayList":{"depth":0.25,"height":0.75,"itemCount":8,"width":3.29214},"input":"\\left( \\tag{t} x \\middle| y \\right)"}
+{"box":{"depth":0.25,"height":0.75,"width":3.31992},"displayList":{"depth":0.25,"height":0.75,"itemCount":8,"width":3.31992},"input":"\\left( \\tag{t} x \\middle| y \\right)"}
 {"box":{"depth":0.25,"height":0.85,"width":2.15325},"displayList":{"depth":0.25,"height":0.85,"itemCount":5,"width":2.15325},"input":"\\left( \\raisebox{1pt}{$x \\middle| y$} \\right)"}
 {"box":{"depth":0.25,"height":0.75,"width":2.15325},"displayList":{"depth":0.25,"height":0.75,"itemCount":6,"width":2.15325},"input":"\\left( \\sout{x \\middle| y} \\right)"}
 {"error":true,"input":"\\left( \\angl{x \\middle| y} \\right)","message":"ParseError at position 15: Can't use function '\\middle' in text mode"}
@@ -1348,4 +1348,4 @@
 {"box":{"depth":0.35,"height":0.85,"width":0.57153},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":0.57153},"input":"\\begin{equation} x \\nonumber \\end{equation}"}
 {"box":{"depth":0.35,"height":0.85,"width":0.57153},"displayList":{"depth":0.35,"height":0.85,"itemCount":1,"width":0.57153},"input":"\\begin{equation} x \\notag \\end{equation}"}
 {"box":{"depth":1.25,"height":1.75,"width":2.84931},"displayList":{"depth":1.25,"height":1.75,"itemCount":5,"width":2.84931},"input":"\\begin{gather} x \\nonumber \\\\ y \\end{gather}"}
-{"box":{"depth":1.25,"height":1.75,"width":2.84931},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":2.84931},"input":"\\begin{gather} x \\tag{q} \\\\ y \\end{gather}"}
+{"box":{"depth":1.25,"height":1.75,"width":2.87709},"displayList":{"depth":1.25,"height":1.75,"itemCount":8,"width":2.87709},"input":"\\begin{gather} x \\tag{q} \\\\ y \\end{gather}"}

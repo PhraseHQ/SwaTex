@@ -28,28 +28,35 @@ private func handleTag(
         star = false
     }
 
-    guard let arg = try ctx.parser.parseGroup(name: "\\tag", breakOnTokenText: nil) else {
+    // KaTeX expands `\tag{X}` to `\text{({X})}` and `\tag*{X}` to `\text{X}`
+    // (macros.js `\tag@paren` / `\tag@literal`, consumed by array.js's
+    // `parser.subparse([new Token("\\df@tag")])`), so the argument is parsed in
+    // text mode and the parentheses are text-mode characters — a tag renders
+    // upright, not in math italic.
+    // The mode switch mirrors the `$…$` handler: `parseArgumentGroup` cannot
+    // serve here because it rescans the argument through
+    // `gullet.scanArgument`, which expects to run during declared-argument
+    // parsing, not from inside a handler that has already consumed the `*`.
+    let parser = ctx.parser
+    let outerMode = parser.mode
+    parser.switchMode(.text)
+    defer { parser.switchMode(outerMode) }
+
+    guard let arg = try parser.parseGroup(name: "\\tag", breakOnTokenText: nil) else {
         throw ParseError("\\tag requires an argument")
     }
 
-    let inner: [ParseNode]
-    if case let .ordGroup(body, _) = arg.kind {
-        inner = body
-    } else {
-        inner = [arg]
-    }
-
-    let tag: [ParseNode]
+    let body: [ParseNode]
     if star {
-        tag = inner
+        body = ParseNode.ordArgument(arg)
     } else {
-        var v: [ParseNode] = []
-        v.reserveCapacity(inner.count + 2)
-        v.append(ParseNode(.mathOrd(text: "("), mode: .math))
-        v.append(contentsOf: inner)
-        v.append(ParseNode(.mathOrd(text: ")"), mode: .math))
-        tag = v
+        body = [
+            ParseNode(.textOrd(text: "("), mode: .text),
+            arg,
+            ParseNode(.textOrd(text: ")"), mode: .text),
+        ]
     }
 
-    return ParseNode(.tag(body: [], tag: tag), mode: ctx.parser.mode)
+    let tag = [ParseNode(.text(body: body, font: "\\text"), mode: .text)]
+    return ParseNode(.tag(body: [], tag: tag), mode: outerMode)
 }

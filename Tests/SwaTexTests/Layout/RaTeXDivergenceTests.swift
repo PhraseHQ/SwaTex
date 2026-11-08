@@ -28,6 +28,7 @@ struct RaTeXDivergenceTests {
         "an unterminated \\verb is a parse error": 2,
         "\\limits after an ordinary atom is a parse error": 1,
         "\\vcenter centers ink on the math axis, changing display-list depth": 2,
+        "a \\tag renders in text mode, as KaTeX expands it": 5,
     ]
 
     static let corpora = ["test_cases", "test_cases_coverage"]
