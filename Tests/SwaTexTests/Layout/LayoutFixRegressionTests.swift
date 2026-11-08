@@ -384,4 +384,20 @@ struct LayoutFixRegressionTests {
         let alignat = try displayList(#"\begin{alignedat}{2}a&=b&c&=d\end{alignedat}"#)
         #expect(abs((got.width - alignat.width) - 1.0) < 1e-6)
     }
+
+    /// Equation 10's tag draws both digits. A symbol node lays out as a single
+    /// glyph, so holding the whole number in one node drew "(1)" for 10.
+    /// RaTeX 0.1.15 and earlier share the bug; fixed upstream in d7d9bd2a.
+    @Test func multiDigitEquationNumbersDrawEveryDigit() throws {
+        let tenRows = #"\begin{gather}a\\b\\c\\d\\e\\f\\g\\h\\i\\j\end{gather}"#
+        let digits = glyphs(try displayList(tenRows))
+            .compactMap { Unicode.Scalar($0.char) }
+            .map(Character.init)
+            .filter(\.isNumber)
+        // Rows carry a…j, so every digit comes from a tag: (1)…(10). "1"
+        // appears in (1) and (10), "0" only in (10).
+        #expect(digits.filter { $0 == "1" }.count == 2)
+        #expect(digits.filter { $0 == "0" }.count == 1)
+        #expect(digits.count == 11)
+    }
 }

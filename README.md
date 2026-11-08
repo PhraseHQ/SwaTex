@@ -199,7 +199,10 @@ commands in [BENCHMARKS.md](BENCHMARKS.md):
   instead of silently laying the rows out as `aligned` (`{x}` and `{-1}`
   are parse errors in KaTeX too, while `{2.5}`, which KaTeX reads as five
   columns, is rejected rather than given a meaning; `{}` and `{0}` keep
-  KaTeX's own fallback to `aligned`).
+  KaTeX's own fallback to `aligned`); and an automatic equation number past
+  9 draws every digit. The pinned reference revision (see “Provenance” in
+  [BENCHMARKS.md](BENCHMARKS.md)) draws only a number's first digit; RaTeX
+  fixed it upstream after our fixtures were cut.
 - `\begin{alignat}{N}` bounds `N` at 256 (a deliberate divergence: KaTeX
   and RaTeX leave it unbounded, where a hostile count hangs the process).
   Deeply nested input is guarded the same way (recursion count + stack

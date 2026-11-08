@@ -30,6 +30,11 @@
   row now renders at the grid's right edge instead of being dropped
   (`\begin{array}{ll|}` with one cell). Verified against KaTeX 0.16.11 in a
   browser.
+- An automatic equation number of two or more digits draws every digit:
+  equation 10 is `(10)`, not `(1)`. The number was built as a single symbol
+  node, which lays out as one glyph. No golden fixture reaches ten numbered
+  rows, so none changed. RaTeX shares the bug up to 0.1.15 and fixed it
+  upstream in `d7d9bd2a`, after the revision our fixtures were cut from.
 - `\begin{alignat}{N}` and `\begin{alignedat}{N}` reject an `N` that is not
   a decimal integer — `{x}`, `{-1}`, `{2.5}` — instead of silently laying
   the rows out as `aligned`, which spaces column pairs a `\quad` apart.

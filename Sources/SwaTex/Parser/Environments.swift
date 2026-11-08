@@ -382,14 +382,14 @@ func parseArray(
                 }
             case .auto(let visible):
                 if visible {
-                    // Auto-number this row: step counter, generate "(N)"
+                    // Auto-number this row: step counter, generate "(N)" as
+                    // one node per character. A symbol node lays out as a
+                    // single glyph, so holding the whole number in one node
+                    // drew only its first digit — equation 10 came out "(1)".
                     parser.equationCounter += 1
-                    let numStr = String(parser.equationCounter)
-                    let tagNodes = [
-                        ParseNode(.mathOrd(text: "("), mode: .math),
-                        ParseNode(.mathOrd(text: numStr), mode: .math),
-                        ParseNode(.mathOrd(text: ")"), mode: .math),
-                    ]
+                    let tagNodes = "(\(parser.equationCounter))".map {
+                        ParseNode(.mathOrd(text: String($0)), mode: .math)
+                    }
                     processed.append(.explicit(tagNodes))
                     anyVisible = true
                 } else {
