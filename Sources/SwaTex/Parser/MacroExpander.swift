@@ -1,3 +1,5 @@
+import Foundation
+
 /// Commands that act like macros but aren't defined as a macro, function, or symbol.
 /// Used in `isDefined`.
 let implicitCommands: Set<String> = ["^", "_", "\\limits", "\\nolimits"]
@@ -698,9 +700,11 @@ extension MacroExpander {
             let base: Int?
 
             func atCharTokens(_ number: Double, loc: SourceLocation) -> [Token] {
-                // Build \@char{N} tokens in reverse (stack order). "%.0f"
-                // prints an integral double in full, as JS number→string does
-                // below 1e21, so the value `\@char` reports matches KaTeX's.
+                // Build \@char{N} tokens in reverse (stack order). "%.0f" prints
+                // the integral double digit for digit, so a value past the
+                // code-point range reaches `\@char` as a numeral and is rejected
+                // by range, as in KaTeX (whose own string form rounds past 17
+                // significant digits).
                 var result = [Token("}", start: loc.start, end: loc.end)]
                 for ch in String(format: "%.0f", number).reversed() {
                     result.append(Token(String(ch), start: loc.start, end: loc.end))
