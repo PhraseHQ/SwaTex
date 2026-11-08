@@ -200,7 +200,20 @@ func layoutSupSub(
 
     // KaTeX `supsub.js`: for SymbolNode bases, subscripts get `margin-left: -base.italic`
     // so they are not shifted by the base's italic correction (e.g. ∫_{A_1}).
-    let subHKern = subBox != nil && !centerScripts ? -glyphItalic(baseBox) : 0.0
+    // \oiint / \oiiint build as a glyph with an overlaid ellipse rather than a
+    // bare symbol, so KaTeX names them beside its SymbolNode test
+    // (supsub.js:122-128) to keep the correction they would otherwise lose.
+    let isOiint: Bool
+    if let base, case let .op(_, _, _, _, _, opName, _) = base.kind,
+        opName == "\\oiint" || opName == "\\oiiint"
+    {
+        isOiint = true
+    } else {
+        isOiint = false
+    }
+    let baseItalic =
+        directGlyphItalic(baseBox) ?? (isOiint ? firstGlyphItalic(baseBox) : nil) ?? 0.0
+    let subHKern = subBox != nil && !centerScripts ? -baseItalic : 0.0
 
     // Compute total dimensions (using scaled child dimensions)
     var height = baseBox.height

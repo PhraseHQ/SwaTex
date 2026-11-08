@@ -447,4 +447,30 @@ struct LayoutFixRegressionTests {
         }
         #expect(border.contains(try #require(Color(name: "blue"))))
     }
+
+    /// KaTeX pulls a subscript back by the base's italic correction only when
+    /// the base builds to a SymbolNode (supsub.js:125). A multi-glyph span such
+    /// as `\text{\textit{CPI}}` is not one, so its subscript starts at the
+    /// base's advance. RaTeX took the last glyph's correction; fixed upstream
+    /// in e2b0ce8b.
+    @Test func aMultiGlyphBaseDoesNotLendItsItalicToASubscript() throws {
+        let baseOnly = try displayList(#"\text{\textit{CPI}}"#)
+        let withSub = try displayList(#"\text{\textit{CPI}}_1"#)
+        let one = UInt32(UInt8(ascii: "1"))
+        let subX = try #require(glyphs(withSub).first { $0.char == one }?.x)
+        #expect(abs(subX - baseOnly.width) < 1e-6)
+    }
+
+    /// `\oiint` / `\oiiint` keep the correction even though they build as a
+    /// glyph with an overlaid ellipse: KaTeX saves the symbol's italic and
+    /// re-attaches it to the composite span (op.js:75-88), then names them
+    /// beside its SymbolNode test (supsub.js:122-128).
+    @Test(arguments: [(#"\oiint"#, "S"), (#"\oiiint"#, "V")])
+    func anOiintLendsItsItalicToASubscript(_ op: String, _ sub: String) throws {
+        let baseOnly = try displayList(op)
+        let withSub = try displayList("\(op)_\(sub)")
+        let code = UInt32(try #require(Character(sub).asciiValue))
+        let subX = try #require(glyphs(withSub).first { $0.char == code }?.x)
+        #expect(subX < baseOnly.width - 1e-6, "italic correction must pull the subscript back")
+    }
 }

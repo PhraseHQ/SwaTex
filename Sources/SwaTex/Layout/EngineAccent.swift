@@ -19,6 +19,38 @@ func glyphItalic(_ lb: LayoutBox) -> Double {
     }
 }
 
+/// The italic correction of this box only when the box *is* a glyph.
+///
+/// Mirrors KaTeX's `base instanceof SymbolNode` test in `supsub.js`: recursing
+/// into an hbox would treat a text or group span as a symbol and pull its
+/// subscript left by its last glyph's italic correction.
+func directGlyphItalic(_ lb: LayoutBox) -> Double? {
+    if case let .glyph(fontId, charCode) = lb.content {
+        return fontId.metrics(forChar: charCode)?.italic ?? 0
+    }
+    return nil
+}
+
+/// The italic correction of the first glyph in a box.
+///
+/// Only `\oiint` / `\oiiint` need this: KaTeX names them alongside its
+/// SymbolNode test (`supsub.js`), because they build as a glyph with an
+/// overlaid ellipse rather than a bare symbol.
+func firstGlyphItalic(_ lb: LayoutBox) -> Double? {
+    var current = lb
+    while true {
+        switch current.content {
+        case let .glyph(fontId, charCode):
+            return fontId.metrics(forChar: charCode)?.italic ?? 0
+        case let .hbox(children):
+            guard let first = children.first else { return nil }
+            current = first
+        default:
+            return nil
+        }
+    }
+}
+
 /// KaTeX `groupLength` for wide SVG accents: `ordgroup.body.length`, else 1.
 func accentOrdgroupLen(_ base: ParseNode) -> Int {
     if case let .ordGroup(body, _) = base.kind {

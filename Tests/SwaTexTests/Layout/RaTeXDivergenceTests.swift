@@ -29,6 +29,7 @@ struct RaTeXDivergenceTests {
         "\\limits after an ordinary atom is a parse error": 1,
         "\\vcenter centers ink on the math axis, changing display-list depth": 2,
         "a \\tag renders in text mode, as KaTeX expands it": 5,
+        "a subscript takes the base's italic correction only from a symbol base": 2,
     ]
 
     static let corpora = ["test_cases", "test_cases_coverage"]

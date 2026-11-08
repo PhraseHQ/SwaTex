@@ -78,6 +78,14 @@
         "\\left( \\tag{t} x \\middle| y \\right)",
         "\\begin{gather} x \\tag{q} \\\\ y \\end{gather}"
       ]
+    },
+    {
+      "reason": "a subscript takes the base's italic correction only from a symbol base",
+      "pinnedBy": "LayoutFixRegressionTests",
+      "inputs": [
+        "\\oiint_S F",
+        "\\oiiint_V G"
+      ]
     }
   ]
 }

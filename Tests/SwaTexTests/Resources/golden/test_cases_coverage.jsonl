@@ -298,8 +298,8 @@
 {"box":{"depth":1.65823,"height":2.19223,"width":1.76391},"displayList":{"depth":1.65823,"height":2.19223,"itemCount":4,"width":1.76391},"input":"\\int\\limits_0^1 f"}
 {"box":{"depth":1.65823,"height":2.19223,"width":1.76391},"displayList":{"depth":1.65823,"height":2.19223,"itemCount":4,"width":1.76391},"input":"\\intop_0^1 f"}
 {"box":{"depth":0.30612,"height":0.805,"width":1.40487},"displayList":{"depth":0.30612,"height":0.805,"itemCount":2,"width":1.40487},"input":"\\smallint x"}
-{"box":{"depth":0.9117,"height":1.36,"width":2.99665},"displayList":{"depth":0.9117,"height":1.36,"itemCount":4,"width":2.99665},"input":"\\oiint_S F"}
-{"box":{"depth":0.9117,"height":1.36,"width":3.60325},"displayList":{"depth":0.9117,"height":1.36,"itemCount":4,"width":3.60325},"input":"\\oiiint_V G"}
+{"box":{"depth":0.9117,"height":1.36,"width":2.5522},"displayList":{"depth":0.9117,"height":1.36,"itemCount":4,"width":2.5522},"input":"\\oiint_S F"}
+{"box":{"depth":0.9117,"height":1.36,"width":3.1588},"displayList":{"depth":0.9117,"height":1.36,"itemCount":4,"width":3.1588},"input":"\\oiiint_V G"}
 {"box":{"depth":0.9117,"height":1.36,"width":2.49689},"displayList":{"depth":0.9117,"height":1.36,"itemCount":3,"width":2.49689},"input":"\\iint_D f"}
 {"box":{"depth":0.9117,"height":1.36,"width":2.96298},"displayList":{"depth":0.9117,"height":1.36,"itemCount":3,"width":2.96298},"input":"\\iiint_E f"}
 {"error":true,"input":"\\idotsint f","message":"ParseError at position 0: Undefined control sequence: \\idotsint"}

@@ -37,6 +37,15 @@
   `\fcolorbox`, whose explicit color still wins). Colors are not part of the
   golden metrics, so no fixture changed. RaTeX fixed the same gap upstream
   in `c7e1de82`.
+- A subscript is pulled back by the base's italic correction only when the
+  base is a symbol, as KaTeX does (`supsub.js:125` tests
+  `base instanceof SymbolNode`). The correction was taken from the last
+  glyph of any box, so a multi-glyph span lent its own: the subscript of
+  `\text{\textit{CPI}}` sat 0.158 em too far left. `\oiint` / `\oiiint` keep
+  the correction, which KaTeX preserves onto their composite span
+  (`op.js:75-88`) and names beside the SymbolNode test — two golden rows
+  gained it and are listed in `ratex_divergences.json`. RaTeX fixed the
+  same gap upstream in `e2b0ce8b`.
 - An overflowing `\char` literal is rejected instead of wrapping onto a
   valid code point. The literal accumulated in a wrapping `Int64` (matching
   RaTeX's release-mode `i64`), so `\char18446744073709551681` silently drew
