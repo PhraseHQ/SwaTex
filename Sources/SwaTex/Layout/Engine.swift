@@ -132,13 +132,10 @@ func layoutExpression(
         if isRealGroup, let prev = prevClass, let cur = curClass {
             let prevMiddle = prevClassNodeIdx.map { nodeIsMiddleFence(nodes[$0]) } ?? false
             let curMiddle = nodeIsMiddleFence(node)
-            var mu =
+            let mu =
                 prevMiddle || curMiddle
                 ? 0.0
                 : atomSpacing(prev, cur, tight: options.style.isTight)
-            if let cap = options.alignRelationSpacing, prev == .rel || cur == .rel {
-                mu = min(mu, cap)
-            }
             if mu > 0 {
                 children.append(.kern(muToEm(mu, quad: options.metrics.quad)))
             }

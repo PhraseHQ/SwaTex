@@ -147,9 +147,11 @@ DisplayList ──► CoreGraphics/CoreText (SwaTexRender) ──► CGImage / P
 ## Performance
 
 Measured against the Rust reference engine on identical corpora, same
-machine, median of 3 runs, with all 2 541 golden formulas bit-exact
-between the engines. Every number is reproducible with the commands in
-[BENCHMARKS.md](BENCHMARKS.md):
+machine, median of 3 runs. Every one of the 2 541 golden formulas is
+bit-exact between the engines except the deliberate KaTeX-correct
+divergences listed under [Known limitations](#known-limitations), so both
+engines are doing the same work. Every number is reproducible with the
+commands in [BENCHMARKS.md](BENCHMARKS.md):
 
 | Workload | RaTeX (Rust) | SwaTex |
 |---|---|---|
@@ -186,7 +188,13 @@ between the engines. Every number is reproducible with the commands in
   (unstretched) size; align-family environments space relations with the
   ordinary thickmuskip, put no gap inside a column pair and one `\quad`
   between `aligned` pairs (RaTeX caps relation spacing at 3 mu and, outside
-  `alignat`, adds a 3 mu column gap, so `a &= b` came out 6 mu / 3 mu).
+  `alignat`, adds a 3 mu column gap, so `a &= b` came out 6 mu / 3 mu);
+  column gaps come from each column's own `pregap`/`postgap` falling back
+  to `\arraycolsep`, so a cell beyond the environment's column spec — a
+  third cell in a `cases` row — is one `\arraycolsep` away rather than a
+  full environment gap; consecutive `|`/`:` in a column spec each render a
+  `\doublerulesep` apart (`\begin{array}{l||l}` drew one rule), and a
+  trailing rule past a short row renders instead of being dropped.
 - Shared with KaTeX/RaTeX upstream: `\begin{alignat}{N}` does not bound
   `N`; hostile inputs should be length-limited by the host app. Deeply
   nested input is guarded (recursion count + stack headroom → parse

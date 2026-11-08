@@ -181,17 +181,184 @@ struct LayoutFixRegressionTests {
         #expect(abs((aligned - alignedat) - 1.0) < 1e-6)
     }
 
-    /// A vertical rule sits in the middle of the gap in front of its column,
-    /// whether the gaps are uniform (`colGap`) or uneven (`columnGaps`).
-    @Test func separatorsSitInTheMiddleOfTheirGap() {
-        func layout(_ columnGaps: [Double]) -> ArrayLayout {
-            ArrayLayout(
-                cells: [], colWidths: [1, 2, 3], colAligns: ["c", "c", "c"], rowHeights: [],
-                rowDepths: [], colGap: 0.5, offset: 0, columnGaps: columnGaps)
-        }
-        let uniform = layout([])
-        #expect((0...3).map { uniform.separatorX(before: $0) } == [-0.25, 1.25, 3.75, 7.25])
-        let uneven = layout([0, 1])
-        #expect((0...3).map { uneven.separatorX(before: $0) } == [-0.25, 1.0, 3.5, 7.25])
+    private let align = AlignSpec(alignType: .align, align: "c")
+    private let solid = AlignSpec(alignType: .separator, align: "|")
+    private let dashed = AlignSpec(alignType: .separator, align: ":")
+
+    private func track(
+        _ colWidths: [Double], _ cols: [AlignSpec]?, arraycolsep: Double = 0.5,
+        hskip: Bool = true
+    ) -> ArrayTrack {
+        resolveArrayTrack(
+            colWidths: colWidths, cols: cols, arraycolsep: arraycolsep,
+            doubleRuleSep: 0.2, hskipBeforeAndAfter: hskip)
     }
+
+    /// Positions accumulate `\doublerulesep` (0.2 em, not a binary fraction),
+    /// so they are compared with a tolerance rather than for equality.
+    private func isClose(
+        _ got: [Double], _ want: [Double],
+        _ sourceLocation: Testing.SourceLocation = #_sourceLocation
+    ) {
+        #expect(got.count == want.count, "\(got) vs \(want)", sourceLocation: sourceLocation)
+        for (g, w) in zip(got, want) {
+            #expect(abs(g - w) < 1e-9, "\(got) vs \(want)", sourceLocation: sourceLocation)
+        }
+    }
+
+    /// `\begin{array}{c|c|c}`: no column spec sets a gap, so every gap is
+    /// `\arraycolsep` and `hskipBeforeAndAfter` pads both outer edges. A rule
+    /// then lands halfway between two columns only because the `postgap` on its
+    /// left and the `pregap` on its right happen to be equal.
+    @Test func uniformColumnsPutRulesHalfwayBetweenThem() {
+        let t = track([1, 2, 3], [align, solid, align, solid, align], arraycolsep: 0.25)
+        isClose(t.columnXs, [0.25, 1.75, 4.25])
+        isClose(t.rules.map(\.x), [1.5, 4.0])
+        isClose([t.width], [7.5])
+        // Column 0 ends at 1.25 and column 1 starts at 1.75, so 1.5 is both
+        // where the gaps meet and the midpoint between the columns.
+        isClose([t.rules[0].x], [(t.columnXs[0] + 1.0 + t.columnXs[1]) / 2.0])
+    }
+
+    /// The track gives every column an x and no more, and an empty grid is
+    /// 0 em wide rather than undefined.
+    @Test func trackGivesEveryColumnExactlyOneX() {
+        for n in 0...3 {
+            let t = track([Double](repeating: 1, count: n), nil)
+            #expect(t.columnXs.count == n)
+            #expect(t.rules.isEmpty)
+        }
+        isClose([track([], nil).width], [0.0])
+    }
+
+    /// With uneven gaps a rule is *not* at the midpoint: KaTeX emits it where
+    /// the previous column's `postgap` meets this column's `pregap`. Here that
+    /// is 1.0, while the gap between the columns spans 1.0 to 2.0.
+    @Test func rulesSitWhereTheGapsMeetNotAtTheirMidpoint() {
+        let cols = [
+            AlignSpec(alignType: .align, align: "r", pregap: 0.0, postgap: 0.0),
+            solid,
+            AlignSpec(alignType: .align, align: "l", pregap: 1.0, postgap: 0.0),
+        ]
+        let t = track([1, 2], cols, arraycolsep: 0.25, hskip: false)
+        isClose(t.columnXs, [0.0, 2.0])
+        isClose(t.rules.map(\.x), [1.0])
+        isClose([t.width], [4.0])
+    }
+
+    /// `\begin{array}{c||c}`: KaTeX puts consecutive rules in one run a
+    /// `\doublerulesep` (0.2 em) apart and widens the grid by exactly that, so
+    /// two rules cost 0.2 em where one costs nothing. Measured against KaTeX
+    /// 0.16.11 in a browser: rule centres 0.2008 em apart, grid 0.20081 em
+    /// wider than the single-rule spec.
+    @Test func consecutiveRulesSitADoubleRuleSepApart() {
+        let one = track([1, 1], [align, solid, align])
+        let two = track([1, 1], [align, solid, solid, align])
+        let three = track([1, 1], [align, solid, solid, solid, align])
+        isClose(one.rules.map(\.x), [2.0])
+        isClose(two.rules.map(\.x), [2.0, 2.2])
+        isClose(three.rules.map(\.x), [2.0, 2.2, 2.4])
+        isClose([two.width - one.width], [0.2])
+        isClose([three.width - one.width], [0.4])
+        // Column 1 is pushed right by the rules it now sits behind.
+        isClose(one.columnXs, [0.5, 2.5])
+        isClose(two.columnXs, [0.5, 2.7])
+    }
+
+    /// End to end: a cell narrower than its column is centred on the column x
+    /// the track resolved. The golden fixtures assert the grid's outer
+    /// dimensions, which a cell displaced inside its own column would leave
+    /// untouched, so the placement is pinned here instead.
+    @Test func aNarrowCellIsCentredOnItsColumn() throws {
+        let m = UInt32(UInt8(ascii: "m"))
+        // Column 0 holds `mm` in one row and a single `m` in the other.
+        let found = glyphs(try displayList(#"\begin{array}{cc}mm&a\\m&a\end{array}"#))
+            .filter { $0.char == m }
+        let rows = Set(found.map(\.y))
+        try #require(rows.count == 2)
+        let byRow = rows.sorted().map { y in found.filter { $0.y == y }.map(\.x).sorted() }
+        let pair = try #require(byRow.first { $0.count == 2 })
+        let lone = try #require(byRow.first { $0.count == 1 })
+        // The lone `m` starts half an `m` further right than the pair does.
+        #expect(abs((lone[0] - pair[0]) - (pair[1] - pair[0]) / 2.0) < 1e-6)
+    }
+
+    /// `|` and `:` can share a boundary; each keeps its own style.
+    @Test func mixedRuleKindsShareABoundary() {
+        let t = track([1, 1], [align, solid, dashed, align])
+        isClose(t.rules.map(\.x), [2.0, 2.2])
+        #expect(t.rules.map(\.isDashed) == [false, true])
+    }
+
+    /// `\begin{array}{c|c|}` with a single cell. KaTeX restarts the rule run
+    /// after every alignment descriptor, so these two rules — split by the
+    /// descriptor of a column that was never laid out — get no
+    /// `\doublerulesep` and land on the same x, costing no width. Measured in
+    /// KaTeX 0.16.11: both centres at 1.5294/1.5302 em, grid no wider.
+    @Test func rulesSplitByAnUnusedDescriptorShareOneX() {
+        let t = track([1], [align, solid, align, solid])
+        isClose(t.rules.map(\.x), [2.0, 2.0])
+        isClose([t.width], [2.0])
+    }
+
+    /// `\begin{array}{cc|}` with a single cell: the spec declares more columns
+    /// than the row fills, and KaTeX still renders the trailing rule, at the
+    /// grid's right edge. SwaTex used to drop any rule past the column count.
+    @Test func aTrailingRuleRendersEvenPastAShortRow() {
+        let t = track([1], [align, align, solid])
+        isClose(t.rules.map(\.x), [2.0])
+        isClose([t.width], [2.0])
+    }
+
+    /// End to end: a solid rule is one rect spanning the array's full height,
+    /// so `{c||c}` draws two of them a `\doublerulesep` apart where `{c|c}`
+    /// draws one.
+    @Test func doubledRulesReachTheDisplayList() throws {
+        func ruleXs(_ latex: String) throws -> [Double] {
+            let rects = try displayList(latex).items.compactMap {
+                item -> (x: Double, height: Double)? in
+                if case let .rect(x, _, _, height, _) = item { return (x, height) }
+                return nil
+            }
+            let tallest = try #require(rects.map(\.height).max())
+            return rects.filter { $0.height == tallest }.map(\.x).sorted()
+        }
+        let one = try ruleXs(#"\begin{array}{c|c}a&b\end{array}"#)
+        let two = try ruleXs(#"\begin{array}{c||c}a&b\end{array}"#)
+        #expect(one.count == 1)
+        #expect(two.count == 2)
+        #expect(abs((two[1] - two[0]) - 0.2) < 1e-6)
+    }
+
+    /// A column the spec does not reach falls back to `\arraycolsep` on both
+    /// sides, as KaTeX's `colDescr?.pregap ?? arraycolsep` does. `cases`
+    /// declares two columns with a 1 em `postgap` on the first, so a third
+    /// column sits one `\arraycolsep` away rather than another 1 em.
+    @Test func columnsBeyondTheSpecFallBackToArraycolsep() {
+        let casesCols = [
+            AlignSpec(alignType: .align, align: "l", pregap: 0.0, postgap: 1.0),
+            AlignSpec(alignType: .align, align: "l", pregap: 0.0, postgap: 0.0),
+        ]
+        let t = track([1, 1, 1], casesCols, hskip: false)
+        isClose(t.columnXs, [0.0, 2.0, 3.5])
+        isClose([t.width], [4.5])
+    }
+
+    /// End to end through `cases`, whose spec declares two columns with a 1 em
+    /// `postgap` on the first: a third cell is one `\arraycolsep` (0.5 em)
+    /// away, not another 1 em. Identical cells make the assertion independent
+    /// of glyph widths — the two advances differ by exactly the two gaps.
+    @Test func casesSpacesACellBeyondItsSpecByArraycolsep() throws {
+        let cellChar = UInt32(UInt8(ascii: "x"))
+        let xs = glyphs(try displayList(#"\begin{cases}x&x&x\end{cases}"#))
+            .filter { $0.char == cellChar }.map(\.x).sorted()
+        try #require(xs.count == 3)
+        #expect(abs(((xs[1] - xs[0]) - (xs[2] - xs[1])) - 0.5) < 1e-6)
+    }
+
+    /// KaTeX reads the `alignat` column count with
+    /// `assertNodeType(…, "textord")`, so a letter, a sign or a nested group
+    /// in the argument is a parse error there — none of them reaches
+    /// `Number()`. A fractional count, which KaTeX does accept (`{2.5}` means
+    /// five columns), is rejected rather than given a meaning.
 }

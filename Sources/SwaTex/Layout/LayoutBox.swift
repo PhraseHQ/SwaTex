@@ -184,6 +184,46 @@ public indirect enum BoxContent: Sendable {
     case degraded
 }
 
+/// A vertical rule from an array's column spec: `|` draws solid, `:` dashed.
+public struct ArrayRule: Sendable {
+    /// x the rule is centered on (em from the grid's left edge).
+    public var x: Double
+    /// True for `:`; `|` renders solid.
+    public var isDashed: Bool
+
+    public init(x: Double, isDashed: Bool) {
+        self.x = x
+        self.isDashed = isDashed
+    }
+}
+
+/// Resolved horizontal track of an array: where every column sits, where every
+/// vertical rule is drawn, and how wide the grid comes out.
+///
+/// KaTeX's array builder emits one flat run per column —
+/// `[rule…][pregap][column][postgap]` — in which a column's own `pregap` and
+/// `postgap` fall back to `\arraycolsep`, the gaps at the grid's two outer
+/// edges exist only when `hskipBeforeAndAfter` is set, and consecutive rules in
+/// one run sit a `\doublerulesep` apart (`environments/array.ts`,
+/// `htmlBuilder`). `resolveArrayTrack` walks that run once; these positions are
+/// then the single source of truth for cell placement, rule placement and grid
+/// width, so nothing downstream re-derives a position from gap widths.
+public struct ArrayTrack: Sendable {
+    /// Left edge of each column's cell box (em); one entry per column.
+    public var columnXs: [Double]
+    /// Every rule the column spec asks for, in spec order. A rule takes no
+    /// width of its own, so one column boundary can carry several.
+    public var rules: [ArrayRule]
+    /// Width of the cell grid, outer gaps included; excludes the tag column.
+    public var width: Double
+
+    public init(columnXs: [Double], rules: [ArrayRule], width: Double) {
+        self.columnXs = columnXs
+        self.rules = rules
+        self.width = width
+    }
+}
+
 /// Layout data for a matrix/array, grouped because of its many fields.
 public struct ArrayLayout: Sendable {
     public var cells: [[LayoutBox]]
@@ -192,15 +232,9 @@ public struct ArrayLayout: Sendable {
     public var colAligns: [Character]
     public var rowHeights: [Double]
     public var rowDepths: [Double]
-    public var colGap: Double
+    /// Resolved x of every column and of every vertical rule.
+    public var track: ArrayTrack
     public var offset: Double
-    /// Extra x padding before the first column (= arraycolsep when
-    /// hskipBeforeAndAfter is true).
-    public var contentXOffset: Double
-    /// For each column boundary (0 = before col 0, ..., numCols = after last
-    /// col), the vertical rule separator type: nil = no rule,
-    /// false = solid '|', true = dashed ':'.
-    public var colSeparators: [Bool?]
     /// For each row boundary (0 = before row 0, ..., numRows = after last
     /// row), the list of hlines: false = solid, true = dashed.
     public var hlinesBeforeRow: [[Bool]]
@@ -208,9 +242,6 @@ public struct ArrayLayout: Sendable {
     public var ruleThickness: Double
     /// Gap between consecutive \hline or \hdashline rules (= \doublerulesep, in em).
     public var doubleRuleSep: Double
-    /// Width of the cell grid including `contentXOffset` padding (em);
-    /// excludes tag column.
-    public var arrayInnerWidth: Double
     /// Horizontal gap between grid and tag column (em).
     public var tagGapEm: Double
     /// Width reserved for tags; tags are right-aligned in this column (em).
@@ -219,56 +250,29 @@ public struct ArrayLayout: Sendable {
     public var rowTags: [LayoutBox?]
     /// When true, tags sit left of the grid (leqno-style).
     public var tagsLeft: Bool
-    /// Space after each column but the last (em) when columns are not evenly
-    /// spaced, as in align environments; empty means `colGap` everywhere.
-    public var columnGaps: [Double]
 
     public init(
         cells: [[LayoutBox]], colWidths: [Double], colAligns: [Character],
-        rowHeights: [Double], rowDepths: [Double], colGap: Double, offset: Double,
-        contentXOffset: Double = 0, colSeparators: [Bool?] = [],
+        rowHeights: [Double], rowDepths: [Double], track: ArrayTrack, offset: Double,
         hlinesBeforeRow: [[Bool]] = [], ruleThickness: Double = 0.04,
-        doubleRuleSep: Double = 0.2, arrayInnerWidth: Double = 0,
+        doubleRuleSep: Double = 0.2,
         tagGapEm: Double = 0, tagColWidth: Double = 0, rowTags: [LayoutBox?] = [],
-        tagsLeft: Bool = false, columnGaps: [Double] = []
+        tagsLeft: Bool = false
     ) {
         self.cells = cells
         self.colWidths = colWidths
         self.colAligns = colAligns
         self.rowHeights = rowHeights
         self.rowDepths = rowDepths
-        self.colGap = colGap
+        self.track = track
         self.offset = offset
-        self.contentXOffset = contentXOffset
-        self.colSeparators = colSeparators
         self.hlinesBeforeRow = hlinesBeforeRow
         self.ruleThickness = ruleThickness
         self.doubleRuleSep = doubleRuleSep
-        self.arrayInnerWidth = arrayInnerWidth
         self.tagGapEm = tagGapEm
         self.tagColWidth = tagColWidth
         self.rowTags = rowTags
         self.tagsLeft = tagsLeft
-        self.columnGaps = columnGaps
-    }
-
-    /// The space after `column` (em).
-    public func gap(after column: Int) -> Double {
-        column < columnGaps.count ? columnGaps[column] : colGap
-    }
-
-    /// Local x of the vertical rule before `column`: content_x_offset −
-    /// col_gap/2 + sum(col_widths[..column]) + col_gap × column, or the middle
-    /// of the gap in front of the column when gaps are uneven.
-    public func separatorX(before column: Int) -> Double {
-        let prefixWidth = colWidths[..<column].reduce(0.0, +)
-        guard !columnGaps.isEmpty else {
-            return contentXOffset - colGap / 2.0 + prefixWidth + colGap * Double(column)
-        }
-        var gaps = 0.0
-        for c in 0..<max(column - 1, 0) { gaps += gap(after: c) }
-        return contentXOffset + prefixWidth + gaps
-            + (column > 0 ? gap(after: column - 1) / 2.0 : -colGap / 2.0)
     }
 }
 

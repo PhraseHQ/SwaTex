@@ -400,36 +400,34 @@ private func emitBox(
                     items.append(
                         .line(
                             x: x, y: startY + Double(i) * ruleStep,
-                            width: a.arrayInnerWidth * scale, thickness: lineThickness,
+                            width: a.track.width * scale, thickness: lineThickness,
                             color: lbox.color, dashed: isDashed))
                 }
             }
         }
 
-        // Draw vertical column separator lines ('|' = solid, ':' = dashed).
-        // The position lives in ArrayLayout so this recursive function's frame stays small.
-        for (i, sep) in a.colSeparators.enumerated() {
-            if let isDashed = sep {
-                let localX = a.separatorX(before: i)
-                let absX = x + localX * scale - lineThickness / 2.0
-                if isDashed {
-                    // Dashed vertical line: draw segments (dash=4t, gap=4t) top to bottom.
-                    let t = lineThickness
-                    let dash = 4.0 * t
-                    let period = 2.0 * dash
-                    var curY = yTop
-                    while curY < yTop + arrayTotalHeight {
-                        let segH = min(dash, yTop + arrayTotalHeight - curY)
-                        items.append(
-                            .rect(x: absX, y: curY, width: t, height: segH, color: lbox.color))
-                        curY += period
-                    }
-                } else {
+        // Draw vertical column rules ('|' = solid, ':' = dashed). Their
+        // positions were resolved at layout time, so this recursive function
+        // neither re-derives them nor grows its frame doing so.
+        for rule in a.track.rules {
+            let absX = x + rule.x * scale - lineThickness / 2.0
+            if rule.isDashed {
+                // Dashed vertical line: draw segments (dash=4t, gap=4t) top to bottom.
+                let t = lineThickness
+                let dash = 4.0 * t
+                let period = 2.0 * dash
+                var curY = yTop
+                while curY < yTop + arrayTotalHeight {
+                    let segH = min(dash, yTop + arrayTotalHeight - curY)
                     items.append(
-                        .rect(
-                            x: absX, y: yTop, width: lineThickness,
-                            height: arrayTotalHeight, color: lbox.color))
+                        .rect(x: absX, y: curY, width: t, height: segH, color: lbox.color))
+                    curY += period
                 }
+            } else {
+                items.append(
+                    .rect(
+                        x: absX, y: yTop, width: lineThickness,
+                        height: arrayTotalHeight, color: lbox.color))
             }
         }
 
@@ -438,27 +436,24 @@ private func emitBox(
         for (r, row) in a.cells.enumerated() {
             let rh = a.rowHeights[r]
             curY += rh * scale
-            var curX = x + a.contentXOffset * scale
             for (c, cell) in row.enumerated() {
                 let cw = a.colWidths[c]
+                let colX = x + a.track.columnXs[c] * scale
                 let align: Character = c < a.colAligns.count ? a.colAligns[c] : "c"
                 let cellX: Double
                 switch align {
-                case "l": cellX = curX
-                case "r": cellX = curX + (cw - cell.width) * scale
-                default: cellX = curX + (cw - cell.width) * scale / 2.0
+                case "l": cellX = colX
+                case "r": cellX = colX + (cw - cell.width) * scale
+                default: cellX = colX + (cw - cell.width) * scale / 2.0
                 }
                 emitBox(
                     cell, x: cellX, y: curY, scale: scale, items: &items, floor: floor,
                     depth: depth + 1, truncated: &truncated)
-                curX += cw * scale
-                if c + 1 < row.count {
-                    curX += a.gap(after: c) * scale
-                }
             }
             if a.tagColWidth > 0.0 {
                 if r < a.rowTags.count, let tb = a.rowTags[r] {
-                    let tagStartEm = a.arrayInnerWidth - a.contentXOffset + a.tagGapEm
+                    // KaTeX appends the tag column after the whole grid.
+                    let tagStartEm = a.track.width + a.tagGapEm
                     let tagX = x + tagStartEm * scale + (a.tagColWidth - tb.width) * scale
                     emitBox(
                         tb, x: tagX, y: curY, scale: scale, items: &items, floor: floor,

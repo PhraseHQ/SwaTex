@@ -2,10 +2,6 @@
 public struct LayoutOptions: Sendable {
     public var style: MathStyle
     public var color: Color
-    /// When set, cap relation spacing to this many mu. The engine itself no
-    /// longer sets it: align environments use the ordinary thickmuskip, as
-    /// KaTeX does.
-    public var alignRelationSpacing: Double?
     /// When inside `\left...\right`, the stretch height for `\middle`
     /// delimiters (second pass only).
     public var leftrightDelimHeight: Double?
@@ -29,13 +25,11 @@ public struct LayoutOptions: Sendable {
     public init(
         style: MathStyle = .display,
         color: Color = .black,
-        alignRelationSpacing: Double? = nil,
         leftrightDelimHeight: Double? = nil,
         interGlyphKernEm: Double = 0
     ) {
         self.style = style
         self.color = color
-        self.alignRelationSpacing = alignRelationSpacing
         self.leftrightDelimHeight = leftrightDelimHeight
         self.interGlyphKernEm = interGlyphKernEm
     }

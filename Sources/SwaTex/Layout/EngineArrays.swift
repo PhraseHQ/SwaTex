@@ -1,6 +1,69 @@
 // Array/matrix environment layout and \sizing.
 // Port of crates/ratex-layout/src/engine.rs (lines 2663–2952).
 
+/// Walk an array's horizontal track, following KaTeX's array builder
+/// (`environments/array.ts`, `htmlBuilder`) exactly. Per column it emits the
+/// vertical rules the spec places before that column, then a `pregap`, the
+/// column, then a `postgap`; each gap falls back to `arraycolsep` when the
+/// spec leaves it unset, and the gaps at the grid's two outer edges are
+/// emitted only when `hskipBeforeAndAfter` is set.
+///
+/// Every environment's spacing falls out of this one walk — `align`/`alignat`
+/// carry explicit zero gaps plus a 1 em `pregap` before each `aligned` column
+/// pair, `cases` a 1 em `postgap` on its first column, `CD` 0.25 em on both
+/// sides, and `array`/`matrix`/`smallmatrix` nothing at all, so they take
+/// `arraycolsep` — which is why `colSeparationType` no longer influences
+/// horizontal spacing beyond picking `arraycolsep` itself.
+///
+/// A rule takes no width of its own, so a boundary can carry several: KaTeX
+/// puts consecutive rules in one run `doubleRuleSep` apart, and restarts the
+/// run after every alignment descriptor, so rules split by a descriptor that
+/// no column was laid out for end up on the same x. The walk also continues
+/// past the last column while the spec still has descriptors, which is what
+/// renders a trailing rule at the grid's right edge when a row holds fewer
+/// cells than the spec declares columns.
+func resolveArrayTrack(
+    colWidths: [Double], cols: [AlignSpec]?, arraycolsep: Double,
+    doubleRuleSep: Double, hskipBeforeAndAfter: Bool
+) -> ArrayTrack {
+    let descriptors = cols ?? []
+    var columnXs: [Double] = []
+    columnXs.reserveCapacity(colWidths.count)
+    var rules: [ArrayRule] = []
+
+    var x = 0.0
+    var column = 0
+    var next = 0
+    while column < colWidths.count || next < descriptors.count {
+        var firstInRun = true
+        while next < descriptors.count, descriptors[next].alignType == .separator {
+            if let kind = descriptors[next].align, kind == "|" || kind == ":" {
+                if !firstInRun { x += doubleRuleSep }
+                rules.append(ArrayRule(x: x, isDashed: kind == ":"))
+                firstInRun = false
+            }
+            next += 1
+        }
+
+        let spec: AlignSpec? = next < descriptors.count ? descriptors[next] : nil
+        next += 1
+
+        if column < colWidths.count {
+            if column > 0 || hskipBeforeAndAfter {
+                x += spec.flatMap(\.pregap) ?? arraycolsep
+            }
+            columnXs.append(x)
+            x += colWidths[column]
+            if column + 1 < colWidths.count || hskipBeforeAndAfter {
+                x += spec.flatMap(\.postgap) ?? arraycolsep
+            }
+        }
+        column += 1
+    }
+
+    return ArrayTrack(columnXs: columnXs, rules: rules, width: x)
+}
+
 func layoutArray(
     _ body: [[ParseNode]], _ cols: [AlignSpec]?, _ arraystretch: Double,
     _ addJot: Bool, _ rowGaps: [Measurement?], _ hlinesBeforeRow: [[Bool]],
@@ -14,23 +77,15 @@ func layoutArray(
     let arrayskip = arraystretch * baselineskip
     let arstrutH = 0.7 * arrayskip
     let arstrutD = 0.3 * arrayskip
-    // align/alignat: no \arraycolsep between columns, as in KaTeX; each
-    // column's own pregap/postgap applies instead (see `columnGaps` below).
-    // Relation spacing inside the cells is the ordinary thickmuskip, so
-    // `a &= b` is spaced like `a = b`.
-    let colGap: Double =
-        switch colSeparationType {
-        case "align", "alignat":
-            0.0
-        case "small":
-            // smallmatrix: 2 × thickspace × (script_multiplier / current_multiplier)
-            // KaTeX: arraycolsep = 0.2778em × (scriptMultiplier / sizeMultiplier)
-            2.0 * muToEm(5.0, quad: metrics.quad) * MathStyle.script.sizeMultiplier
-                / options.sizeMultiplier
-        default:
-            2.0 * 5.0 * pt  // 2 × arraycolsep
-        }
-    let cellOptions = options
+    // \arraycolsep from article.cls — the width a column spec that leaves
+    // pregap/postgap unset falls back to. {smallmatrix} uses \thickspace
+    // instead (amsmath.dtx), scaled because LaTeX applies \scriptstyle to the
+    // whole array while this engine applies it inside each cell.
+    let arraycolsep: Double =
+        colSeparationType == "small"
+        ? muToEm(5.0, quad: metrics.quad) * MathStyle.script.sizeMultiplier
+            / options.sizeMultiplier
+        : 5.0 * pt
 
     let numRows = body.count
     if numRows == 0 {
@@ -38,21 +93,6 @@ func layoutArray(
     }
 
     let numCols = body.map(\.count).max() ?? 0
-
-    // Space between column c and c + 1 for align/alignat: postgap of c plus
-    // pregap of c + 1 (KaTeX's array builder). `aligned` gives every column
-    // pair after the first a 1 em pregap (one \quad); `alignat` gives none.
-    let columnGaps: [Double] = {
-        guard colSeparationType == "align" || colSeparationType == "alignat", numCols > 1 else {
-            return []
-        }
-        let specs = (cols ?? []).filter { $0.alignType == .align }
-        return (1..<numCols).map { c in
-            let postgap = c - 1 < specs.count ? specs[c - 1].postgap ?? 0 : 0
-            let pregap = c < specs.count ? specs[c].pregap ?? 0 : 0
-            return postgap + pregap
-        }
-    }()
 
     // Extract per-column alignment and column separators from cols spec.
     let colAligns: [Character] = {
@@ -63,26 +103,6 @@ func layoutArray(
             }
             return first
         }
-    }()
-
-    // Detect vertical separator positions in the column spec.
-    // colSeparators[i]: nil = no rule, false = solid '|', true = dashed ':'.
-    let colSeparators: [Bool?] = {
-        var seps = [Bool?](repeating: nil, count: numCols + 1)
-        var alignCount = 0
-        for spec in cols ?? [] {
-            switch spec.alignType {
-            case .align:
-                alignCount += 1
-            case .separator:
-                if spec.align == "|", alignCount <= numCols {
-                    seps[alignCount] = false
-                } else if spec.align == ":", alignCount <= numCols {
-                    seps[alignCount] = true
-                }
-            }
-        }
-        return seps
     }()
 
     let ruleThickness = 0.4 * pt
@@ -106,7 +126,7 @@ func layoutArray(
         for (c, cell) in row.enumerated() {
             let cellNodes: [ParseNode] =
                 if case let .ordGroup(nodes, _) = cell.kind { nodes } else { [cell] }
-            let cellBox = layoutExpression(cellNodes, cellOptions, isRealGroup: true)
+            let cellBox = layoutExpression(cellNodes, options, isRealGroup: true)
             rh = max(rh, cellBox.height)
             rd = max(rd, cellBox.depth)
             if c < numCols {
@@ -173,15 +193,11 @@ func layoutArray(
 
     let offset = totalHeight / 2.0 + metrics.axisHeight
 
-    // Extra x padding before col 0 and after last col (hskipBeforeAndAfter).
-    let contentXOffset = hskipBeforeAndAfter ? colGap / 2.0 : 0.0
-
-    // Width of the cell grid including horizontal padding (no tag column).
-    let arrayInnerWidth =
-        colWidths.reduce(0, +)
-        + (columnGaps.isEmpty
-            ? colGap * Double(numCols > 0 ? numCols - 1 : 0) : columnGaps.reduce(0, +))
-        + 2.0 * contentXOffset
+    // Resolve where every column and every vertical rule sits; the grid's
+    // width (horizontal padding included, tag column excluded) falls out of it.
+    let track = resolveArrayTrack(
+        colWidths: colWidths, cols: cols, arraycolsep: arraycolsep,
+        doubleRuleSep: doubleRuleSep, hskipBeforeAndAfter: hskipBeforeAndAfter)
 
     var rowTagBoxes = [LayoutBox?](repeating: nil, count: numRows)
     var tagColWidth = 0.0
@@ -200,7 +216,7 @@ func layoutArray(
     let tagsLeft = false
     _ = leqno
 
-    let totalWidth = arrayInnerWidth + tagGapEm + tagColWidth
+    let totalWidth = track.width + tagGapEm + tagColWidth
 
     let height = offset
     let depth = totalHeight - offset
@@ -216,19 +232,15 @@ func layoutArray(
                 colAligns: colAligns,
                 rowHeights: rowHeights,
                 rowDepths: rowDepths,
-                colGap: colGap,
+                track: track,
                 offset: offset,
-                contentXOffset: contentXOffset,
-                colSeparators: colSeparators,
                 hlinesBeforeRow: hlinesPadded,
                 ruleThickness: ruleThickness,
                 doubleRuleSep: doubleRuleSep,
-                arrayInnerWidth: arrayInnerWidth,
                 tagGapEm: tagGapEm,
                 tagColWidth: tagColWidth,
                 rowTags: rowTagBoxes,
-                tagsLeft: tagsLeft,
-                columnGaps: columnGaps)),
+                tagsLeft: tagsLeft)),
         color: options.color)
 }
 

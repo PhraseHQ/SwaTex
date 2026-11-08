@@ -587,16 +587,17 @@ func layoutCD(_ body: [[ParseNode]], _ options: LayoutOptions) -> LayoutBox {
     }
 
     // ── Build the final Array LayoutBox ────────────────────────────────────
-    // KaTeX CD uses `pregap: 0.25, postgap: 0.25` per column (cd.ts line 216-217),
-    // giving 0.5em between adjacent columns.  `hskipBeforeAndAfter` is unset (false),
-    // so no outer padding.
-    let colGap = 0.5
+    // KaTeX `environments/cd.ts` gives every CD column `pregap: 0.25` and
+    // `postgap: 0.25` (the CD package's \enskip, half on each side) and leaves
+    // `hskipBeforeAndAfter` unset, so adjacent columns sit 0.5 em apart and the
+    // grid carries no outer padding. Resolving it through the shared walk keeps
+    // one definition of what a column spec means.
+    let cdCols = [AlignSpec](
+        repeating: AlignSpec(alignType: .align, align: "c", pregap: 0.25, postgap: 0.25),
+        count: numCols)
 
     // Column alignment: objects are centered, arrows are centered
     let colAligns = [Character](repeating: "c", count: numCols)
-
-    // No vertical separators for CD
-    let colSeparators = [Bool?](repeating: nil, count: numCols + 1)
 
     var totalHeight = 0.0
     var rowPositions: [Double] = []
@@ -611,9 +612,10 @@ func layoutCD(_ body: [[ParseNode]], _ options: LayoutOptions) -> LayoutBox {
     let height = offset
     let depth = totalHeight - offset
 
-    // Total width: sum of colWidths + colGap between each
-    let totalWidth =
-        colWidths.reduce(0.0, +) + colGap * Double(numCols > 0 ? numCols - 1 : 0)
+    let track = resolveArrayTrack(
+        colWidths: colWidths, cols: cdCols, arraycolsep: 5.0 * pt,
+        doubleRuleSep: metrics.doubleRuleSep, hskipBeforeAndAfter: false)
+    let totalWidth = track.width
 
     // Build hlinesBeforeRow (all empty for CD)
     let hlinesBeforeRow = [[Bool]](repeating: [], count: numRows + 1)
@@ -627,14 +629,11 @@ func layoutCD(_ body: [[ParseNode]], _ options: LayoutOptions) -> LayoutBox {
                 colAligns: colAligns,
                 rowHeights: rowHeights,
                 rowDepths: rowDepths,
-                colGap: colGap,
+                track: track,
                 offset: offset,
-                contentXOffset: 0.0,
-                colSeparators: colSeparators,
                 hlinesBeforeRow: hlinesBeforeRow,
                 ruleThickness: 0.04 * pt,
                 doubleRuleSep: metrics.doubleRuleSep,
-                arrayInnerWidth: totalWidth,
                 tagGapEm: 0.0,
                 tagColWidth: 0.0,
                 rowTags: [LayoutBox?](repeating: nil, count: numRows),

@@ -7,14 +7,43 @@
   and relations as KaTeX does. `a &= b` gets a thickmuskip (5 mu) on both
   sides of `=`, like `a = b`, instead of 6 mu before and 3 mu after (3 mu
   on both sides in `alignat`); relations later in a cell get 5 mu instead of
-  3 mu; and `aligned` puts one `\quad` between column pairs instead of 3 mu. These are KaTeX-correct
-  divergences from RaTeX; the 42 affected golden fixtures were updated and
-  are pinned by `LayoutFixRegressionTests`.
+  3 mu; and `aligned` puts one `\quad` between column pairs instead of
+  3 mu. These are KaTeX-correct divergences from RaTeX; the 42 affected
+  golden fixtures were updated and are pinned by
+  `LayoutFixRegressionTests`.
+- Column spacing now comes from each column's own `pregap`/`postgap`,
+  falling back to `\arraycolsep`, exactly as KaTeX's array builder does, so
+  `colSeparationType` no longer influences horizontal spacing beyond
+  choosing `\arraycolsep` itself. A column the environment's spec does not
+  reach now takes `\arraycolsep` on both sides instead of the environment's
+  uniform gap: a `cases` row with a third cell sits 0.5 em after the second
+  rather than 1 em.
+- A vertical rule (`|`, `:`) is drawn where the two gaps around it meet, as
+  KaTeX emits it, instead of at the midpoint of their sum. The two agree
+  whenever both gaps are `\arraycolsep`, which holds for every environment
+  that accepts a rule today, so no rendering changes.
+- Consecutive `|` / `:` in a column spec each render, a `\doublerulesep`
+  (0.2 em) apart, and widen the grid by that much, as KaTeX does;
+  `\begin{array}{l||l}` used to draw a single rule and `{l|:l}` only the
+  dashed one. Rules split by an alignment descriptor that no column was laid
+  out for share one x and cost no width, and a trailing rule past a short
+  row now renders at the grid's right edge instead of being dropped
+  (`\begin{array}{ll|}` with one cell). Verified against KaTeX 0.16.11 in a
+  browser.
 
 ### API
-- `ArrayLayout.columnGaps` (with `gap(after:)` and `separatorX(before:)`)
-  carries per-column spacing when columns are not evenly spaced. It defaults
-  to empty, which keeps the uniform `colGap`.
+- `ArrayLayout` now carries an `ArrayTrack` (`columnXs`, `rules`, `width`):
+  the resolved x of every column and of every vertical rule, computed once
+  at layout time. It replaces `colGap`, `contentXOffset`, `columnGaps`,
+  `arrayInnerWidth`, `colSeparators`, `gap(after:)` and
+  `separatorX(before:)`: cell placement, rule placement, `\hline` width and
+  grid width now read the same positions instead of each re-deriving them
+  from gap widths, so they cannot disagree. A rule is an `ArrayRule`
+  (`x`, `isDashed`); because several can share one boundary, they are a flat
+  list rather than one entry per boundary.
+- `LayoutOptions.alignRelationSpacing` is removed. It capped relation
+  spacing inside align cells, which KaTeX does not do, and nothing has set
+  it since the spacing fix above.
 
 ## 0.5.0 — 2026-07-22
 
