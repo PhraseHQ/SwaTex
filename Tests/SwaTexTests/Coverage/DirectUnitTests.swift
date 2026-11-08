@@ -54,6 +54,27 @@ struct DirectUnitTests {
     // ToDisplay path scaling + bounds with quadratic Bézier commands — no
     // bundled geometry emits quads, but `toDisplayList` must scale and bound
     // them if a path contains them.
+    // `firstGlyphItalic` serves only `\oiint` / `\oiiint`, whose box always
+    // starts with a glyph, so its nil paths need driving directly.
+    @Test func firstGlyphItalicWalksToTheFirstGlyph() {
+        let glyph = LayoutBox(
+            width: 0.5, height: 0.4, depth: 0,
+            content: .glyph(fontId: .mathItalic, charCode: UInt32(UInt8(ascii: "f"))))
+        // Found through a nesting of hboxes.
+        let nested = LayoutBox(
+            width: 0.5, height: 0.4, depth: 0,
+            content: .hbox([
+                .init(
+                    width: 0.5, height: 0.4, depth: 0, content: .hbox([glyph]))
+            ]))
+        #expect(firstGlyphItalic(nested) != nil)
+        // No leading glyph: an empty hbox, and a box that is not a glyph.
+        let empty = LayoutBox(width: 0, height: 0, depth: 0, content: .hbox([]))
+        #expect(firstGlyphItalic(empty) == nil)
+        let kern = LayoutBox(width: 1, height: 0, depth: 0, content: .kern)
+        #expect(firstGlyphItalic(kern) == nil)
+    }
+
     @Test func toDisplayListHandlesQuadCurves() {
         let commands: [PathCommand] = [
             .moveTo(x: 0, y: 0),

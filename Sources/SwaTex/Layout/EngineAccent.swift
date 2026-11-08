@@ -4,21 +4,6 @@
 /// `\vec` KaTeX SVG: nudge slightly right to match KaTeX reference.
 private let vecSkewExtraRightEm = 0.018
 
-/// Extract the italic correction of the base glyph.
-/// Used by superscripts: KaTeX adds margin-right = italic correction to italic math
-/// characters, so the superscript starts at advanceWidth + italicCorrection (not just
-/// advanceWidth).
-func glyphItalic(_ lb: LayoutBox) -> Double {
-    switch lb.content {
-    case let .glyph(fontId, charCode):
-        fontId.metrics(forChar: charCode)?.italic ?? 0
-    case let .hbox(children):
-        children.last.map(glyphItalic) ?? 0
-    default:
-        0
-    }
-}
-
 /// The italic correction of this box only when the box *is* a glyph.
 ///
 /// Mirrors KaTeX's `base instanceof SymbolNode` test in `supsub.js`: recursing
@@ -37,17 +22,13 @@ func directGlyphItalic(_ lb: LayoutBox) -> Double? {
 /// SymbolNode test (`supsub.js`), because they build as a glyph with an
 /// overlaid ellipse rather than a bare symbol.
 func firstGlyphItalic(_ lb: LayoutBox) -> Double? {
-    var current = lb
-    while true {
-        switch current.content {
-        case let .glyph(fontId, charCode):
-            return fontId.metrics(forChar: charCode)?.italic ?? 0
-        case let .hbox(children):
-            guard let first = children.first else { return nil }
-            current = first
-        default:
-            return nil
-        }
+    switch lb.content {
+    case let .glyph(fontId, charCode):
+        fontId.metrics(forChar: charCode)?.italic ?? 0
+    case let .hbox(children):
+        children.first.flatMap(firstGlyphItalic)
+    default:
+        nil
     }
 }
 

@@ -195,7 +195,7 @@ func layoutSupSub(
     }
 
     // Superscript horizontal offset: `layoutSymbol` already uses advance width + italic
-    // (KaTeX `margin-right: italic`), so we must not add `glyphItalic` again here.
+    // (KaTeX `margin-right: italic`), so we must not add the correction again here.
     let italicCorrection = 0.0
 
     // KaTeX `supsub.js`: for SymbolNode bases, subscripts get `margin-left: -base.italic`
