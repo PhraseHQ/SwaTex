@@ -16,6 +16,8 @@ struct HardeningTests {
         #"\begin{alignat}{999999999}a\end{alignat}"#,  // hung before the cap
         #"\begin{alignat}{257}a\end{alignat}"#,
         #"\begin{alignedat}{999999999}a\end{alignedat}"#,
+        // Past Int.max, where the count does not even parse.
+        #"\begin{alignat}{99999999999999999999999999}a\end{alignat}"#,
     ])
     func hugeAlignatFailsFast(_ latex: String) {
         let start = ContinuousClock.now

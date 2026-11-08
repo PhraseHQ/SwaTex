@@ -30,6 +30,13 @@
   row now renders at the grid's right edge instead of being dropped
   (`\begin{array}{ll|}` with one cell). Verified against KaTeX 0.16.11 in a
   browser.
+- `\begin{alignat}{N}` and `\begin{alignedat}{N}` reject an `N` that is not
+  a decimal integer — `{x}`, `{-1}`, `{2.5}` — instead of silently laying
+  the rows out as `aligned`, which spaces column pairs a `\quad` apart.
+  KaTeX rejects a letter or a sign there too, since it reads the count from
+  `textord` nodes only; `{}` and `{0}` keep its own fallback to `aligned`,
+  while a fractional count — which KaTeX turns into a column count of its
+  own — is rejected rather than given a meaning.
 
 ### API
 - `ArrayLayout` now carries an `ArrayTrack` (`columnXs`, `rules`, `width`):

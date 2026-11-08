@@ -608,22 +608,35 @@ private func handleAligned(
     if let first = args.first, case let .ordGroup(ordBody, _) = first.kind {
         var argStr = ""
         for node in ordBody {
-            if let t = node.symbolText {
-                argStr += t
+            // KaTeX reads the count with `assertNodeType(…, "textord")`, so a
+            // node carrying no symbol text — a nested group — is a parse error
+            // there rather than something to skip over.
+            guard let text = node.symbolText else {
+                throw ParseError("Number of columns should be a positive integer")
             }
+            argStr += text
         }
-        // Mirrors Rust's `parse::<usize>()`: negative counts are rejected
-        // (Swift's `Int(_:)` would accept them and the negative column count
-        // would trap in `0..<numCols` below). A count whose doubling would
-        // overflow is likewise treated as unparseable instead of trapping.
-        if let n = Int(argStr), n >= 0, n <= Int.max / 2 {
+        // KaTeX takes `numMaths = Number(arg0)` with `isAligned = !numCols`, so
+        // an empty or zero count — `{}`, `{0}` — lays the rows out as
+        // `aligned` rather than failing; only a positive count selects
+        // `alignat` spacing.
+        if argStr.contains(where: { $0 != "0" }) {
+            // Deliberate divergence: `Number()` also reads `{2.5}` (5 columns
+            // of 2.5 "maths") where it rejects `{x}` and `{-1}` outright.
+            // Rather than give a fractional column count a meaning, every
+            // count that is not digits is rejected. ASCII digits only, as
+            // `Number()` — and the rest of this port — reads them.
+            guard argStr.unicodeScalars.allSatisfy({ (48...57).contains($0.value) }) else {
+                throw ParseError("Number of columns should be a positive integer")
+            }
             // DoS guard (deliberate divergence, like the recursion stack
             // guard): the column loop below materializes 2n specs and the
             // layout stage iterates them per row — a hostile
-            // `\begin{alignat}{999999999}` hung the process (KaTeX/RaTeX
-            // share the quirk). Real documents use single digits.
-            if n > 256 {
-                throw ParseError("alignat column count too large: \(n) (maximum 256)")
+            // `\begin{alignat}{999999999}` hung the process (KaTeX/RaTeX share
+            // the quirk). Real documents use single digits. A count past
+            // `Int.max`, where `Int(_:)` returns nil, lands here too.
+            guard let n = Int(argStr), n <= 256 else {
+                throw ParseError("alignat column count too large: \(argStr) (maximum 256)")
             }
             numMaths = n
             explicitCols = n * 2

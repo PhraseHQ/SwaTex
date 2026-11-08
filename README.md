@@ -194,11 +194,16 @@ commands in [BENCHMARKS.md](BENCHMARKS.md):
   third cell in a `cases` row — is one `\arraycolsep` away rather than a
   full environment gap; consecutive `|`/`:` in a column spec each render a
   `\doublerulesep` apart (`\begin{array}{l||l}` drew one rule), and a
-  trailing rule past a short row renders instead of being dropped.
-- Shared with KaTeX/RaTeX upstream: `\begin{alignat}{N}` does not bound
-  `N`; hostile inputs should be length-limited by the host app. Deeply
-  nested input is guarded (recursion count + stack headroom → parse
-  error, never a crash).
+  trailing rule past a short row renders instead of being dropped; and
+  `\begin{alignat}{N}` rejects an `N` that is not a decimal integer
+  instead of silently laying the rows out as `aligned` (`{x}` and `{-1}`
+  are parse errors in KaTeX too, while `{2.5}`, which KaTeX reads as five
+  columns, is rejected rather than given a meaning; `{}` and `{0}` keep
+  KaTeX's own fallback to `aligned`).
+- `\begin{alignat}{N}` bounds `N` at 256 (a deliberate divergence: KaTeX
+  and RaTeX leave it unbounded, where a hostile count hangs the process).
+  Deeply nested input is guarded the same way (recursion count + stack
+  headroom → parse error, never a crash).
 - Zero-redraw scrolling on macOS requires a layer-backed host hierarchy
   (`wantsLayer` — the default in modern AppKit apps).
 - Native Apple platforms only: no React Native / Flutter / Web wrappers.

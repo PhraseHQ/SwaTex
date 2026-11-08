@@ -361,4 +361,27 @@ struct LayoutFixRegressionTests {
     /// in the argument is a parse error there — none of them reaches
     /// `Number()`. A fractional count, which KaTeX does accept (`{2.5}` means
     /// five columns), is rejected rather than given a meaning.
+    @Test(arguments: ["-1", "+2", "x", "2.5", "1e3", "{2}"])
+    func alignatRejectsAColumnCountThatIsNotDigits(_ count: String) {
+        let error = #expect(throws: ParseError.self) {
+            _ = try displayList(#"\begin{alignedat}{\#(count)}a&=b\end{alignedat}"#)
+        }
+        #expect(error?.message == "Number of columns should be a positive integer")
+    }
+
+    /// `Number("")` and `Number("0")` are both 0, so KaTeX's
+    /// `isAligned = !numCols` lays these rows out as `aligned` — one `\quad`
+    /// between column pairs — rather than failing. SwaTex threw instead, which
+    /// rejected input KaTeX renders.
+    @Test(arguments: ["", "0", "000"])
+    func anEmptyOrZeroColumnCountLaysOutAsAligned(_ count: String) throws {
+        let aligned = try displayList(#"\begin{aligned}a&=b&c&=d\end{aligned}"#)
+        let got = try displayList(#"\begin{alignedat}{\#(count)}a&=b&c&=d\end{alignedat}"#)
+        #expect(abs(got.width - aligned.width) < 1e-9)
+        #expect(got.items.count == aligned.items.count)
+        // Not merely error-free: it is the `aligned` layout, a \quad wider than
+        // the `alignat` one for the same two column pairs.
+        let alignat = try displayList(#"\begin{alignedat}{2}a&=b&c&=d\end{alignedat}"#)
+        #expect(abs((got.width - alignat.width) - 1.0) < 1e-6)
+    }
 }
