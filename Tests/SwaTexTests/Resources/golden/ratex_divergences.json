@@ -1,0 +1,72 @@
+{
+  "comment": "Golden inputs whose fixtures hold SwaTex's KaTeX-correct values instead of the RaTeX reference's. Every other fixture must match RaTeX exactly. Regenerating a corpus from RaTeX overwrites these rows, so the golden suites will fail until the values here are restored -- this file says which rows and why. Each reason is also listed under \"Known limitations\" in the README and pinned by a regression test. scripts/diff_layout.py reads this file to tell an expected divergence from a regression, and RaTeXDivergenceTests keeps it in step with the corpora.",
+  "divergences": [
+    {
+      "reason": "align-family column and relation spacing",
+      "pinnedBy": "LayoutFixRegressionTests",
+      "inputs": [
+        "\\begin{align*} a &= b \\end{align*}",
+        "\\begin{align*} a&=b+c \\\\ d+e&=f \\end{align*}",
+        "\\begin{alignat*}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignat*}",
+        "\\begin{alignat*}{2} a &= b & c &= d \\end{alignat*}",
+        "\\begin{alignat}{2} a &= b & c &= d \\\\ e &= f & g &= h \\end{alignat}",
+        "\\begin{alignat}{2} x &= y & a &= b \\\\ &= z & &= c \\end{alignat}",
+        "\\begin{alignedat}{2} 10&x+ &3&y = 2 \\\\ 3&x+&13&y = 4 \\end{alignedat}",
+        "\\begin{alignedat}{2} a &= b & c &= d \\end{alignedat}",
+        "\\begin{alignedat}{3} a &= b & c &= d & e &= f \\end{alignedat}",
+        "\\begin{aligned} a & b & c \\end{aligned}",
+        "\\begin{aligned} a &= b & c &= d & e &= f \\end{aligned}",
+        "\\begin{aligned} a &= b & c &= d \\end{aligned}",
+        "\\begin{aligned} a &= b & c \\end{aligned}",
+        "\\begin{aligned} a &= b \\\\ c &= d \\end{aligned}",
+        "\\begin{aligned} a&=b+c \\\\ d+e&=f \\end{aligned}",
+        "\\begin{aligned}[b] a &= b \\\\ c &= d \\end{aligned}",
+        "\\begin{aligned}[t] a &= b \\\\ c &= d \\end{aligned}",
+        "\\begin{align} & \\end{align}",
+        "\\begin{align} \\displaystyle a &= b \\\\ c &= d \\end{align}",
+        "\\begin{align} \\textstyle a &= b \\end{align}",
+        "\\begin{align} a &= b \\\\ & \\end{align}",
+        "\\begin{align} a &= b \\\\ &= {} \\end{align}",
+        "\\begin{align} a &= b \\\\ \\end{align}",
+        "\\begin{align} a &= b \\\\ c &= d \\end{align}",
+        "\\begin{align} a &= b \\\\[1em] c &= d \\end{align}",
+        "\\begin{align} a &= b \\notag \\\\ c &= d \\end{align}",
+        "\\begin{align} a &= b \\notag \\end{align}",
+        "\\begin{align} a &= b \\tag*{star} \\end{align}",
+        "\\begin{align} a &= b \\tag{x} \\\\ c &= d \\nonumber \\end{align}",
+        "\\begin{align} a &= b \\tag{} \\end{align}",
+        "\\begin{align} a &= {b \\nonumber} \\end{align}",
+        "\\begin{align} x &= 1 \\\\ y &= 2 \\end{align}",
+        "\\begin{align} x &= 1 \\nonumber \\\\ y &= 2 \\end{align}",
+        "\\begin{align} x &= 1 \\tag{custom} \\\\ y &= 2 \\end{align}",
+        "\\begin{align} x &= y \\nonumber \\\\ z &= w \\end{align}",
+        "\\begin{equation*} \\begin{split} a &=b+c\\\\ &=e+f \\end{split} \\end{equation*}",
+        "\\begin{equation} \\begin{split} a &= b \\\\ &= c \\end{split} \\end{equation}",
+        "\\begin{split} a &= b \\\\ &= c \\end{split}"
+      ]
+    },
+    {
+      "reason": "an unterminated \\verb is a parse error",
+      "pinnedBy": "ParserSpecVerbTests",
+      "inputs": [
+        "\\verb*|a b",
+        "\\verb|abc"
+      ]
+    },
+    {
+      "reason": "\\limits after an ordinary atom is a parse error",
+      "pinnedBy": "ParserSpecTests",
+      "inputs": [
+        "x\\limits^2"
+      ]
+    },
+    {
+      "reason": "\\vcenter centers ink on the math axis, changing display-list depth",
+      "pinnedBy": "LayoutFixRegressionTests",
+      "inputs": [
+        "a\\vcenter{\\frac{a}{b}}b",
+        "a\\vcenter{\\hbox{$\\frac{p}{q}$}}b"
+      ]
+    }
+  ]
+}

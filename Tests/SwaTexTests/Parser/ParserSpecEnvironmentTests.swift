@@ -403,6 +403,19 @@ struct ParserSpecVerbTests {
             try parseLaTeX(#"\verbé"#)
         }
     }
+
+    /// A `\verb` whose delimiter never closes is a parse error, as in KaTeX;
+    /// RaTeX takes the rest of the line as the body. These two inputs are the
+    /// ones whose golden rows hold SwaTex's error instead of RaTeX's box, so
+    /// they are pinned here by name
+    /// (`golden/ratex_divergences.json`, `RaTeXDivergenceTests`).
+    @Test(arguments: [#"\verb|abc"#, #"\verb*|a b"#])
+    func unterminatedVerbIsAnError(_ latex: String) {
+        let error = #expect(throws: ParseError.self) {
+            try parseLaTeX(latex)
+        }
+        #expect(error?.message == #"\verb ended by end of line instead of matching delimiter"#)
+    }
 }
 
 // ── Recursion limit ──────────────────────────────────────────────────────────

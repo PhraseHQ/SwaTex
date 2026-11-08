@@ -220,7 +220,7 @@ swift run SwaTexDemo   # interactive gallery: formulas, styles, sizes (macOS)
 swift test
 ```
 
-The suite ports RaTeX's Rust tests: lexer/token, symbol/metrics tables, parser spec (KaTeX katex-spec.ts–derived), environments, mhchem, layout primitives, KaTeX SVG geometry, and renderer smoke tests. Cross-engine layout parity is checked with `scripts/diff_layout.py`, which diffs `LayoutDump` against RaTeX's `layout` binary over the 1000+-formula golden corpus.
+The suite ports RaTeX's Rust tests: lexer/token, symbol/metrics tables, parser spec (KaTeX katex-spec.ts–derived), environments, mhchem, layout primitives, KaTeX SVG geometry, and renderer smoke tests. Cross-engine layout parity is checked with `scripts/diff_layout.py`, which diffs `LayoutDump` against RaTeX's `layout` binary over the 1000+-formula golden corpus. It reads `Tests/SwaTexTests/Resources/golden/ratex_divergences.json` — the deliberate KaTeX-correct divergences, with a reason each — so it reports a regression apart from an expected difference, and exits non-zero only on the former.
 
 ## Who's behind SwaTex
 

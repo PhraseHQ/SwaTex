@@ -38,6 +38,17 @@
   while a fractional count — which KaTeX turns into a column count of its
   own — is rejected rather than given a meaning.
 
+### Testing
+- The golden corpus's deliberate divergences from RaTeX are now listed, with
+  a reason and a pinning test each, in
+  `Tests/SwaTexTests/Resources/golden/ratex_divergences.json` instead of only
+  in prose on the golden suites. `scripts/diff_layout.py` reads it, so a
+  cross-engine run separates an expected divergence from a regression, flags
+  a divergence that has gone stale, and exits non-zero only when something is
+  actually wrong; it also now compares display-list dimensions, which the
+  golden suites assert and which it previously ignored. `RaTeXDivergenceTests`
+  keeps the manifest in step with the corpora.
+
 ### API
 - `ArrayLayout` now carries an `ArrayTrack` (`columnXs`, `rules`, `width`):
   the resolved x of every column and of every vertical rule, computed once

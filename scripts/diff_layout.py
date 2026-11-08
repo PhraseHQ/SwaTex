@@ -2,21 +2,51 @@
 """Differential layout test: RaTeX (Rust) vs SwaTex (Swift).
 
 Feeds the same formula corpus to both engines' `layout` dump CLIs and compares
-box metrics (width/height/depth) and display-list item counts.
+box metrics, display-list metrics and display-list item counts.
+
+A handful of corpus formulas are *meant* to differ: SwaTex deliberately follows
+KaTeX where RaTeX shares an upstream bug. Those are listed, with reasons, in
+`Tests/SwaTexTests/Resources/golden/ratex_divergences.json`, which this script
+reads so that an expected divergence is reported apart from a regression.
+
+Exit status is 0 only when every difference is an expected divergence and every
+expected divergence actually showed up; anything else exits 1.
 
 Usage:
-  diff_layout.py <formulas.txt> <rust_layout_bin> <swift_layoutdump_bin> [--tol 1e-4]
+  diff_layout.py <formulas.txt> <rust_layout_bin> <swift_layoutdump_bin>
+                 [--tol 1e-4] [--divergences PATH | --no-divergences]
 """
 
+import argparse
 import json
 import subprocess
 import sys
+from pathlib import Path
+
+DEFAULT_DIVERGENCES = (
+    Path(__file__).resolve().parent.parent
+    / "Tests/SwaTexTests/Resources/golden/ratex_divergences.json"
+)
+
+# Dimensions compared on each side of the dump. The golden suites assert the
+# display-list dimensions, since those are what renderers consume; the box is
+# the pre-display LayoutBox and is compared too, because a mismatch there is
+# worth seeing even when the display list agrees.
+DIMENSIONS = ("width", "height", "depth")
 
 
 def run(binary: str, formulas: str) -> list[dict]:
-    proc = subprocess.run(
-        [binary], input=formulas, capture_output=True, text=True, timeout=600
-    )
+    try:
+        proc = subprocess.run(
+            [binary], input=formulas, capture_output=True, text=True, timeout=600
+        )
+    except subprocess.TimeoutExpired:
+        sys.exit(f"{binary} did not finish the corpus within 600s")
+    if proc.returncode != 0:
+        # Not fatal on its own — a short dump shows up as a count mismatch —
+        # but without stderr the cause is invisible.
+        tail = proc.stderr.strip().splitlines()[-5:]
+        print(f"WARNING: {binary} exited {proc.returncode}: " + " / ".join(tail))
     results = []
     for line in proc.stdout.splitlines():
         line = line.strip()
@@ -25,61 +55,134 @@ def run(binary: str, formulas: str) -> list[dict]:
     return results
 
 
-def main() -> None:
-    formulas_path, rust_bin, swift_bin = sys.argv[1:4]
-    tol = float(sys.argv[5]) if len(sys.argv) > 5 and sys.argv[4] == "--tol" else 1e-4
+def load_divergences(path: Path) -> dict[str, str]:
+    """Map each deliberately divergent input to the reason it diverges."""
+    doc = json.loads(path.read_text())
+    reasons: dict[str, str] = {}
+    for group in doc["divergences"]:
+        for formula in group["inputs"]:
+            reasons[formula] = group["reason"]
+    return reasons
 
-    with open(formulas_path) as f:
-        lines = [l.strip() for l in f if l.strip()]
-    formulas = "\n".join(lines) + "\n"
 
-    rust = run(rust_bin, formulas)
-    swift = run(swift_bin, formulas)
+def compare(rust: dict, swift: dict, tol: float) -> str | None:
+    """Describe how two dumps of one formula differ, or None if they agree."""
+    if bool(rust.get("error")) != bool(swift.get("error")):
+        return f"error-mismatch rust={bool(rust.get('error'))} swift={bool(swift.get('error'))}"
+    if rust.get("error"):
+        return None
 
-    if len(rust) != len(swift):
-        print(f"COUNT MISMATCH: rust={len(rust)} swift={len(swift)}")
+    worst, where = 0.0, ""
+    for side in ("box", "displayList"):
+        for dim in DIMENSIONS:
+            delta = abs(rust[side][dim] - swift[side][dim])
+            if delta > worst:
+                worst, where = delta, f"{side}.{dim}"
 
-    exact = 0
-    close = 0
-    item_diff = 0
-    box_diff = 0
-    err_diff = 0
-    diffs = []
-
-    for r, s in zip(rust, swift):
-        if r.get("error") or s.get("error"):
-            if bool(r.get("error")) != bool(s.get("error")):
-                err_diff += 1
-                diffs.append((r["input"], "error-mismatch", r, s))
-            else:
-                exact += 1
-            continue
-        rb, sb = r["box"], s["box"]
-        rd, sd = r["displayList"], s["displayList"]
-        dmax = max(
-            abs(rb["width"] - sb["width"]),
-            abs(rb["height"] - sb["height"]),
-            abs(rb["depth"] - sb["depth"]),
+    items = (rust["displayList"]["itemCount"], swift["displayList"]["itemCount"])
+    if items[0] != items[1]:
+        return f"itemCount {items[0]} vs {items[1]}" + (
+            f", {where} off by {worst:.6f}" if worst > tol else ""
         )
-        items_equal = rd["itemCount"] == sd["itemCount"]
-        if dmax == 0 and items_equal:
-            exact += 1
-        elif dmax <= tol and items_equal:
-            close += 1
-        else:
-            if not items_equal:
-                item_diff += 1
-            if dmax > tol:
-                box_diff += 1
-            diffs.append((r["input"], f"dmax={dmax:.6f}", rd["itemCount"], sd["itemCount"]))
+    if worst > tol:
+        return f"{where} off by {worst:.6f}"
+    return None
 
-    total = len(rust)
-    print(f"total={total} exact={exact} close(≤{tol})={close} "
-          f"box_diff={box_diff} item_diff={item_diff} err_mismatch={err_diff}")
-    for d in diffs[:40]:
-        print("DIFF:", d)
-    if len(diffs) > 40:
-        print(f"... and {len(diffs) - 40} more")
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Differential layout test: RaTeX (Rust) vs SwaTex (Swift)."
+    )
+    parser.add_argument("formulas", help="one formula per line")
+    parser.add_argument("rust_bin", help="RaTeX ratex-layout binary")
+    parser.add_argument("swift_bin", help="SwaTex LayoutDump binary")
+    parser.add_argument("--tol", type=float, default=1e-4, help="dimension tolerance (em)")
+    parser.add_argument(
+        "--divergences",
+        type=Path,
+        default=DEFAULT_DIVERGENCES,
+        help="expected-divergence manifest (default: the golden corpus's)",
+    )
+    parser.add_argument(
+        "--no-divergences",
+        action="store_const",
+        const=None,
+        dest="divergences",
+        help="treat every difference as a regression",
+    )
+    parser.add_argument("--show", type=int, default=40, help="how many differences to list")
+    args = parser.parse_args()
+
+    if args.divergences and not args.divergences.exists():
+        sys.exit(
+            f"no divergence manifest at {args.divergences} — "
+            "pass --divergences PATH, or --no-divergences to treat every "
+            "difference as a regression"
+        )
+    reasons = load_divergences(args.divergences) if args.divergences else {}
+
+    formulas = "\n".join(
+        line.strip() for line in Path(args.formulas).read_text().splitlines() if line.strip()
+    )
+    rust = run(args.rust_bin, formulas + "\n")
+    swift = run(args.swift_bin, formulas + "\n")
+
+    failures = []
+    if len(rust) != len(swift):
+        failures.append(f"COUNT MISMATCH: rust={len(rust)} swift={len(swift)}")
+
+    agreed = 0
+    expected: list[tuple[str, str, str]] = []
+    unexpected: list[tuple[str, str]] = []
+    seen: set[str] = set()
+
+    for line_no, (r, s) in enumerate(zip(rust, swift), start=1):
+        formula = r["input"]
+        # Both dumps echo their input, so a pair that disagrees means the two
+        # streams have gone out of step — one engine printed an extra or a
+        # short line. Every later pair would then be compared against the
+        # wrong formula, so stop rather than report a page of phantom
+        # regressions.
+        if formula != s.get("input"):
+            failures.append(
+                f"DESYNC at output line {line_no}: rust {formula!r} vs swift {s.get('input')!r}"
+            )
+            break
+        seen.add(formula)
+        difference = compare(r, s, args.tol)
+        if difference is None:
+            agreed += 1
+        elif formula in reasons:
+            expected.append((formula, difference, reasons[formula]))
+        else:
+            unexpected.append((formula, difference))
+
+    # A listed formula that no longer differs means the manifest is stale: the
+    # divergence was undone, or RaTeX adopted the same behavior.
+    stale = sorted((seen & reasons.keys()) - {formula for formula, _, _ in expected})
+
+    print(
+        f"total={len(rust)} agreed={agreed} "
+        f"expected_divergence={len(expected)} unexpected={len(unexpected)} stale={len(stale)}"
+    )
+
+    for formula, difference in unexpected[: args.show]:
+        print(f"REGRESSION: {formula!r}: {difference}")
+    if len(unexpected) > args.show:
+        print(f"... and {len(unexpected) - args.show} more regressions")
+    for formula in stale[: args.show]:
+        print(f"STALE DIVERGENCE (matches RaTeX now, drop it from the manifest): {formula!r}")
+    if len(stale) > args.show:
+        print(f"... and {len(stale) - args.show} more stale divergences")
+
+    if unexpected:
+        failures.append(f"{len(unexpected)} unexpected difference(s)")
+    if stale:
+        failures.append(f"{len(stale)} stale divergence(s)")
+    if failures:
+        print("FAIL: " + "; ".join(failures))
+        sys.exit(1)
+    print("OK: every difference is a documented KaTeX-correct divergence")
 
 
 if __name__ == "__main__":

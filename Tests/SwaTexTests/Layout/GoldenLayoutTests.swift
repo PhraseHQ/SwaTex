@@ -11,14 +11,16 @@ import Testing
 /// box metrics and display-list summary must match the Rust engine **exactly**
 /// (both engines round to 5 decimals).
 ///
-/// EXCEPTIONS — do NOT blindly regenerate from RaTeX: the 12 align-family
-/// entries in `test_cases.jsonl` (`align`, `aligned`, `alignat`, `alignedat`,
-/// `split`) carry SwaTex's KaTeX-correct widths. RaTeX caps relation spacing
-/// at 3 mu there and, outside `alignat`, adds a 3 mu column gap; KaTeX uses no
-/// gap inside a column pair, one \quad between pairs in `aligned`, and the
-/// ordinary thickmuskip.
-/// Pinned by `LayoutFixRegressionTests`; regeneration must preserve them (see
-/// README "Known limitations").
+/// EXCEPTIONS — do NOT blindly regenerate from RaTeX: some entries carry
+/// SwaTex's KaTeX-correct values where RaTeX shares an upstream bug. Which
+/// ones, and why, is `golden/ratex_divergences.json` — the manifest
+/// `scripts/diff_layout.py` reads and `RaTeXDivergenceTests` keeps in step
+/// with these corpora. In this corpus they are the align-family entries,
+/// whose widths follow KaTeX: no gap inside a column pair, one \quad between
+/// pairs in `aligned`, and the ordinary thickmuskip (RaTeX caps relation
+/// spacing at 3 mu and, outside `alignat`, adds a 3 mu column gap).
+/// Regeneration must restore every row the manifest lists (see README
+/// "Known limitations").
 @Suite("GoldenLayout")
 struct GoldenLayoutTests {
     struct Fixture: Decodable {

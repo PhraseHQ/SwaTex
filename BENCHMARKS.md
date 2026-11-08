@@ -43,10 +43,15 @@ cargo build --release -p ratex-layout
 /usr/bin/time -p target/release/ratex-layout < /tmp/corpus80.txt > /dev/null
 ```
 
-Correctness gate for the comparison: `swift test` asserts all 2 541
-fixtures numerically identical to the Rust engine's output (box
-width/height/depth to 1e-5 em + display-list item counts), so both
-engines are doing the same work.
+Correctness gate for the comparison: `swift test` pins all 2 541 fixtures
+to the Rust engine's output (box width/height/depth to 1e-5 em +
+display-list item counts), so both engines are doing the same work. The
+exceptions are the deliberate KaTeX-correct divergences listed under
+“Known limitations” in the README, whose rows hold SwaTex's values; do not
+regenerate them from RaTeX. They are named, with a reason each, in
+`Tests/SwaTexTests/Resources/golden/ratex_divergences.json`, which
+`scripts/diff_layout.py` reads so that a cross-engine run separates them
+from genuine regressions.
 
 ## 2. Micro-benchmarks (cache hit 105 ns, phases, PNG)
 

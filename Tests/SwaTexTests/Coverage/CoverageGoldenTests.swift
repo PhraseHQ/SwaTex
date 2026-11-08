@@ -15,14 +15,16 @@ import Testing
 /// (both engines round to 5 decimals). Entries with `"error": true` were
 /// rejected by the Rust engine and must be rejected by SwaTex too.
 ///
-/// EXCEPTIONS — do NOT blindly regenerate from RaTeX: five entries were
-/// hand-edited to KaTeX-correct values where RaTeX shares the original bug
-/// (unterminated `\verb`, `x\limits^2` — now errors; `\vcenter` depths —
-/// now axis-centered ink), and the 30 align-family entries carry SwaTex's
-/// KaTeX-correct column and relation spacing (no RaTeX 3 mu relation cap or
-/// 3 mu column gap; one \quad between `aligned` column pairs). They are
-/// pinned by LayoutFixRegressionTests / ParserSpecTests / HardeningTests;
-/// regeneration must preserve them (see README "Known limitations").
+/// EXCEPTIONS — do NOT blindly regenerate from RaTeX: some entries carry
+/// SwaTex's KaTeX-correct values where RaTeX shares the original bug —
+/// unterminated `\verb` and `x\limits^2` are errors, `\vcenter` depths are
+/// axis-centered ink, and the align-family entries drop RaTeX's 3 mu relation
+/// cap and 3 mu column gap for one \quad between `aligned` column pairs.
+/// Which rows, and why, is `golden/ratex_divergences.json` — the manifest
+/// `scripts/diff_layout.py` reads and `RaTeXDivergenceTests` keeps in step
+/// with these corpora; each group names the test that pins its reason.
+/// Regeneration must restore every row the manifest lists (see README
+/// "Known limitations").
 @Suite("CoverageGolden")
 struct CoverageGoldenTests {
     struct Fixture: Decodable {

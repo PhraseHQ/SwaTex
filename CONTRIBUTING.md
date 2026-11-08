@@ -16,9 +16,19 @@ swift run SwaTexDemo # interactive gallery (macOS)
 SwaTex is verified against reference engines, and PRs are held to that:
 
 - **2 541 golden fixtures** (`Tests/SwaTexTests/Resources/golden/`) assert
-  numerically identical layout to the RaTeX Rust engine on every
-  `swift test`. A layout change that shifts any box is either a bug or
-  needs regenerated fixtures with justification.
+  identical layout to the RaTeX Rust engine on every `swift test`, apart
+  from the deliberate KaTeX-correct divergences listed under “Known
+  limitations” in the README. Those rows hold SwaTex's own values and are
+  named, with a reason each, in
+  `Tests/SwaTexTests/Resources/golden/ratex_divergences.json` — never
+  regenerate them from RaTeX; restore them and keep the manifest in step
+  (`RaTeXDivergenceTests` fails if it drifts). A layout change that shifts
+  any other box is either a bug or needs regenerated fixtures with
+  justification.
+- **Cross-engine diff**: `scripts/diff_layout.py <corpus> <ratex-layout>
+  <LayoutDump>` reports a regression apart from an expected divergence and
+  exits non-zero only on the former, so adding a divergence means adding it
+  to the manifest with a reason and a pinning test.
 - **Differential suites** pin hand-written fast paths to their reference
   implementations at runtime: mhchem matchers vs live ICU
   (`MhChemHandMatcherDiffTests`), size scanners vs the original regexes
