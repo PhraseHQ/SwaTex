@@ -203,9 +203,10 @@ commands in [BENCHMARKS.md](BENCHMARKS.md):
   mode, the way KaTeX's `\tag@paren` expansion does, while an automatic
   equation number past 9 draws every digit. The pinned reference revision
   (see “Provenance” in [BENCHMARKS.md](BENCHMARKS.md)) renders a tag in math
-  italic and draws only a number's first digit, and wraps an overflowing
-  `\char` literal onto a valid code point where SwaTex rejects it; RaTeX
-  fixed all three upstream after our fixtures were cut.
+  italic and draws only a number's first digit, wraps an overflowing `\char`
+  literal onto a valid code point where SwaTex rejects it, and frames `\fbox`
+  in black rather than the formula color; RaTeX fixed all four upstream after
+  our fixtures were cut.
 - `\begin{alignat}{N}` bounds `N` at 256 (a deliberate divergence: KaTeX
   and RaTeX leave it unbounded, where a hostile count hangs the process).
   Deeply nested input is guarded the same way (recursion count + stack

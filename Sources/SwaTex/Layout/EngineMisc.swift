@@ -31,7 +31,12 @@ func layoutEnclose(
     let hasBorder = label == "\\fbox" || label == "\\fcolorbox"
 
     let bg = backgroundColor.flatMap { Color(name: $0) ?? Color(hex: $0) }
-    let border = borderColor.flatMap { Color(name: $0) ?? Color(hex: $0) } ?? .black
+    // KaTeX gives the border no color of its own unless one is named, so it
+    // paints in `currentColor` and inherits the ambient color
+    // (enclose.js:116 sets `borderColor` only when `group.borderColor`
+    // is set, i.e. for `\\fcolorbox`). Defaulting to black made
+    // `\\textcolor{red}{\\fbox{x}}` draw a black frame around red ink.
+    let border = borderColor.flatMap { Color(name: $0) ?? Color(hex: $0) } ?? options.color
 
     let inner = layoutNode(body, options)
     let outerPad = padding + (hasBorder ? borderThickness : 0.0)

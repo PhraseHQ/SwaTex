@@ -30,6 +30,13 @@
   row now renders at the grid's right edge instead of being dropped
   (`\begin{array}{ll|}` with one cell). Verified against KaTeX 0.16.11 in a
   browser.
+- An `\fbox` / `\boxed` border inherits the formula color instead of always
+  painting black, so `\textcolor{red}{\fbox{x}}` frames red ink in red.
+  KaTeX gives the border no color of its own unless one is named, so it
+  paints in `currentColor` (`enclose.js:116` sets `borderColor` only for
+  `\fcolorbox`, whose explicit color still wins). Colors are not part of the
+  golden metrics, so no fixture changed. RaTeX fixed the same gap upstream
+  in `c7e1de82`.
 - An overflowing `\char` literal is rejected instead of wrapping onto a
   valid code point. The literal accumulated in a wrapping `Int64` (matching
   RaTeX's release-mode `i64`), so `\char18446744073709551681` silently drew

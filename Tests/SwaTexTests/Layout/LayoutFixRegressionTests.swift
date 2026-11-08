@@ -420,4 +420,31 @@ struct LayoutFixRegressionTests {
         // The equation body stays math mode: italic.
         #expect(fonts[ascii("b")] == ["Math-Italic"])
     }
+
+    /// KaTeX gives `\fbox` a CSS border with no color of its own, so it paints
+    /// in `currentColor` and inherits the ambient color; only `\fcolorbox`
+    /// names one (enclose.js:116). The border must therefore match the body.
+    @Test func anFboxBorderInheritsTheFormulaColor() throws {
+        var glyph: Set<Color> = []
+        var border: Set<Color> = []
+        for item in try displayList(#"\textcolor{red}{\fbox{x}}"#).items {
+            switch item {
+            case let .glyphPath(_, _, _, _, _, color): glyph.insert(color)
+            case let .rect(_, _, _, _, color): border.insert(color)
+            default: break
+            }
+        }
+        #expect(glyph.count == 1)
+        #expect(border.count == 1)
+        #expect(border == glyph, "border \(border) should inherit body \(glyph)")
+    }
+
+    /// `\fcolorbox` names its own border color, which still wins.
+    @Test func anFcolorboxKeepsItsOwnBorderColor() throws {
+        var border: Set<Color> = []
+        for item in try displayList(#"\textcolor{red}{\fcolorbox{blue}{white}{x}}"#).items {
+            if case let .rect(_, _, _, _, color) = item { border.insert(color) }
+        }
+        #expect(border.contains(try #require(Color(name: "blue"))))
+    }
 }
